@@ -1,10 +1,13 @@
 package medigram.medigram;
 
+import java.util.ArrayList;
+
 public class Patient extends User{
     private String emailAddress;
     private String phoneNumber;
     private String userID;
-    private String userType = "patient";
+    private String userType = "Patient";
+    private ProblemList problemList = new ProblemList();
 
     public Patient(String userID, String emailAddress, String phoneNumber){
         this.userID = userID;
@@ -40,5 +43,8 @@ public class Patient extends User{
         return this.userType;
     }
 
+    public ProblemList getProblems() {
+        return problemList;
+    }
 
 }

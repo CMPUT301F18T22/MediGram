@@ -15,22 +15,22 @@ public class CareProviderTest extends ActivityInstrumentationTestCase2 {
         assertEquals(careProvider.checkUserType(), "CareProvider");
     }
 
-    public void testAddPatient(){
+    public void testAssignPatient(){
         CareProvider careProvider = new CareProvider("house", "some@email.com", "1112223333");
 
         Patient patient = new Patient("mesick", "some@email.com", "1112223333");
-        careProvider.addPatient(patient);
+        careProvider.assignPatient(patient);
 
         assertTrue(careProvider.patientAssigned(patient));
 
     }
 
-    public void testDeletePatient() {
+    public void testUnassignPatient() {
         CareProvider careProvider = new CareProvider("house", "some@email.com", "1112223333");
 
         Patient patient = new Patient("mesick", "some@email.com", "1112223333");
-        careProvider.addPatient(patient);
-        careProvider.deletePatient(patient);
+        careProvider.assignPatient(patient);
+        careProvider.unassignPatient(patient);
 
         assertFalse(careProvider.patientAssigned(patient));
 
@@ -40,7 +40,7 @@ public class CareProviderTest extends ActivityInstrumentationTestCase2 {
         CareProvider careProvider = new CareProvider("house", "some@email.com", "1112223333");
 
         Patient patient = new Patient("mesick", "some@email.com", "1112223333");
-        careProvider.addPatient(patient);
+        careProvider.assignPatient(patient);
 
         assertTrue(careProvider.patientAssigned(patient));
 

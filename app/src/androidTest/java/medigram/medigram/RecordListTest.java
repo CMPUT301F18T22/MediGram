@@ -11,7 +11,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
 
     public void testAddRecord(){
         RecordList recordList = new RecordList();
-        Record record = new Record("title", "commenty", new Date(), "11");
+        Record record = new Record("title", new Comment("blah", "doe"), new Date());
 
         recordList.addRecord(record);
 
@@ -21,7 +21,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
 
     public void testRemoveRecord(){
         RecordList recordList = new RecordList();
-        Record record = new Record("title", "commenty", new Date(), "11");
+        Record record = new Record("title", new Comment("blah", "doe"), new Date());
 
         recordList.addRecord(record);
         recordList.removeRecord(record);
@@ -31,7 +31,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
 
     public void testRecordExist(){
         RecordList recordList = new RecordList();
-        Record record = new Record("title", "commenty", new Date(), "11");
+        Record record = new Record("title", new Comment("blah", "doe"), new Date());
 
         recordList.addRecord(record);
 
@@ -40,7 +40,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
 
     public void testGetIndex(){
         RecordList recordList = new RecordList();
-        Record record = new Record("title", "commenty", new Date(), "11");
+        Record record = new Record("title", new Comment("blah", "doe"), new Date());
 
         recordList.addRecord(record);
 
@@ -50,7 +50,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
 
     public void testGetSize(){
         RecordList recordList = new RecordList();
-        Record record = new Record("title", "commenty", new Date(), "11");
+        Record record = new Record("title", new Comment("blah", "doe"), new Date());
 
         recordList.addRecord(record);
 

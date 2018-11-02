@@ -9,8 +9,15 @@ public class Comment {
         this.sender = sender;
     }
 
-    public void editComment(String text){
+    public void editText(String text){
         this.text = text;
     }
 
+    public String getText() {
+        return text;
+    }
+
+    public String getSender() {
+        return sender;
+    }
 }

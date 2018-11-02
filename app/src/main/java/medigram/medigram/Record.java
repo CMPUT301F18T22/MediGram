@@ -5,23 +5,21 @@ import java.util.Date;
 
 public class Record{
     private String recordTitle;
-    private String Comment;
+    private ArrayList<Comment> Comments = new ArrayList<>();
     private Date dateStarted;
-    private String bodyLocation;
+    private int geoLocation;
     private ArrayList<Photo> photos;
 
-    public Record(String recordtitle, String comment, Date date, String bodylocation){
+    public Record(String recordtitle, Comment comment, Date date){
         this.recordTitle = recordtitle;
-        this.Comment = comment;
+        Comments.add(comment);
         this.dateStarted = date;
-        this.bodyLocation = bodylocation;
     }
 
-    public Record(String recordtitle, String comment, Date date, String bodylocation, ArrayList<Photo> photos){
+    public Record(String recordtitle, Comment comment, Date date, ArrayList<Photo> photos){
         this.recordTitle = recordtitle;
-        this.Comment = comment;
+        addComment(comment);
         this.dateStarted = date;
-        this.bodyLocation = bodylocation;
         this.photos = photos;
     }
 
@@ -33,12 +31,20 @@ public class Record{
         this.recordTitle = recordTitle;
     }
 
-    public String getComment() {
-        return Comment;
+    public ArrayList<Comment> getComments() {
+        return Comments;
     }
 
-    public void setComment(String comment) {
-        Comment = comment;
+    public void addComment(Comment comment) {
+        Comments.add(comment);
+    }
+
+    public void deleteComment(Comment comment) {
+        Comments.remove(comment);
+    }
+
+    public Boolean commentExist(Comment comment) {
+        return Comments.contains(comment);
     }
 
     public Date getDateStarted() {
@@ -49,19 +55,19 @@ public class Record{
         this.dateStarted = dateStarted;
     }
 
-    public String getBodyLocation() {
-        return bodyLocation;
-    }
-
-    public void setBodyLocation(String bodyLocation) {
-        this.bodyLocation = bodyLocation;
-    }
-
     public ArrayList<Photo> getPhotos() {
         return photos;
     }
 
     public void setPhotos(ArrayList<Photo> photos) {
         this.photos = photos;
+    }
+
+    public int getGeoLocation(){
+        return geoLocation;
+    }
+
+    public void setGeoLocation(int location){
+        this.geoLocation = location;
     }
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CareProvider extends User {
-    private List<Patient> patientList = new ArrayList<Patient>();
+    private PatientList patientList = new PatientList();
     private String emailAddress;
     private String phoneNumber;
     private String userID;
@@ -40,14 +40,19 @@ public class CareProvider extends User {
         this.userID = userID;
     }
 
-    public void addPatient(Patient patient){
-         patientList.add(patient);
+    public void assignPatient(Patient patient){
+         patientList.addPatient(patient);
     }
-    public void deletePatient(Patient patient){
-        patientList.remove(patient);
+
+    public void unassignPatient(Patient patient){
+        patientList.deletePatient(patient);
     }
+
     public Boolean patientAssigned(Patient patient){
-        return patientList.contains(patient);
+        return patientList.patientUserIDExist(patient.getUserID());
+    }
+    public Boolean patientAssigned(String userID) {
+        return patientList.patientUserIDExist(userID);
     }
 
     public String checkUserType(){

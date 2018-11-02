@@ -5,22 +5,27 @@ import java.util.Date;
 import java.util.List;
 
 public class RecordList {
-    private List<Record> records = new ArrayList<Record>();
+    private ArrayList<Record> recordList = new ArrayList<Record>();
 
-    public void addRecord(String recordTitle, String description,
-                          Date dateStarted, String bodyLocation, Photo photos) {
-
-
+    public void addRecord(Record newRecord) {
+        recordList.add(newRecord);
     }
 
-    public void removeRecord(String recordTitle){
-
-    }
-    public Boolean recordExist(String recordTitle){
-
+    public void removeRecord(Record record){
+        recordList.remove(record);
     }
 
+    public Boolean recordExist(Record record){
+        return recordList.contains(record);
+    }
 
+    public int getIndex(Record record){
+        return recordList.indexOf(record);
+    }
+
+    public int getSize(){
+        return recordList.size();
+    }
 
 
 }

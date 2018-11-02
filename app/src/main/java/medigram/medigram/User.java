@@ -1,12 +1,34 @@
 package medigram.medigram;
 
-public class User {
+public abstract class User {
     private String emailAddress;
-    private int phoneNumber;
+    private String phoneNumber;
     private String userID;
-    private String userType;
 
-    public String checkUserType(){
-        return userType;
+    public String getEmailAddress() {
+        return emailAddress;
     }
+
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public String getUserID() {
+        return userID;
+    }
+
+    public void setUserID(String userID) {
+        this.userID = userID;
+    }
+
+    public abstract String checkUserType();
+
 }

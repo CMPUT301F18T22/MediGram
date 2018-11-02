@@ -8,17 +8,24 @@ public class ProblemList{
     private List<Problem> problemList = new ArrayList<Problem>();
     private Problem problem;
 
-    public void addProblem(String title, String description, Date dateStarted,
-                           String bodyLocation){
-        problem = new Problem(title, description, dateStarted, bodyLocation);
+    public void addProblem(Problem problem){
         problemList.add(problem);
-
-
-    }
-    public void removeProblem(String problemTitle){
     }
 
-    public Boolean problemExist(String problemTitle){
-        return true;
+    public void removeProblem(Problem problem){
+        problemList.remove(problem);
     }
+
+    public int getIndex(Problem problem){
+        return problemList.indexOf(problem);
+    }
+
+    public int getProblemAtIndex(Problem problem){
+        return problemList.indexOf(problem);
+    }
+
+    public Boolean problemExist(Problem problem){
+        return problemList.contains(problem);
+    }
+
 }

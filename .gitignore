@@ -1,3 +1,4 @@
 /doc/.txt~
-.idea
-local.properties
+/.idea
+/local.properties
+.DS_Store

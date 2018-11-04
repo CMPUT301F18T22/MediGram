@@ -1,8 +1,9 @@
 package medigram.medigram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PatientList {
+public class PatientList implements Serializable {
     private ArrayList<Patient> patients = new ArrayList<>();
 
     public int getSize(){
@@ -24,5 +25,9 @@ public class PatientList {
             }
         }
         return false;
+    }
+
+    public String toString(){
+        return patients.toString();
     }
 }

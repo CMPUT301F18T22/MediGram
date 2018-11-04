@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MediGram</string>
+    <string name="logoString">medigram</string>
+    <string name="UserIDInput">Enter your UserID.</string>
+    <string name="SignInButton">Sign In</string>
+    <string name="SignUpButton"> <u>Sign Up</u> </string>
+    <string name="SignUpUserID">Enter desired UserID (minimum 8 characters)</string>
+    <string name="SignUpEmail">Enter your email address.</string>
+    <string name="checkBoxPatient">Patient</string>
+    <string name="checkBoxCareProvider">Care Provider</string>
+    <string name="SignUpPhone">Enter your Phone Number.</string>
 </resources>

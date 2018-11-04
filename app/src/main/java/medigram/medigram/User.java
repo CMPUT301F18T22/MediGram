@@ -1,9 +1,15 @@
 package medigram.medigram;
 
+import io.searchbox.annotations.JestId;
+
 public abstract class User {
-    private String emailAddress;
-    private String phoneNumber;
-    private String userID;
+    String emailAddress;
+    String phoneNumber;
+    String userID;
+
+    public String toString(){
+        return userID;
+    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -28,6 +34,8 @@ public abstract class User {
     public void setUserID(String userID) {
         this.userID = userID;
     }
+
+    public abstract void setJestID(String jestID);
 
     public abstract String checkUserType();
 

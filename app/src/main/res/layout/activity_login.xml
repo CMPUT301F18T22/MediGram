@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/logo"
+        android:layout_width="257dp"
+        android:layout_height="94dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="79dp"
+        android:layout_marginTop="183dp"
+        android:layout_marginEnd="74dp"
+        android:contentDescription="@string/logoString"
+        android:src="@drawable/ic_logo" />
+
+    <TextView
+        android:id="@+id/logoText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/logo"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="199dp"
+        android:layout_marginEnd="47dp"
+        android:fontFamily="sans-serif"
+        android:textColor="@android:color/white"
+        android:textSize="36sp"
+        android:text="@string/logoString" />
+
+    <EditText
+        android:id="@+id/InputUserID"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/logo"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="97dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="101dp"
+        android:ems="10"
+        android:hint="@string/UserIDInput"
+        android:inputType="text" />
+
+
+    <Button
+        android:id="@+id/signInButton"
+        android:layout_width="112dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/InputUserID"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="150dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="149dp"
+        android:background="#1de9b6"
+        android:textAllCaps="false"
+        android:textColor="@android:color/white"
+        android:textSize="18sp"
+        android:text="@string/SignInButton" />
+
+    <Button
+        android:id="@+id/signUpButton"
+        android:layout_width="wrap_content"
+        android:layout_height="23dp"
+        android:layout_below="@+id/signInButton"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="165dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="158dp"
+        android:layout_marginBottom="164dp"
+        android:background="@android:color/transparent"
+        android:text="@string/SignUpButton"
+        android:textAllCaps="false"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="18sp" />
+
+</RelativeLayout>

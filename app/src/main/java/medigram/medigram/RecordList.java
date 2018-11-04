@@ -28,5 +28,9 @@ public class RecordList implements Serializable {
         return recordList.size();
     }
 
+    public String toString(){
+        return recordList.toString();
+    }
+
 
 }

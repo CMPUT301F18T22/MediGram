@@ -1,13 +1,19 @@
 package medigram.medigram;
 
 import android.os.AsyncTask;
+import android.util.Log;
+import android.util.MalformedJsonException;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonSyntaxException;
 import com.searchly.jestdroid.DroidClientConfig;
 import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import io.searchbox.client.JestResult;
 import io.searchbox.core.DocumentResult;
@@ -34,7 +40,7 @@ public class ElasticsearchAccountController {
     private static void setClient(){
         if(client==null){
             DroidClientConfig config= new DroidClientConfig
-                    .Builder("http://cmput301.softwareprocess.es:8080/cmput301f18t22test")
+                    .Builder("http://cmput301.softwareprocess.es:8080")
                     .build();
 
             JestClientFactory factory=new JestClientFactory();
@@ -50,18 +56,28 @@ public class ElasticsearchAccountController {
             setClient();
             ArrayList<Patient> accounts = new ArrayList<Patient>();
             String userID = params[0];
-            Search search = new Search.Builder(userID)
-                    .addIndex("medigram")
+            String query = "{"+
+                    "\"query\":{" +
+                    "\"match\":{" +
+                    "\"userID\":\""+ userID + "\"" +
+                    "}" +
+                    "}" +
+                    "}";
+            System.out.println(query);
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t22test")
                     .addType("Patients")
                     .build();
+            JestResult result;
             try {
-                JestResult result = client.execute(search);
+                result = client.execute(search);
+                System.out.println(result.getJsonString());
                 if (result.isSucceeded()){
-                    Patient patientAccount = result.getSourceAsObject(Patient.class);
-                    accounts.add(patientAccount);
+                    List<Patient> matched = result.getSourceAsObjectList(Patient.class);
+                    accounts.addAll(matched);
                 }
-            }catch(IOException e){
-                //TODO Ouput no user found
+            }catch(Exception e){
+                e.printStackTrace();
             }
             return accounts;
         }
@@ -73,18 +89,28 @@ public class ElasticsearchAccountController {
             setClient();
             ArrayList<CareProvider> accounts = new ArrayList<CareProvider>();
             String userID = params[0];
-            Search search = new Search.Builder(userID)
-                    .addIndex("medigram")
+            String query = "{"+
+                    "\"query\":{" +
+                    "\"match\":{" +
+                    "\"userID\":\""+ userID + "\"" +
+                    "}" +
+                    "}" +
+                    "}";
+            System.out.println(query);
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t22test")
                     .addType("CareProviders")
                     .build();
+            JestResult result;
             try {
-                JestResult result = client.execute(search);
+                result = client.execute(search);
+                System.out.println(result.getJsonString());
                 if (result.isSucceeded()){
-                    CareProvider careProvider = result.getSourceAsObject(CareProvider.class);
-                    accounts.add(careProvider);
+                    List<CareProvider> matched = result.getSourceAsObjectList(CareProvider.class);
+                    accounts.addAll(matched);
                 }
-            }catch(IOException e){
-                //TODO Ouput no user found
+            }catch(Exception e){
+                e.printStackTrace();
             }
             return accounts;
         }
@@ -97,7 +123,7 @@ public class ElasticsearchAccountController {
             Patient patient= patients[0];
 
             Index index = new Index.Builder(patient)
-                    .index("medigram")
+                    .index("cmput301f18t22test")
                     .type("Patients")
                     .build();
 
@@ -123,7 +149,7 @@ public class ElasticsearchAccountController {
             CareProvider careProvider = params[0];
 
             Index index = new Index.Builder(careProvider)
-                    .index("medigram")
+                    .index("cmput301f18t22test")
                     .type("CareProviders")
                     .build();
 
@@ -141,5 +167,6 @@ public class ElasticsearchAccountController {
         }
 
     }
+
 
 }

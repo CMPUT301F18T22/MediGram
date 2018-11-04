@@ -28,4 +28,8 @@ public class ProblemList implements Serializable {
         return problemList.size();
     }
 
+    public String toString(){
+        return problemList.toString();
+    }
+
 }

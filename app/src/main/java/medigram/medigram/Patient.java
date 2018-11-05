@@ -1,9 +1,11 @@
 package medigram.medigram;
 
 
+import java.io.Serializable;
+
 import io.searchbox.annotations.JestId;
 
-public class Patient extends User{
+public class Patient extends User implements Serializable {
     private String userType = "Patient";
     private ProblemList problemList = new ProblemList();
 

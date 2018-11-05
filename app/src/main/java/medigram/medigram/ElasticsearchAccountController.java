@@ -119,6 +119,7 @@ public class ElasticsearchAccountController {
     public static class CreatePatientAccount extends AsyncTask<Patient, Void, Void>{
         @Override
         protected Void doInBackground(Patient...patients){
+            //TODO check if account exists first
             setClient();
             Patient patient= patients[0];
 
@@ -145,6 +146,7 @@ public class ElasticsearchAccountController {
     public static class CreateCareProviderAccount extends AsyncTask<CareProvider, Void, Void>{
         @Override
         protected Void doInBackground(CareProvider...params){
+            //TODO check if account exists first
             setClient();
             CareProvider careProvider = params[0];
 
@@ -167,6 +169,8 @@ public class ElasticsearchAccountController {
         }
 
     }
+
+    //TODO add Update, and Delete functionality
 
 
 }

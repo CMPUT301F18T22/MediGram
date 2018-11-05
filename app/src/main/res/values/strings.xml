@@ -4,9 +4,13 @@
     <string name="UserIDInput">Enter your UserID.</string>
     <string name="SignInButton">Sign In</string>
     <string name="SignUpButton"> <u>Sign Up</u> </string>
-    <string name="SignUpUserID">Enter desired UserID (minimum 8 characters)</string>
+    <string name="SignUpUserID">Enter desired UserID (min 8 characters)</string>
     <string name="SignUpEmail">Enter your email address.</string>
     <string name="checkBoxPatient">Patient</string>
     <string name="checkBoxCareProvider">Care Provider</string>
     <string name="SignUpPhone">Enter your Phone Number.</string>
+    <string name="userProfileSubTitle">Profile</string>
+    <string name="userIDText">UserID:</string>
+    <string name="emailText">Email:</string>
+    <string name="phoneText">Phone No:</string>
 </resources>

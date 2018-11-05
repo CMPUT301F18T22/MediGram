@@ -35,6 +35,7 @@ public class CreateAccountActivity extends Activity {
 
         signUpButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
+                //TODO handle account restrictions - min 8 chars for userID, email format, phone number length.
                 newUserID = inputUserID.getText().toString();
                 newUserEmail = inputEmail.getText().toString();
                 newUserPhoneNumber = inputPhoneNumber.getText().toString();

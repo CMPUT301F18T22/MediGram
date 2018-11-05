@@ -40,25 +40,31 @@ public class LoginActivity extends Activity {
 
         signInButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                //TODO handle user login including separation of user types
                 userID = inputUserID.getText().toString();
-                Patient patient = findPatient(userID);
-                if (patient != null) {
-                    Toast toast = Toast.makeText(LoginActivity.this, "Patient User Account Found.", Toast.LENGTH_LONG);
+                if (userID.length() < 8){
+                    Toast toast = Toast.makeText(LoginActivity.this, "UserID too short. (min 8 chars).", Toast.LENGTH_LONG);
                     toast.setGravity(Gravity.CENTER, 0, 320);
                     toast.show();
-                }
-                else {
-                    CareProvider careProvider = findCareProvider(userID);
-                    if ( careProvider != null ) {
-                        Toast toast = Toast.makeText(LoginActivity.this, "Care Provider Found.", Toast.LENGTH_LONG);
-                        toast.setGravity(Gravity.CENTER, 0, 320);
-                        toast.show();
-                    }
-                    else{
-                        Toast toast = Toast.makeText ( LoginActivity.this, "No user account found.", Toast.LENGTH_LONG );
-                        toast.setGravity(Gravity.CENTER, 0, 320);
-                        toast.show();
+                }else {
+                    Patient patient = findPatient(userID);
+                    if (patient != null) {
+                        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                        intent.putExtra("Patient", patient);
+                        startActivity(intent);
+                    } else {
+                        CareProvider careProvider = findCareProvider(userID);
+                        if (careProvider != null) {
+                            //                        Toast toast = Toast.makeText(LoginActivity.this, "Care Provider Found.", Toast.LENGTH_LONG);
+                            //                        toast.setGravity(Gravity.CENTER, 0, 320);
+                            //                        toast.show();
+                            Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
+                            intent.putExtra("CareProvider", careProvider);
+                            startActivity(intent);
+                        } else {
+                            Toast toast = Toast.makeText(LoginActivity.this, "No user account found.", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 320);
+                            toast.show();
+                        }
                     }
                 }
 

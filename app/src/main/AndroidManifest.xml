@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".UserProfileActivity"></activity>
+        <activity android:name=".CareProviderProfileActivity" />
+        <activity android:name=".PatientProfileActivity" />
+        <activity android:name=".EditProfileActivity"></activity>
     </application>
 
 </manifest>

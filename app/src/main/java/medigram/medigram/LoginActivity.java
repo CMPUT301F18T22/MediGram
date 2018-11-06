@@ -3,7 +3,6 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.JsonReader;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +18,8 @@ public class LoginActivity extends Activity {
     private String userID;
     private ArrayList<Patient> patientsResults;
     private ArrayList<CareProvider> careProvidersResults;
-    private ElasticsearchAccountController.GetPatientAccount getPatientAccount = new ElasticsearchAccountController.GetPatientAccount();
-    private ElasticsearchAccountController.GetCareProviderAccount getCareProviderAccount = new ElasticsearchAccountController.GetCareProviderAccount();
+    private ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+    private ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,30 +40,21 @@ public class LoginActivity extends Activity {
         signInButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 userID = inputUserID.getText().toString();
-                if (userID.length() < 8){
-                    Toast toast = Toast.makeText(LoginActivity.this, "UserID too short. (min 8 chars).", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 320);
-                    toast.show();
-                }else {
-                    Patient patient = findPatient(userID);
-                    if (patient != null) {
-                        Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
-                        intent.putExtra("Patient", patient);
+                Patient patient = findPatient(userID);
+                if (patient != null) {
+                    Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                    intent.putExtra("Patient", patient);
+                    startActivity(intent);
+                } else {
+                    CareProvider careProvider = findCareProvider(userID);
+                    if (careProvider != null) {
+                        Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
+                        intent.putExtra("CareProvider", careProvider);
                         startActivity(intent);
                     } else {
-                        CareProvider careProvider = findCareProvider(userID);
-                        if (careProvider != null) {
-                            //                        Toast toast = Toast.makeText(LoginActivity.this, "Care Provider Found.", Toast.LENGTH_LONG);
-                            //                        toast.setGravity(Gravity.CENTER, 0, 320);
-                            //                        toast.show();
-                            Intent intent = new Intent(getApplicationContext(), UserProfileActivity.class);
-                            intent.putExtra("CareProvider", careProvider);
-                            startActivity(intent);
-                        } else {
-                            Toast toast = Toast.makeText(LoginActivity.this, "No user account found.", Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 320);
-                            toast.show();
-                        }
+                        Toast toast = Toast.makeText(LoginActivity.this, "No user account found.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
                     }
                 }
 
@@ -76,8 +66,8 @@ public class LoginActivity extends Activity {
 
     public Patient findPatient(String userID){
         try {
-            getPatientAccount.execute(userID);
-            patientsResults = getPatientAccount.get();
+            getPatient.execute(userID);
+            patientsResults = getPatient.get();
             if (patientsResults.size() != 0){
                 return patientsResults.get(0);
             }
@@ -90,8 +80,8 @@ public class LoginActivity extends Activity {
 
     public CareProvider findCareProvider(String userID){
         try {
-            getCareProviderAccount.execute(userID);
-            careProvidersResults = getCareProviderAccount.get();
+            getCareProvider.execute(userID);
+            careProvidersResults = getCareProvider.get();
             if (careProvidersResults.size() != 0) {
                 return careProvidersResults.get(0);
             }

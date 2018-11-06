@@ -1,7 +1,6 @@
 package medigram.medigram;
 
 import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,8 +14,8 @@ public class CreateAccountActivity extends Activity {
     protected Button signUpButton;
     protected CheckBox patientCheckBox;
     protected CheckBox careProviderCheckBox;
-    private ElasticsearchAccountController.CreateCareProviderAccount addCareProvider = new ElasticsearchAccountController.CreateCareProviderAccount();
-    private ElasticsearchAccountController.CreatePatientAccount addPatient = new ElasticsearchAccountController.CreatePatientAccount();
+    private ElasticSearchController.CreateCareProvider addCareProvider = new ElasticSearchController.CreateCareProvider();
+    private ElasticSearchController.CreatePatient addPatient = new ElasticSearchController.CreatePatient();
     private String newUserID;
     private String newUserEmail;
     private String newUserPhoneNumber;

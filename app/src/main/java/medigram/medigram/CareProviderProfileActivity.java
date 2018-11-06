@@ -2,10 +2,9 @@ package medigram.medigram;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.widget.EditText;
 import android.widget.TextView;
 
-public class UserProfileActivity extends Activity {
+public class CareProviderProfileActivity extends Activity {
     private TextView DisplayUserID;
     private TextView DisplayEmail;
     private TextView DisplayPhone;
@@ -16,26 +15,16 @@ public class UserProfileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_profile);
+        setContentView(R.layout.activity_careprovider_profile);
 
         DisplayUserID = findViewById(R.id.DisplayUserID);
         DisplayEmail = findViewById(R.id.DisplayEmail);
         DisplayPhone = findViewById(R.id.DisplayPhone);
 
-
-        if (getIntent().hasExtra("Patient")){
-            System.out.println("Is a patient");
-            Patient account = (Patient) getIntent().getSerializableExtra("Patient");
-            userID = account.getUserID();
-            email = account.getEmailAddress();
-            phoneNumber = account.getPhoneNumber();
-        }else if (getIntent().hasExtra("CareProvider")){
-            System.out.println("Is a care provider");
-            CareProvider account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-            userID = account.getUserID();
-            email = account.getEmailAddress();
-            phoneNumber = account.getPhoneNumber();
-        }
+        CareProvider account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+        userID = account.getUserID();
+        email = account.getEmailAddress();
+        phoneNumber = account.getPhoneNumber();
 
         DisplayUserID.setText(userID);
         DisplayEmail.setText(email);

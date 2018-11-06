@@ -10,8 +10,6 @@ public class CareProvider extends User implements Serializable {
     private PatientList patientList = new PatientList();
     private String userType = "CareProvider";
 
-    @JestId
-    private String jestID;
 
     public CareProvider(String userID, String emailAddress, String phoneNumber){
         this.userID = userID;
@@ -32,10 +30,6 @@ public class CareProvider extends User implements Serializable {
     }
     public Boolean patientAssigned(String userID) {
         return patientList.patientUserIDExist(userID);
-    }
-
-    public void setJestID(String jestID){
-        this.jestID = jestID;
     }
 
     public String checkUserType(){

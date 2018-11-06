@@ -16,11 +16,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Delete;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
+import io.searchbox.core.Update;
 
-public class ElasticsearchAccountController {
+public class ElasticSearchController {
     /**
      * Created by: Anas Mohamed.
      * </p>
@@ -50,7 +52,7 @@ public class ElasticsearchAccountController {
 
     }
 
-    public static class GetPatientAccount extends AsyncTask<String, Void, ArrayList<Patient>>{
+    public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>>{
         @Override
         protected ArrayList<Patient> doInBackground(String...params){
             setClient();
@@ -77,13 +79,14 @@ public class ElasticsearchAccountController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
+                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
         }
     }
 
-    public static class GetCareProviderAccount extends AsyncTask<String, Void, ArrayList<CareProvider>>{
+    public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>>{
         @Override
         protected ArrayList<CareProvider> doInBackground(String...params){
             setClient();
@@ -110,18 +113,26 @@ public class ElasticsearchAccountController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
+                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
         }
     }
-
-    public static class CreatePatientAccount extends AsyncTask<Patient, Void, Void>{
+    /**
+     * Handles the creation a new account for a Patient.
+     */
+    public static class CreatePatient extends AsyncTask<Patient, Void, Void>{
+        /**
+         * Creates a new account for a Patient.
+         * @param params
+         * @see Patient
+         */
         @Override
-        protected Void doInBackground(Patient...patients){
+        protected Void doInBackground(Patient...params){
             //TODO check if account exists first
             setClient();
-            Patient patient= patients[0];
+            Patient patient= params[0];
 
             Index index = new Index.Builder(patient)
                     .index("cmput301f18t22test")
@@ -134,7 +145,7 @@ public class ElasticsearchAccountController {
                     patient.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO Ouput a no internet connection error
+                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -143,7 +154,15 @@ public class ElasticsearchAccountController {
 
     }
 
-    public static class CreateCareProviderAccount extends AsyncTask<CareProvider, Void, Void>{
+    /**
+     * Handles the creation a new account for a Care Provider.
+     */
+    public static class CreateCareProvider extends AsyncTask<CareProvider, Void, Void>{
+        /**
+         * Creates a new account for a Care Provider.
+         * @param params
+         * @see CareProvider
+         */
         @Override
         protected Void doInBackground(CareProvider...params){
             //TODO check if account exists first
@@ -161,7 +180,7 @@ public class ElasticsearchAccountController {
                     careProvider.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO Ouput a no internet connection error
+                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -170,7 +189,108 @@ public class ElasticsearchAccountController {
 
     }
 
-    //TODO add Update, and Delete functionality
 
+    /**
+     * Handles updating of Care Provider's account.
+     */
+    public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, Void> {
+        /**
+         * Updates a given Care Provider's account to match any new changes
+         * @param params
+         * @see Patient
+         */
+        @Override
+        protected Void doInBackground(CareProvider... params) {
+            setClient();
+            CareProvider careProvider = params[0];
+            try {
+                client.execute(new Update.Builder(careProvider)
+                        .index("cmput301f18t22test")
+                        .type("CareProviders").id(careProvider.getJestID()).build());
+            } catch (IOException e) {
+                //TODO offline behavior
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Handles updating of Patient's account.
+     */
+    public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
+        /**
+         * Updates a given Patients's account to match any new changes
+         * @param params
+         * @see Patient
+         */
+        @Override
+        protected Void doInBackground(Patient... params) {
+            setClient();
+            Patient patient = params[0];
+            try {
+                client.execute(new Update.Builder(patient)
+                        .index("cmput301f18t22test")
+                        .type("CareProviders").id(patient.getJestID()).build());
+            } catch (IOException e) {
+                //TODO offline behavior
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+    /**
+     * Handles the deletion of a User's account.
+     */
+    public static class DeleteUser extends AsyncTask<String, Void, Void> {
+        /**
+         * Deletes a given User's account from system.
+         * Parameters[0]: jestID to be deleted
+         * @param params
+         */
+        @Override
+        protected Void doInBackground(String... params) {
+            setClient();
+            String jestID = params[0];
+            try {
+                client.execute(new Delete.Builder(jestID)
+                        .index("cmput301f18t22test")
+                        .type("CareProviders")
+                        .type("Patients")
+                        .build());
+            } catch (IOException e) {
+                //TODO offline behavior
+                e.printStackTrace();
+            }
+            return null;
+        }
+    }
+
+//    /**
+//     * Handles the deletion a Care Provider's account.
+//     */
+//    public static class DeleteCareProvider extends AsyncTask<CareProvider, Void, Void> {
+//        /**
+//         * Deletes a given Care Provider's account from system.
+//         * @param params
+//         * @see CareProvider
+//         */
+//        @Override
+//        protected Void doInBackground(CareProvider... params) {
+//            setClient();
+//            CareProvider careProvider = params[0];
+//            try {
+//                client.execute(new Delete.Builder(careProvider.getJestID())
+//                        .index("cmput301f18t22test")
+//                        .type("CareProviders")
+//                        .build());
+//            } catch (IOException e) {
+//                //TODO offline behavior
+//                e.printStackTrace();
+//            }
+//            return null;
+//        }
+//    }
 
 }

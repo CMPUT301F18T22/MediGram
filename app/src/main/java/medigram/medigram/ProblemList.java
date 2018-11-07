@@ -11,6 +11,8 @@ public class ProblemList{
         problemList.add(problem);
     }
 
+    public List<Problem> getList() {return problemList;}
+
     public void removeProblem(Problem problem){
         problemList.remove(problem);
     }

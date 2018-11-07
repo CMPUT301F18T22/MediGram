@@ -73,5 +73,10 @@ public class Problem extends RecordList {
         this.bodyLocationPhotos = bodyLocationPhotos;
     }
 
+    public String toString(){
+        return(this.getProblemTitle()+ "\n Date Started: "+ this.getDescription()
+        + "\n Body Location: " + this.getBodyLocation()+ "\n Description: "+ this.getDescription());
+    }
+
 
 }

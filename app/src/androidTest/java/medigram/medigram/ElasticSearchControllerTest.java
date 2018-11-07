@@ -19,7 +19,7 @@ public class ElasticSearchControllerTest extends ActivityInstrumentationTestCase
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {
             ArrayList<Patient> returnedPatients = getPatient.execute(userID).get();
-            assertEquals(returnedPatients.get(0), patient);
+            assertEquals(patient.getUserID(), returnedPatients.get(0).getUserID());
         }catch (Exception e){
             //TODO offline testing
             e.printStackTrace();
@@ -50,8 +50,9 @@ public class ElasticSearchControllerTest extends ActivityInstrumentationTestCase
 
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {
-            ArrayList<Patient> returnedPatients = getPatient.execute(userID).get();
-            assertEquals(returnedPatients.get(0).getUserID(), patient.getUserID());
+            ArrayList<Patient> returnedPatients = getPatient.execute(updatedUserID).get();
+            System.out.println(returnedPatients.size());
+            assertNotNull(returnedPatients.get(0));
         }catch (Exception e){
             //TODO offline testing
             e.printStackTrace();
@@ -71,7 +72,7 @@ public class ElasticSearchControllerTest extends ActivityInstrumentationTestCase
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {
             ArrayList<Patient> returnedPatients = getPatient.execute(userID).get();
-            assertEquals(returnedPatients.get(0), patient);
+            assertNull(returnedPatients.get(0));
         }catch (Exception e){
             //TODO offline testing
             e.printStackTrace();

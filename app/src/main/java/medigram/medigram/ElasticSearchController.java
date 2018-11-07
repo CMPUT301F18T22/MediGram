@@ -65,7 +65,6 @@ public class ElasticSearchController {
                     "}" +
                     "}" +
                     "}";
-            System.out.println(query);
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t22test")
                     .addType("Patients")
@@ -73,7 +72,6 @@ public class ElasticSearchController {
             JestResult result;
             try {
                 result = client.execute(search);
-                System.out.println(result.getJsonString());
                 if (result.isSucceeded()){
                     List<Patient> matched = result.getSourceAsObjectList(Patient.class);
                     accounts.addAll(matched);
@@ -99,7 +97,6 @@ public class ElasticSearchController {
                     "}" +
                     "}" +
                     "}";
-            System.out.println(query);
             Search search = new Search.Builder(query)
                     .addIndex("cmput301f18t22test")
                     .addType("CareProviders")
@@ -107,7 +104,6 @@ public class ElasticSearchController {
             JestResult result;
             try {
                 result = client.execute(search);
-                System.out.println(result.getJsonString());
                 if (result.isSucceeded()){
                     List<CareProvider> matched = result.getSourceAsObjectList(CareProvider.class);
                     accounts.addAll(matched);
@@ -206,7 +202,9 @@ public class ElasticSearchController {
             try {
                 client.execute(new Update.Builder(careProvider)
                         .index("cmput301f18t22test")
-                        .type("CareProviders").id(careProvider.getJestID()).build());
+                        .type("CareProviders")
+                        .id(careProvider.getJestID())
+                        .build());
             } catch (IOException e) {
                 //TODO offline behavior
                 e.printStackTrace();
@@ -231,7 +229,9 @@ public class ElasticSearchController {
             try {
                 client.execute(new Update.Builder(patient)
                         .index("cmput301f18t22test")
-                        .type("CareProviders").id(patient.getJestID()).build());
+                        .type("Patients")
+                        .id(patient.getJestID())
+                        .build());
             } catch (IOException e) {
                 //TODO offline behavior
                 e.printStackTrace();
@@ -256,8 +256,6 @@ public class ElasticSearchController {
             try {
                 client.execute(new Delete.Builder(jestID)
                         .index("cmput301f18t22test")
-                        .type("CareProviders")
-                        .type("Patients")
                         .build());
             } catch (IOException e) {
                 //TODO offline behavior

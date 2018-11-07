@@ -16,10 +16,7 @@ public class LoginActivity extends Activity {
     protected Button signInButton;
     protected Button signUpButton;
     private String userID;
-    private ArrayList<Patient> patientsResults;
-    private ArrayList<CareProvider> careProvidersResults;
-    private ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-    private ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+    private AccountManager accountManager = new AccountManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +37,13 @@ public class LoginActivity extends Activity {
         signInButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
                 userID = inputUserID.getText().toString();
-                Patient patient = findPatient(userID);
+                Patient patient = accountManager.findPatient(userID);
                 if (patient != null) {
                     Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                     intent.putExtra("Patient", patient);
                     startActivity(intent);
                 } else {
-                    CareProvider careProvider = findCareProvider(userID);
+                    CareProvider careProvider = accountManager.findCareProvider(userID);
                     if (careProvider != null) {
                         Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
                         intent.putExtra("CareProvider", careProvider);
@@ -61,33 +58,6 @@ public class LoginActivity extends Activity {
             }
         });
 
-
     }
 
-    public Patient findPatient(String userID){
-        try {
-            getPatient.execute(userID);
-            patientsResults = getPatient.get();
-            if (patientsResults.size() != 0){
-                return patientsResults.get(0);
-            }
-        }catch (Exception e){
-            //TODO better error handling
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public CareProvider findCareProvider(String userID){
-        try {
-            getCareProvider.execute(userID);
-            careProvidersResults = getCareProvider.get();
-            if (careProvidersResults.size() != 0) {
-                return careProvidersResults.get(0);
-            }
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
 }

@@ -10,7 +10,7 @@ public abstract class User implements Serializable {
     String userID;
 
     @JestId
-    String jestID;
+    private String jestID;
 
 
     public String toString(){

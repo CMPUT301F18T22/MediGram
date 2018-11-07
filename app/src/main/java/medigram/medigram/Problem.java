@@ -74,7 +74,7 @@ public class Problem extends RecordList {
     }
 
     public String toString(){
-        return(this.getProblemTitle()+ "\n Date Started: "+ this.getDescription()
+        return(this.getProblemTitle()+ "\n Date Started: "+ this.getDateStarted()
         + "\n Body Location: " + this.getBodyLocation()+ "\n Description: "+ this.getDescription());
     }
 

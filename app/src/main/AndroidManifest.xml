@@ -16,6 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".PatientListActivity"
+            android:label="@string/title_activity_patient_list" />
+        <activity
+            android:name=".AddPatientActivity"
+            android:label="@string/title_activity_add_patient"></activity>
     </application>
 
 </manifest>

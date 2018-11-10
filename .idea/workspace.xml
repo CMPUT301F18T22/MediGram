@@ -10,17 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e090deff-ac17-4a42-9660-0bc4eb360acb" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/built.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/cache.properties.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/include/jest-droid-2.0.1-SNAPSHOT.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_add_patient.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -75,20 +74,38 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="510">
-              <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+              <caret line="50" selection-start-line="50" selection-end-line="50" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Comment.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Comment.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/Comment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="240">
-              <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+              <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
               <folding>
                 <element signature="e#375#376#0" expanded="true" />
                 <element signature="e#404#405#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="AddPatientActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="60">
+              <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PatientListActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
             </state>
           </provider>
         </entry>
@@ -2384,6 +2401,7 @@
         <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/CommentTest.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java" />
       </list>
     </option>
   </component>
@@ -2692,25 +2710,36 @@
       <configuration name="Tests in 'medigram.medigram'" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
   <component name="ToolWindowManager">
     <frame x="-241" y="-1080" width="1920" height="1080" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="Android Profiler" order="5" show_stripe_button="false" />
-      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info active="true" anchor="bottom" id="TODO" order="12" visible="true" weight="0.32935324" />
       <window_info anchor="right" id="Palette&#9;" order="8" />
       <window_info id="Image Layers" order="6" />
       <window_info id="Build Variants" order="1" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="2" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5005348" side_tool="true" weight="0.24524076" />
       <window_info anchor="bottom" id="Run" order="8" weight="0.32922733" />
-      <window_info anchor="bottom" id="Version Control" order="3" visible="true" weight="0.3283582" />
+      <window_info anchor="bottom" id="Version Control" order="3" weight="0.3283582" />
       <window_info anchor="bottom" id="Terminal" order="2" weight="0.3283582" />
-      <window_info anchor="bottom" id="Logcat" order="0" weight="0.32922733" />
+      <window_info anchor="bottom" id="Logcat" order="0" weight="0.3283582" />
       <window_info id="Captures" order="7" weight="0.24973261" />
       <window_info id="Capture Tool" order="3" />
       <window_info id="Designer" order="2" />
-      <window_info active="true" content_ui="combo" id="Project" order="4" visible="true" weight="0.13791268" />
+      <window_info content_ui="combo" id="Project" order="4" visible="true" weight="0.13791268" />
       <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49946523" weight="0.25472638" />
+      <window_info anchor="bottom" id="Find" order="7" />
       <window_info anchor="right" id="Gradle" order="3" />
       <window_info id="Structure" order="5" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Device File Explorer" order="1" side_tool="true" />
@@ -2725,7 +2754,6 @@
       <window_info anchor="bottom" id="Message" order="6" />
       <window_info anchor="right" id="Code Iris" order="9" weight="0.32994652" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="7" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="7" />
     </layout>
     <layout-to-restore>
       <window_info anchor="bottom" id="Build" order="4" sideWeight="0.49946523" weight="0.32922733" />
@@ -3303,18 +3331,32 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="510">
-          <caret line="50" lean-forward="true" selection-start-line="50" selection-end-line="50" />
+          <caret line="50" selection-start-line="50" selection-end-line="50" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/Comment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="240">
-          <caret line="20" column="22" lean-forward="true" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
+          <caret line="20" column="22" selection-start-line="20" selection-start-column="22" selection-end-line="20" selection-end-column="22" />
           <folding>
             <element signature="e#375#376#0" expanded="true" />
             <element signature="e#404#405#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="11" column="13" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="31" column="1" lean-forward="true" selection-start-line="31" selection-start-column="1" selection-end-line="31" selection-end-column="1" />
         </state>
       </provider>
     </entry>

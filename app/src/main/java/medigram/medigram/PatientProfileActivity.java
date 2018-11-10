@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 public class PatientProfileActivity extends Activity {
     private Button editProfileButton;
-    private Button viewPatientsButton;
+    private Button viewProblemsButton;
     private TextView DisplayUserID;
     private TextView DisplayEmail;
     private TextView DisplayPhone;
@@ -33,7 +33,7 @@ public class PatientProfileActivity extends Activity {
         DisplayEmail = findViewById(R.id.DisplayEmail);
         DisplayPhone = findViewById(R.id.DisplayPhone);
         editProfileButton = findViewById(R.id.patientEditProfileButton);
-        viewPatientsButton = findViewById(R.id.patientViewProblemButton);
+        viewProblemsButton = findViewById(R.id.patientViewProblemButton);
 
         DisplayUserID.setText(userID);
         DisplayEmail.setText(email);
@@ -64,10 +64,10 @@ public class PatientProfileActivity extends Activity {
                 accountDeleted = intent.getBooleanExtra("deleted", false);
                 if (accountDeleted){
                     finish();
+                }else {
+                    account = (Patient) intent.getSerializableExtra("updated");
+                    updateProfile(account);
                 }
-            }else{
-                account = (Patient) intent.getSerializableExtra("updated");
-                updateProfile(account);
             }
         }
     }

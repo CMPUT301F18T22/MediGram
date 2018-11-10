@@ -40,14 +40,14 @@ public class ElasticSearchController {
     private static JestDroidClient client = null;
 
     private static void setClient(){
-        if(client==null){
-            DroidClientConfig config= new DroidClientConfig
+        if (client==null){
+            DroidClientConfig config = new DroidClientConfig
                     .Builder("http://cmput301.softwareprocess.es:8080")
                     .build();
 
-            JestClientFactory factory=new JestClientFactory();
+            JestClientFactory factory = new JestClientFactory();
             factory.setDroidClientConfig(config);
-            client=(JestDroidClient) factory.getObject();
+            client = (JestDroidClient) factory.getObject();
         }
 
     }
@@ -264,31 +264,5 @@ public class ElasticSearchController {
             return null;
         }
     }
-
-//    /**
-//     * Handles the deletion a Care Provider's account.
-//     */
-//    public static class DeleteCareProvider extends AsyncTask<CareProvider, Void, Void> {
-//        /**
-//         * Deletes a given Care Provider's account from system.
-//         * @param params
-//         * @see CareProvider
-//         */
-//        @Override
-//        protected Void doInBackground(CareProvider... params) {
-//            setClient();
-//            CareProvider careProvider = params[0];
-//            try {
-//                client.execute(new Delete.Builder(careProvider.getJestID())
-//                        .index("cmput301f18t22test")
-//                        .type("CareProviders")
-//                        .build());
-//            } catch (IOException e) {
-//                //TODO offline behavior
-//                e.printStackTrace();
-//            }
-//            return null;
-//        }
-//    }
 
 }

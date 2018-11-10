@@ -1,11 +1,14 @@
 package medigram.medigram;
 
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 import io.searchbox.annotations.JestId;
 
 public class Patient extends User implements Serializable {
+    @SerializedName("Patient")
     private String userType = "Patient";
     private ProblemList problemList = new ProblemList();
 

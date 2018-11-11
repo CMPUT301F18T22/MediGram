@@ -3,13 +3,16 @@ package medigram.medigram;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.os.Parcelable;
 import android.view.View;
 import android.widget.Button;
 
 public class PatientListActivity extends Activity {
 
     private Button addPatientBut;
-    // TODO get current logged in care provider's info from "putextra"
+    // TODO get current logged in care provider's info from "putextra" in CareproviderProfileActivity
+    public CareProvider careProvider = new CareProvider("careprovider2",
+                                            "cp2@gmail.com", "7807166859");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,7 @@ public class PatientListActivity extends Activity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientListActivity.this, AddPatientActivity.class);
-                // TODO send care provider's info to AddPatientActivity
+                intent.putExtra("CareProvider", (Parcelable) careProvider);
                 startActivity(intent);
             }
         });

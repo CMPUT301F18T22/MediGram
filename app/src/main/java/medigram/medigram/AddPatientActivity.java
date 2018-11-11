@@ -1,3 +1,8 @@
+/**
+ * Sources:
+ * https://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ *
+ */
 package medigram.medigram;
 
 import android.app.Activity;
@@ -14,7 +19,6 @@ public class AddPatientActivity extends Activity {
     private Button confirmAddingBut;
     private EditText inputUserID;
     private String userID;
-    private CareProvider careProvider = new CareProvider();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +26,8 @@ public class AddPatientActivity extends Activity {
         setContentView(R.layout.activity_add_patient);
 
         inputUserID = findViewById(R.id.input_userid);
-
-
         confirmAddingBut = findViewById(R.id.confirm_adding);
+
         // jump back to patient List activity
         confirmAddingBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,14 +37,40 @@ public class AddPatientActivity extends Activity {
                 inputUserID = findViewById(R.id.input_userid);
                 // transform it to string for better readability
                 userID = inputUserID.getText().toString();
-                CareProvider.assign
 
-                Intent intent = new Intent(AddPatientActivity.this, PatientListActivity.class);
-                Toast toast = Toast.makeText(AddPatientActivity.this,
-                                        "Patient Added Successfully!", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 320);
-                toast.show();
-                finish();
+                Intent i = getIntent();
+                // get current logged in care provider
+                CareProvider careProvider = i.getParcelableExtra("CareProvider");
+                PatientList patients = careProvider.getAssignedPatients();
+                Patient patient = patients.getPatient(userID);
+
+                // check if the patient that we want to add exists in patient list
+                if (patient != null) {
+                    // check if the patient already assigned to current care provider
+                    if (careProvider.patientAssigned(userID)) {
+                        careProvider.assignPatient(patient); // add the patient
+                        Intent intent = new Intent(AddPatientActivity.this, PatientListActivity.class);
+                        Toast toast = Toast.makeText(AddPatientActivity.this
+                                                    ,"Patient Added Successfully!"
+                                                    , Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+                        finish();
+                    } else {
+                        Toast toast = Toast.makeText(AddPatientActivity.this
+                                                    , "This patient is already assigned to you."
+                                                    , Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+                    }
+                } else {  // patient not found in patient list
+                    Toast toast = Toast.makeText(AddPatientActivity.this
+                                                , "No such patient found."
+                                                , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 320);
+                    toast.show();
+                }
+
             }
         });
     }

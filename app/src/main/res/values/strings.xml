@@ -2,4 +2,5 @@
     <string name="app_name">MediGram</string>
     <string name="title_activity_patient_list">PatientListActivity</string>
     <string name="title_activity_add_patient">AddPatientActivity</string>
+    <string name="title_activity_care_provider">CareProviderActivity</string>
 </resources>

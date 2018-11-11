@@ -25,4 +25,14 @@ public class PatientList {
         }
         return false;
     }
+
+    // used when care provider tries to add a patient
+    public Patient getPatient(String userID){
+        for (Patient patient : patients){
+            if (patient.getUserID().equals(userID)){
+                return patient;
+            }
+        }
+        return null;
+    }
 }

@@ -40,6 +40,9 @@ public class CareProvider extends User {
         this.userID = userID;
     }
 
+    // return the patient list the care provider is assigned to
+    public PatientList getAssignedPatients() {return patientList;}
+
     public void assignPatient(Patient patient){
          patientList.addPatient(patient);
     }

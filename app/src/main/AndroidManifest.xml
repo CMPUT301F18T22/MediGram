@@ -21,7 +21,10 @@
             android:label="@string/title_activity_patient_list" />
         <activity
             android:name=".AddPatientActivity"
-            android:label="@string/title_activity_add_patient"></activity>
+            android:label="@string/title_activity_add_patient" />
+        <activity
+            android:name=".CareProviderActivity"
+            android:label="@string/title_activity_care_provider"></activity>
     </application>
 
 </manifest>

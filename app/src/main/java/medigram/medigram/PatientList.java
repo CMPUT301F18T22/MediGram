@@ -1,5 +1,6 @@
 package medigram.medigram;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class PatientList {
@@ -26,8 +27,10 @@ public class PatientList {
         return false;
     }
 
+    public Patient getPatientByPosition(int position) { return (Patient) Array.get(patients, position); }
+
     // used when care provider tries to add a patient
-    public Patient getPatient(String userID){
+    public Patient getPatientByID(String userID){
         for (Patient patient : patients){
             if (patient.getUserID().equals(userID)){
                 return patient;

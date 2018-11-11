@@ -42,7 +42,7 @@ public class AddPatientActivity extends Activity {
                 // get current logged in care provider
                 CareProvider careProvider = i.getParcelableExtra("CareProvider");
                 PatientList patients = careProvider.getAssignedPatients();
-                Patient patient = patients.getPatient(userID);
+                Patient patient = patients.getPatientByID(userID);
 
                 // check if the patient that we want to add exists in patient list
                 if (patient != null) {

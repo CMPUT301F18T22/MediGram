@@ -1,3 +1,8 @@
+/**
+ * This is the adapter enabling the patient list to be shown as a ListView
+ * Sources:
+ * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
+ */
 package medigram.medigram;
 
 import android.content.Intent;
@@ -5,19 +10,32 @@ import android.os.Bundle;
 import android.app.Activity;
 import android.os.Parcelable;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
+import android.widget.Toast;
 
 public class PatientListActivity extends Activity {
 
     private Button addPatientBut;
-    // TODO get current logged in care provider's info from "putextra" in CareproviderProfileActivity
-    public CareProvider careProvider = new CareProvider("careprovider2",
-                                            "cp2@gmail.com", "7807166859");
+    public CareProvider careProvider;
+    private PatientList patients;
+    private ListView listViewPatients;
+    private PatientListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
+
+        populateListView();
+
+        // TODO get current logged in care provider's info from "putextra" in CareproviderProfileActivity
+        careProvider = new CareProvider("careprovider2"
+                                        ,"cp2@gmail.com"
+                                        ,"7807166859");
+        patients = careProvider.getAssignedPatients();
+        listViewPatients = findViewById(R.id.patient_list);
 
         addPatientBut = findViewById(R.id.add_patient); // the add patient button
         // jump to add patient activity
@@ -31,5 +49,22 @@ public class PatientListActivity extends Activity {
         });
 
     }
+
+    public void populateListView() {
+        listViewPatients = findViewById(R.id.patient_listview);
+
+        adapter = new PatientListAdapter(this, patients);
+        listViewPatients.setAdapter(adapter);
+
+        // handles clicking on one of the patient in list view
+        listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
+                                , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
+            }
+        });
+    }
+
 
 }

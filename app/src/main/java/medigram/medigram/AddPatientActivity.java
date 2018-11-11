@@ -1,19 +1,19 @@
-/**
- * Sources:
- * https://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
- *
- */
 package medigram.medigram;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+/**
+ * This is the activity that enables a care provider to add a patient to list.
+ * Sources:
+ * https://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ */
 
 public class AddPatientActivity extends Activity {
 

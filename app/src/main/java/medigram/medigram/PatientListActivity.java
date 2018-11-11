@@ -1,8 +1,3 @@
-/**
- * This is the adapter enabling the patient list to be shown as a ListView
- * Sources:
- * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
- */
 package medigram.medigram;
 
 import android.content.Intent;
@@ -14,8 +9,12 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import java.io.Serializable;
-
+/**
+ * This is the adapter enabling the patient list to be shown as a ListView
+ * Sources:
+ * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
+ * @author: Xiaohui Liu
+ */
 public class PatientListActivity extends Activity {
 
     private Button addPatientBut;
@@ -51,6 +50,11 @@ public class PatientListActivity extends Activity {
         });
 
     }
+
+    /**
+     * Handles showing the patients as a well-organized list view
+     * @see: PatientList
+     */
 
     public void populateListView() {
         listViewPatients = (ListView) findViewById(R.id.patient_listview);

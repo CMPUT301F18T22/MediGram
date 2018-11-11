@@ -1,8 +1,3 @@
-/**
- * This is the adapter enabling the patient list to be shown as a ListView
- * Sources:
- * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
- */
 package medigram.medigram;
 
 import android.app.Activity;
@@ -13,6 +8,12 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+/**
+ * This is the adapter enabling the patient list to be shown as a ListView
+ * Sources:
+ * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
+ */
 
 public class PatientListAdapter extends BaseAdapter {
     Activity context;

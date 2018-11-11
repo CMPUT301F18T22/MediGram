@@ -30,7 +30,7 @@ public class PatientListAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public Patient getItem(int i) {
         return patients.getPatientByPosition(i);
     }
 
@@ -47,7 +47,13 @@ public class PatientListAdapter extends BaseAdapter {
         TextView numOfProblems = (TextView) itemView.findViewById(R.id.num_problems);
         Patient selectedPatient = patients.getPatientByPosition(i);
         patientUserID.setText(selectedPatient.getUserID());
-        numOfProblems.setText(selectedPatient.getProblems().getSize());
+        ProblemList problems = selectedPatient.getProblems();
+        if (problems != null) {
+            numOfProblems.setText(Integer.toString(problems.getSize()));
+        } else {
+            numOfProblems.setText("0");
+        }
+
         return itemView;
     }
 

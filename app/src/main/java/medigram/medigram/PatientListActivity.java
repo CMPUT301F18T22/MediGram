@@ -28,16 +28,17 @@ public class PatientListActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
 
-        populateListView();
 
         // TODO get current logged in care provider's info from "putextra" in CareproviderProfileActivity
         careProvider = new CareProvider("careprovider2"
                                         ,"cp2@gmail.com"
                                         ,"7807166859");
         patients = careProvider.getAssignedPatients();
-        listViewPatients = findViewById(R.id.patient_list);
-
+        listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient); // the add patient button
+
+        populateListView();
+
         // jump to add patient activity
         addPatientBut.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,7 +52,7 @@ public class PatientListActivity extends Activity {
     }
 
     public void populateListView() {
-        listViewPatients = findViewById(R.id.patient_listview);
+        listViewPatients = (ListView) findViewById(R.id.patient_listview);
 
         adapter = new PatientListAdapter(this, patients);
         listViewPatients.setAdapter(adapter);

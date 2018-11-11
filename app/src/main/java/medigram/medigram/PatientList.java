@@ -27,7 +27,9 @@ public class PatientList {
         return false;
     }
 
-    public Patient getPatientByPosition(int position) { return (Patient) Array.get(patients, position); }
+    public Patient getPatientByPosition(int position) {
+        return (Patient) Array.get(patients, position);
+    }
 
     // used when care provider tries to add a patient
     public Patient getPatientByID(String userID){

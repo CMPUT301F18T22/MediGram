@@ -27,7 +27,17 @@ public class PatientList implements Serializable {
         return false;
     }
 
-    public String toString(){
-        return patients.toString();
+    public Patient getPatientByPosition(int position) {
+        return patients.get(position);
+    }
+
+    // used when care provider tries to add a patient
+    public Patient getPatientByID(String userID){
+        for (Patient patient : patients){
+            if (patient.getUserID().equals(userID)){
+                return patient;
+            }
+        }
+        return null;
     }
 }

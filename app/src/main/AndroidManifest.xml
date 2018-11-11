@@ -23,9 +23,17 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccountActivity" />
-        <activity android:name=".CareProviderProfileActivity" />
         <activity android:name=".PatientProfileActivity" />
         <activity android:name=".EditProfileActivity"></activity>
+        <activity
+            android:name=".PatientListActivity"
+            android:label="@string/title_activity_patient_list" />
+        <activity
+            android:name=".AddPatientActivity"
+            android:label="@string/title_activity_add_patient" />
+        <activity
+            android:name=".CareProviderActivity"
+            android:label="@string/title_activity_care_provider"></activity>
     </application>
 
 </manifest>

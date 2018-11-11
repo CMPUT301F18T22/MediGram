@@ -1,6 +1,8 @@
 package medigram.medigram;
 
-public abstract class User {
+import java.io.Serializable;
+
+public abstract class User implements Serializable{
     private String emailAddress;
     private String phoneNumber;
     private String userID;

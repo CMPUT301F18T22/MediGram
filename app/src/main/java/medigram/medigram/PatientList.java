@@ -1,9 +1,9 @@
 package medigram.medigram;
 
-import java.lang.reflect.Array;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class PatientList {
+public class PatientList implements Serializable {
     private ArrayList<Patient> patients = new ArrayList<>();
 
     public int getSize(){
@@ -28,7 +28,7 @@ public class PatientList {
     }
 
     public Patient getPatientByPosition(int position) {
-        return (Patient) Array.get(patients, position);
+        return patients.get(position);
     }
 
     // used when care provider tries to add a patient

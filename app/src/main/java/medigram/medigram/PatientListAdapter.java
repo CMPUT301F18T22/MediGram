@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class PatientListAdapter extends BaseAdapter {
@@ -43,6 +44,7 @@ public class PatientListAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         View itemView = view;
         itemView = (itemView == null) ? inflater.inflate(R.layout.patient_list_item, null): itemView;
+        ImageView icon = itemView.findViewById(R.id.patient_icon);
         TextView patientUserID = (TextView) itemView.findViewById(R.id.patient_userid);
         TextView numOfProblems = (TextView) itemView.findViewById(R.id.num_problems);
         Patient selectedPatient = patients.getPatientByPosition(i);

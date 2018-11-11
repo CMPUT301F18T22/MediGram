@@ -8,6 +8,7 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -19,6 +20,9 @@ public class AddPatientActivity extends Activity {
     private Button confirmAddingBut;
     private EditText inputUserID;
     private String userID;
+    private CareProvider careProvider;
+    private PatientList patients;
+    private Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,14 +39,20 @@ public class AddPatientActivity extends Activity {
 
                 // get user's input
                 inputUserID = findViewById(R.id.input_userid);
-                // transform it to string for better readability
                 userID = inputUserID.getText().toString();
+                System.out.print(userID);
+                if (userID.length() < 8) {
+                    Toast toast = Toast.makeText(AddPatientActivity.this
+                            , "Please enter a valid user ID."
+                            , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 320);
+                    toast.show();
+                }
 
-                Intent i = getIntent();
                 // get current logged in care provider
-                CareProvider careProvider = i.getParcelableExtra("CareProvider");
-                PatientList patients = careProvider.getAssignedPatients();
-                Patient patient = patients.getPatientByID(userID);
+                careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+                patients = careProvider.getAssignedPatients();
+                patient = patients.getPatientByID(userID);
 
                 // check if the patient that we want to add exists in patient list
                 if (patient != null) {

@@ -1,8 +1,8 @@
 package medigram.medigram;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class Patient extends User{
+public class Patient extends User implements Serializable {
     private String emailAddress;
     private String phoneNumber;
     private String userID;

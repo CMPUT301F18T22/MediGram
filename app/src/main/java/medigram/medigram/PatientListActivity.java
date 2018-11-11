@@ -8,17 +8,18 @@ package medigram.medigram;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.io.Serializable;
+
 public class PatientListActivity extends Activity {
 
     private Button addPatientBut;
-    public CareProvider careProvider;
+    private CareProvider careProvider;
     private PatientList patients;
     private ListView listViewPatients;
     private PatientListAdapter adapter;
@@ -35,16 +36,16 @@ public class PatientListActivity extends Activity {
                                         ,"7807166859");
         patients = careProvider.getAssignedPatients();
         listViewPatients = findViewById(R.id.patient_listview);
-        addPatientBut = findViewById(R.id.add_patient); // the add patient button
+        addPatientBut = findViewById(R.id.add_patient);  // the add patient button
 
         populateListView();
 
-        // jump to add patient activity
+        // go to add patient activity
         addPatientBut.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(PatientListActivity.this, AddPatientActivity.class);
-                intent.putExtra("CareProvider", (Parcelable) careProvider);
+                intent.putExtra("CareProvider", careProvider);
                 startActivity(intent);
             }
         });
@@ -53,6 +54,13 @@ public class PatientListActivity extends Activity {
 
     public void populateListView() {
         listViewPatients = (ListView) findViewById(R.id.patient_listview);
+
+        // TODO delete this part
+        Patient test = new Patient("patientone", "p1@gmail.com", "7807166666");
+        patients.addPatient(test);
+        test = new Patient("patienttwo", "p2@gmail.com", "7807167777");
+        patients.addPatient(test);
+
 
         adapter = new PatientListAdapter(this, patients);
         listViewPatients.setAdapter(adapter);

@@ -6,39 +6,32 @@
     android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="144dp"
-        android:layout_height="138dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="14dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginBottom="197dp"
-        tools:src="@tools:sample/avatars" />
-
-    <TextView
-        android:id="@+id/num_problems"
-        android:layout_width="173dp"
-        android:layout_height="36dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginBottom="206dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="Number of Problems" />
+        android:id="@+id/patient_icon"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:src="@android:drawable/ic_menu_myplaces" />
 
     <TextView
         android:id="@+id/patient_userid"
-        android:layout_width="175dp"
-        android:layout_height="37dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="33dp"
-        android:layout_marginTop="184dp"
-        android:layout_marginEnd="18dp"
-        android:layout_toEndOf="@+id/imageView"
-        android:text="User ID" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_alignTop="@+id/patient_icon"
+        android:layout_toEndOf="@+id/patient_icon"
+        android:text="User ID"
+        android:textSize="15sp" />
+
+    <TextView
+        android:id="@+id/num_problems"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/patient_icon"
+        android:layout_alignStart="@+id/patient_userid"
+        android:text="Number of Problems"
+        android:textSize="15sp" />
 
 </RelativeLayout>

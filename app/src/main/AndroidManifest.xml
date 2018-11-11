@@ -9,9 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light">
-
-
-
         <activity android:name=".MediGramActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,7 +17,7 @@
             </intent-filter>
         </activity>
 
-        <!--DELETE THIS WHEN DONE TESTING-->
+        <!-- DELETE THIS WHEN DONE TESTING -->
         <activity android:name=".ProblemListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -28,8 +25,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--                             -->
+        <!--  -->
 
+
+        <!-- DELETE THIS WHEN DONE TESTING -->
+        <!--  -->
+
+        <activity android:name=".EditProblemActivity"></activity>
     </application>
 
 </manifest>

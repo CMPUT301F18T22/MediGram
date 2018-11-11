@@ -1,5 +1,7 @@
 package medigram.medigram;
 
+import android.media.browse.MediaBrowser;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -13,11 +15,10 @@ public class ProblemList{
 
     public List<Problem> getList() {return problemList;}
 
-    public void removeProblem(Problem problem){
-        problemList.remove(problem);
+    public void removeProblem(Integer index){problemList.remove(index);
     }
 
-    public int getIndex(Problem problem){
+    public Integer getIndex(Problem problem){
         return problemList.indexOf(problem);
     }
 

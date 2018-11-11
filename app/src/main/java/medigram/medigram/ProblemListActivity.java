@@ -5,6 +5,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -75,6 +76,10 @@ public class ProblemListActivity extends AppCompatActivity {
                 // remove emotion from emotion list and string from string list
                 @Override
                 public void onClick(View v) {
+                    problemList.removeProblem(position);
+                    problemString.remove(position);
+                    notifyDataSetChanged();
+
                 }
             });
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {

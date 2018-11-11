@@ -11,21 +11,22 @@ import java.util.ArrayList;
  * Handles all account related methods such as login, account creation, updating account info, and lastly account deletion.
  * References: https://stackoverflow.com/questions/6119722/how-to-check-edittexts-text-is-email-address-or-not
  */
-public class AccountManager extends Application{
+public class AccountManager{
     private ArrayList<Patient> patientsResults;
     private ArrayList<CareProvider> careProvidersResults;
-    private OfflineBehaviorController offlineController = new OfflineBehaviorController();
-    private static Context context;
+    private OfflineBehaviorController offlineController;
+    private Context context;
 
-    public void onCreate(){
-        /**
-         * Sets the Context required for locally saving.
-         * Reference: https://github.com/CMPUT301W18T10/Y2K/blob/master/Syn-Tax/app/src/main/java/com/example/syn_tax/ElasticSearchController.java
-         */
-        super.onCreate();
-        context = getApplicationContext();
+    public AccountManager(Context context){
+        this.context = context;
+        offlineController = new OfflineBehaviorController(context);
     }
 
+    /**
+     * Handles checking if there an active Internet connection.
+     * This method is used throughout to decide whether to use locally saving or ElasticSearch online saving.
+     * @return True if there is connection, False if there is no connection.
+     */
     public boolean checkConnection(){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getActiveNetworkInfo() == null){
@@ -40,16 +41,20 @@ public class AccountManager extends Application{
      *
      * @param patient the Patient account to be created.
      * @return true if restrictions (userID length, etc.) pass, else returns false
+     * @see Patient
      */
     public String addPatient(Patient patient){
-        if (patient.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(patient.getEmailAddress()).matches() && patient.getPhoneNumber().length() >= 10){
+        if (findPatient(patient.getUserID()) != null){
+            return "UserID already taken. Please try another one.";
+        }
+        else if (patient.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(patient.getEmailAddress()).matches() && patient.getPhoneNumber().length() >= 10){
             if (checkConnection()) {
                 ElasticSearchController.CreatePatient createAccount = new ElasticSearchController.CreatePatient();
                 createAccount.execute(patient);
-                offlineController.savePatient(context, patient);
+                offlineController.savePatient(patient);
                 return null;
             }else{
-                offlineController.savePatient(context, patient);
+                offlineController.savePatient(patient);
                 return null;
             }
         }
@@ -72,16 +77,17 @@ public class AccountManager extends Application{
      *
      * @param careProvider the CareProvider account that is to be created.
      * @return String that is the error to be displayed if account is not valid. Else null to indicate lack of error.
+     * @see CareProvider
      */
     public String addCareProvider(CareProvider careProvider){
         if (careProvider.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(careProvider.getEmailAddress()).matches() && careProvider.getPhoneNumber().length() >= 10){
             if (checkConnection()) {
                 ElasticSearchController.CreateCareProvider createAccount = new ElasticSearchController.CreateCareProvider();
                 createAccount.execute(careProvider);
-                offlineController.saveCareProvider(context, careProvider);
+                offlineController.saveCareProvider(careProvider);
                 return null;
             }else{
-                offlineController.saveCareProvider(context, careProvider);
+                offlineController.saveCareProvider(careProvider);
                 return null;
             }
         }
@@ -104,21 +110,22 @@ public class AccountManager extends Application{
      *
      * @param userID
      * @return Patient if found, else null
+     * @see Patient
      */
     public Patient findPatient(String userID){
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {
-            if (checkConnection()) {
+            if (checkConnection()){
                 getPatient.execute(userID);
                 patientsResults = getPatient.get();
                 if (patientsResults.size() != 0) {
                     return patientsResults.get(0);
                 }
             }else{
-                return offlineController.loadPatient(context);
+                return offlineController.loadPatient(userID);
             }
         }catch (Exception e){
-            return offlineController.loadPatient(context);
+            return offlineController.loadPatient(userID);
         }
         return null;
     }
@@ -128,6 +135,7 @@ public class AccountManager extends Application{
      *
      * @param userID
      * @return CareProvider if found, else null
+     * @see CareProvider
      */
     public CareProvider findCareProvider(String userID){
         ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
@@ -139,10 +147,10 @@ public class AccountManager extends Application{
                     return careProvidersResults.get(0);
                 }
             }else{
-                return offlineController.loadCareProvider(context);
+                return offlineController.loadCareProvider(userID);
             }
         }catch (Exception e){
-            return offlineController.loadCareProvider(context);
+            return offlineController.loadCareProvider(userID);
         }
         return null;
     }
@@ -151,13 +159,14 @@ public class AccountManager extends Application{
      * Updates a given patient's profile info
      *
      * @param patient
+     * @see Patient
      */
     public void patientUpdater(Patient patient){
         if (checkConnection()) {
             ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
             updatePatient.execute(patient);
         }else{
-            offlineController.savePatient(context, patient);
+            offlineController.savePatient(patient);
         }
     }
 
@@ -165,13 +174,14 @@ public class AccountManager extends Application{
      * Updates a given care provider's profile info
      *
      * @param careProvider
+     * @see CareProvider
      */
     public void careProviderUpdater(CareProvider careProvider){
-        if (checkConnection()) {
+        if (checkConnection()){
             ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
             updateCareProvider.execute(careProvider);
         }else{
-            offlineController.saveCareProvider(context, careProvider);
+            offlineController.saveCareProvider(careProvider);
         }
     }
 
@@ -179,13 +189,14 @@ public class AccountManager extends Application{
      * Deletes the account associated with a given jestID
      *
      * @param jestID
+     * @see User
      */
     public void accountDeleter(String jestID){
         if (checkConnection()) {
             ElasticSearchController.DeleteUser deleteUser = new ElasticSearchController.DeleteUser();
             deleteUser.execute(jestID);
         }else{
-            offlineController.deleteSave(context);
+            offlineController.deleteSave();
         }
     }
 }

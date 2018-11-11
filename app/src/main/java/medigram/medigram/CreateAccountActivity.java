@@ -16,7 +16,7 @@ public class CreateAccountActivity extends Activity {
     protected Button signUpButton;
     protected CheckBox patientCheckBox;
     protected CheckBox careProviderCheckBox;
-    private AccountManager accountManager = new AccountManager();
+    private AccountManager accountManager;
     private String newUserID;
     private String newUserEmail;
     private String newUserPhoneNumber;
@@ -25,6 +25,8 @@ public class CreateAccountActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_account);
+
+        accountManager  = new AccountManager(getApplicationContext());
 
         inputUserID = findViewById(R.id.signUpUserID);
         inputEmail = findViewById(R.id.signUpEmail);

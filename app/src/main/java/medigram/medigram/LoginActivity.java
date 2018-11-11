@@ -16,12 +16,14 @@ public class LoginActivity extends Activity {
     protected Button signInButton;
     protected Button signUpButton;
     private String userID;
-    private AccountManager accountManager = new AccountManager();
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        accountManager  = new AccountManager(getApplicationContext());
 
         inputUserID = findViewById(R.id.InputUserID);
         signInButton = findViewById(R.id.signInButton);

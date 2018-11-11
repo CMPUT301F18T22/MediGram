@@ -17,13 +17,14 @@ public class EditProfileActivity extends Activity {
     private String newEmail;
     private String newPhone;
     private String jestIDtoDelete;
-    private AccountManager accountManager = new AccountManager();
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_profile);
 
+        accountManager  = new AccountManager(getApplicationContext());
 
         updateUserID = findViewById(R.id.updateUserID);
         updateEmail = findViewById(R.id.updateEmail);

@@ -11,27 +11,59 @@ import android.test.mock.MockContext;
 
 public class OfflineBehaviorControllerTest extends ActivityInstrumentationTestCase2 {
     public OfflineBehaviorControllerTest(){
-        super(OfflineBehaviorControllerTest.class);
+        super(OfflineBehaviorController.class);
     }
 
     public void testSavePatient(){
         Context context = InstrumentationRegistry.getTargetContext();
-        Patient patient = new Patient("test", "test@email.com", "0001112222");
-        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController();
+        Patient patient = new Patient("offlinetest", "test@email.com", "0001112222");
+        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController(context);
 
-        offlineBehaviorController.savePatient(context, patient);
+        offlineBehaviorController.savePatient(patient);
 
-        assertNotNull(offlineBehaviorController.loadPatient(context));
+        assertNotNull(offlineBehaviorController.loadPatient(patient.getUserID()));
     }
 
     public void testLoadPatient(){
         Context context = InstrumentationRegistry.getTargetContext();
-        Patient patient = new Patient("test", "test@email.com", "0001112222");
-        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController();
+        Patient patient = new Patient("offlinetest", "test@email.com", "0001112222");
+        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController(context);
 
-        offlineBehaviorController.savePatient(context, patient);
-        Patient loaded = offlineBehaviorController.loadPatient(context);
+        offlineBehaviorController.savePatient(patient);
+        Patient loaded = offlineBehaviorController.loadPatient(patient.getUserID());
 
         assertEquals("Patient", loaded.checkUserType());
+    }
+
+    public void testSaveCareProvider(){
+        Context context = InstrumentationRegistry.getTargetContext();
+        CareProvider careProvider = new CareProvider("offlinetest", "test@email.com", "0001112222");
+        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController(context);
+
+        offlineBehaviorController.saveCareProvider(careProvider);
+
+        assertNotNull(offlineBehaviorController.loadCareProvider(careProvider.getUserID()));
+    }
+
+    public void testLoadCareProvider(){
+        Context context = InstrumentationRegistry.getTargetContext();
+        CareProvider careProvider = new CareProvider("offlinetest", "test@email.com", "0001112222");
+        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController(context);
+
+        offlineBehaviorController.saveCareProvider(careProvider);
+        CareProvider loaded = offlineBehaviorController.loadCareProvider(careProvider.getUserID());
+
+        assertEquals("CareProvider", loaded.checkUserType());
+    }
+
+    public void testDeleteSave(){
+        Context context = InstrumentationRegistry.getTargetContext();
+        Patient patient = new Patient("offlinetest", "test@email.com", "0001112222");
+        OfflineBehaviorController offlineBehaviorController = new OfflineBehaviorController(context);
+
+        offlineBehaviorController.savePatient(patient);
+        offlineBehaviorController.deleteSave();
+
+        assertNull(offlineBehaviorController.loadPatient(patient.getUserID()));
     }
 }

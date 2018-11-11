@@ -31,22 +31,26 @@ public class OfflineBehaviorController {
     private Gson gson;
     public SharedPreferences sharedPref;
     public SharedPreferences.Editor editor;
+    private Context context;
+
+    public OfflineBehaviorController(Context context){
+        this.context = context;
+        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+        this.editor = this.sharedPref.edit();
+    }
 
     /**
      * Handles locally saving a Care Provider's account
      *
-     * @param context required for locally saving SharePreferences
      * @param account the Care Provider account to be saved
      */
-    public void saveCareProvider(Context context, CareProvider account){
+    public void saveCareProvider(CareProvider account){
         try {
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            editor = this.sharedPref.edit();
+            editor.clear();
 
             gson = new Gson();
             String json = gson.toJson(account);
-            Log.d("Info", json);
-            editor.putString("account", json);
+            editor.putString(account.getUserID(), json);
             editor.apply();
 
         }catch (Exception e){
@@ -57,13 +61,11 @@ public class OfflineBehaviorController {
     /**
      * Handles retrieving locally saved  Care Provider's account.
      *
-     * @param context required for loading local SharePreferences
      * @return Found local Care Provider account, if none is found returns null
      */
-    public CareProvider loadCareProvider(Context context){
+    public CareProvider loadCareProvider(String UserID){
         try{
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            String json = this.sharedPref.getString("account", "");
+            String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
             CareProvider loadedUser = gson.fromJson(json, CareProvider.class);
 
@@ -78,18 +80,15 @@ public class OfflineBehaviorController {
     /**
      * Handles locally saving a Patient's account
      *
-     * @param context required for locally saving SharePreferences
      * @param account the Patient account to be saved
      */
-    public void savePatient(Context context, Patient account){
+    public void savePatient(Patient account){
         try {
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            editor = this.sharedPref.edit();
+            editor.clear();
 
             gson = new Gson();
             String json = gson.toJson(account);
-            Log.d("Info", json);
-            editor.putString("account", json);
+            editor.putString(account.getUserID(), json);
             editor.apply();
 
         }catch (Exception e){
@@ -100,13 +99,11 @@ public class OfflineBehaviorController {
     /**
      * Handles retrieving locally saved  Patient's account.
      *
-     * @param context required for loading local SharePreferences
      * @return Found local Patient account, if none is found returns null
      */
-    public Patient loadPatient(Context context){
+    public Patient loadPatient(String UserID){
         try{
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            String json = this.sharedPref.getString("account", "");
+            String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
             Patient loadedUser = gson.fromJson(json, Patient.class);
 
@@ -121,13 +118,10 @@ public class OfflineBehaviorController {
     /**
      * Deletes the User's account
      *
-     * @param context
      */
-    public void deleteSave(Context context){
-        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-        editor = this.sharedPref.edit();
-
-        editor.remove("User");
+    public void deleteSave(){
+        editor.clear();
+        editor.apply();
     }
 
 }

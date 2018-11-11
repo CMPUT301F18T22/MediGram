@@ -39,7 +39,7 @@ public class ElasticSearchControllerTest extends ActivityInstrumentationTestCase
 
     public void testUpdatePatient(){
         String userID = "testcase";
-        String updatedUserID = "updated";
+        String updatedUserID = "updatedtest";
         ElasticSearchController.CreatePatient addPatient = new ElasticSearchController.CreatePatient();
         Patient patient = new Patient(userID, "testcase@email.com", "1337");
         addPatient.execute(patient);

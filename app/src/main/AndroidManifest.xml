@@ -29,9 +29,18 @@
 
 
         <!-- DELETE THIS WHEN DONE TESTING -->
+        <activity
+            android:name=".EditProblemActivity"
+            android:label="Edit Problem">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <!--  -->
 
-        <activity android:name=".EditProblemActivity"></activity>
+
     </application>
 
 </manifest>

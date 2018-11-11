@@ -2,6 +2,7 @@ package medigram.medigram;
 
 import android.media.browse.MediaBrowser;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +17,9 @@ public class ProblemList{
     public List<Problem> getList() {return problemList;}
 
     public void removeProblem(Integer index){problemList.remove(index);
+    }
+
+    public Problem getProblem(Integer index){return problemList.get(index);
     }
 
     public Integer getIndex(Problem problem){

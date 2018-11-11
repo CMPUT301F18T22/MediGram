@@ -1,7 +1,9 @@
 package medigram.medigram;
 
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -24,29 +26,55 @@ import java.util.stream.Collectors;
 
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
-    public ProblemList problemList;
+    public ProblemList problemList = new ProblemList();
     public List<String> problemString;
     public ListView problemsView;
+    public Problem chosenProblem;
+    public Integer REQUEST_CODE;
+    public ArrayAdapter<String> adapter;
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 420) {
 
+            if (resultCode == Activity.RESULT_OK) {
+                // remove the original problem
+                //problemList.removeProblem(problemList.getIndex(chosenProblem));
+                //problemString.remove(chosenProblem.toString());
+
+                // get the new edited problem from child activity
+                Bundle bundleObject = data.getExtras();
+                chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
+
+                // add the new problem
+                problemList.addProblem(chosenProblem);
+                problemString.add(chosenProblem.toString());
+
+                adapter.notifyDataSetChanged();
+                Log.d("Tag", chosenProblem.getProblemTitle());
+
+            } else if (resultCode == Activity.RESULT_CANCELED) {
+                // some stuff that will happen if there's no result
+            }
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* test */
+        /* test*/
         Date date = new Date();
 
         Problem testproblem = new Problem("TestTitle",
                 "TestDescription", date, "Test Bodylocation");
-        problemList = new ProblemList();
         problemList.addProblem(testproblem);
-        /* end test*/
+         /*end test*/
 
         setContentView(R.layout.activity_problem_list);
 
         problemsView = (ListView) findViewById(R.id.ProblemListView);
         problemString = problemList.getList().stream().map(Problem::toString).collect(Collectors.toList());
-        ArrayAdapter<String> adapter = new MyListAdapter(this,
+        adapter = new MyListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
     }
@@ -83,9 +111,20 @@ public class ProblemListActivity extends AppCompatActivity {
                 }
             });
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
-                // remove emotion from emotion list and string from string list
                 @Override
                 public void onClick(View v) {
+                    problemList.removeProblem(position);
+                    problemString.remove(position);
+
+                    Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
+
+                    // Pass list of emotion objects by using serializable
+                    chosenProblem = problemList.getProblem(position);
+                    Bundle problem_bundle = new Bundle();
+                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
+                    openEditor.putExtras(problem_bundle);
+                    startActivityForResult(openEditor, 420);
+                    notifyDataSetChanged();
                 }
             });
             mainViewholder.title.setText(getItem(position));

@@ -1,9 +1,10 @@
 package medigram.medigram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Problem extends RecordList {
+public class Problem extends RecordList implements Serializable{
     private String problemTitle;
     private String description;
     private Date dateStarted;

@@ -42,4 +42,20 @@ public class PatientListTest extends ActivityInstrumentationTestCase2 {
 
         assertTrue(patientList.patientUserIDExist("mesick"));
     }
+
+    public void testGetPatientByID(){
+        PatientList patientList = new PatientList();
+        Patient patient = new Patient("mesick", "some@email.com", "1112223333");
+        patientList.addPatient(patient);
+
+        assertTrue(patientList.patientUserIDExist("mesick"));
+    }
+
+    public void testGetUserIDs(){
+        PatientList patientList = new PatientList();
+        Patient patient = new Patient("mesick", "some@email.com", "1112223333");
+        patientList.addPatient(patient);
+
+        assertEquals(patientList.getUserIDs().get(0),"mesick");
+    }
 }

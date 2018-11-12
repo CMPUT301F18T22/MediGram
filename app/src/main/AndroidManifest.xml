@@ -24,6 +24,7 @@
         </activity>
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".PatientProfileActivity" />
+        <activity android:name=".CareProviderProfileActivity" />
         <activity android:name=".EditProfileActivity"></activity>
         <activity
             android:name=".PatientListActivity"

@@ -3,16 +3,24 @@ package medigram.medigram;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 /**
  * This is the adapter enabling the patient list to be shown as a ListView
  * Sources:
  * Nguyen Duc Hoang, https://www.youtube.com/watch?v=Q_fDWhqKX7g
+ * https://github.com/mitchtabian/ListViews
  * @author: Xiaohui Liu
  */
 public class PatientListActivity extends Activity {
@@ -22,6 +30,9 @@ public class PatientListActivity extends Activity {
     private PatientList patients;
     private ListView listViewPatients;
     private PatientListAdapter adapter;
+    private EditText search_patient;
+    private ArrayList<String> userIDs = new ArrayList<>();
+    private ArrayAdapter searchAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,15 +40,36 @@ public class PatientListActivity extends Activity {
         setContentView(R.layout.activity_patient_list);
 
 
-        // TODO get current logged in care provider's info from "putextra" in CareproviderProfileActivity
-        careProvider = new CareProvider("careprovider2"
-                                        ,"cp2@gmail.com"
-                                        ,"7807166859");
+        careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         patients = careProvider.getAssignedPatients();
         listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient);  // the add patient button
 
-        populateListView();
+        populateListView(patients);
+
+        // search patient
+        search_patient = findViewById(R.id.search_patient);
+        userIDs = patients.getUserIDs();
+        searchAdapter = new ArrayAdapter(PatientListActivity.this
+                                            , R.layout.search_patient_list_item
+                                            , userIDs);
+        listViewPatients.setAdapter(searchAdapter);
+        search_patient.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                (PatientListActivity.this).searchAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         // go to add patient activity
         addPatientBut.setOnClickListener(new View.OnClickListener() {
@@ -56,15 +88,18 @@ public class PatientListActivity extends Activity {
      * @see: PatientList
      */
 
-    public void populateListView() {
+    public void populateListView(PatientList patients) {
         listViewPatients = (ListView) findViewById(R.id.patient_listview);
 
-        // TODO delete this part
-        Patient test = new Patient("patientone", "p1@gmail.com", "7807166666");
-        patients.addPatient(test);
-        test = new Patient("patienttwo", "p2@gmail.com", "7807167777");
-        patients.addPatient(test);
-
+        // TODO this is for testing purpose only, must be deleted later
+        Patient patient1 = new Patient("patientone", "p1@gmail.com", "7701111111");
+        patients.addPatient(patient1);
+        Patient patient2 = new Patient("patienttwo", "p2@gmail.com", "7702222222");
+        patients.addPatient(patient2);
+        Patient patient3 = new Patient("3rdpatient", "p3@gmail.com", "7703333333");
+        patients.addPatient(patient3);
+        Patient patient4 = new Patient("patient4", "p4@gmail.com", "7704444444");
+        patients.addPatient(patient4);
 
         adapter = new PatientListAdapter(this, patients);
         listViewPatients.setAdapter(adapter);

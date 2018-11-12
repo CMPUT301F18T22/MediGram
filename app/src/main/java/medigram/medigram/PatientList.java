@@ -40,4 +40,12 @@ public class PatientList implements Serializable {
         }
         return null;
     }
+
+    public ArrayList<String> getUserIDs() {
+        ArrayList<String> userIDs = new ArrayList<>();
+        for (Patient patient : patients){
+            userIDs.add(patient.getUserID());
+        }
+        return userIDs;
+    }
 }

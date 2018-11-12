@@ -7,25 +7,28 @@
     android:layout_height="match_parent"
     tools:context=".PatientListActivity">
 
+    <EditText
+        android:id="@+id/search_patient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Search a patient here."
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/add_patient"
-        android:layout_width="118dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:text="Add Patient"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <ListView
         android:id="@+id/patient_listview"
-        android:layout_width="367dp"
-        android:layout_height="451dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/search_patient" />
 
 </android.support.constraint.ConstraintLayout>

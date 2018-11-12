@@ -51,6 +51,15 @@ public class CareProviderProfileActivity extends Activity {
             }
         });
 
+        viewPatientsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), PatientListActivity.class);
+                intent.putExtra("CareProvider", account);
+                startActivityForResult(intent, 1);
+            }
+        });
+
     }
 
     protected void updateProfile(CareProvider account){

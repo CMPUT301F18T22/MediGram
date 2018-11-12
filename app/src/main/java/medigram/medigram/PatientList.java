@@ -41,11 +41,25 @@ public class PatientList implements Serializable {
         return null;
     }
 
+    /**
+     * @return: user ids for all patients in the list
+     */
     public ArrayList<String> getUserIDs() {
         ArrayList<String> userIDs = new ArrayList<>();
         for (Patient patient : patients){
             userIDs.add(patient.getUserID());
         }
         return userIDs;
+    }
+
+    /**
+     * @return: numbers of problems for all patients in the list
+     */
+    public int[] getAllNumsOfProblems() {
+        int [] numsOfProblems = new int[patients.size()];
+        for (int i=0; i<patients.size(); i++){
+            numsOfProblems[i] = (patients.get(i).getNumOfProblems());
+        }
+        return numsOfProblems;
     }
 }

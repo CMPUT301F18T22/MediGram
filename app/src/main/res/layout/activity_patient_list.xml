@@ -5,12 +5,12 @@
     android:id="@+id/patient_list"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".PatientListActivity">
+    tools:context=".PatientListActivity" >
 
     <EditText
         android:id="@+id/search_patient"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="60dp"
         android:hint="Search a patient here."
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,7 +27,8 @@
     <ListView
         android:id="@+id/patient_listview"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/search_patient" />
 

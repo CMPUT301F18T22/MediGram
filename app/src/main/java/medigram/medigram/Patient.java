@@ -27,4 +27,8 @@ public class Patient extends User implements Serializable {
         return problemList;
     }
 
+    public int getNumOfProblems() {
+        return problemList.getSize();
+    }
+
 }

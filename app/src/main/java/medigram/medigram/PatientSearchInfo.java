@@ -1,3 +1,8 @@
+/**
+ * This is the patient's info shown in patient list, i.e., patient icon & user id & number of problems
+ * @see medigram.medigram.Patient
+ * @author Xiaohui Liu
+ */
 package medigram.medigram;
 
 public class PatientSearchInfo {

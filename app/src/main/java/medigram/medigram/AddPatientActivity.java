@@ -14,6 +14,8 @@ import android.widget.Toast;
  * This is the activity that enables a care provider to add a patient to list.
  * Sources:
  * https://stackoverflow.com/questions/2139134/how-to-send-an-object-from-one-android-activity-to-another-using-intents
+ * @see PatientListActivity
+ * @author Xiaohui Liu
  */
 
 public class AddPatientActivity extends Activity {

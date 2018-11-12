@@ -22,7 +22,8 @@ import java.util.ArrayList;
  * https://github.com/mitchtabian/ListViews
  * https://www.youtube.com/watch?v=NMTUsrBHCrA
  * https://stackoverflow.com/questions/12276138/android-listview-not-scrolling
- * @author: Xiaohui Liu
+ * @see CareProviderProfileActivity
+ * @author Xiaohui Liu
  */
 public class PatientListActivity extends Activity implements TextWatcher {
 
@@ -32,7 +33,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private ListView listViewPatients;
     private EditText search_patient;
     private SearchPatientAdapter searchAdapter;
-    private int icon;
     private PatientSearchInfo searchInfo;
     private ArrayList<PatientSearchInfo> searchInfos;
     private ArrayList<String> userIDs = new ArrayList<>();
@@ -49,8 +49,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
         listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient);  // the add patient button
 
-        // search patient
-        // TODO this is for testing purpose only, must be deleted later
+        // TODO this is for testing purpose only, must be deleted later (since adding patient not working yet)
         Patient patient1 = new Patient("patientone", "p1@gmail.com", "7701111111");
         patients.addPatient(patient1);
         Patient patient2 = new Patient("patienttwo", "p2@gmail.com", "7702222222");
@@ -74,7 +73,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
         search_patient = findViewById(R.id.search_patient);
         search_patient.addTextChangedListener(this);  // handles searching patient
-        icon = R.drawable.patient_icon;
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();
         numOfProblemList = patients.getAllNumsOfProblems();
@@ -120,6 +118,13 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
     }
 
+    /**
+     * Handles filtering user's searching input
+     * @param charSequence
+     * @param i
+     * @param i1
+     * @param i2
+     */
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         this.searchAdapter.getFilter().filter(charSequence);
@@ -135,4 +140,5 @@ public class PatientListActivity extends Activity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
 
     }
+    // TODO may want to add a method that refresh the list every time user come back to this activity
 }

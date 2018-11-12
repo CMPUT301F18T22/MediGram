@@ -16,8 +16,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="51f6706c-648b-4dff-a620-0cc4e217f3a7" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/SearchPatientAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientSearchInfoTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/fileHashes/resourceHashesCache.bin" afterDir="false" />
@@ -30,17 +29,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/4.6/taskHistory/taskHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientListTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientListTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientList.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientList.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListAdapter.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/patient_list_item.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/patient_list_item.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-03-17-24-22-543.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/android-profile/profile-2018-11-03-17-24-22-543.rawproto" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -73,11 +65,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PatientListActivity.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PatientListActivity.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="475">
-              <caret line="136" column="5" lean-forward="true" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+            <state relative-caret-position="1875">
+              <caret line="125" column="16" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2942#3290#0" expanded="true" />
@@ -91,33 +83,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SearchPatientAdapter.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/SearchPatientAdapter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
-              <folding>
-                <element signature="e#0#11#0" expanded="true" />
-                <element signature="imports" expanded="true" />
-                <element signature="e#686#687#0" expanded="true" />
-                <element signature="e#727#728#0" expanded="true" />
-                <element signature="e#1464#1465#0" expanded="true" />
-                <element signature="e#1505#1506#0" expanded="true" />
-                <element signature="e#1555#1556#0" expanded="true" />
-                <element signature="e#1579#1580#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="activity_patient_list.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="activity_patient_list.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml">
           <provider editor-type-id="android-designer2">
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="33" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="360">
+              <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
             </state>
           </provider>
         </entry>
@@ -128,20 +101,8 @@
             <state />
           </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="240">
-              <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="search_patient_list_item.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/search_patient_list_item.xml">
-          <provider editor-type-id="android-designer2">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="11" column="11" selection-start-line="11" selection-start-column="11" selection-end-line="11" selection-end-column="11" />
+            <state relative-caret-position="285">
+              <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
             </state>
           </provider>
         </entry>
@@ -2429,17 +2390,19 @@
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/CareProviderProfileActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_patient.xml" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/CareProviderTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/search_patient_list_item.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientList.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientListTest.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/patient_list_item.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/SearchPatientAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientSeachInfoTest.java" />
+        <option value="$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientSearchInfoTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml" />
       </list>
     </option>
   </component>
@@ -2695,12 +2658,12 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
       </Profilers>
     </configuration>
-    <configuration name="PatientTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+    <configuration name="PatientSeachInfoTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="2" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
       <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="medigram.medigram.PatientTest" />
+      <option name="CLASS_NAME" value="medigram.medigram.PatientSeachInfoTest" />
       <option name="PACKAGE_NAME" value="" />
       <option name="EXTRA_OPTIONS" value="" />
       <option name="CLEAR_LOGCAT" value="false" />
@@ -2741,13 +2704,13 @@
         <option name="STARTUP_CPU_PROFILING_CONFIGURATION_NAME" value="Sampled (Java)" />
       </Profilers>
     </configuration>
-    <configuration name="Tests in 'medigram.medigram'" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
+    <configuration name="PatientSearchInfoTest" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
-      <option name="TESTING_TYPE" value="1" />
+      <option name="TESTING_TYPE" value="2" />
       <option name="INSTRUMENTATION_RUNNER_CLASS" value="" />
       <option name="METHOD_NAME" value="" />
-      <option name="CLASS_NAME" value="" />
-      <option name="PACKAGE_NAME" value="medigram.medigram" />
+      <option name="CLASS_NAME" value="medigram.medigram.PatientSearchInfoTest" />
+      <option name="PACKAGE_NAME" value="" />
       <option name="EXTRA_OPTIONS" value="" />
       <option name="CLEAR_LOGCAT" value="false" />
       <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
@@ -2878,19 +2841,19 @@
     </configuration>
     <list>
       <item itemvalue="Android App.app" />
-      <item itemvalue="Android Instrumented Tests.Tests in 'medigram.medigram'" />
       <item itemvalue="Android Instrumented Tests.PatientListTest" />
-      <item itemvalue="Android Instrumented Tests.PatientTest" />
       <item itemvalue="Android Instrumented Tests.testGetAllNumsOfPr...()" />
       <item itemvalue="Android App.PatientListActivity" />
+      <item itemvalue="Android Instrumented Tests.PatientSeachInfoTest" />
+      <item itemvalue="Android Instrumented Tests.PatientSearchInfoTest" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Android Instrumented Tests.PatientSearchInfoTest" />
+        <item itemvalue="Android Instrumented Tests.PatientSeachInfoTest" />
         <item itemvalue="Android App.PatientListActivity" />
         <item itemvalue="Android Instrumented Tests.testGetAllNumsOfPr...()" />
         <item itemvalue="Android Instrumented Tests.PatientListTest" />
-        <item itemvalue="Android Instrumented Tests.PatientTest" />
-        <item itemvalue="Android Instrumented Tests.Tests in 'medigram.medigram'" />
       </list>
     </recent_temporary>
   </component>
@@ -2908,18 +2871,6 @@
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="PatientListTest - 2018.11.12 at 11h 25m 37s.xml">
-      <configuration name="PatientListTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PatientListTest - 2018.11.12 at 11h 26m 44s.xml">
-      <configuration name="PatientListTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PatientTest - 2018.11.12 at 11h 30m 59s.xml">
-      <configuration name="PatientTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="PatientListTest - 2018.11.12 at 12h 14m 57s.xml">
-      <configuration name="PatientListTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="PatientListTest - 2018.11.12 at 12h 24m 19s.xml">
       <configuration name="PatientListTest" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
@@ -2937,6 +2888,18 @@
     </history-entry>
     <history-entry file="testGetAllNumsOfPr___() - 2018.11.12 at 12h 35m 42s.xml">
       <configuration name="testGetAllNumsOfPr...()" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientSeachInfoTest - 2018.11.12 at 15h 46m 28s.xml">
+      <configuration name="PatientSeachInfoTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientSearchInfoTest - 2018.11.12 at 15h 48m 54s.xml">
+      <configuration name="PatientSearchInfoTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientSearchInfoTest - 2018.11.12 at 15h 49m 08s.xml">
+      <configuration name="PatientSearchInfoTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="PatientSearchInfoTest - 2018.11.12 at 16h 04m 23s.xml">
+      <configuration name="PatientSearchInfoTest" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -2959,8 +2922,8 @@
       <window_info id="Build Variants" sideWeight="0.50082916" side_tool="true" weight="0.18317358" />
       <window_info anchor="right" id="Capture Analysis" />
       <window_info anchor="bottom" id="Event Log" side_tool="true" />
-      <window_info anchor="right" id="Preview" weight="0.32960597" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.32935324" />
+      <window_info active="true" anchor="right" id="Preview" visible="true" weight="0.32960597" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.32935324" />
       <window_info anchor="bottom" id="Version Control" weight="0.32935324" />
       <window_info anchor="bottom" id="Terminal" weight="0.32935324" />
       <window_info anchor="bottom" id="Logcat" weight="0.32935324" />
@@ -2968,7 +2931,7 @@
       <window_info id="Capture Tool" />
       <window_info id="Designer" />
       <window_info content_ui="combo" id="Project" order="0" sideWeight="0.4991708" visible="true" weight="0.18317358" />
-      <window_info active="true" anchor="bottom" id="Build" visible="true" weight="0.32935324" />
+      <window_info anchor="bottom" id="Build" weight="0.32935324" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32935324" />
       <window_info anchor="right" id="Gradle" weight="0.32960597" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -3053,23 +3016,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/CareProviderTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/AccountManagerTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-133">
-          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/CareProvider.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -3094,29 +3040,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="859">
-          <caret line="81" column="21" selection-start-line="81" selection-start-column="21" selection-end-line="81" selection-end-column="21" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1273#3626#0" expanded="true" />
-            <element signature="e#3625#3626#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="17" column="13" selection-start-line="17" selection-start-column="13" selection-end-line="17" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="38" column="5" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
         </state>
       </provider>
     </entry>
@@ -3161,47 +3088,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="27" lean-forward="true" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
-          <folding>
-            <element signature="e#289#290#0" expanded="true" />
-            <element signature="e#318#319#0" expanded="true" />
-            <element signature="e#362#363#0" expanded="true" />
-            <element signature="e#393#394#0" expanded="true" />
-            <element signature="e#430#431#0" expanded="true" />
-            <element signature="e#466#467#0" expanded="true" />
-            <element signature="e#521#522#0" expanded="true" />
-            <element signature="e#571#572#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/Patient.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="75">
           <caret line="10" column="13" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/patient_list_item.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="40" selection-start-line="16" selection-start-column="40" selection-end-line="16" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
     </entry>
@@ -3222,10 +3112,88 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/CareProviderTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="46" column="5" selection-start-line="46" selection-start-column="5" selection-end-line="46" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/AccountManagerTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="660">
+          <caret line="46" column="43" selection-start-line="46" selection-start-column="43" selection-end-line="46" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#199#200#0" expanded="true" />
+            <element signature="e#235#236#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/medigram/medigram/PatientSearchInfoTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="33" lean-forward="true" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding>
+            <element signature="e#255#256#0" expanded="true" />
+            <element signature="e#291#292#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientSearchInfo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="18" lean-forward="true" selection-start-line="9" selection-start-column="18" selection-end-line="9" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#332#333#0" expanded="true" />
+            <element signature="e#366#367#0" expanded="true" />
+            <element signature="e#410#411#0" expanded="true" />
+            <element signature="e#446#447#0" expanded="true" />
+            <element signature="e#483#484#0" expanded="true" />
+            <element signature="e#524#525#0" expanded="true" />
+            <element signature="e#579#580#0" expanded="true" />
+            <element signature="e#629#630#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/AddPatientActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="345">
+          <caret line="23" column="33" lean-forward="true" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/patient_icon.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/logo.png">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/medigram/medigram/PatientListActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="475">
-          <caret line="136" column="5" lean-forward="true" selection-start-line="136" selection-start-column="5" selection-end-line="136" selection-end-column="5" />
+        <state relative-caret-position="1875">
+          <caret line="125" column="16" selection-start-line="125" selection-start-column="16" selection-end-line="125" selection-end-column="16" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2942#3290#0" expanded="true" />
@@ -3235,6 +3203,26 @@
             <element signature="e#3859#4173#0" expanded="true" />
             <element signature="e#4172#4173#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/patient_list_item.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="35" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_patient_list.xml">
+      <provider editor-type-id="android-designer2">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="55" lean-forward="true" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
         </state>
       </provider>
     </entry>

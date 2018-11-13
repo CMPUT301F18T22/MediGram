@@ -22,8 +22,6 @@ import java.util.Date;
 
 public class EditProblemActivity extends AppCompatActivity {
     private Problem chosenProblem;
-    private Date parsedDate;
-    public int REQUEST_CODE;
     private TextView dateTextView;
     private DatePickerDialog.OnDateSetListener dateListener;
 
@@ -37,10 +35,11 @@ public class EditProblemActivity extends AppCompatActivity {
         Bundle bundleObject = getIntent().getExtras();
         chosenProblem = (Problem) bundleObject.getSerializable("chosenProblem");
 
-        ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
+        if (chosenProblem.getProblemTitle() != "") {
+            ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
+            ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
+        }
         ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateStarted());
-        ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
-
 
         Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
         confirmBtn.setOnClickListener(new View.OnClickListener(){

@@ -16,7 +16,7 @@ public class ProblemList{
 
     public List<Problem> getList() {return problemList;}
 
-    public void removeProblem(Integer index){problemList.remove(index);
+    public void removeProblem(int index){problemList.remove(index);
     }
 
     public Problem getProblem(Integer index){return problemList.get(index);

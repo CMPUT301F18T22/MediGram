@@ -32,29 +32,33 @@ public class ProblemListActivity extends AppCompatActivity {
     public Problem chosenProblem;
     public ArrayAdapter<String> adapter;
     public String bodyLocation;
+    public int lastPosition;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 1) {
-            if (resultCode == Activity.RESULT_OK && data != null) {
-                // get the new edited problem from child activity
-                Bundle bundleObject = data.getExtras();
-                if (bundleObject == null){
-                    Log.d("ISNULL", "YES, IT IS NULL");
-                }
+        if (resultCode == Activity.RESULT_OK && data != null) {
 
-                chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
-
-                // add the new problem
-                problemList.addProblem(chosenProblem);
-                problemString.add(chosenProblem.toString());
-
-                adapter.notifyDataSetChanged();
-
+            if (requestCode == 1) {
+                problemList.removeProblem(lastPosition);
+                problemString.remove(lastPosition);
+                Log.d("requestCode",Integer.toString(lastPosition));
             }
-            else if (resultCode == Activity.RESULT_CANCELED) {
-                // some stuff that will happen if there's no result
-            }
+
+            // get the new edited problem from child activity
+            Bundle bundleObject = data.getExtras();
+
+            chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
+
+            // add the new problem
+            problemList.addProblem(chosenProblem);
+            problemString.add(chosenProblem.toString());
+
+            adapter.notifyDataSetChanged();
+
+
+        }
+        else if (resultCode == Activity.RESULT_CANCELED) {
+            // some stuff that will happen if there's no result
         }
 
 
@@ -88,11 +92,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 Bundle problem_bundle = new Bundle();
 
                 Date date = new Date();
-                Problem newProblem = new Problem("New Problem", "", date, "left arm");
+                Problem newProblem = new Problem("", "", date, "left arm");
 
                 problem_bundle.putSerializable("chosenProblem", newProblem);
                 openEditor.putExtras(problem_bundle);
-                startActivityForResult(openEditor, 1);
+                startActivityForResult(openEditor, 2);
             }
         };
         addProblemBtn.setOnClickListener(addProblemListener);
@@ -132,18 +136,15 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    problemList.removeProblem(position);
-                    problemString.remove(position);
+                    lastPosition = position;
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
-
                     // Pass list of emotion objects by using serializable
                     chosenProblem = problemList.getProblem(position);
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);
                     startActivityForResult(openEditor, 1);
-                    notifyDataSetChanged();
                 }
             });
             mainViewholder.info.setText(getItem(position));

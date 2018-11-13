@@ -1,16 +1,20 @@
 package medigram.medigram;
 
 import java.io.Serializable;
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Problem extends RecordList implements Serializable{
     private String problemTitle;
     private String description;
     private Date dateStarted;
     private String bodyLocation;
-    public RecordList recordList;
+    private RecordList recordList;
     private ArrayList<Photo> bodyLocationPhotos;
+    private SimpleDateFormat sdf;
 
     public Problem(String problemTitle, String description, Date dateStarted, String bodylocation){
         this.problemTitle = problemTitle;
@@ -18,6 +22,7 @@ public class Problem extends RecordList implements Serializable{
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
     }
+    /*
     public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Photo> photos){
         this.problemTitle = problemTitle;
         this.description = description;
@@ -25,6 +30,7 @@ public class Problem extends RecordList implements Serializable{
         this.bodyLocation = bodylocation;
         this.bodyLocationPhotos = photos;
     }
+    */
 
     public String getProblemTitle() {
         return problemTitle;
@@ -42,12 +48,15 @@ public class Problem extends RecordList implements Serializable{
         this.description = description;
     }
 
-    public Date getDateStarted() {
-        return dateStarted;
+    public String getDateStarted() {
+        sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        return sdf.format(dateStarted);
     }
 
-    public void setDateStarted(Date dateStarted) {
-        this.dateStarted = dateStarted;
+    public void setDateStarted(String dateString) {
+        sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        ParsePosition pos = new ParsePosition(0);
+        this.dateStarted =  sdf.parse(dateString, pos);
     }
 
     public String getBodyLocation() {
@@ -75,8 +84,8 @@ public class Problem extends RecordList implements Serializable{
     }
 
     public String toString(){
-        return(this.getProblemTitle()+ "\n Date Started: "+ this.getDateStarted()
-        + "\n Body Location: " + this.getBodyLocation()+ "\n Description: "+ this.getDescription());
+        return(" Date Started: "+ this.getDateStarted()
+        + "\n Body Location: " + this.getBodyLocation());
     }
 
 

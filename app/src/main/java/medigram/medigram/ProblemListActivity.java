@@ -30,20 +30,19 @@ public class ProblemListActivity extends AppCompatActivity {
     public List<String> problemString;
     public ListView problemsView;
     public Problem chosenProblem;
-    public Integer REQUEST_CODE;
     public ArrayAdapter<String> adapter;
+    public String bodyLocation;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == 420) {
-
-            if (resultCode == Activity.RESULT_OK) {
-                // remove the original problem
-                //problemList.removeProblem(problemList.getIndex(chosenProblem));
-                //problemString.remove(chosenProblem.toString());
-
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
                 // get the new edited problem from child activity
                 Bundle bundleObject = data.getExtras();
+                if (bundleObject == null){
+                    Log.d("ISNULL", "YES, IT IS NULL");
+                }
+
                 chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
                 // add the new problem
@@ -51,18 +50,21 @@ public class ProblemListActivity extends AppCompatActivity {
                 problemString.add(chosenProblem.toString());
 
                 adapter.notifyDataSetChanged();
-                Log.d("Tag", chosenProblem.getProblemTitle());
 
-            } else if (resultCode == Activity.RESULT_CANCELED) {
+            }
+            else if (resultCode == Activity.RESULT_CANCELED) {
                 // some stuff that will happen if there's no result
             }
         }
+
+
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         /* test*/
+        bodyLocation = "Left Arm";
         Date date = new Date();
 
         Problem testproblem = new Problem("TestTitle",
@@ -74,15 +76,32 @@ public class ProblemListActivity extends AppCompatActivity {
 
         problemsView = (ListView) findViewById(R.id.ProblemListView);
         problemString = problemList.getList().stream().map(Problem::toString).collect(Collectors.toList());
-        adapter = new MyListAdapter(this,
+        adapter = new ProblemListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
+
+        Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
+        View.OnClickListener addProblemListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
+                Bundle problem_bundle = new Bundle();
+
+                Date date = new Date();
+                Problem newProblem = new Problem("New Problem", "", date, "left arm");
+
+                problem_bundle.putSerializable("chosenProblem", newProblem);
+                openEditor.putExtras(problem_bundle);
+                startActivityForResult(openEditor, 1);
+            }
+        };
+        addProblemBtn.setOnClickListener(addProblemListener);
     }
 
-    private class MyListAdapter extends ArrayAdapter<String> {
+    private class ProblemListAdapter extends ArrayAdapter<String> {
         private int layout;
 
-        public MyListAdapter(Context context, int resource, List<String> objects) {
+        private ProblemListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             layout = resource;
         }
@@ -94,7 +113,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
-                viewHolder.title = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.info = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
                 convertView.setTag(viewHolder);
@@ -107,7 +127,6 @@ public class ProblemListActivity extends AppCompatActivity {
                     problemList.removeProblem(position);
                     problemString.remove(position);
                     notifyDataSetChanged();
-
                 }
             });
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -123,20 +142,22 @@ public class ProblemListActivity extends AppCompatActivity {
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);
-                    startActivityForResult(openEditor, 420);
+                    startActivityForResult(openEditor, 1);
                     notifyDataSetChanged();
                 }
             });
-            mainViewholder.title.setText(getItem(position));
+            mainViewholder.info.setText(getItem(position));
+            mainViewholder.titleText.setText(problemList.getProblem(position).getProblemTitle());
 
             return convertView;
 
         }
     }
     public class ViewHolder {
-        TextView title;
+        TextView info;
         Button deleteBtn;
         Button editBtn;
+        TextView titleText;
     }
 
 }

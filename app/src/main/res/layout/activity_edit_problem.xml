@@ -33,6 +33,7 @@
 
     <EditText
         android:id="@+id/problemTitle"
+        android:maxLength="30"
         android:layout_width="373dp"
         android:layout_height="40dp"
         android:layout_marginEnd="8dp"
@@ -45,8 +46,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton1" />
 
-    <EditText
-        android:id="@+id/date"
+    <TextView
+        android:id="@+id/problemDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -54,30 +55,35 @@
         android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="Date Started"
-        android:inputType="date"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+        android:textSize="18sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/problemTitle"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintVertical_bias="0.069" />
 
     <EditText
-        android:id="@+id/description"
-        android:layout_width="383dp"
-        android:layout_height="231dp"
+        android:id="@+id/problemDescription"
+        android:layout_width="343dp"
+        android:layout_height="159dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:ems="10"
+        android:gravity="top"
         android:hint="Description of the problem (300 characters max)"
+        android:maxLength="30"
         android:inputType="textMultiLine"
-        android:textAlignment="viewStart"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.294"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toBottomOf="@+id/problemDate"
+        app:layout_constraintVertical_bias="0.111" />
 
     <Button
         android:id="@+id/confirmBtn"

@@ -16,10 +16,11 @@
     <TextView
         android:id="@+id/list_item_text"
         android:layout_width="301dp"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="25dp"
         android:lines="4"
         android:maxLines="4" />
 
@@ -34,6 +35,15 @@
         android:layout_marginEnd="15dp"
         android:text="Edit"
         android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="301dp"
+        android:layout_height="25dp"
+        android:text="TextView"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

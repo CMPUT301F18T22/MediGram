@@ -19,7 +19,12 @@ import android.widget.TextView;
 import java.util.Calendar;
 import java.util.Date;
 
-
+/**
+ * This activity receives a problem from ProblemListActivity, and edits its contents.
+ * When it is finished, the problem is bundled back to its Parent activity.
+ *
+ * @author Jarred
+ */
 public class EditProblemActivity extends AppCompatActivity {
     private Problem chosenProblem;
     private TextView dateTextView;
@@ -35,12 +40,15 @@ public class EditProblemActivity extends AppCompatActivity {
         Bundle bundleObject = getIntent().getExtras();
         chosenProblem = (Problem) bundleObject.getSerializable("chosenProblem");
 
+        // if problem contents are blank, then it is a new problem and we text box hints
+        // if it is not blank, we display its contents in the text boxes
         if (chosenProblem.getProblemTitle() != "") {
             ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
             ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
         }
         ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateString());
 
+        // confirmBtn saves all text to the Problem and returns to parent activity
         Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
         confirmBtn.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -62,7 +70,8 @@ public class EditProblemActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        // display a date dialog when entering the date, so that entered date is always
+        // in the correct format
         dateTextView = (TextView) findViewById(R.id.problemDate);
         dateTextView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +92,7 @@ public class EditProblemActivity extends AppCompatActivity {
 
             }
         });
-
+        // when user is done choosing date, dateListener enters the date into the text box
         dateListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int day) {

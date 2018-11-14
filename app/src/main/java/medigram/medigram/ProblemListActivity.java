@@ -30,6 +30,7 @@ import java.util.stream.Collectors;
  * editing a problem is done by a child activity.
  * After adding or editing is done, the User data is updated over the network if available.
  *
+ * @author Jarred Mahinay
  */
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
@@ -56,7 +57,7 @@ public class ProblemListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-
+            // if EditProblemActivity was opened with edit button
             if (requestCode == 1) {
                 problemList.getList().remove(filteredProblems.getProblem(lastPosition));
                 filteredProblems.removeIndex(lastPosition);
@@ -65,7 +66,6 @@ public class ProblemListActivity extends AppCompatActivity {
 
             // get the new edited problem from child activity
             Bundle bundleObject = data.getExtras();
-
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
 
@@ -78,15 +78,14 @@ public class ProblemListActivity extends AppCompatActivity {
                     break;
                 }
             }
+            // if problem hasn't yet been added, then add it to the very end
             if (!filteredProblems.getList().contains(chosenProblem)){
                 filteredProblems.getList().add(chosenProblem);
                 problemString.add(chosenProblem.toString());
             }
 
-            // add the new problem
+            // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
-
-
             adapter.notifyDataSetChanged();
 
 
@@ -126,10 +125,10 @@ public class ProblemListActivity extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_problem_list);
-
         problemsView = (ListView) findViewById(R.id.ProblemListView);
 
-
+        // filter the problems based off the user specified body part
+        // new list, filteredProblems, is used to display list
         filteredProblems = new ProblemList();
         for (Problem p: problemList.getList()){
             if (p.getBodyLocation().equals(keyword)) {
@@ -137,11 +136,13 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         }
 
+        // create a list of strings from Problem.getString, and uses it on the list adapter
         problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
         adapter = new ProblemListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
 
+        // add problem button Initializes a new problem and opens EditProblemActivity with it
         Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
         View.OnClickListener addProblemListener = new View.OnClickListener() {
             @Override
@@ -149,7 +150,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                 Bundle problem_bundle = new Bundle();
 
-                Date date = new Date();
+                Date date = new Date(); // creates problem with today's date
                 Problem newProblem = new Problem("", "", date, bodyLocation);
 
                 problem_bundle.putSerializable("chosenProblem", newProblem);
@@ -160,6 +161,7 @@ public class ProblemListActivity extends AppCompatActivity {
         addProblemBtn.setOnClickListener(addProblemListener);
     }
 
+    // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
     private class ProblemListAdapter extends ArrayAdapter<String> {
         private int layout;
 
@@ -182,8 +184,9 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView.setTag(viewHolder);
             }
             mainViewholder = (ViewHolder) convertView.getTag();
+
+            // deleteBtn deletes problem from all 3 lists
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-                // remove emotion from emotion list and string from string list
                 @Override
                 public void onClick(View v) {
                     filteredProblems.removeIndex(position);
@@ -192,9 +195,12 @@ public class ProblemListActivity extends AppCompatActivity {
                     notifyDataSetChanged();
                 }
             });
+
+            // editBtn opens child activity with the chosen problems bundles as extra
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    // index of edited problem is saved so we can delete it later
                     lastPosition = position;
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
@@ -207,6 +213,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
                 }
             });
+            // display the problem title and info
             mainViewholder.infoText.setText(getItem(position));
             mainViewholder.titleText.setText(filteredProblems.getProblem(position).getProblemTitle());
 

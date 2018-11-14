@@ -189,10 +189,13 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    problemList.getList().remove(filteredProblems.getProblem(position));
                     filteredProblems.removeIndex(position);
                     problemString.remove(position);
-                    problemList.getList().remove(filteredProblems.getProblem(position));
+
                     notifyDataSetChanged();
+
+
                 }
             });
 

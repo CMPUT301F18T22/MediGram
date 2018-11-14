@@ -25,7 +25,7 @@ public class ProblemList{
     public Problem getProblem(int index){return problemList.get(index);
     }
 
-    public Integer getIndex(Problem problem){
+    public int getIndex(Problem problem){
         return problemList.indexOf(problem);
     }
 

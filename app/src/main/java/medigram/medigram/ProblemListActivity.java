@@ -7,12 +7,18 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -126,6 +132,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_problem_list);
         problemsView = (ListView) findViewById(R.id.ProblemListView);
+        problemsView.setTextFilterEnabled(true);
 
         // filter the problems based off the user specified body part
         // new list, filteredProblems, is used to display list
@@ -159,10 +166,29 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         };
         addProblemBtn.setOnClickListener(addProblemListener);
+
+        EditText keySearch = (EditText) findViewById(R.id.problem_keyword);
+        keySearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                ProblemListActivity.this.adapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
-    private class ProblemListAdapter extends ArrayAdapter<String> {
+    private class ProblemListAdapter extends ArrayAdapter<String> implements Filterable{
         private int layout;
 
         private ProblemListAdapter(Context context, int resource, List<String> objects) {
@@ -178,7 +204,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
                 convertView.setTag(viewHolder);
@@ -218,17 +243,17 @@ public class ProblemListActivity extends AppCompatActivity {
             });
             // display the problem title and info
             mainViewholder.infoText.setText(getItem(position));
-            mainViewholder.titleText.setText(filteredProblems.getProblem(position).getProblemTitle());
 
             return convertView;
 
         }
+
+
     }
     public class ViewHolder {
         TextView infoText;
         Button deleteBtn;
         Button editBtn;
-        TextView titleText;
     }
 
 }

@@ -139,8 +139,7 @@ public class Problem extends RecordList implements Serializable{
      * @return Date and Body Location as a single string
      */
     public String toString(){
-        return(" Date Started: "+ this.getDateString()
-        + "\n Body Location: " + this.getBodyLocation());
+        return(this.problemTitle+ "\n"+ this.getDateString() + "\n"+ this.getBodyLocation());
     }
 
 

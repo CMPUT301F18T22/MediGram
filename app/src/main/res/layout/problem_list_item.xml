@@ -15,12 +15,13 @@
 
     <TextView
         android:id="@+id/list_item_text"
-        android:layout_width="301dp"
-        android:layout_height="43dp"
+        android:layout_width="226dp"
+        android:layout_height="wrap_content"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginStart="75dp"
+        android:layout_marginTop="0dp"
         android:lines="4"
         android:maxLines="4" />
 
@@ -37,13 +38,10 @@
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/titleText"
-        android:layout_width="301dp"
-        android:layout_height="25dp"
-        android:text="TextView"
-        android:textAlignment="viewStart"
-        android:textSize="18sp"
-        android:textStyle="bold" />
+        android:id="@+id/textView"
+        android:layout_width="75dp"
+        android:layout_height="67dp"
+        android:text="Problem:\nStarted:\nLocation:" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"

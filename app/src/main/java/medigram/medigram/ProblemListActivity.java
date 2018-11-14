@@ -191,7 +191,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 public void onClick(View v) {
                     filteredProblems.removeIndex(position);
                     problemString.remove(position);
-                    problemList.getList().remove(filteredProblems.getProblem(lastPosition));
+                    problemList.getList().remove(filteredProblems.getProblem(position));
                     notifyDataSetChanged();
                 }
             });

@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +48,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public ArrayAdapter<String> adapter;
     public String bodyLocation, keyword;
     public int lastPosition, index;
+    public EditText keySearch;
 
 
     /**
@@ -89,10 +91,16 @@ public class ProblemListActivity extends AppCompatActivity {
                 filteredProblems.getList().add(chosenProblem);
                 problemString.add(chosenProblem.toString());
             }
-
+            for (String s: problemString){
+                Log.d("String", s);
+            }
+            for (Problem p: filteredProblems.getList()){
+                Log.d(p.getProblemTitle(), p.toString());
+            }
             // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
-            adapter.notifyDataSetChanged();
+            adapter.clear();
+            adapter.addAll(problemString);
 
 
         }
@@ -167,7 +175,7 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
-        EditText keySearch = (EditText) findViewById(R.id.problem_keyword);
+        keySearch = (EditText) findViewById(R.id.problem_keyword);
         keySearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -176,7 +184,8 @@ public class ProblemListActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                ProblemListActivity.this.adapter.getFilter().filter(charSequence);
+                ProblemListActivity.this.adapter.getFilter().filter(charSequence.toString().replaceAll("\\s+",""));
+
             }
 
             @Override
@@ -204,6 +213,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
                 convertView.setTag(viewHolder);
@@ -214,15 +224,25 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    problemList.getList().remove(filteredProblems.getProblem(position));
-                    filteredProblems.removeIndex(position);
-                    problemString.remove(position);
+                    index = problemString.indexOf(getItem(position));
+                    ProblemListActivity.this.adapter.getFilter().filter(keySearch.getText().toString().replaceAll("\\s+",""));
 
+                    problemList.getList().remove(filteredProblems.getProblem(index));
+                    filteredProblems.removeIndex(index);
+
+                    problemString.remove(index);
+
+                    adapter.clear();
+                    adapter.addAll(problemString);
+                    for (String s: problemString){
+                        Log.d("String", s);
+                    }
                     notifyDataSetChanged();
 
 
                 }
             });
+
 
             // editBtn opens child activity with the chosen problems bundles as extra
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
@@ -241,8 +261,14 @@ public class ProblemListActivity extends AppCompatActivity {
 
                 }
             });
+
+
+
             // display the problem title and info
-            mainViewholder.infoText.setText(getItem(position));
+            notifyDataSetChanged();
+            String[] parts = getItem(position).split("~");
+            mainViewholder.infoText.setText(parts[1]);
+            mainViewholder.titleText.setText(parts[0]);
 
             return convertView;
 
@@ -254,6 +280,7 @@ public class ProblemListActivity extends AppCompatActivity {
         TextView infoText;
         Button deleteBtn;
         Button editBtn;
+        TextView titleText;
     }
 
 }

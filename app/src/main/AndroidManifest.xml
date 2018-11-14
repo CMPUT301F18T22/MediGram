@@ -18,7 +18,9 @@
         </activity>
 
         <!-- DELETE THIS WHEN DONE TESTING -->
-        <activity android:name=".ProblemListActivity">
+        <activity
+            android:name=".ProblemListActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +33,8 @@
         <!-- DELETE THIS WHEN DONE TESTING -->
         <activity
             android:name=".EditProblemActivity"
-            android:label="Edit Problem">
+            android:label="Edit Problem"
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

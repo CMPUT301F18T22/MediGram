@@ -16,12 +16,12 @@
     <TextView
         android:id="@+id/list_item_text"
         android:layout_width="226dp"
-        android:layout_height="wrap_content"
+        android:layout_height="42dp"
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="75dp"
-        android:layout_marginTop="0dp"
+        android:layout_marginTop="26dp"
         android:lines="4"
         android:maxLines="4" />
 
@@ -40,12 +40,24 @@
     <TextView
         android:id="@+id/textView"
         android:layout_width="75dp"
-        android:layout_height="67dp"
-        android:text="Problem:\nStarted:\nLocation:" />
+        android:layout_height="41dp"
+        android:layout_alignBottom="@+id/deleteBtn"
+        android:layout_alignParentStart="true"
+        android:text="Started:\nLocation:" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical">

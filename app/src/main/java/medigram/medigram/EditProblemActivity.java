@@ -39,7 +39,7 @@ public class EditProblemActivity extends AppCompatActivity {
             ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
             ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
         }
-        ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateStarted());
+        ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateString());
 
         Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
         confirmBtn.setOnClickListener(new View.OnClickListener(){

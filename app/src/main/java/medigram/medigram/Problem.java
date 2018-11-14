@@ -48,10 +48,12 @@ public class Problem extends RecordList implements Serializable{
         this.description = description;
     }
 
-    public String getDateStarted() {
+    public String getDateString() {
         sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         return sdf.format(dateStarted);
     }
+
+    public Date getDate() {return this.dateStarted;}
 
     public void setDateStarted(String dateString) {
         sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
@@ -84,7 +86,7 @@ public class Problem extends RecordList implements Serializable{
     }
 
     public String toString(){
-        return(" Date Started: "+ this.getDateStarted()
+        return(" Date Started: "+ this.getDateString()
         + "\n Body Location: " + this.getBodyLocation());
     }
 

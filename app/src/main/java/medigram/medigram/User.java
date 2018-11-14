@@ -1,9 +1,10 @@
 package medigram.medigram;
 
 public abstract class User {
-    private String emailAddress;
-    private String phoneNumber;
-    private String userID;
+    public String emailAddress;
+    public String phoneNumber;
+    public String userID;
+    public String userType;
 
     public String getEmailAddress() {
         return emailAddress;
@@ -29,6 +30,8 @@ public abstract class User {
         this.userID = userID;
     }
 
-    public abstract String checkUserType();
+    public String checkUserType(){
+        return this.userType;
+    }
 
 }

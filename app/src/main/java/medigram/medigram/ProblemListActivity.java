@@ -24,24 +24,43 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This activity displays the problems specified by the user as a list. The list of problems is
+ * retrieved from the User given by the parent activity, and then filtered by keywords. Adding or
+ * editing a problem is done by a child activity.
+ * After adding or editing is done, the User data is updated over the network if available.
+ *
+ */
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
-    public ProblemList problemList = new ProblemList();
+    public ProblemList problemList, filteredProblems;
     public List<String> problemString;
     public ListView problemsView;
     public Problem chosenProblem;
     public ArrayAdapter<String> adapter;
-    public String bodyLocation;
-    public int lastPosition;
+    public String bodyLocation, keyword;
+    public int lastPosition, index;
 
+
+    /**
+     * After EditProblemActivity is finished, this method handles data received when returning
+     * back to this activity. The edited or newly created problem by the child activity is added to
+     * the problem list.
+     * @param requestCode The number key that the child activity was opened with.
+     *                    1 = Edit problem button, 2 = Add problem button
+     * @param resultCode The result code given by the child activity
+     *                   RESULT_OK = activity was successful
+     * @param data The intent data sent by the child activity. This holds the problem that
+     *             was edited.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
 
             if (requestCode == 1) {
-                problemList.removeProblem(lastPosition);
+                problemList.getList().remove(filteredProblems.getProblem(lastPosition));
+                filteredProblems.removeIndex(lastPosition);
                 problemString.remove(lastPosition);
-                Log.d("requestCode",Integer.toString(lastPosition));
             }
 
             // get the new edited problem from child activity
@@ -49,9 +68,24 @@ public class ProblemListActivity extends AppCompatActivity {
 
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
+
+            // Add the edited problem to the correct index, depending on its date
+            for (Problem p: filteredProblems.getList()){
+                if (chosenProblem.getDate().before(p.getDate())){
+                    index = filteredProblems.getIndex(p);
+                    filteredProblems.getList().add(index, chosenProblem);
+                    problemString.add(index, chosenProblem.toString());
+                    break;
+                }
+            }
+            if (!filteredProblems.getList().contains(chosenProblem)){
+                filteredProblems.getList().add(chosenProblem);
+                problemString.add(chosenProblem.toString());
+            }
+
             // add the new problem
             problemList.addProblem(chosenProblem);
-            problemString.add(chosenProblem.toString());
+
 
             adapter.notifyDataSetChanged();
 
@@ -67,19 +101,43 @@ public class ProblemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* test*/
-        bodyLocation = "Left Arm";
+        /* test: replace this with patient from Anas' activities*/
+        Patient patient = new Patient("111111","test@gmail.com", "911");
+        problemList = patient.getProblems();
+        bodyLocation = "left arm";
+        keyword = bodyLocation;
         Date date = new Date();
 
-        Problem testproblem = new Problem("TestTitle",
-                "TestDescription", date, "Test Bodylocation");
+        Problem testproblem = new Problem("TestTitle1",
+                "TestDescription1", date, "left arm");
+        Problem testproblem2 = new Problem("TestTitle2",
+                "TestDescription2", date, "left arm");
+        Problem testproblem3 = new Problem("TestTitle3",
+                "TestDescription3", date, "right arm");
+        Problem testproblem4 = new Problem("TestTitle4",
+                "TestDescription4", date, "right arm");
+
         problemList.addProblem(testproblem);
+        problemList.addProblem(testproblem2);
+        problemList.addProblem(testproblem3);
+        problemList.addProblem(testproblem4);
          /*end test*/
+
+
 
         setContentView(R.layout.activity_problem_list);
 
         problemsView = (ListView) findViewById(R.id.ProblemListView);
-        problemString = problemList.getList().stream().map(Problem::toString).collect(Collectors.toList());
+
+
+        filteredProblems = new ProblemList();
+        for (Problem p: problemList.getList()){
+            if (p.getBodyLocation().equals(keyword)) {
+                filteredProblems.addProblem(p);
+            }
+        }
+
+        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
         adapter = new ProblemListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
@@ -92,7 +150,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 Bundle problem_bundle = new Bundle();
 
                 Date date = new Date();
-                Problem newProblem = new Problem("", "", date, "left arm");
+                Problem newProblem = new Problem("", "", date, bodyLocation);
 
                 problem_bundle.putSerializable("chosenProblem", newProblem);
                 openEditor.putExtras(problem_bundle);
@@ -117,7 +175,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
                 ViewHolder viewHolder = new ViewHolder();
-                viewHolder.info = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
@@ -128,8 +186,9 @@ public class ProblemListActivity extends AppCompatActivity {
                 // remove emotion from emotion list and string from string list
                 @Override
                 public void onClick(View v) {
-                    problemList.removeProblem(position);
+                    filteredProblems.removeIndex(position);
                     problemString.remove(position);
+                    problemList.getList().remove(filteredProblems.getProblem(lastPosition));
                     notifyDataSetChanged();
                 }
             });
@@ -140,22 +199,23 @@ public class ProblemListActivity extends AppCompatActivity {
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
-                    chosenProblem = problemList.getProblem(position);
+                    chosenProblem = filteredProblems.getProblem(position);
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);
                     startActivityForResult(openEditor, 1);
+
                 }
             });
-            mainViewholder.info.setText(getItem(position));
-            mainViewholder.titleText.setText(problemList.getProblem(position).getProblemTitle());
+            mainViewholder.infoText.setText(getItem(position));
+            mainViewholder.titleText.setText(filteredProblems.getProblem(position).getProblemTitle());
 
             return convertView;
 
         }
     }
     public class ViewHolder {
-        TextView info;
+        TextView infoText;
         Button deleteBtn;
         Button editBtn;
         TextView titleText;

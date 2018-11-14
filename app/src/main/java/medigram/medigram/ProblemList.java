@@ -16,10 +16,13 @@ public class ProblemList{
 
     public List<Problem> getList() {return problemList;}
 
-    public void removeProblem(int index){problemList.remove(index);
+    public void removeIndex(int index){problemList.remove(index);
     }
 
-    public Problem getProblem(Integer index){return problemList.get(index);
+    public void removeProblem(Problem problem){problemList.remove(problem);
+    }
+
+    public Problem getProblem(int index){return problemList.get(index);
     }
 
     public Integer getIndex(Problem problem){

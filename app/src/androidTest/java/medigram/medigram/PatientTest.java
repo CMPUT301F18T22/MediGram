@@ -46,4 +46,13 @@ public class PatientTest extends ActivityInstrumentationTestCase2 {
 
         assertEquals(patient.getProblems().getSize(), 1);
     }
+
+    public void testGetNumOfProblems(){
+        Patient patient = new Patient("null", "some@email.com", "1112223333");
+        Problem problem = new Problem("life", "descriptive", new Date(), "24");
+        ProblemList problemList = patient.getProblems();
+        problemList.addProblem(problem);
+
+        assertEquals(patient.getProblems().getSize(), 1);
+    }
 }

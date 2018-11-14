@@ -3,7 +3,7 @@ package medigram.medigram;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Problem extends RecordList {
+public class Problem {
     private String problemTitle;
     private String description;
     private Date dateStarted;

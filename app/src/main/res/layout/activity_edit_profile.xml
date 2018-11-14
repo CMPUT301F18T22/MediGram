@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditProfileActivity">
+
+    <TextView
+        android:id="@+id/editProfileTitle"
+        android:layout_width="126dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:text="@string/editProfileTitle"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/userIDEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="123dp"
+        android:text="@string/userIDEditText"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/emailEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/userIDEditText"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="51dp"
+        android:text="@string/emailEditText" />
+
+    <TextView
+        android:id="@+id/phoneEditText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="266dp"
+        android:text="@string/phoneEditText" />
+
+    <EditText
+        android:id="@+id/updateUserID"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/userIDEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="0dp"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/updateEmail"
+        android:layout_width="244dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/emailEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="-5dp"
+        android:ems="10"
+        android:inputType="textEmailAddress" />
+
+    <EditText
+        android:id="@+id/updatePhone"
+        android:layout_width="241dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/phoneEditText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="58dp"
+        android:layout_marginBottom="-7dp"
+        android:ems="10"
+        android:inputType="phone" />
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="78dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/updatePhone"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="24dp"
+        android:layout_toStartOf="@+id/deleteButton"
+        android:background="@android:color/holo_blue_bright"
+        android:text="@string/updateButtonText"
+        android:textAllCaps="true" />
+
+    <Button
+        android:id="@+id/deleteButton"
+        android:layout_width="78dp"
+        android:layout_height="34dp"
+        android:layout_below="@+id/updatePhone"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="67dp"
+        android:background="#ff5252"
+        android:text="@string/deleteButtonText" />
+</RelativeLayout>

@@ -35,8 +35,6 @@ public class OfflineBehaviorController {
 
     public OfflineBehaviorController(Context context){
         this.context = context;
-        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-        this.editor = this.sharedPref.edit();
     }
 
     /**
@@ -46,6 +44,8 @@ public class OfflineBehaviorController {
      */
     public void saveCareProvider(CareProvider account){
         try {
+            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+            this.editor = this.sharedPref.edit();
             editor.clear();
 
             gson = new Gson();
@@ -65,6 +65,9 @@ public class OfflineBehaviorController {
      */
     public CareProvider loadCareProvider(String UserID){
         try{
+            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+            this.editor = this.sharedPref.edit();
+
             String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
             CareProvider loadedUser = gson.fromJson(json, CareProvider.class);
@@ -84,6 +87,8 @@ public class OfflineBehaviorController {
      */
     public void savePatient(Patient account){
         try {
+            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+            this.editor = this.sharedPref.edit();
             editor.clear();
 
             gson = new Gson();
@@ -103,6 +108,9 @@ public class OfflineBehaviorController {
      */
     public Patient loadPatient(String UserID){
         try{
+            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+            this.editor = this.sharedPref.edit();
+
             String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
             Patient loadedUser = gson.fromJson(json, Patient.class);
@@ -120,6 +128,9 @@ public class OfflineBehaviorController {
      *
      */
     public void deleteSave(){
+        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
+        this.editor = this.sharedPref.edit();
+
         editor.clear();
         editor.apply();
     }

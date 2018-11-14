@@ -17,6 +17,10 @@ public class AccountManager{
     private OfflineBehaviorController offlineController;
     private Context context;
 
+    /**
+     * Initializes the AccountManager with the ApplicationContext required for saving sharedPreferences
+     * @param context context of the application.
+     */
     public AccountManager(Context context){
         this.context = context;
         offlineController = new OfflineBehaviorController(context);
@@ -80,7 +84,10 @@ public class AccountManager{
      * @see CareProvider
      */
     public String addCareProvider(CareProvider careProvider){
-        if (careProvider.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(careProvider.getEmailAddress()).matches() && careProvider.getPhoneNumber().length() >= 10){
+        if (findCareProvider(careProvider.getUserID()) != null){
+            return "UserID already taken. Please try another one.";
+        }
+        else if (careProvider.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(careProvider.getEmailAddress()).matches() && careProvider.getPhoneNumber().length() >= 10){
             if (checkConnection()) {
                 ElasticSearchController.CreateCareProvider createAccount = new ElasticSearchController.CreateCareProvider();
                 createAccount.execute(careProvider);

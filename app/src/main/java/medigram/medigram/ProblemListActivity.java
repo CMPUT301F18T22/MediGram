@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -49,6 +50,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public String bodyLocation, keyword;
     public int lastPosition, index;
     public EditText keySearch;
+    public Patient patient;
 
 
     /**
@@ -62,14 +64,18 @@ public class ProblemListActivity extends AppCompatActivity {
      * @param data The intent data sent by the child activity. This holds the problem that
      *             was edited.
      */
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        adapter.notifyDataSetChanged();
         if (resultCode == Activity.RESULT_OK && data != null) {
             // if EditProblemActivity was opened with edit button
             if (requestCode == 1) {
-                problemList.getList().remove(filteredProblems.getProblem(lastPosition));
-                filteredProblems.removeIndex(lastPosition);
-                problemString.remove(lastPosition);
+                problemList.getList().remove(chosenProblem);
+                filteredProblems.removeProblem(chosenProblem);
+                adapter.remove(chosenProblem.toString());
+                //problemString.remove(lastPosition);
+                adapter.notifyDataSetChanged();
             }
 
             // get the new edited problem from child activity
@@ -82,14 +88,18 @@ public class ProblemListActivity extends AppCompatActivity {
                 if (chosenProblem.getDate().before(p.getDate())){
                     index = filteredProblems.getIndex(p);
                     filteredProblems.getList().add(index, chosenProblem);
-                    problemString.add(index, chosenProblem.toString());
+                    adapter.insert(chosenProblem.toString(),index);
+                    //problemString.add(index, chosenProblem.toString());
+                    adapter.notifyDataSetChanged();
                     break;
                 }
             }
             // if problem hasn't yet been added, then add it to the very end
             if (!filteredProblems.getList().contains(chosenProblem)){
                 filteredProblems.getList().add(chosenProblem);
-                problemString.add(chosenProblem.toString());
+                adapter.add(chosenProblem.toString());
+                //problemString.add(chosenProblem.toString());
+                adapter.notifyDataSetChanged();
             }
             for (String s: problemString){
                 Log.d("String", s);
@@ -99,8 +109,11 @@ public class ProblemListActivity extends AppCompatActivity {
             }
             // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
-            adapter.clear();
-            adapter.addAll(problemString);
+            //adapter.clear();
+            //adapter.addAll(problemString);
+            adapter.notifyDataSetChanged();
+            keySearch.setText(chosenProblem.getProblemTitle());
+
 
 
         }
@@ -114,7 +127,7 @@ public class ProblemListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        /* test: replace this with patient from Anas' activities*/
+        /* test: replace this with patient from Anas' activities
         Patient patient = new Patient("111111","test@gmail.com", "911");
         problemList = patient.getProblems();
         bodyLocation = "left arm";
@@ -134,11 +147,31 @@ public class ProblemListActivity extends AppCompatActivity {
         problemList.addProblem(testproblem2);
         problemList.addProblem(testproblem3);
         problemList.addProblem(testproblem4);
-         /*end test*/
-
-
-
+         end test*/
         setContentView(R.layout.activity_problem_list);
+        Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
+        keySearch = (EditText) findViewById(R.id.problem_keyword);
+
+        User user = (User) getIntent().getSerializableExtra("User");
+        if (user.checkUserType().equals("Patient")){
+            patient = (Patient) getIntent().getSerializableExtra("User");
+            problemList = patient.getProblems();
+            bodyLocation = (String) getIntent().getSerializableExtra("body location");
+            keyword = bodyLocation;
+            if (bodyLocation.equals("")){
+                addProblemBtn.setVisibility(View.INVISIBLE);
+            }
+            else {
+                addProblemBtn.setVisibility(View.VISIBLE);
+            }
+        }
+        for (Problem p: problemList.getList()){
+            Log.d(p.getProblemTitle(), p.toString());
+        }
+
+
+
+
         problemsView = (ListView) findViewById(R.id.ProblemListView);
         problemsView.setTextFilterEnabled(true);
 
@@ -146,7 +179,10 @@ public class ProblemListActivity extends AppCompatActivity {
         // new list, filteredProblems, is used to display list
         filteredProblems = new ProblemList();
         for (Problem p: problemList.getList()){
-            if (p.getBodyLocation().equals(keyword)) {
+            if (keyword.equals("")){
+                filteredProblems.addProblem(p);
+            }
+            else if (p.getBodyLocation().equals(keyword)) {
                 filteredProblems.addProblem(p);
             }
         }
@@ -156,12 +192,15 @@ public class ProblemListActivity extends AppCompatActivity {
         adapter = new ProblemListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         // add problem button Initializes a new problem and opens EditProblemActivity with it
-        Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
+
         View.OnClickListener addProblemListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                v.requestFocusFromTouch();
+
                 Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                 Bundle problem_bundle = new Bundle();
 
@@ -175,21 +214,29 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
-        keySearch = (EditText) findViewById(R.id.problem_keyword);
+
         keySearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //adapter.clear();
+                //adapter.addAll(problemString);
+                adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 ProblemListActivity.this.adapter.getFilter().filter(charSequence.toString().replaceAll("\\s+",""));
+                //adapter.clear();
+                //adapter.addAll(problemString);
+                adapter.notifyDataSetChanged();
 
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
+                //adapter.clear();
+                //adapter.addAll(problemString);
+                adapter.notifyDataSetChanged();
 
             }
         });
@@ -203,6 +250,7 @@ public class ProblemListActivity extends AppCompatActivity {
         private ProblemListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             layout = resource;
+
         }
 
         @Override
@@ -224,16 +272,21 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    index = problemString.indexOf(getItem(position));
-                    ProblemListActivity.this.adapter.getFilter().filter(keySearch.getText().toString().replaceAll("\\s+",""));
+                    adapter.notifyDataSetChanged();
+                    //index = problemString.indexOf(getItem(position));
+                    index = adapter.getPosition(getItem(position));
+                    filteredProblems.getList().removeIf(p -> p.toString() == adapter.getItem(position));
+                    problemList.getList().removeIf(p -> p.toString() == adapter.getItem(position));
+                    adapter.remove(adapter.getItem(position));
+                    adapter.notifyDataSetChanged();
+                    adapter.getFilter().filter(null);
 
-                    problemList.getList().remove(filteredProblems.getProblem(index));
-                    filteredProblems.removeIndex(index);
 
-                    problemString.remove(index);
 
-                    adapter.clear();
-                    adapter.addAll(problemString);
+                    //problemString.remove(index);
+
+                    //adapter.clear();
+                    //adapter.addAll(problemString);
                     for (String s: problemString){
                         Log.d("String", s);
                     }
@@ -249,11 +302,17 @@ public class ProblemListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // index of edited problem is saved so we can delete it later
-                    lastPosition = position;
+                    lastPosition = problemString.indexOf(getItem(position));
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
-                    chosenProblem = filteredProblems.getProblem(position);
+                    //chosenProblem = filteredProblems.getProblem(position);
+                    for (Problem p: filteredProblems.getList()){
+                        if (p.toString() == adapter.getItem(position)){
+                            chosenProblem = p;
+                            break;
+                        }
+                    }
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);
@@ -275,6 +334,7 @@ public class ProblemListActivity extends AppCompatActivity {
         }
 
 
+
     }
     public class ViewHolder {
         TextView infoText;
@@ -282,5 +342,6 @@ public class ProblemListActivity extends AppCompatActivity {
         Button editBtn;
         TextView titleText;
     }
+
 
 }

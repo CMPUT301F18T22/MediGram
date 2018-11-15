@@ -1,10 +1,21 @@
 package medigram.medigram;
 
-public abstract class User {
-    public String emailAddress;
-    public String phoneNumber;
-    public String userID;
-    public String userType;
+import java.io.Serializable;
+
+import io.searchbox.annotations.JestId;
+
+public abstract class User implements Serializable {
+    String emailAddress;
+    String phoneNumber;
+    String userID;
+
+    @JestId
+    private String jestID;
+
+
+    public String toString(){
+        return userID;
+    }
 
     public String getEmailAddress() {
         return emailAddress;
@@ -30,8 +41,14 @@ public abstract class User {
         this.userID = userID;
     }
 
-    public String checkUserType(){
-        return this.userType;
+    public String getJestID() {
+        return jestID;
     }
+
+    public void setJestID(String jestID) {
+        this.jestID = jestID;
+    }
+
+    public abstract String checkUserType();
 
 }

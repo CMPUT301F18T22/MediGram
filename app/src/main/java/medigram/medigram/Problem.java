@@ -13,7 +13,8 @@ import java.util.Locale;
  * a list of records, and a list of photos.
  * @author Jarred Mahinay
  */
-public class Problem extends RecordList implements Serializable{
+
+public class Problem {
     private String problemTitle;
     private String description;
     private Date dateStarted;

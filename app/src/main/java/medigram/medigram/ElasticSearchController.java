@@ -16,7 +16,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Bulk;
 import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -77,7 +79,6 @@ public class ElasticSearchController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
@@ -109,7 +110,6 @@ public class ElasticSearchController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
@@ -126,7 +126,6 @@ public class ElasticSearchController {
          */
         @Override
         protected Void doInBackground(Patient...params){
-            //TODO check if account exists first
             setClient();
             Patient patient= params[0];
 
@@ -141,7 +140,6 @@ public class ElasticSearchController {
                     patient.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -161,7 +159,6 @@ public class ElasticSearchController {
          */
         @Override
         protected Void doInBackground(CareProvider...params){
-            //TODO check if account exists first
             setClient();
             CareProvider careProvider = params[0];
 
@@ -176,7 +173,6 @@ public class ElasticSearchController {
                     careProvider.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -206,7 +202,6 @@ public class ElasticSearchController {
                         .id(careProvider.getJestID())
                         .build());
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;
@@ -233,7 +228,6 @@ public class ElasticSearchController {
                         .id(patient.getJestID())
                         .build());
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;
@@ -252,13 +246,19 @@ public class ElasticSearchController {
         @Override
         protected Void doInBackground(String... params) {
             setClient();
-            String jestID = params[0];
+            String userID = params[0];
             try {
-                client.execute(new Delete.Builder(jestID)
-                        .index("cmput301f18t22test")
+                String query = "{"+
+                        "\"query\":{" +
+                        "\"match\":{" +
+                        "\"userID\":\""+ userID + "\"" +
+                        "}" +
+                        "}" +
+                        "}";
+                client.execute(new DeleteByQuery.Builder(query)
+                        .addIndex("cmput301f18t22test")
                         .build());
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;

@@ -17,8 +17,8 @@
     <string name="phoneText">Phone No:</string>
     <string name="ViewProblemsButton">View Problems</string>
     <string name="searchBoxAtProfile">Search for a problem using a keyword (title, body-location, geo-location, etc.)</string>
-    <string name="editAccountButton">Edit Profile</string>
-    <string name="ViewPatientListButton">View Patients</string>
+    <string name="editAccountButton"> Edit Profile </string>
+    <string name="ViewPatientListButton"> View Patients </string>
 
     <string name="editProfileTitle">Edit Profile</string>
     <string name="userIDEditText">UserID: </string>

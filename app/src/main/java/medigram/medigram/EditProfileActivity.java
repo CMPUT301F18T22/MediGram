@@ -3,9 +3,11 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditProfileActivity extends Activity {
     private EditText updateUserID;
@@ -13,6 +15,7 @@ public class EditProfileActivity extends Activity {
     private EditText updatePhone;
     private Button updateButton;
     private Button deleteButton;
+    private String oldUserID;
     private String newUserID;
     private String newEmail;
     private String newPhone;
@@ -34,13 +37,15 @@ public class EditProfileActivity extends Activity {
 
         if (getIntent().hasExtra("Patient")){
             Patient account = (Patient) getIntent().getSerializableExtra("Patient");
-            updateUserID.setText(account.getUserID());
+            oldUserID = account.getUserID();
+            updateUserID.setText(oldUserID);
             updateEmail.setText(account.getEmailAddress());
             updatePhone.setText(account.getPhoneNumber());
         }
         else if (getIntent().hasExtra("CareProvider")){
             CareProvider account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-            updateUserID.setText(account.getUserID());
+            oldUserID = account.getUserID();
+            updateUserID.setText(oldUserID);
             updateEmail.setText(account.getEmailAddress());
             updatePhone.setText(account.getPhoneNumber());
         }
@@ -55,23 +60,52 @@ public class EditProfileActivity extends Activity {
                 Intent intent = new Intent();
                 if (getIntent().hasExtra("Patient")){
                     Patient account = (Patient) getIntent().getSerializableExtra("Patient");
+
                     account.setUserID(newUserID);
                     account.setEmailAddress(newEmail);
                     account.setPhoneNumber(newPhone);
-                    accountManager.patientUpdater(account);
-                    intent.putExtra("updated", account);
+                    String response = accountManager.patientUpdater(oldUserID, account);
+
+                    if (response == null){
+                        Toast toast = Toast.makeText(EditProfileActivity.this, "Account Updated Successfully.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+
+                        intent.putExtra("updated", account);
+                        intent.putExtra("deleted", false);
+
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }else{
+                        Toast toast = Toast.makeText(EditProfileActivity.this, response, Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+                    }
                 }
                 else if (getIntent().hasExtra("CareProvider")){
                     CareProvider account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+
                     account.setUserID(newUserID);
                     account.setEmailAddress(newEmail);
                     account.setPhoneNumber(newPhone);
-                    accountManager.careProviderUpdater(account);
-                    intent.putExtra("updated", account);
+                    String response = accountManager.careProviderUpdater(oldUserID, account);
+
+                    if (response == null){
+                        Toast toast = Toast.makeText(EditProfileActivity.this, "Account Updated Successfully.", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+
+                        intent.putExtra("updated", account);
+                        intent.putExtra("deleted", false);
+
+                        setResult(RESULT_OK, intent);
+                        finish();
+                    }else{
+                        Toast toast = Toast.makeText(EditProfileActivity.this, response, Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+                    }
                 }
-                intent.putExtra("deleted", false);
-                setResult(RESULT_OK, intent);
-                finish();
             }
         });
 
@@ -80,11 +114,11 @@ public class EditProfileActivity extends Activity {
             public void onClick(View view) {
                 if (getIntent().hasExtra("Patient")){
                     Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
-                    jestIDtoDelete = patient.getJestID();
+                    jestIDtoDelete = patient.getUserID();
                 }
                 else if (getIntent().hasExtra("CareProvider")){
                     CareProvider careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-                    jestIDtoDelete = careProvider.getJestID();
+                    jestIDtoDelete = careProvider.getUserID();
                 }
                 accountManager.accountDeleter(jestIDtoDelete);
 

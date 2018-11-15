@@ -1,17 +1,23 @@
 package medigram.medigram;
 
-import android.app.Application;
 import android.content.Context;
 import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Patterns;
 
 import java.util.ArrayList;
 
 /**
  * Handles all account related methods such as login, account creation, updating account info, and lastly account deletion.
- * References: https://stackoverflow.com/questions/6119722/how-to-check-edittexts-text-is-email-address-or-not
+ * References:
+ * https://stackoverflow.com/questions/6119722/how-to-check-edittexts-text-is-email-address-or-not
+ * https://stackoverflow.com/questions/44773940/check-internet-connection-android
  */
 public class AccountManager{
+    private static String syncOperation = "none";
+    private static Patient patientToSync;
+    private static CareProvider providerToSync;
+    private static String userIDSync;
     private ArrayList<Patient> patientsResults;
     private ArrayList<CareProvider> careProvidersResults;
     private OfflineBehaviorController offlineController;
@@ -28,15 +34,19 @@ public class AccountManager{
 
     /**
      * Handles checking if there an active Internet connection.
+     * Also sets the need for online syncing, and calls onlineSync() when connection is back.
      * This method is used throughout to decide whether to use locally saving or ElasticSearch online saving.
      * @return True if there is connection, False if there is no connection.
      */
     public boolean checkConnection(){
         ConnectivityManager connectivityManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getActiveNetworkInfo() == null){
-            return false;
-        }else{
+        NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
+
+        if (networkInfo != null && networkInfo.isConnected()){
+            onlineSync();
             return true;
+        }else{
+            return false;
         }
     }
 
@@ -58,8 +68,7 @@ public class AccountManager{
                 offlineController.savePatient(patient);
                 return null;
             }else{
-                offlineController.savePatient(patient);
-                return null;
+                return "Internet connection not available. Try again later.";
             }
         }
         else{
@@ -94,8 +103,7 @@ public class AccountManager{
                 offlineController.saveCareProvider(careProvider);
                 return null;
             }else{
-                offlineController.saveCareProvider(careProvider);
-                return null;
+                return "Internet connection not available. Try again later.";
             }
         }
         else{
@@ -120,9 +128,9 @@ public class AccountManager{
      * @see Patient
      */
     public Patient findPatient(String userID){
-        ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {
             if (checkConnection()){
+                ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
                 getPatient.execute(userID);
                 patientsResults = getPatient.get();
                 if (patientsResults.size() != 0) {
@@ -145,9 +153,9 @@ public class AccountManager{
      * @see CareProvider
      */
     public CareProvider findCareProvider(String userID){
-        ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
         try {
             if (checkConnection()){
+                ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
                 getCareProvider.execute(userID);
                 careProvidersResults = getCareProvider.get();
                 if (careProvidersResults.size() != 0) {
@@ -164,46 +172,118 @@ public class AccountManager{
 
     /**
      * Updates a given patient's profile info
-     *
+     * Checks is the updated info are valid first.
      * @param patient
      * @see Patient
      */
-    public void patientUpdater(Patient patient){
-        if (checkConnection()) {
-            ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
-            updatePatient.execute(patient);
+    public String patientUpdater(String oldUserID, Patient patient) {
+        if (!patient.getUserID().equals(oldUserID) && findPatient(patient.getUserID()) != null) {
+            return "UserID already taken. Please try another one.";
+        } else if (patient.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(patient.getEmailAddress()).matches() && patient.getPhoneNumber().length() >= 10) {
+            if (checkConnection()) {
+                ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+                updatePatient.execute(patient);
+                offlineController.savePatient(patient);
+                return null;
+            } else {
+                patientToSync = patient;
+                syncOperation = "update";
+                offlineController.savePatient(patient);
+                return null;
+            }
         }else{
-            offlineController.savePatient(patient);
+            if (patient.getUserID().length() < 8){
+                return "UserID too short (minimum 8 characters).";
+            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(patient.getEmailAddress()).matches()){
+                return "Email address not valid. Please enter a valid email.";
+            }
+            else if (patient.getPhoneNumber().length() < 10){
+                return "Phone number not valid. Please enter a valid phone number.";
+            }
         }
+        return "Oops, something went wrong. Please try again.";
     }
 
     /**
      * Updates a given care provider's profile info
-     *
+     * Checks is the updated info are valid first.
      * @param careProvider
      * @see CareProvider
      */
-    public void careProviderUpdater(CareProvider careProvider){
-        if (checkConnection()){
-            ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
-            updateCareProvider.execute(careProvider);
+    public String careProviderUpdater(String oldUserID, CareProvider careProvider){
+        if (!careProvider.getUserID().equals(oldUserID) && findPatient(careProvider.getUserID()) != null) {
+            return "UserID already taken. Please try another one.";
+        } else if (careProvider.getUserID().length() >= 8 && Patterns.EMAIL_ADDRESS.matcher(careProvider.getEmailAddress()).matches() && careProvider.getPhoneNumber().length() >= 10) {
+            if (checkConnection()) {
+                ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+                updateCareProvider.execute(careProvider);
+                offlineController.saveCareProvider(careProvider);
+                return null;
+            } else {
+                providerToSync = careProvider;
+                syncOperation = "update";
+                offlineController.saveCareProvider(careProvider);
+                return null;
+            }
         }else{
-            offlineController.saveCareProvider(careProvider);
+            if (careProvider.getUserID().length() < 8){
+                return "UserID too short (minimum 8 characters).";
+            }
+            else if (!Patterns.EMAIL_ADDRESS.matcher(careProvider.getEmailAddress()).matches()){
+                return "Email address not valid. Please enter a valid email.";
+            }
+            else if (careProvider.getPhoneNumber().length() < 10){
+                return "Phone number not valid. Please enter a valid phone number.";
+            }
         }
+        return "Oops, something went wrong. Please try again.";
     }
 
     /**
      * Deletes the account associated with a given jestID
      *
-     * @param jestID
+     * @param userID the userID for the account to be deleted.
      * @see User
      */
-    public void accountDeleter(String jestID){
+    public void accountDeleter(String userID){
         if (checkConnection()) {
             ElasticSearchController.DeleteUser deleteUser = new ElasticSearchController.DeleteUser();
-            deleteUser.execute(jestID);
-        }else{
+            deleteUser.execute(userID);
             offlineController.deleteSave();
+        }else{
+            userIDSync = userID;
+            syncOperation = "delete";
+            offlineController.deleteSave();
+        }
+    }
+
+    /**
+     * Handles synchronization operations for when connection is back.
+     * Uses class static attributes to keep track of changes across instances.
+     * @see ElasticSearchController
+     */
+    public void onlineSync(){
+        switch (syncOperation){
+            case "update":
+                if (patientToSync != null){
+                    ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
+                    updatePatient.execute(patientToSync);
+                }
+                if (providerToSync != null){
+                    ElasticSearchController.UpdateCareProvider updateCareProvider = new ElasticSearchController.UpdateCareProvider();
+                    updateCareProvider.execute(providerToSync);
+                }
+                syncOperation = "none";
+                break;
+
+            case "delete":
+
+                ElasticSearchController.DeleteUser deleteUser = new ElasticSearchController.DeleteUser();
+                deleteUser.execute(userIDSync);
+
+                syncOperation = "none";
+                break;
         }
     }
 }

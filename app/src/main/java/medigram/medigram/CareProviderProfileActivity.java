@@ -8,7 +8,6 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class CareProviderProfileActivity extends Activity {
-    private AccountManager accountManager;
     private Button editProfileButton;
     private Button viewPatientsButton;
     private TextView DisplayUserID;
@@ -24,8 +23,6 @@ public class CareProviderProfileActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_careprovider_profile);
-
-        accountManager  = new AccountManager(getApplicationContext());
 
         account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         userID = account.getUserID();

@@ -27,26 +27,23 @@ import java.io.OutputStreamWriter;
  * Controls the local data flow for when there is no Internet connection for ElasticSearch.
  */
 public class OfflineBehaviorController {
-    private static final String SAVE_FILE = "save.json";
     private Gson gson;
-    public SharedPreferences sharedPref;
-    public SharedPreferences.Editor editor;
-    private Context context;
+    private SharedPreferences sharedPref;
+    private SharedPreferences.Editor editor;
 
     public OfflineBehaviorController(Context context){
-        this.context = context;
+        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
     }
 
     /**
      * Handles locally saving a Care Provider's account
-     *
+     * Since this also handles updates, it removes the old account info if it exists.
      * @param account the Care Provider account to be saved
      */
     public void saveCareProvider(CareProvider account){
         try {
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
             this.editor = this.sharedPref.edit();
-            editor.clear();
+            editor.remove(account.getUserID());
 
             gson = new Gson();
             String json = gson.toJson(account);
@@ -65,14 +62,15 @@ public class OfflineBehaviorController {
      */
     public CareProvider loadCareProvider(String UserID){
         try{
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            this.editor = this.sharedPref.edit();
-
             String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
-            CareProvider loadedUser = gson.fromJson(json, CareProvider.class);
 
-            return loadedUser;
+            if (!json.equals("") && gson.fromJson(json, CareProvider.class).checkUserType().equals("CareProvider")) {
+                CareProvider loadedUser = gson.fromJson(json, CareProvider.class);
+                return loadedUser;
+            }else{
+                return null;
+            }
 
         }catch (Exception e ){
             e.printStackTrace();
@@ -82,14 +80,13 @@ public class OfflineBehaviorController {
 
     /**
      * Handles locally saving a Patient's account
-     *
+     * Since this also handles updates, it removes the old account info if it exists.
      * @param account the Patient account to be saved
      */
     public void savePatient(Patient account){
         try {
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
             this.editor = this.sharedPref.edit();
-            editor.clear();
+            editor.remove(account.getUserID());
 
             gson = new Gson();
             String json = gson.toJson(account);
@@ -108,14 +105,15 @@ public class OfflineBehaviorController {
      */
     public Patient loadPatient(String UserID){
         try{
-            this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
-            this.editor = this.sharedPref.edit();
-
             String json = this.sharedPref.getString(UserID, "");
             gson = new Gson();
-            Patient loadedUser = gson.fromJson(json, Patient.class);
 
-            return loadedUser;
+            if (!json.equals("") && gson.fromJson(json, Patient.class).checkUserType().equals("Patient")) {
+                Patient loadedUser = gson.fromJson(json, Patient.class);
+                return loadedUser;
+            }else{
+                return null;
+            }
 
         }catch (Exception e ){
             e.printStackTrace();
@@ -128,7 +126,6 @@ public class OfflineBehaviorController {
      *
      */
     public void deleteSave(){
-        this.sharedPref = context.getSharedPreferences("User", Context.MODE_PRIVATE);
         this.editor = this.sharedPref.edit();
 
         editor.clear();

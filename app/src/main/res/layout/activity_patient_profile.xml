@@ -11,9 +11,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="61dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="25dp"
         android:layout_toStartOf="@+id/patientViewProblemButton"
+        android:background="#90a4ae"
+        android:padding="4dp"
         android:text="@string/editAccountButton"
         android:textAllCaps="false" />
 
@@ -100,8 +102,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="60dp"
         android:layout_marginEnd="25dp"
+        android:background="#40c4ff"
+        android:padding="4dp"
         android:text="@string/ViewProblemsButton"
         android:textAllCaps="false" />
 
@@ -109,28 +113,26 @@
         android:id="@+id/bodyMapProfile"
         android:layout_width="301dp"
         android:layout_height="278dp"
-        android:layout_alignBottom="@+id/emailText"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="58dp"
-        android:layout_marginEnd="52dp"
-        android:layout_marginBottom="-385dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="53dp"
+        android:layout_marginEnd="57dp"
+        android:layout_marginBottom="49dp"
         android:contentDescription="BodyMap"
         android:src="@drawable/body_map" />
 
     <EditText
         android:id="@+id/searchBox"
-        android:layout_width="297dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/DisplayPhone"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="373dp"
+        android:layout_above="@+id/bodyMapProfile"
+        android:layout_marginStart="-61dp"
+        android:layout_marginBottom="16dp"
         android:layout_toEndOf="@+id/userIDText"
         android:ems="10"
         android:hint="@string/searchBoxAtProfile"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:textAlignment="viewStart" />
 
 </RelativeLayout>

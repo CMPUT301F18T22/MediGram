@@ -28,6 +28,7 @@ proguard/
 .idea/
 *.iml
 
-
+# MacOS related cache
+*DS_Store
  
 

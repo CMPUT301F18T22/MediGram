@@ -66,7 +66,7 @@ public class ElasticSearchControllerTest extends ActivityInstrumentationTestCase
         addPatient.execute(patient);
 
         ElasticSearchController.DeleteUser deleteUser = new ElasticSearchController.DeleteUser();
-        deleteUser.execute(patient.getJestID());
+        deleteUser.execute(patient.getUserID());
 
         ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
         try {

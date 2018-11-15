@@ -57,26 +57,28 @@ public class CreateAccountActivity extends Activity {
 
                 if (careProviderCheckBox.isChecked()){
                     CareProvider careProvider = new CareProvider(newUserID, newUserEmail, newUserPhoneNumber);
-                    if (accountManager.addCareProvider(careProvider) == null){
+                    String response = accountManager.addCareProvider(careProvider);
+                    if (response == null){
                         Toast toast = Toast.makeText(CreateAccountActivity.this, "Created Account Successfully.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
                         finish();
                     }else{
-                        Toast toast = Toast.makeText(CreateAccountActivity.this, accountManager.addCareProvider(careProvider), Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(CreateAccountActivity.this, response, Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
                     }
                 }
                 else if (patientCheckBox.isChecked()){
                     Patient patient = new Patient(newUserID, newUserEmail, newUserPhoneNumber);
-                    if ( accountManager.addPatient(patient) == null){
+                    String response = accountManager.addPatient(patient) ;
+                    if (response == null){
                         Toast toast = Toast.makeText(CreateAccountActivity.this, "Created Account Successfully.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
                         finish();
                     }else{
-                        Toast toast = Toast.makeText(CreateAccountActivity.this, accountManager.addPatient(patient), Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(CreateAccountActivity.this, response, Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
                     }

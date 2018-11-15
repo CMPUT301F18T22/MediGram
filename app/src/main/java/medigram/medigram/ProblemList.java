@@ -1,10 +1,11 @@
 package medigram.medigram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProblemList{
+public class ProblemList implements Serializable {
     private List<Problem> problemList = new ArrayList<Problem>();
 
     public void addProblem(Problem problem){
@@ -25,6 +26,10 @@ public class ProblemList{
 
     public int getSize(){
         return problemList.size();
+    }
+
+    public String toString(){
+        return problemList.toString();
     }
 
 }

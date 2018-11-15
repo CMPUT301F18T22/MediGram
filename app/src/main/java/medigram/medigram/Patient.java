@@ -1,42 +1,22 @@
 package medigram.medigram;
 
-import java.util.ArrayList;
 
-public class Patient extends User{
-    private String emailAddress;
-    private String phoneNumber;
-    private String userID;
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+
+import java.io.Serializable;
+
+import io.searchbox.annotations.JestId;
+
+public class Patient extends User implements Serializable {
+    @SerializedName("Patient")
     private String userType = "Patient";
     private ProblemList problemList = new ProblemList();
 
-    public Patient(String userID, String emailAddress, String phoneNumber){
-        this.userID = userID;
-        this.emailAddress = emailAddress;
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getEmailAddress() {
-        return emailAddress;
-    }
-
-    public void setEmailAddress(String emailAddress) {
-        this.emailAddress = emailAddress;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getUserID() {
-        return userID;
-    }
-
-    public void setUserID(String userID) {
-        this.userID = userID;
+    public Patient(String userid, String emailaddress, String phonenumber){
+        this.userID = userid;
+        this.emailAddress = emailaddress;
+        this.phoneNumber = phonenumber;
     }
 
     public String checkUserType(){
@@ -45,6 +25,10 @@ public class Patient extends User{
 
     public ProblemList getProblems() {
         return problemList;
+    }
+
+    public int getNumOfProblems() {
+        return problemList.getSize();
     }
 
 }

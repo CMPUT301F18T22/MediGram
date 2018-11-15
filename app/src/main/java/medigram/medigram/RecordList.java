@@ -1,10 +1,11 @@
 package medigram.medigram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RecordList {
+public class RecordList implements Serializable {
     private ArrayList<Record> recordList = new ArrayList<Record>();
 
     public void addRecord(Record newRecord) {
@@ -25,6 +26,10 @@ public class RecordList {
 
     public int getSize(){
         return recordList.size();
+    }
+
+    public String toString(){
+        return recordList.toString();
     }
 
 

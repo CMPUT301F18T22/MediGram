@@ -60,7 +60,7 @@ public class ProblemTest extends ActivityInstrumentationTestCase2 {
         Date date = new Date();
         Problem problem = new Problem("null", "Lorem ipsum dolor sit amet", date, "32");
 
-        assertEquals(problem.getDateStarted().toString(), date.toString());
+        assertEquals(problem.getDate().toString(), date.toString());
     }
 
     public void testGetBodyLocation(){

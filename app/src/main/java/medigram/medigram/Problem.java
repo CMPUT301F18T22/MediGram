@@ -14,7 +14,7 @@ import java.util.Locale;
  * @author Jarred Mahinay
  */
 
-public class Problem {
+public class Problem implements Serializable{
     private String problemTitle;
     private String description;
     private Date dateStarted;

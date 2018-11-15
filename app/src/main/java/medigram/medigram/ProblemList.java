@@ -11,7 +11,7 @@ import java.util.List;
  * Contains a List of Problems, with methods that modify or return problems
  * @author Jarred Mahinay
  */
-public class ProblemList{
+public class ProblemList implements Serializable{
     private List<Problem> problemList = new ArrayList<Problem>();
 
     /**

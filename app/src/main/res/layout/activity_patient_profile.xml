@@ -124,6 +124,7 @@
 
     <EditText
         android:id="@+id/searchBox"
+        android:singleLine="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bodyMapProfile"
@@ -132,7 +133,6 @@
         android:layout_toEndOf="@+id/userIDText"
         android:ems="10"
         android:hint="@string/searchBoxAtProfile"
-        android:inputType="textMultiLine"
         android:textAlignment="viewStart" />
 
 </RelativeLayout>

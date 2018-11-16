@@ -51,6 +51,8 @@ public class ProblemListActivity extends AppCompatActivity {
     public int lastPosition, index;
     public EditText keySearch;
     public Patient patient;
+    public AccountManager accountManager;
+    public User user;
 
 
     /**
@@ -89,7 +91,6 @@ public class ProblemListActivity extends AppCompatActivity {
                     index = filteredProblems.getIndex(p);
                     filteredProblems.getList().add(index, chosenProblem);
                     adapter.insert(chosenProblem.toString(),index);
-                    //problemString.add(index, chosenProblem.toString());
                     adapter.notifyDataSetChanged();
                     break;
                 }
@@ -98,21 +99,27 @@ public class ProblemListActivity extends AppCompatActivity {
             if (!filteredProblems.getList().contains(chosenProblem)){
                 filteredProblems.getList().add(chosenProblem);
                 adapter.add(chosenProblem.toString());
-                //problemString.add(chosenProblem.toString());
                 adapter.notifyDataSetChanged();
             }
+
+            /*  Check lists ... delete when done
             for (String s: problemString){
                 Log.d("String", s);
             }
             for (Problem p: filteredProblems.getList()){
                 Log.d(p.getProblemTitle(), p.toString());
             }
+            */
+
             // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
-            //adapter.clear();
-            //adapter.addAll(problemString);
             adapter.notifyDataSetChanged();
+
             keySearch.setText(chosenProblem.getProblemTitle());
+
+            System.out.println(patient.getJestID());
+            accountManager.patientUpdater(patient.getUserID(), patient);
+
 
 
 
@@ -126,6 +133,7 @@ public class ProblemListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        accountManager = new AccountManager(getApplicationContext());
 
         /* test: replace this with patient from Anas' activities
         Patient patient = new Patient("111111","test@gmail.com", "911");
@@ -148,27 +156,35 @@ public class ProblemListActivity extends AppCompatActivity {
         problemList.addProblem(testproblem3);
         problemList.addProblem(testproblem4);
          end test*/
+
+
+
         setContentView(R.layout.activity_problem_list);
         Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
         keySearch = (EditText) findViewById(R.id.problem_keyword);
 
-        User user = (User) getIntent().getSerializableExtra("User");
-        if (user.checkUserType().equals("Patient")){
-            patient = (Patient) getIntent().getSerializableExtra("User");
+        // If user is a patient, then do this:
+        //user = (User) getIntent().getSerializableExtra("User");
+        if (getIntent().hasExtra("Patient")){
+            patient = (Patient) getIntent().getSerializableExtra("Patient");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
             if (bodyLocation.equals("")){
-                addProblemBtn.setVisibility(View.INVISIBLE);
+                addProblemBtn.setVisibility(View.GONE);
             }
             else {
                 addProblemBtn.setVisibility(View.VISIBLE);
             }
         }
-        for (Problem p: problemList.getList()){
-            Log.d(p.getProblemTitle(), p.toString());
+        // If user is a care provider, then do this:
+        if (getIntent().hasExtra("CareProvider")){
+            patient = (Patient) getIntent().getSerializableExtra("Patient");
+            problemList = patient.getProblems();
+            bodyLocation = (String) getIntent().getSerializableExtra("body location");
+            keyword = bodyLocation;
+            addProblemBtn.setVisibility(View.GONE);
         }
-
 
 
 
@@ -195,7 +211,6 @@ public class ProblemListActivity extends AppCompatActivity {
         adapter.notifyDataSetChanged();
 
         // add problem button Initializes a new problem and opens EditProblemActivity with it
-
         View.OnClickListener addProblemListener = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -214,36 +229,33 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
-
+        // Filters the adapter whenever the user inputs a character in the keyboard
         keySearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //adapter.clear();
-                //adapter.addAll(problemString);
                 adapter.notifyDataSetChanged();
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 ProblemListActivity.this.adapter.getFilter().filter(charSequence.toString().replaceAll("\\s+",""));
-                //adapter.clear();
-                //adapter.addAll(problemString);
                 adapter.notifyDataSetChanged();
-
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //adapter.clear();
-                //adapter.addAll(problemString);
                 adapter.notifyDataSetChanged();
-
             }
         });
 
     }
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
+
+    /**
+     * ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
+     * Adapter implements Filterable so that the search bar can filter adapter elements
+     */
     private class ProblemListAdapter extends ArrayAdapter<String> implements Filterable{
         private int layout;
 
@@ -265,6 +277,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
                 convertView.setTag(viewHolder);
+                // Remove these buttons if user is a Care Provider, so they can't edit
+                if (getIntent().hasExtra("CareProvider")){
+                    viewHolder.deleteBtn.setVisibility(View.GONE);
+                    viewHolder.editBtn.setVisibility(View.GONE);
+                }
             }
             mainViewholder = (ViewHolder) convertView.getTag();
 
@@ -282,11 +299,6 @@ public class ProblemListActivity extends AppCompatActivity {
                     adapter.getFilter().filter(null);
 
 
-
-                    //problemString.remove(index);
-
-                    //adapter.clear();
-                    //adapter.addAll(problemString);
                     for (String s: problemString){
                         Log.d("String", s);
                     }
@@ -321,8 +333,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 }
             });
 
-
-
             // display the problem title and info
             notifyDataSetChanged();
             String[] parts = getItem(position).split("~");
@@ -332,8 +342,6 @@ public class ProblemListActivity extends AppCompatActivity {
             return convertView;
 
         }
-
-
 
     }
     public class ViewHolder {

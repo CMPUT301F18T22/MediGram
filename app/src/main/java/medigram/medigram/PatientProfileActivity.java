@@ -3,6 +3,7 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -65,7 +66,7 @@ public class PatientProfileActivity extends Activity {
                         (keyCode == KeyEvent.KEYCODE_ENTER)) {
                     // Perform action on key press
                     Intent intent = new Intent(getApplicationContext(), ProblemListActivity.class);
-                    intent.putExtra("User", account);
+                    intent.putExtra("Patient", account);
                     intent.putExtra("body location", searchBox.getText().toString());
                     startActivity(intent);
                     return true;

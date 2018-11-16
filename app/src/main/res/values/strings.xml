@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MediGram</string>
+    <string name="title_activity_edit_add_record_acticity">EditAddRecordActicity</string>
 </resources>

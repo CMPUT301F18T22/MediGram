@@ -9,9 +9,6 @@ public abstract class User implements Serializable {
     String phoneNumber;
     String userID;
 
-    @JestId
-    private String jestID;
-
 
     public String toString(){
         return userID;
@@ -39,14 +36,6 @@ public abstract class User implements Serializable {
 
     public void setUserID(String userID) {
         this.userID = userID;
-    }
-
-    public String getJestID() {
-        return jestID;
-    }
-
-    public void setJestID(String jestID) {
-        this.jestID = jestID;
     }
 
     public abstract String checkUserType();

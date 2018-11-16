@@ -54,8 +54,16 @@ public class ElasticSearchController {
 
     }
 
+    /**
+     * Handles the finding of a Patient account.
+     */
     public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>>{
         @Override
+        /**
+         * Finds a Patient account with given userID.
+         * @param params userID of the patient
+         * @see Patient
+         */
         protected ArrayList<Patient> doInBackground(String...params){
             setClient();
             ArrayList<Patient> accounts = new ArrayList<Patient>();
@@ -85,8 +93,16 @@ public class ElasticSearchController {
         }
     }
 
+    /**
+     * Handles the finding of a Patient account.
+     */
     public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>>{
         @Override
+        /**
+         * Finds a Patient account with given userID.
+         * @param params userID of the patient
+         * @see Patient
+         */
         protected ArrayList<CareProvider> doInBackground(String...params){
             setClient();
             ArrayList<CareProvider> accounts = new ArrayList<CareProvider>();
@@ -115,6 +131,7 @@ public class ElasticSearchController {
             return accounts;
         }
     }
+
     /**
      * Handles the creation a new account for a Patient.
      */

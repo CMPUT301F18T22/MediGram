@@ -42,6 +42,7 @@ public class LoginActivity extends Activity {
                 Patient patient = accountManager.findPatient(userID);
                 if (patient != null) {
                     Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                    System.out.println(patient.getJestID());
                     intent.putExtra("Patient", patient);
                     startActivity(intent);
                 } else {

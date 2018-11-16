@@ -52,7 +52,7 @@ public class PatientProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ProblemListActivity.class);
-                intent.putExtra("User", account);
+                intent.putExtra("Patient", account);
                 intent.putExtra("body location", "");
                 startActivity(intent);
             }
@@ -74,10 +74,6 @@ public class PatientProfileActivity extends Activity {
                 return false;
             }
         });
-
-
-
-
 
     }
 

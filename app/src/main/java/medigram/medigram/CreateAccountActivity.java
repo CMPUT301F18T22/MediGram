@@ -71,7 +71,7 @@ public class CreateAccountActivity extends Activity {
                 }
                 else if (patientCheckBox.isChecked()){
                     Patient patient = new Patient(newUserID, newUserEmail, newUserPhoneNumber);
-                    String response = accountManager.addPatient(patient) ;
+                    String response = accountManager.addPatient(patient);
                     if (response == null){
                         Toast toast = Toast.makeText(CreateAccountActivity.this, "Created Account Successfully.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);

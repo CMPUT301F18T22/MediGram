@@ -117,7 +117,9 @@ public class ProblemListActivity extends AppCompatActivity {
             problemList.addProblem(chosenProblem);
             adapter.notifyDataSetChanged();
 
-            keySearch.setText(chosenProblem.getProblemTitle());
+            //keySearch.setText(chosenProblem.getProblemTitle());
+            keySearch.setText("");
+
 
             accountManager.patientUpdater(patient.getUserID(), patient);
 

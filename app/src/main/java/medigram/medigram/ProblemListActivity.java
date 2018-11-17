@@ -24,6 +24,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -55,6 +56,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public Patient patient;
     public AccountManager accountManager;
     public User user;
+    public View.OnClickListener myClickListener;
 
 
     /**
@@ -220,6 +222,29 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
+        /*
+        View.OnClickListener myClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                //code to be written to handle the click event
+
+            }
+        };
+        */
+
+        problemsView.setClickable(true);
+        problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                // When clicked, show a toast with the TextView text or do whatever you need.
+                //Log.d("STRING", problemString.get(position));
+
+                index = adapter.getPosition(adapter.getItem(position));
+                chosenProblem = filteredProblems.getProblem(index);
+
+
+            }
+        });
+
         // Filters the adapter whenever the user inputs a character in the keyboard
         keySearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -239,6 +264,7 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
@@ -256,12 +282,14 @@ public class ProblemListActivity extends AppCompatActivity {
 
         }
 
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent){
             ViewHolder mainViewholder = null;
             if(convertView==null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
+
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
@@ -275,6 +303,10 @@ public class ProblemListActivity extends AppCompatActivity {
                 }
             }
             mainViewholder = (ViewHolder) convertView.getTag();
+
+
+
+
 
             // deleteBtn deletes problem from all 3 lists
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {

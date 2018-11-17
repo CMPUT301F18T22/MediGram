@@ -87,21 +87,21 @@ public class ProblemListActivity extends AppCompatActivity {
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
 
-                // Add the edited problem to the correct index, depending on its date
-                for (Problem p: filteredProblems.getList()){
-                    if (chosenProblem.getDate().before(p.getDate())){
-                        index = filteredProblems.getIndex(p);
-                        filteredProblems.getList().add(index, chosenProblem);
-                        adapter.insert(chosenProblem.toString(),index);
-                        adapter.notifyDataSetChanged();
-                        break;
-                    }
-                }
-                // if problem hasn't yet been added, then add it to the very end
-                if (!filteredProblems.getList().contains(chosenProblem)){
-                    filteredProblems.getList().add(chosenProblem);
-                    adapter.add(chosenProblem.toString());
+            // Add the edited problem to the correct index, depending on its date
+            for (Problem p: filteredProblems.getList()){
+                if (chosenProblem.getDate().before(p.getDate())){
+                    index = filteredProblems.getIndex(p);
+                    filteredProblems.getList().add(index, chosenProblem);
+                    adapter.insert(chosenProblem.toString(),index);
                     adapter.notifyDataSetChanged();
+                    break;
+                }
+            }
+            // if problem hasn't yet been added, then add it to the very end
+            if (!filteredProblems.getList().contains(chosenProblem)){
+                filteredProblems.getList().add(chosenProblem);
+                adapter.add(chosenProblem.toString());
+                adapter.notifyDataSetChanged();
             }
 
             /*  Check lists ... delete when done
@@ -117,9 +117,7 @@ public class ProblemListActivity extends AppCompatActivity {
             problemList.addProblem(chosenProblem);
             adapter.notifyDataSetChanged();
 
-            //keySearch.setText(chosenProblem.getProblemTitle());
-            keySearch.setText("");
-
+            keySearch.setText(chosenProblem.getProblemTitle());
 
             accountManager.patientUpdater(patient.getUserID(), patient);
 
@@ -283,20 +281,17 @@ public class ProblemListActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     //index = problemString.indexOf(getItem(position));
                     index = adapter.getPosition(getItem(position));
-
-
-                    Problem test = filteredProblems.getProblem(index);
-                    problemList.removeProblem(test);
-                    filteredProblems.removeProblem(test);
-
+                    filteredProblems.getList().removeIf(p -> p.toString() == adapter.getItem(position));
+                    problemList.getList().removeIf(p -> p.toString() == adapter.getItem(position));
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
                     adapter.getFilter().filter(null);
 
 
-                    //Log.d("Problem", problemList.getList().toString());
+                    for (String s: problemString){
+                        Log.d("String", s);
+                    }
                     notifyDataSetChanged();
-                    accountManager.patientUpdater(patient.getUserID(), patient);
 
 
                 }
@@ -308,20 +303,17 @@ public class ProblemListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // index of edited problem is saved so we can delete it later
-                    index = adapter.getPosition(getItem(position));
                     lastPosition = problemString.indexOf(getItem(position));
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
-                    chosenProblem = filteredProblems.getProblem(index);
-/*
+                    //chosenProblem = filteredProblems.getProblem(position);
                     for (Problem p: filteredProblems.getList()){
                         if (p.toString() == adapter.getItem(position)){
                             chosenProblem = p;
                             break;
                         }
                     }
-                    */
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);

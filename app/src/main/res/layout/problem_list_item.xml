@@ -20,7 +20,7 @@
 
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="72dp"
+        android:layout_marginStart="75dp"
         android:layout_marginTop="26dp"
         android:lines="4"
         android:maxLines="4" />
@@ -60,8 +60,6 @@
         android:layout_height="73dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="0dp"
         android:orientation="vertical">
 
 

@@ -84,7 +84,7 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2{
 
     }
 
-    public void test0_DeleteProblem(){
+    public void test3_DeleteProblem(){
         solo.enterText((EditText) solo.getView(R.id.InputUserID), "solotestID");
         solo.clickOnButton("Sign In");
         solo.clickOnButton("View Problems");

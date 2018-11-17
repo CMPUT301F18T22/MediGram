@@ -1,9 +1,14 @@
 package medigram.medigram;
 
-public abstract class User {
-    private String emailAddress;
-    private String phoneNumber;
-    private String userID;
+import java.io.Serializable;
+
+import io.searchbox.annotations.JestId;
+
+public abstract class User implements Serializable {
+    String emailAddress;
+    String phoneNumber;
+    String userID;
+
 
     public String getEmailAddress() {
         return emailAddress;

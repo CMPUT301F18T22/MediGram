@@ -1,4 +1,40 @@
 <resources>
     <string name="app_name">MediGram</string>
-    <string name="title_activity_edit_add_record_acticity">EditAddRecordActicity</string>
+    <string name="logoString">medigram</string>
+    <string name="UserIDInput">Enter your UserID.</string>
+    <string name="SignInButton">Sign In</string>
+    <string name="SignUpButton"> <u>Sign Up</u> </string>
+    <string name="ConfirmButton"> <u>Confirm</u> </string>
+    <string name="AddProblemButton"> <u>Add Problem</u> </string>
+    <string name="SearchButton"> <u>Search</u> </string>
+
+    <string name="SignUpUserID">Enter desired UserID (min 8 characters)</string>
+    <string name="SignUpEmail">Enter your email address.</string>
+    <string name="SignUpPhone">Enter your Phone Number.</string>
+    <string name="checkBoxPatient">Patient</string>
+    <string name="checkBoxCareProvider">Care Provider</string>
+
+    <string name="userProfileSubTitle">Profile</string>
+    <string name="userIDText">UserID:</string>
+    <string name="emailText">Email:</string>
+    <string name="phoneText">Phone No:</string>
+    <string name="ViewProblemsButton">View Problems</string>
+    <string name="searchBoxAtProfile">Search for a problem using a keyword</string>
+    <string name="editAccountButton"> Edit Profile </string>
+    <string name="ViewPatientListButton"> View Patients </string>
+
+    <string name="editProfileTitle">Edit Profile</string>
+    <string name="userIDEditText">UserID: </string>
+    <string name="emailEditText">Email:</string>
+    <string name="phoneEditText">Phone No:</string>
+    <string name="updateButtonText">Update</string>
+    <string name="deleteButtonText">Delete</string>
+    <string name="title_activity_patient_list">PatientListActivity</string>
+    <string name="title_activity_add_patient">AddPatientActivity</string>
+    <string name="title_activity_care_provider">CareProviderActivity</string>
+
+    <string name="edit_problem_title_hint">Problem Title (30 Characters Max)</string>
+    <string name="edit_problem_date_hint">Date Started</string>
+    <string name="edit_description_hint">Description of the problem (300 characters max)</string>
+    <string name="edit_body_location_hint">body location</string>
 </resources>

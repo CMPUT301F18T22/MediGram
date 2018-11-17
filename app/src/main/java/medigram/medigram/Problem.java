@@ -19,7 +19,7 @@ public class Problem implements Serializable{
     private String description;
     private Date dateStarted;
     private String bodyLocation;
-    private RecordList recordList;
+    private RecordList recordList = new RecordList();
     private ArrayList<Photo> bodyLocationPhotos;
     private transient SimpleDateFormat sdf;
 

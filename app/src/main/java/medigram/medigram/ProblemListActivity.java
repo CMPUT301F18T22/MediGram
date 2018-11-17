@@ -126,7 +126,6 @@ public class ProblemListActivity extends AppCompatActivity {
             // some stuff that will happen if there's no result
         }
 
-
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

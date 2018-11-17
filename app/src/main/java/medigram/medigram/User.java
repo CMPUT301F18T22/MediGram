@@ -10,10 +10,6 @@ public abstract class User implements Serializable {
     String userID;
 
 
-    public String toString(){
-        return userID;
-    }
-
     public String getEmailAddress() {
         return emailAddress;
     }

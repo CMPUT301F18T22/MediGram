@@ -18,6 +18,7 @@ import java.util.List;
 import io.searchbox.action.Action;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Bulk;
+import io.searchbox.core.BulkResult;
 import io.searchbox.core.Delete;
 import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
@@ -229,22 +230,25 @@ public class ElasticSearchController {
     /**
      * Handles updating of Patient's account.
      */
-    public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
+    public static class UpdatePatient extends AsyncTask<Patient, Void, Patient> {
         /**
          * Updates a given Patients's account to match any new changes
          * @param params
          * @see Patient
          */
         @Override
-        protected Void doInBackground(Patient... params) {
+        protected Patient doInBackground(Patient... params) {
             setClient();
             Patient patient = params[0];
             try {
-                client.execute(new Index.Builder(patient)
+                DocumentResult result = client.execute(new Index.Builder(patient)
                         .index("cmput301f18t22test")
                         .type("Patients")
                         .id(patient.getJestID())
                         .build());
+//                if (result.isSucceeded()) {
+//                    patient.setJestID(result.getId());
+//                }
 
             } catch (IOException e) {
                 e.printStackTrace();

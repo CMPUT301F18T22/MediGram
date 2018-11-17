@@ -24,6 +24,7 @@ import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
@@ -55,6 +56,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public Patient patient;
     public AccountManager accountManager;
     public User user;
+    public View.OnClickListener myClickListener;
 
 
     /**
@@ -117,7 +119,9 @@ public class ProblemListActivity extends AppCompatActivity {
             problemList.addProblem(chosenProblem);
             adapter.notifyDataSetChanged();
 
-            keySearch.setText(chosenProblem.getProblemTitle());
+            //keySearch.setText(chosenProblem.getProblemTitle());
+            keySearch.setText("");
+
 
             accountManager.patientUpdater(patient.getUserID(), patient);
 
@@ -218,6 +222,35 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
+        /*
+        View.OnClickListener myClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                //code to be written to handle the click event
+
+            }
+        };
+        */
+
+        problemsView.setClickable(true);
+        problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                //index = adapter.getPosition(adapter.getItem(position));
+                index = problemString.indexOf(adapter.getItem(position));
+                chosenProblem = filteredProblems.getProblem(index);
+
+                // open record activity here. Add patient or careProvider and chosenProblem
+                // as extra
+
+
+
+                Log.d("PROBLEM", chosenProblem.toString());
+                Log.d("ADAPTER GET ITEM", adapter.getItem(position));
+
+
+            }
+        });
+
         // Filters the adapter whenever the user inputs a character in the keyboard
         keySearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -237,6 +270,7 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
@@ -254,12 +288,14 @@ public class ProblemListActivity extends AppCompatActivity {
 
         }
 
+
         @Override
         public View getView(final int position, View convertView, ViewGroup parent){
             ViewHolder mainViewholder = null;
             if(convertView==null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
+
                 ViewHolder viewHolder = new ViewHolder();
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
@@ -274,6 +310,10 @@ public class ProblemListActivity extends AppCompatActivity {
             }
             mainViewholder = (ViewHolder) convertView.getTag();
 
+
+
+
+
             // deleteBtn deletes problem from all 3 lists
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -281,17 +321,20 @@ public class ProblemListActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     //index = problemString.indexOf(getItem(position));
                     index = adapter.getPosition(getItem(position));
-                    filteredProblems.getList().removeIf(p -> p.toString() == adapter.getItem(position));
-                    problemList.getList().removeIf(p -> p.toString() == adapter.getItem(position));
+
+
+                    Problem test = filteredProblems.getProblem(index);
+                    problemList.removeProblem(test);
+                    filteredProblems.removeProblem(test);
+
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
                     adapter.getFilter().filter(null);
 
 
-                    for (String s: problemString){
-                        Log.d("String", s);
-                    }
+                    //Log.d("Problem", problemList.getList().toString());
                     notifyDataSetChanged();
+                    accountManager.patientUpdater(patient.getUserID(), patient);
 
 
                 }
@@ -303,17 +346,20 @@ public class ProblemListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // index of edited problem is saved so we can delete it later
+                    index = adapter.getPosition(getItem(position));
                     lastPosition = problemString.indexOf(getItem(position));
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
-                    //chosenProblem = filteredProblems.getProblem(position);
+                    chosenProblem = filteredProblems.getProblem(index);
+/*
                     for (Problem p: filteredProblems.getList()){
                         if (p.toString() == adapter.getItem(position)){
                             chosenProblem = p;
                             break;
                         }
                     }
+                    */
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);

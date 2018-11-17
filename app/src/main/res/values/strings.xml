@@ -4,6 +4,9 @@
     <string name="UserIDInput">Enter your UserID.</string>
     <string name="SignInButton">Sign In</string>
     <string name="SignUpButton"> <u>Sign Up</u> </string>
+    <string name="ConfirmButton"> <u>Confirm</u> </string>
+    <string name="AddProblemButton"> <u>Add Problem</u> </string>
+    <string name="SearchButton"> <u>Search</u> </string>
 
     <string name="SignUpUserID">Enter desired UserID (min 8 characters)</string>
     <string name="SignUpEmail">Enter your email address.</string>
@@ -16,7 +19,7 @@
     <string name="emailText">Email:</string>
     <string name="phoneText">Phone No:</string>
     <string name="ViewProblemsButton">View Problems</string>
-    <string name="searchBoxAtProfile">Search for a problem using a keyword (title, body-location, geo-location, etc.)</string>
+    <string name="searchBoxAtProfile">Search for a problem using a keyword</string>
     <string name="editAccountButton"> Edit Profile </string>
     <string name="ViewPatientListButton"> View Patients </string>
 
@@ -29,4 +32,9 @@
     <string name="title_activity_patient_list">PatientListActivity</string>
     <string name="title_activity_add_patient">AddPatientActivity</string>
     <string name="title_activity_care_provider">CareProviderActivity</string>
+
+    <string name="edit_problem_title_hint">Problem Title (30 Characters Max)</string>
+    <string name="edit_problem_date_hint">Date Started</string>
+    <string name="edit_description_hint">Description of the problem (300 characters max)</string>
+    <string name="edit_body_location_hint">body location</string>
 </resources>

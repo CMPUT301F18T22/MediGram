@@ -235,11 +235,17 @@ public class ProblemListActivity extends AppCompatActivity {
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                // When clicked, show a toast with the TextView text or do whatever you need.
-                //Log.d("STRING", problemString.get(position));
-
-                index = adapter.getPosition(adapter.getItem(position));
+                //index = adapter.getPosition(adapter.getItem(position));
+                index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
+
+                // open record activity here. Add patient or careProvider and chosenProblem
+                // as extra
+
+
+
+                Log.d("PROBLEM", chosenProblem.toString());
+                Log.d("ADAPTER GET ITEM", adapter.getItem(position));
 
 
             }

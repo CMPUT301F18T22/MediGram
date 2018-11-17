@@ -22,18 +22,17 @@ import java.util.List;
 public class Record implements Serializable{
     private String recordTitle;
     private ArrayList<Comment> Comments = new ArrayList<>();
-    private Date dateStarted;
-    private Double geoLocation;
+    private ArrayList<Double> geoLocation = new ArrayList<>();
+    private String dateStarted;
     private ArrayList<Photo> photos;
-    private Context mContext;
 
-    public Record(String recordtitle, Comment comment, Date date){
+    public Record(String recordtitle, Comment comment, String date){
         this.recordTitle = recordtitle;
         Comments.add(comment);
         this.dateStarted = date;
     }
 
-    public Record(String recordtitle, Comment comment, Date date, ArrayList<Photo> photos){
+    public Record(String recordtitle, Comment comment, String date, ArrayList<Photo> photos){
         this.recordTitle = recordtitle;
         addComment(comment);
         this.dateStarted = date;
@@ -64,11 +63,11 @@ public class Record implements Serializable{
         return Comments.contains(comment);
     }
 
-    public Date getDateStarted() {
+    public String getDateStarted() {
         return dateStarted;
     }
 
-    public void setDateStarted(Date dateStarted) {
+    public void setDateStarted(String dateStarted) {
         this.dateStarted = dateStarted;
     }
 
@@ -80,20 +79,7 @@ public class Record implements Serializable{
         this.photos = photos;
     }
 
-    public Double getGeoLocation(Context mContext){
-        LocationManager locationManager;
-        String context = Context.LOCATION_SERVICE;
-        locationManager = (LocationManager)mContext.getSystemService(context);
-        String provider = LocationManager.GPS_PROVIDER;
-        if ( ContextCompat.checkSelfPermission( this, android.Manifest.permission.ACCESS_COARSE_LOCATION ) != PackageManager.PERMISSION_GRANTED ) {
-            ActivityCompat.requestPermissions( this, new String[] {  android.Manifest.permission.ACCESS_COARSE_LOCATION  },
-                    LocationService.MY_PERMISSION_ACCESS_COURSE_LOCATION );
-        }
-        Location location = locationManager.getLastKnownLocation(provider)
-        return geoLocation;
-    }
-
-    public void setGeoLocation(Double location){
-        this.geoLocation = location;
+    public void setGeoLocation(ArrayList<Double> Location){
+        this.geoLocation = Location;
     }
 }

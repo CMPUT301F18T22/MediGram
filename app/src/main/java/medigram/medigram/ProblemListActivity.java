@@ -281,17 +281,20 @@ public class ProblemListActivity extends AppCompatActivity {
                     adapter.notifyDataSetChanged();
                     //index = problemString.indexOf(getItem(position));
                     index = adapter.getPosition(getItem(position));
-                    filteredProblems.getList().removeIf(p -> p.toString() == adapter.getItem(position));
-                    problemList.getList().removeIf(p -> p.toString() == adapter.getItem(position));
+
+
+                    Problem test = filteredProblems.getProblem(index);
+                    problemList.removeProblem(test);
+                    filteredProblems.removeProblem(test);
+
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
                     adapter.getFilter().filter(null);
 
 
-                    for (String s: problemString){
-                        Log.d("String", s);
-                    }
+                    //Log.d("Problem", problemList.getList().toString());
                     notifyDataSetChanged();
+                    accountManager.patientUpdater(patient.getUserID(), patient);
 
 
                 }
@@ -303,17 +306,20 @@ public class ProblemListActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     // index of edited problem is saved so we can delete it later
+                    index = adapter.getPosition(getItem(position));
                     lastPosition = problemString.indexOf(getItem(position));
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
-                    //chosenProblem = filteredProblems.getProblem(position);
+                    chosenProblem = filteredProblems.getProblem(index);
+/*
                     for (Problem p: filteredProblems.getList()){
                         if (p.toString() == adapter.getItem(position)){
                             chosenProblem = p;
                             break;
                         }
                     }
+                    */
                     Bundle problem_bundle = new Bundle();
                     problem_bundle.putSerializable("chosenProblem", chosenProblem);
                     openEditor.putExtras(problem_bundle);

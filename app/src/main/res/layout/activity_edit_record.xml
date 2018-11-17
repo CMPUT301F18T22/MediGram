@@ -8,38 +8,34 @@
 
     <Button
         android:id="@+id/edit_comment"
-        android:layout_width="150"
-        android:layout_height="100"
-        android:layout_marginBottom="24dp"
+        android:layout_width="152dp"
+        android:layout_height="100dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="32dp"
         android:text="edit comment"
-        app:layout_constraintBottom_toTopOf="@+id/edit_getolocation"
         app:layout_constraintEnd_toStartOf="@+id/edit_picture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
 
     <Button
         android:id="@+id/edit_picture"
-        android:layout_width="150"
-        android:layout_height="100"
-        android:layout_marginBottom="24dp"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
+        android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="39dp"
+        android:layout_marginTop="32dp"
         android:text="edit_picture"
         app:layout_constraintBottom_toTopOf="@+id/edit_dates"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/edit_comment"
-        app:layout_constraintTop_toBottomOf="@+id/title"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
 
     <Button
-        android:id="@+id/edit_getolocation"
-        android:layout_width="150"
-        android:layout_height="100"
+        android:id="@+id/edit_geolocation"
+        android:layout_width="149dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="16dp"
         android:layout_marginStart="32dp"
@@ -49,42 +45,44 @@
         app:layout_constraintEnd_toStartOf="@+id/edit_dates"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
+        app:layout_constraintTop_toBottomOf="@+id/edit_comment"
+        app:layout_constraintVertical_bias="0.304" />
 
     <Button
         android:id="@+id/edit_dates"
-        android:layout_width="150"
-        android:layout_height="100"
+        android:layout_width="150dp"
+        android:layout_height="100dp"
         android:layout_marginBottom="32dp"
         android:layout_marginEnd="32dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="32dp"
         android:text="edit_date"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/save"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_getolocation"
+        app:layout_constraintStart_toEndOf="@+id/edit_geolocation"
         app:layout_constraintTop_toBottomOf="@+id/edit_picture" />
-
-    <EditText
-        android:id="@+id/title"
-        android:layout_width="318dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="please input the title"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        tools:layout_editor_absoluteY="29dp" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="16dp"
-        android:text="save"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="32dp"
+        android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_dates" />
+
+    <Button
+        android:id="@+id/edit_title"
+        android:layout_width="244dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="32dp"
+        android:text="edit title"
+        app:layout_constraintBottom_toTopOf="@+id/edit_picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </android.support.constraint.ConstraintLayout>

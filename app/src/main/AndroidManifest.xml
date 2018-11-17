@@ -9,7 +9,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-feature android:name="android.hardware.camera"
+
+    <uses-feature
+        android:name="android.hardware.camera"
         android:required="true" />
 
     <application
@@ -48,7 +50,8 @@
             android:theme="@style/Theme.AppCompat.Light" />
         <activity android:name=".AddRecordActivity" />
         <activity android:name=".RecordListActivity" />
-        <activity android:name=".EditRecordActivity"></activity>
+        <activity android:name=".EditRecordActivity" />
+        <activity android:name=".edit_record_title"></activity>
     </application>
 
 </manifest>

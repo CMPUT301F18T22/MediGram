@@ -9,6 +9,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,11 +21,18 @@ import java.util.List;
  * @author Jiaqi Liu, Zeyu liu(peer programming)
  */
 public class Record implements Serializable{
+
+    private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
+    private LocationManager locationManager;
+    private String provider;
+    static final int REQUEST_TAKE_PHOTO = 1;
     private String recordTitle;
     private ArrayList<Comment> Comments = new ArrayList<>();
     private ArrayList<Double> geoLocation = new ArrayList<>();
     private String dateStarted;
-    private ArrayList<Photo> photos;
+    private File photos;
+
+    public Record(){}
 
     public Record(String recordtitle, Comment comment, String date){
         this.recordTitle = recordtitle;
@@ -32,7 +40,7 @@ public class Record implements Serializable{
         this.dateStarted = date;
     }
 
-    public Record(String recordtitle, Comment comment, String date, ArrayList<Photo> photos){
+    public Record(String recordtitle, Comment comment, String date, File photos){
         this.recordTitle = recordtitle;
         addComment(comment);
         this.dateStarted = date;
@@ -71,11 +79,11 @@ public class Record implements Serializable{
         this.dateStarted = dateStarted;
     }
 
-    public ArrayList<Photo> getPhotos() {
+    public File getPhotos() {
         return photos;
     }
 
-    public void setPhotos(ArrayList<Photo> photos) {
+    public void setPhotos(File photos) {
         this.photos = photos;
     }
 

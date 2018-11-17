@@ -8,49 +8,43 @@
 
     <ImageButton
         android:id="@+id/imageButton2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
         android:layout_marginBottom="2dp"
         android:layout_marginEnd="16dp"
-        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:contentDescription="TODO" />
 
     <ImageButton
         android:id="@+id/imageButton1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginEnd="8dp"
+        android:layout_width="185dp"
+        android:layout_height="185dp"
         android:layout_marginStart="16dp"
-        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:contentDescription="TODO" />
 
     <EditText
         android:id="@+id/problemTitle"
-        android:layout_width="302dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
+        android:maxLength="30"
+        android:layout_width="373dp"
+        android:layout_height="40dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
-        android:hint="@string/edit_problem_title_hint"
+        android:hint="Problem Title (30 Characters Max)"
         android:inputType="textPersonName"
-        android:maxLength="30"
-        app:layout_constraintBottom_toTopOf="@+id/problemDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton1" />
 
     <TextView
         android:id="@+id/problemDate"
@@ -58,8 +52,9 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
-        android:hint="@string/edit_problem_date_hint"
+        android:hint="Date Started"
         android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
@@ -67,25 +62,28 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
+        app:layout_constraintTop_toBottomOf="@+id/problemTitle"
+        app:layout_constraintVertical_bias="0.069" />
 
     <EditText
         android:id="@+id/problemDescription"
-        android:layout_width="349dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="148dp"
+        android:layout_width="343dp"
+        android:layout_height="159dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:gravity="top"
-        android:hint="@string/edit_description_hint"
+        android:hint="Description of the problem (300 characters max)"
+        android:maxLength="30"
         android:inputType="textMultiLine"
-        android:maxLength="300"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.294"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/problemDate"
+        app:layout_constraintVertical_bias="0.111" />
 
     <Button
         android:id="@+id/confirmBtn"
@@ -93,27 +91,9 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:text="@string/ConfirmButton"
+        android:text="Confirm"
         android:textSize="12sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
-
-    <EditText
-        android:id="@+id/problemBodyLocation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:ems="10"
-        android:hint="@string/edit_body_location_hint"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/problemDescription"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problemDate"
-        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

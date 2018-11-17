@@ -21,7 +21,7 @@ import java.util.Date;
 
 /**
  * This activity receives a problem from ProblemListActivity, and edits its contents.
- *  * When it is finished, the problem is bundled back to its Parent activity.
+ * When it is finished, the problem is bundled back to its Parent activity.
  *
  * @author Jarred
  */
@@ -45,7 +45,6 @@ public class EditProblemActivity extends AppCompatActivity {
         if (chosenProblem.getProblemTitle() != "") {
             ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
             ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
-            ((TextView) findViewById(R.id.problemBodyLocation)).setText(chosenProblem.getBodyLocation());
         }
         ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateString());
 
@@ -59,9 +58,6 @@ public class EditProblemActivity extends AppCompatActivity {
 
                 EditText description = (EditText) findViewById(R.id.problemDescription);
                 chosenProblem.setDescription(description.getText().toString());
-
-                EditText bodyLocation = (EditText) findViewById(R.id.problemBodyLocation);
-                chosenProblem.setBodyLocation(bodyLocation.getText().toString());
 
                 chosenProblem.setDateStarted(dateTextView.getText().toString());
 

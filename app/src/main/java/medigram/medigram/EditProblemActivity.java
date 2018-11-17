@@ -45,6 +45,7 @@ public class EditProblemActivity extends AppCompatActivity {
         if (chosenProblem.getProblemTitle() != "") {
             ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
             ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
+            ((TextView) findViewById(R.id.problemBodyLocation)).setText(chosenProblem.getBodyLocation());
         }
         ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateString());
 
@@ -58,6 +59,9 @@ public class EditProblemActivity extends AppCompatActivity {
 
                 EditText description = (EditText) findViewById(R.id.problemDescription);
                 chosenProblem.setDescription(description.getText().toString());
+
+                EditText bodyLocation = (EditText) findViewById(R.id.problemBodyLocation);
+                chosenProblem.setBodyLocation(bodyLocation.getText().toString());
 
                 chosenProblem.setDateStarted(dateTextView.getText().toString());
 

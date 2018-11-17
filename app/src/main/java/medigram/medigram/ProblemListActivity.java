@@ -25,6 +25,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,11 +119,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
             keySearch.setText(chosenProblem.getProblemTitle());
 
-            System.out.println(patient.getJestID());
             accountManager.patientUpdater(patient.getUserID(), patient);
-
-
-
 
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
@@ -157,8 +155,6 @@ public class ProblemListActivity extends AppCompatActivity {
         problemList.addProblem(testproblem4);
          end test*/
 
-
-
         setContentView(R.layout.activity_problem_list);
         Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
         keySearch = (EditText) findViewById(R.id.problem_keyword);
@@ -170,12 +166,6 @@ public class ProblemListActivity extends AppCompatActivity {
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
-            if (bodyLocation.equals("")){
-                addProblemBtn.setVisibility(View.GONE);
-            }
-            else {
-                addProblemBtn.setVisibility(View.VISIBLE);
-            }
         }
         // If user is a care provider, then do this:
         if (getIntent().hasExtra("CareProvider")){

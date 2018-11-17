@@ -24,13 +24,16 @@
             </intent-filter>
         </activity>
         <activity android:name=".CreateAccountActivity" />
+        <activity android:name=".EditProfileActivity" />
         <activity android:name=".PatientProfileActivity" />
-        <activity android:name=".CareProviderProfileActivity" />
+        <activity
+            android:name=".PatientListActivity"
+            android:label="@string/title_activity_patient_list" />
         <activity
             android:name=".AddPatientActivity"
             android:label="@string/title_activity_add_patient" />
         <activity
-            android:name=".CareProviderActivity"
+            android:name=".CareProviderProfileActivity"
             android:label="@string/title_activity_care_provider"></activity>
 
         <activity
@@ -43,8 +46,7 @@
         <activity
             android:name=".EditProblemActivity"
             android:label="Edit Problem"
-            android:theme="@style/Theme.AppCompat.Light"
-            >
+            android:theme="@style/Theme.AppCompat.Light">
         </activity>
 
 

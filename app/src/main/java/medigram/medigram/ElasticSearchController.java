@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.action.Action;
 import io.searchbox.client.JestResult;
 import io.searchbox.core.Bulk;
 import io.searchbox.core.Delete;
@@ -213,7 +214,7 @@ public class ElasticSearchController {
             setClient();
             CareProvider careProvider = params[0];
             try {
-                client.execute(new Update.Builder(careProvider)
+                client.execute(new Index.Builder(careProvider)
                         .index("cmput301f18t22test")
                         .type("CareProviders")
                         .id(careProvider.getJestID())
@@ -239,11 +240,12 @@ public class ElasticSearchController {
             setClient();
             Patient patient = params[0];
             try {
-                client.execute(new Update.Builder(patient)
+                client.execute(new Index.Builder(patient)
                         .index("cmput301f18t22test")
                         .type("Patients")
                         .id(patient.getJestID())
                         .build());
+
             } catch (IOException e) {
                 e.printStackTrace();
             }

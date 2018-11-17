@@ -2,6 +2,8 @@ package medigram.medigram;
 
 import android.media.browse.MediaBrowser;
 
+import com.google.gson.Gson;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,7 +14,7 @@ import java.util.List;
  * @author Jarred Mahinay
  */
 public class ProblemList implements Serializable{
-    private List<Problem> problemList = new ArrayList<Problem>();
+    private ArrayList<Problem> problemList = new ArrayList<Problem>();
 
     /**
      * Adds a problem to the problem list
@@ -26,7 +28,7 @@ public class ProblemList implements Serializable{
      * Gets the problem list
      * @return The list of problems
      */
-    public List<Problem> getList() {return problemList;}
+    public ArrayList<Problem> getList() {return problemList;}
 
     /**
      * Removes a problem at the given index

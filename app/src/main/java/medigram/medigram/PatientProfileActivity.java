@@ -16,12 +16,15 @@ public class PatientProfileActivity extends Activity {
     private String userID, phoneNumber, email;
     private Patient account;
     private Boolean accountDeleted;
+    private AccountManager accountManager;
     private EditText searchBox;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_profile);
+
+        accountManager = new AccountManager(getApplicationContext());
 
         account = (Patient) getIntent().getSerializableExtra("Patient");
         userID = account.getUserID();
@@ -77,8 +80,15 @@ public class PatientProfileActivity extends Activity {
 
     }
 
-    protected void updateProfile(Patient account){
+    @Override
+    protected void onStart(){
+        super.onStart();
+        this.account = accountManager.findPatient(account.getUserID());
+    }
+
+    protected void updateProfile(){
         /* Refreshes the display info on Start */
+        accountManager.patientUpdater(account.getUserID(), account);
         DisplayUserID.setText(account.getUserID());
         DisplayEmail.setText(account.getEmailAddress());
         DisplayPhone.setText(account.getPhoneNumber());
@@ -92,8 +102,8 @@ public class PatientProfileActivity extends Activity {
                 if (accountDeleted){
                     finish();
                 }else {
-                    account = (Patient) intent.getSerializableExtra("updated");
-                    updateProfile(account);
+                    this.account = (Patient) intent.getSerializableExtra("updated");
+                    updateProfile();
                 }
             }
         }

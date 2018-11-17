@@ -21,7 +21,7 @@ public class Problem implements Serializable{
     private String bodyLocation;
     private RecordList recordList;
     private ArrayList<Photo> bodyLocationPhotos;
-    private SimpleDateFormat sdf;
+    private transient SimpleDateFormat sdf;
 
     /**
      *
@@ -36,7 +36,7 @@ public class Problem implements Serializable{
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
     }
-    /*
+
     public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Photo> photos){
         this.problemTitle = problemTitle;
         this.description = description;
@@ -44,7 +44,6 @@ public class Problem implements Serializable{
         this.bodyLocation = bodylocation;
         this.bodyLocationPhotos = photos;
     }
-    */
 
     /**
      * Gets the problem title

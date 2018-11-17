@@ -1,9 +1,10 @@
 package medigram.medigram;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Record{
+public class Record implements Serializable{
     private String recordTitle;
     private ArrayList<Comment> Comments = new ArrayList<>();
     private Date dateStarted;

@@ -1,15 +1,18 @@
 package medigram.medigram;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 public class Record implements Serializable{
     private String recordTitle;
     private ArrayList<Comment> Comments = new ArrayList<>();
     private Date dateStarted;
-    private int geoLocation;
+    private String geoLocation;
     private ArrayList<Photo> photos;
+    private transient SimpleDateFormat sdf;
 
     public Record(String recordtitle, Comment comment, Date date){
         this.recordTitle = recordtitle;
@@ -52,6 +55,11 @@ public class Record implements Serializable{
         return dateStarted;
     }
 
+    public String getDateString() {
+        sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        return sdf.format(dateStarted);
+    }
+
     public void setDateStarted(Date dateStarted) {
         this.dateStarted = dateStarted;
     }
@@ -64,11 +72,16 @@ public class Record implements Serializable{
         this.photos = photos;
     }
 
-    public int getGeoLocation(){
+    public String getGeoLocation(){
         return geoLocation;
     }
 
-    public void setGeoLocation(int location){
+    public void setGeoLocation(String location){
         this.geoLocation = location;
+    }
+
+    public String toString(){
+        return(this.recordTitle + "~ " + this.getDateString() + " \n  "+ this.geoLocation
+                + " \n\n " + this.recordTitle.replaceAll("\\s+","")+ " "  + this.geoLocation.replaceAll("\\s+",""));
     }
 }

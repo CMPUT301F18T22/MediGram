@@ -10,8 +10,11 @@
         android:id="@+id/RecordListView"
         android:layout_width="wrap_content"
         android:layout_height="197dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Description"
+        app:layout_constraintVertical_bias="0.696">
 
     </ListView>
 
@@ -33,12 +36,14 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="236dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toTopOf="@+id/ProblemListView"
+        app:layout_constraintBottom_toTopOf="@+id/RecordListView"
         app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
@@ -46,11 +51,13 @@
         android:layout_width="160dp"
         android:layout_height="121dp"
         android:layout_marginTop="236dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="28dp"
+        android:layout_marginBottom="8dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toTopOf="@+id/ProblemListView"
+        app:layout_constraintBottom_toTopOf="@+id/RecordListView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.125"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <TextView

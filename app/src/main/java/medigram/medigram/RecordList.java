@@ -8,6 +8,10 @@ import java.util.List;
 public class RecordList implements Serializable {
     private ArrayList<Record> recordList = new ArrayList<Record>();
 
+    public ArrayList<Record> getRecordList() {
+        return recordList;
+    }
+
     public void addRecord(Record newRecord) {
         recordList.add(newRecord);
     }
@@ -22,6 +26,10 @@ public class RecordList implements Serializable {
 
     public int getIndex(Record record){
         return recordList.indexOf(record);
+    }
+
+    public Record getRecord(int index){
+        return recordList.get(index);
     }
 
     public int getSize(){

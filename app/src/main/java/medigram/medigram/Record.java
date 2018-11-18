@@ -32,6 +32,10 @@ public class Record implements Serializable{
     private String dateStarted;
     private File photos;
 
+    /**
+     * these are the diffenent ways to create the record for different uses
+     * the blank is used in adding the record others are used during the testing process
+     */
     public Record(){}
 
     public Record(String recordtitle, Comment comment, String date){
@@ -46,47 +50,62 @@ public class Record implements Serializable{
         this.dateStarted = date;
         this.photos = photos;
     }
-
+    //this function is able to get the title of the record using in edit record title activity
     public String getRecordTitle() {
         return recordTitle;
     }
 
+    //this function is able to set the title of the record using in edit record title activity
     public void setRecordTitle(String recordTitle) {
         this.recordTitle = recordTitle;
     }
 
+    //comment in the arraylist no idea what to do
     public ArrayList<Comment> getComments() {
         return Comments;
     }
 
+    //add comment for the both add and edit comment in the record
     public void addComment(Comment comment) {
         Comments.add(comment);
     }
 
+    //delete the comment in the edit comment in the record part
     public void deleteComment(Comment comment) {
         Comments.remove(comment);
     }
 
+    //determine whether it has any comment or not
     public Boolean commentExist(Comment comment) {
         return Comments.contains(comment);
     }
 
+    //getting the started dated in edit part
     public String getDateStarted() {
         return dateStarted;
     }
 
+    //save the current date into the record
     public void setDateStarted(String dateStarted) {
         this.dateStarted = dateStarted;
     }
 
+    //return the file of photo from the saving file
     public File getPhotos() {
         return photos;
     }
 
+    //set the photo to this record in add and edit records parts
     public void setPhotos(File photos) {
         this.photos = photos;
     }
 
+    //return the geolocation of the specific rocords
+    public ArrayList getGeoLocation(){
+        return geoLocation;
+    }
+
+    //save in the geolocation of the record
     public void setGeoLocation(ArrayList<Double> Location){
         this.geoLocation = Location;
     }

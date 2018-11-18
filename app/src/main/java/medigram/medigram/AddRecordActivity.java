@@ -162,7 +162,7 @@ public class AddRecordActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accoutmanager.patientUpdater(patient1, patient);
+                accoutmanager.patientUpdater(patient1, Patient);
             }
         });
 

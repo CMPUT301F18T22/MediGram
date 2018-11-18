@@ -15,6 +15,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * This is the adapter enabling the patient list to be shown as a ListView
@@ -47,7 +48,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             if (requestCode == 1) {
-                Patient patient = (Patient) data.getSerializableExtra("newPatient");
+                patient = (Patient) data.getSerializableExtra("newPatient");
                 patients.addPatient(patient); // add the patient
                 accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
 
@@ -76,23 +77,21 @@ public class PatientListActivity extends Activity implements TextWatcher {
         search_patient = findViewById(R.id.search_patient);
         search_patient.addTextChangedListener(this);  // handles searching patient
 
-
-
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();
         numOfProblemList = patients.getAllNumsOfProblems();
 
-        Log.d("Patients", userIDs.toString());
+        Log.d("Patentss", patients.getAllNumsOfProblems().toString());
 
+  
         for (int i = 0; i < patients.getSize(); i++) {
-            String userID = userIDs.get(i);
-            int numOfProblems = numOfProblemList[i];
-            searchInfo = new PatientSearchInfo(userID, numOfProblems);
+            patient = accountManager.findPatient(userIDs.get(i));
+            int numOfProblems = patient.getNumOfProblems();
+            searchInfo = new PatientSearchInfo(userIDs.get(i), numOfProblems);
             searchInfos.add(searchInfo);
         }
 
         searchAdapter = new SearchPatientAdapter(this, searchInfos);
-
         listViewPatients.setAdapter(searchAdapter);
 
         // handles clicking on one of the patient in list view
@@ -101,7 +100,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 id = userIDs.get(i);
                 patient = accountManager.findPatient(id);
-
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                 intent.putExtra("CareProvider",patient);
                 startActivity(intent);
@@ -130,8 +128,60 @@ public class PatientListActivity extends Activity implements TextWatcher {
             }
         });
 
-    }
 
+
+    }
+/*
+    @Override
+    protected void onResume() {
+        super.onResume();
+        numOfProblemList = patients.getAllNumsOfProblems();
+        for (int i = 0; i < patients.getSize(); i++) {
+            String userID = userIDs.get(i);
+            int numOfProblems = numOfProblemList[i];
+            searchInfo = new PatientSearchInfo(userID, numOfProblems);
+            searchInfos.add(searchInfo);
+        }
+        searchAdapter = new SearchPatientAdapter(this, searchInfos);
+        listViewPatients.setAdapter(searchAdapter);
+    }
+    */
+    /*
+    @Override
+    protected void onStart() {
+        super.onStart();
+        searchInfos = new ArrayList<>();
+        userIDs = patients.getUserIDs();
+        numOfProblemList = patients.getAllNumsOfProblems();
+
+        System.out.println(Arrays.toString(numOfProblemList));
+
+        for (int i = 0; i < patients.getSize(); i++) {
+            String userID = userIDs.get(i);
+            int numOfProblems = numOfProblemList[i];
+            searchInfo = new PatientSearchInfo(userID, numOfProblems);
+            searchInfos.add(searchInfo);
+        }
+
+        searchAdapter = new SearchPatientAdapter(this, searchInfos);
+
+        listViewPatients.setAdapter(searchAdapter);
+
+        // handles clicking on one of the patient in list view
+        listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                id = userIDs.get(i);
+                patient = accountManager.findPatient(id);
+                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                intent.putExtra("CareProvider",patient);
+                startActivity(intent);
+                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
+                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
+            }
+        });
+    }
+*/
     /**
      * Handles filtering user's searching input
      * @param charSequence
@@ -154,7 +204,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
     public void afterTextChanged(Editable editable) {
 
     }
-    // TODO may want to add a method that refresh the list every time user come back to this activity
 
 //    @Override
 //    protected void onStart() {

@@ -238,6 +238,10 @@ public class ProblemListActivity extends AppCompatActivity {
                 //index = adapter.getPosition(adapter.getItem(position));
                 index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
+                Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
+                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+                intent.putExtra("Problem", chosenProblem);
+                startActivity(intent);
 
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra

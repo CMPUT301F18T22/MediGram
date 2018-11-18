@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -12,7 +13,7 @@ import android.widget.TextView;
 
 public class PatientProfileActivity extends Activity {
     private Button editProfileButton, viewProblemsButton;
-    private TextView DisplayUserID, DisplayPhone, DisplayEmail;
+    private TextView displayUserID, displayPhone, displayEmail;
     private String userID, phoneNumber, email;
     private Patient account;
     private Boolean accountDeleted;
@@ -22,25 +23,32 @@ public class PatientProfileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_patient_profile);
-
-        accountManager = new AccountManager(getApplicationContext());
-
-        account = (Patient) getIntent().getSerializableExtra("Patient");
-        userID = account.getUserID();
-        email = account.getEmailAddress();
-        phoneNumber = account.getPhoneNumber();
-
-        DisplayUserID = findViewById(R.id.DisplayUserID);
-        DisplayEmail = findViewById(R.id.DisplayEmail);
-        DisplayPhone = findViewById(R.id.DisplayPhone);
+        displayUserID = findViewById(R.id.DisplayUserID);
+        displayEmail = findViewById(R.id.DisplayEmail);
+        displayPhone = findViewById(R.id.DisplayPhone);
         editProfileButton = findViewById(R.id.patientEditProfileButton);
         viewProblemsButton = findViewById(R.id.patientViewProblemButton);
         searchBox = findViewById(R.id.searchBox);
 
-        DisplayUserID.setText(userID);
-        DisplayEmail.setText(email);
-        DisplayPhone.setText(phoneNumber);
+        accountManager = new AccountManager(getApplicationContext());
+        if (getIntent().hasExtra("Patient")) {
+            account = (Patient) getIntent().getSerializableExtra("Patient");
+        }
+        if (getIntent().hasExtra("CareProvider")) {
+            account = (Patient) getIntent().getSerializableExtra("CareProvider");
+            editProfileButton.setVisibility(View.GONE);
+        }
+        userID = account.getUserID();
+        email = account.getEmailAddress();
+        phoneNumber = account.getPhoneNumber();
+
+
+
+        displayUserID.setText(userID);
+        displayEmail.setText(email);
+        displayPhone.setText(phoneNumber);
 
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +63,15 @@ public class PatientProfileActivity extends Activity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ProblemListActivity.class);
-                intent.putExtra("Patient", account);
+                if (getIntent().hasExtra("Patient")) {
+                    intent.putExtra("Patient", account);
+
+                }
+                if (getIntent().hasExtra("CareProvider")) {
+                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("Patient", account);
+
+                }
                 intent.putExtra("body location", "");
                 startActivity(intent);
             }
@@ -89,9 +105,9 @@ public class PatientProfileActivity extends Activity {
     protected void updateProfile(){
         /* Refreshes the display info on Start */
         accountManager.patientUpdater(account.getUserID(), account);
-        DisplayUserID.setText(account.getUserID());
-        DisplayEmail.setText(account.getEmailAddress());
-        DisplayPhone.setText(account.getPhoneNumber());
+        displayUserID.setText(account.getUserID());
+        displayEmail.setText(account.getEmailAddress());
+        displayPhone.setText(account.getPhoneNumber());
     }
 
     @Override

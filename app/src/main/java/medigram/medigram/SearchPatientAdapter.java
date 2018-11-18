@@ -102,6 +102,7 @@ class CustomFilter extends Filter {
 
     @Override
     protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+
         searchInfos = (ArrayList<PatientSearchInfo>) filterResults.values;
         notifyDataSetChanged();
     }

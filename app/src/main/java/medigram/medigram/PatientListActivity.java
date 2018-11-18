@@ -40,6 +40,8 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private ArrayList<String> userIDs = new ArrayList<>();
     private int [] numOfProblemList;
     private AccountManager accountManager;
+    private Patient patient;
+    private String id;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -90,12 +92,19 @@ public class PatientListActivity extends Activity implements TextWatcher {
         }
 
         searchAdapter = new SearchPatientAdapter(this, searchInfos);
+
         listViewPatients.setAdapter(searchAdapter);
 
         // handles clicking on one of the patient in list view
         listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                id = userIDs.get(i);
+                patient = accountManager.findPatient(id);
+
+                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                intent.putExtra("CareProvider",patient);
+                startActivity(intent);
                 Toast.makeText(PatientListActivity.this, "Click to patient: " + i
                         , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
             }

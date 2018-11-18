@@ -108,7 +108,11 @@ public class AddRecordActivity extends Activity {
         addcomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(this, RecordAddComment.class));
+                Intent intent = new Intent(getApplicationContext(), RecordAddComment.class);
+                String id = patient.getUserID() ;
+                intent.putExtra("notcool",id);
+                intent.putExtra("socool", newrecord);
+                startActivity(intent);
             }
         });
 

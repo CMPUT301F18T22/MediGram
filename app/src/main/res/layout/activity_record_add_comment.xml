@@ -6,11 +6,28 @@
     android:layout_height="match_parent"
     tools:context=".RecordAddComment">
 
-    <TextView
-        android:id="@+id/texxxt"
-        android:layout_width="279dp"
-        android:layout_height="320dp"
-        android:text="No comment yet"
-        tools:layout_editor_absoluteX="44dp"
-        tools:layout_editor_absoluteY="47dp" />
+    <Button
+        android:id="@+id/save"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="106dp"
+        android:text="save"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/texxt1"
+        android:layout_width="296dp"
+        android:layout_height="364dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="29dp"
+        android:inputType="textMultiLine"
+        app:layout_constraintBottom_toTopOf="@+id/save"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

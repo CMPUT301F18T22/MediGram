@@ -89,14 +89,14 @@ public class ProblemListActivity extends AppCompatActivity {
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
 
-            // Add the edited problem to the correct index, depending on its date
-            for (Problem p: filteredProblems.getList()){
-                if (chosenProblem.getDate().before(p.getDate())){
-                    index = filteredProblems.getIndex(p);
-                    filteredProblems.getList().add(index, chosenProblem);
-                    adapter.insert(chosenProblem.toString(),index);
-                    adapter.notifyDataSetChanged();
-                    break;
+                    // Add the edited problem to the correct index, depending on its date
+                    for (Problem p: filteredProblems.getList()){
+                        if (chosenProblem.getDate().before(p.getDate())){
+                            index = filteredProblems.getIndex(p);
+                            filteredProblems.getList().add(index, chosenProblem);
+                            adapter.insert(chosenProblem.toString(),index);
+                            adapter.notifyDataSetChanged();
+                            break;
                 }
             }
             // if problem hasn't yet been added, then add it to the very end
@@ -235,9 +235,17 @@ public class ProblemListActivity extends AppCompatActivity {
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                //index = adapter.getPosition(adapter.getItem(position));
+                /*index = adapter.getPosition(adapter.getItem(position));*/
                 index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
+                String problemtitle = chosenProblem.getProblemTitle();
+                Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
+                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+                intent.putExtra("Problem", chosenProblem);
+                startActivity(intent);
+                Toast.makeText(ProblemListActivity.this, "Click to problem: " + position
+                        , Toast.LENGTH_SHORT).show();  // shows which problem is clicked
+
 
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra

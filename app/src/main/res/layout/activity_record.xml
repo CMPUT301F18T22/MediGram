@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecordActivity">
+
+    <ListView
+        android:id="@+id/RecordListView"
+        android:layout_width="wrap_content"
+        android:layout_height="296dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+    </ListView>
+
+    <TextView
+        android:id="@+id/timestamp"
+        android:layout_width="150dp"
+        android:layout_height="19dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="156dp"
+        android:text="TextView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/viewpicture"
+        android:layout_width="145dp"
+        android:layout_height="64dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="344dp"
+        android:text="Picture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/Recordtitle"
+        android:layout_width="271dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="4dp"
+        android:text="TextView"
+        android:textSize="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addComment"
+        android:layout_width="143dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
+        android:text="Add Comment"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/addPicture"
+        android:layout_width="141dp"
+        android:layout_height="73dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="44dp"
+        android:text="Add Picture"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="150dp"
+        android:layout_height="37dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="Add Goelocation"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timestamp" />
+
+</android.support.constraint.ConstraintLayout>

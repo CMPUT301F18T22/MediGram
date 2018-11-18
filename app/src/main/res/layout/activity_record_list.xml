@@ -54,7 +54,7 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <TextView
-        android:id="@+id/date"
+        android:id="@+id/timestamp"
         android:layout_width="112dp"
         android:layout_height="21dp"
         android:layout_marginTop="8dp"
@@ -78,6 +78,7 @@
         android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:textSize="30dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -89,5 +90,5 @@
         android:layout_marginTop="8dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/date" />
+        app:layout_constraintTop_toBottomOf="@+id/timestamp" />
 </android.support.constraint.ConstraintLayout>

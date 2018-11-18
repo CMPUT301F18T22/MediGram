@@ -37,14 +37,16 @@
         <activity
             android:name=".ProblemListActivity"
             android:theme="@style/Theme.AppCompat.Light"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".EditProblemActivity"
             android:label="Edit Problem"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            android:theme="@style/Theme.AppCompat.Light" />
         <activity
             android:name=".RecordListActivity"
-            android:theme="@style/Theme.AppCompat.Light"></activity>
+            android:theme="@style/Theme.AppCompat.Light" />
+        <activity android:name=".RecordActivity"
+            android:theme="@style/Theme.AppCompat.Light" />
     </application>
 
 </manifest>

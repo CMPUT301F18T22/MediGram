@@ -2,6 +2,8 @@ package medigram.medigram;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -33,7 +35,7 @@ public class RecordListActivity  extends AppCompatActivity {     private ListVie
         String date = problem.getDateString();
         String description = problem.getDescription();
         TextView Displayproblemtile = findViewById(R.id.problemtitle);
-        TextView Displaydate = findViewById(R.id.date);
+        TextView Displaydate = findViewById(R.id.timestamp);
         TextView Displaydes = findViewById(R.id.Description);
 
 
@@ -43,7 +45,10 @@ public class RecordListActivity  extends AppCompatActivity {     private ListVie
         recordsView = (ListView) findViewById(R.id.RecordListView);
         recordsView.setTextFilterEnabled(true);
 
-
+        problemsView.setClickable(true);
+        problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
         }
 }

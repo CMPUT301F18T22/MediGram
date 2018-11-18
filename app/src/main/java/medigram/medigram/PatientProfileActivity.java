@@ -83,7 +83,7 @@ public class PatientProfileActivity extends Activity {
     @Override
     protected void onStart(){
         super.onStart();
-        this.account = accountManager.findPatient(account.getUserID());
+        this.account = accountManager.findPatient(this.account.getUserID());
     }
 
     protected void updateProfile(){

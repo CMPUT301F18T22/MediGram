@@ -3,6 +3,7 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -25,7 +26,10 @@ public class CareProviderProfileActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_careprovider_profile);
 
+        accountManager = new AccountManager(getApplicationContext());
+
         account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+        Log.d("CareProvider", account.getJestID());
         userID = account.getUserID();
         email = account.getEmailAddress();
         phoneNumber = account.getPhoneNumber();
@@ -54,7 +58,7 @@ public class CareProviderProfileActivity extends Activity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), PatientListActivity.class);
                 intent.putExtra("CareProvider", account);
-                startActivityForResult(intent, 1);
+                startActivity(intent);
             }
         });
 
@@ -62,17 +66,19 @@ public class CareProviderProfileActivity extends Activity {
 
     protected void updateProfile(CareProvider account){
         /* Refreshes the display info on Start */
+        accountManager.careProviderUpdater(account.getUserID(), account);
+
         DisplayUserID.setText(account.getUserID());
         DisplayEmail.setText(account.getEmailAddress());
         DisplayPhone.setText(account.getPhoneNumber());
     }
-/*
+
     @Override
     protected void onStart() {
         super.onStart();
         this.account = accountManager.findCareProvider(account.getUserID());
     }
-*/
+
     @Override
     protected void onActivityResult(int requestCode, int code, Intent intent){
         if (requestCode == 1 ){

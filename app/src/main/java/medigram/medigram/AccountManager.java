@@ -3,6 +3,7 @@ package medigram.medigram;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 import android.util.Patterns;
 
 import java.util.ArrayList;
@@ -134,7 +135,7 @@ public class AccountManager{
                 getPatient.execute(userID);
                 patientsResults = getPatient.get();
                 if (patientsResults.size() != 0) {
-                    return patientsResults.get(0);
+                    return patientsResults.get(patientsResults.size()-1);
                 }
             }else{
                 return offlineController.loadPatient(userID);
@@ -159,7 +160,7 @@ public class AccountManager{
                 getCareProvider.execute(userID);
                 careProvidersResults = getCareProvider.get();
                 if (careProvidersResults.size() != 0) {
-                    return careProvidersResults.get(0);
+                    return careProvidersResults.get(careProvidersResults.size()-1);
                 }
             }else{
                 return offlineController.loadCareProvider(userID);

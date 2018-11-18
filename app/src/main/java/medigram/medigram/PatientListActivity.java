@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,14 +43,19 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        searchAdapter.notifyDataSetChanged();
         if (resultCode == Activity.RESULT_OK && data != null) {
-            // if EditProblemActivity was opened with edit button
             if (requestCode == 1) {
                 Patient patient = (Patient) data.getSerializableExtra("newPatient");
                 patients.addPatient(patient); // add the patient
-                searchAdapter.notifyDataSetChanged();
                 accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
+
+                String userID = patient.getUserID();
+                int numOfProblems = patient.getNumOfProblems();
+                searchInfo = new PatientSearchInfo(userID, numOfProblems);
+                searchInfos.add(searchInfo);
+
+                searchAdapter = new SearchPatientAdapter(this, searchInfos);
+                listViewPatients.setAdapter(searchAdapter);
             }
         }
     }
@@ -67,9 +73,14 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
         search_patient = findViewById(R.id.search_patient);
         search_patient.addTextChangedListener(this);  // handles searching patient
+
+
+
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();
         numOfProblemList = patients.getAllNumsOfProblems();
+
+        Log.d("Patients", userIDs.toString());
 
         for (int i = 0; i < patients.getSize(); i++) {
             String userID = userIDs.get(i);
@@ -136,10 +147,10 @@ public class PatientListActivity extends Activity implements TextWatcher {
     }
     // TODO may want to add a method that refresh the list every time user come back to this activity
 
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        searchAdapter.notifyDataSetChanged();
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        careProvider = accountManager.findCareProvider(careProvider.getUserID());
+//
+//    }
 }

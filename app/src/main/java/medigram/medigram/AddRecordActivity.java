@@ -38,19 +38,18 @@ public class AddRecordActivity extends Activity {
      * editing a problem is done by a child activity.
      * After adding or editing is done, the User data is updated over the network if available.
      *
-     * @author Jiaqi Liu, Zeyu Liu
+     * @author Jiaqi Liu
      */
     private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
     private Uri imageUri;
     private LocationManager locationManager;
     private String provider;
     public static final int TAKE_PHOTO = 1;
-    public static final int CROP_PHOTO = 2;
     private Button geolocation;
     private Button addcomment;
     private Button addpicture;
     private Button adddate;
-    String mCurrentPhotoPath;
+    private Button save;
     private AccountManager accoutmanager;
 
 
@@ -64,10 +63,14 @@ public class AddRecordActivity extends Activity {
         geolocation = findViewById(R.id.Geo_location);
         addpicture = findViewById(R.id.Picture_Add);
         adddate = findViewById(R.id.Date);
+        save = findViewById(R.id.save);
+
 
 
         // get current problem(using intent from the record view part to get problem id and patient id )
         //problem = Patient.getProblems().getProblem(0);
+        String patient1 = getIntent().getStringExtra("Patient");
+        String problem = getIntent().getStringExtra("Problem");
         Record newrecord = new Record();
 
         // add a new geolocation
@@ -151,6 +154,15 @@ public class AddRecordActivity extends Activity {
             public void onClick(View view) {
                 String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
                 newrecord.setDateStarted(timeStamp);
+            }
+        });
+
+
+        //this is the part to get the date
+        save.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accoutmanager.patientUpdater(patient1, patient);
             }
         });
 

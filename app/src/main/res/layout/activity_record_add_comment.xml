@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RecordAddComment">
+
+    <TextView
+        android:id="@+id/texxxt"
+        android:layout_width="279dp"
+        android:layout_height="320dp"
+        android:text="No comment yet"
+        tools:layout_editor_absoluteX="44dp"
+        tools:layout_editor_absoluteY="47dp" />
+</android.support.constraint.ConstraintLayout>

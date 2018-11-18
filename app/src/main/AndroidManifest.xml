@@ -51,7 +51,8 @@
         <activity android:name=".AddRecordActivity" />
         <activity android:name=".RecordListActivity" />
         <activity android:name=".EditRecordActivity" />
-        <activity android:name=".edit_record_title"></activity>
+        <activity android:name=".edit_record_title" />
+        <activity android:name=".RecordAddComment"></activity>
     </application>
 
 </manifest>

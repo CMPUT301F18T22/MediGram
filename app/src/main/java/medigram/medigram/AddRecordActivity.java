@@ -52,7 +52,6 @@ public class AddRecordActivity extends Activity {
     private Button save;
     private AccountManager accoutmanager;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -69,8 +68,8 @@ public class AddRecordActivity extends Activity {
 
         // get current problem(using intent from the record view part to get problem id and patient id )
         //problem = Patient.getProblems().getProblem(0);
-        String patient1 = getIntent().getStringExtra("Patient");
-        String problem = getIntent().getStringExtra("Problem");
+        Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
+        Problem problem = (Problem )getIntent().getSerializableExtra("Problem");
         Record newrecord = new Record();
 
         // add a new geolocation
@@ -89,18 +88,11 @@ public class AddRecordActivity extends Activity {
                     Toast.makeText(getApplicationContext(), "No location provider to use", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                Activity activity = (Activity) getApplicationContext();
 
-                /**
-                 * ******************************************************************************************************************
-                 * something wrong with this part
-                 * the permission part , cannot use this as the contenxt
-                 * if this part is deleted getLastKnowLocation will occur an error
-                 */
                 if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
+                    ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
                 }
-                //*******************************************************************************************************************
-
 
                 Location location = locationManager.getLastKnownLocation(provider);
                 Double longitude = location.getLongitude();
@@ -116,10 +108,7 @@ public class AddRecordActivity extends Activity {
         addcomment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /**this part will have the same coding as the add comment for the care provider part
-                 *
-                 */
-
+                startActivity(new Intent(this, RecordAddComment.class));
             }
         });
 
@@ -162,7 +151,9 @@ public class AddRecordActivity extends Activity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accoutmanager.patientUpdater(patient1, Patient);
+                problem.getRecordList().addRecord(newrecord);
+                String id = patient.getUserID() ;
+                accoutmanager.patientUpdater(id , patient);
             }
         });
 

@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 /**
  * This is the activity that enables a care provider to add a patient to list.
  * Sources:
@@ -24,9 +26,8 @@ public class AddPatientActivity extends Activity {
     private EditText inputUserID;
     private String userID;
     private CareProvider careProvider;
-    private PatientList patients;
     private Patient patient;
-
+    public AccountManager accountManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,30 +51,33 @@ public class AddPatientActivity extends Activity {
                     toast.setGravity(Gravity.CENTER, 0, 320);
                     toast.show();
                 } else {
-
-                    // TODO add patient wrong logics (does the patient to be added have to be in patient list?)
-                    patients = careProvider.getAssignedPatients();
-                    patient = patients.getPatientByID(userID);
-                    Log.d("Tag", patients.toString());
-
+                    // init accountManager
+                    accountManager = new AccountManager(getApplicationContext());
+                    // try to find the corresponding patient that want to add
+                    patient = accountManager.findPatient(userID);
                     // check if the patient that we want to add exists in patient list
                     if (patient != null) {
                         // check if the patient already assigned to current care provider
                         if (careProvider.patientAssigned(userID)) {
-                            careProvider.assignPatient(patient); // add the patient
-                            Intent intent = new Intent(AddPatientActivity.this, PatientListActivity.class);
-                            Toast toast = Toast.makeText(AddPatientActivity.this
-                                    , "Patient Added Successfully!"
-                                    , Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 320);
-                            toast.show();
-                            finish();
-                        } else {
                             Toast toast = Toast.makeText(AddPatientActivity.this
                                     , "This patient is already assigned to you."
                                     , Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 320);
                             toast.show();
+                        } else {
+
+
+
+                            Toast toast = Toast.makeText(AddPatientActivity.this
+                                    , "Patient Added Successfully!"
+                                    , Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 320);
+                            toast.show();
+                            Intent intent = new Intent();
+                            intent.putExtra("newPatient",patient);
+                            setResult(Activity.RESULT_OK, intent);
+                            finish();
+
                         }
                     } else {  // patient not found in patient list
                         Toast toast = Toast.makeText(AddPatientActivity.this

@@ -13,6 +13,9 @@ public class Patient extends User implements Serializable {
     private String userType = "Patient";
     private ProblemList problemList = new ProblemList();
 
+    @JestId
+    private String jestID;
+
     public Patient(String userid, String emailaddress, String phonenumber){
         this.userID = userid;
         this.emailAddress = emailaddress;
@@ -31,4 +34,11 @@ public class Patient extends User implements Serializable {
         return problemList.getSize();
     }
 
+    public String getJestID() {
+        return jestID;
+    }
+
+    public void setJestID(String jestID) {
+        this.jestID = jestID;
+    }
 }

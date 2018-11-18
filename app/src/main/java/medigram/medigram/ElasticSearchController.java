@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.searchbox.action.Action;
 import io.searchbox.client.JestResult;
+import io.searchbox.core.Bulk;
+import io.searchbox.core.BulkResult;
 import io.searchbox.core.Delete;
+import io.searchbox.core.DeleteByQuery;
 import io.searchbox.core.DocumentResult;
 import io.searchbox.core.Index;
 import io.searchbox.core.Search;
@@ -52,8 +56,16 @@ public class ElasticSearchController {
 
     }
 
+    /**
+     * Handles the finding of a Patient account.
+     */
     public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>>{
         @Override
+        /**
+         * Finds a Patient account with given userID.
+         * @param params userID of the patient
+         * @see Patient
+         */
         protected ArrayList<Patient> doInBackground(String...params){
             setClient();
             ArrayList<Patient> accounts = new ArrayList<Patient>();
@@ -77,15 +89,22 @@ public class ElasticSearchController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
         }
     }
 
+    /**
+     * Handles the finding of a Patient account.
+     */
     public static class GetCareProvider extends AsyncTask<String, Void, ArrayList<CareProvider>>{
         @Override
+        /**
+         * Finds a Patient account with given userID.
+         * @param params userID of the patient
+         * @see Patient
+         */
         protected ArrayList<CareProvider> doInBackground(String...params){
             setClient();
             ArrayList<CareProvider> accounts = new ArrayList<CareProvider>();
@@ -109,12 +128,12 @@ public class ElasticSearchController {
                     accounts.addAll(matched);
                 }
             }catch(Exception e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return accounts;
         }
     }
+
     /**
      * Handles the creation a new account for a Patient.
      */
@@ -126,7 +145,6 @@ public class ElasticSearchController {
          */
         @Override
         protected Void doInBackground(Patient...params){
-            //TODO check if account exists first
             setClient();
             Patient patient= params[0];
 
@@ -141,7 +159,6 @@ public class ElasticSearchController {
                     patient.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -161,7 +178,6 @@ public class ElasticSearchController {
          */
         @Override
         protected Void doInBackground(CareProvider...params){
-            //TODO check if account exists first
             setClient();
             CareProvider careProvider = params[0];
 
@@ -176,7 +192,6 @@ public class ElasticSearchController {
                     careProvider.setJestID(result.getId());
                 }
             }catch(IOException e){
-                //TODO offline behavior
                 e.printStackTrace();
             }
 
@@ -200,13 +215,12 @@ public class ElasticSearchController {
             setClient();
             CareProvider careProvider = params[0];
             try {
-                client.execute(new Update.Builder(careProvider)
+                client.execute(new Index.Builder(careProvider)
                         .index("cmput301f18t22test")
                         .type("CareProviders")
                         .id(careProvider.getJestID())
                         .build());
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;
@@ -216,24 +230,27 @@ public class ElasticSearchController {
     /**
      * Handles updating of Patient's account.
      */
-    public static class UpdatePatient extends AsyncTask<Patient, Void, Void> {
+    public static class UpdatePatient extends AsyncTask<Patient, Void, Patient> {
         /**
          * Updates a given Patients's account to match any new changes
          * @param params
          * @see Patient
          */
         @Override
-        protected Void doInBackground(Patient... params) {
+        protected Patient doInBackground(Patient... params) {
             setClient();
             Patient patient = params[0];
             try {
-                client.execute(new Update.Builder(patient)
+                DocumentResult result = client.execute(new Index.Builder(patient)
                         .index("cmput301f18t22test")
                         .type("Patients")
                         .id(patient.getJestID())
                         .build());
+//                if (result.isSucceeded()) {
+//                    patient.setJestID(result.getId());
+//                }
+
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;
@@ -252,13 +269,19 @@ public class ElasticSearchController {
         @Override
         protected Void doInBackground(String... params) {
             setClient();
-            String jestID = params[0];
+            String userID = params[0];
             try {
-                client.execute(new Delete.Builder(jestID)
-                        .index("cmput301f18t22test")
+                String query = "{"+
+                        "\"query\":{" +
+                        "\"match\":{" +
+                        "\"userID\":\""+ userID + "\"" +
+                        "}" +
+                        "}" +
+                        "}";
+                client.execute(new DeleteByQuery.Builder(query)
+                        .addIndex("cmput301f18t22test")
                         .build());
             } catch (IOException e) {
-                //TODO offline behavior
                 e.printStackTrace();
             }
             return null;

@@ -25,6 +25,7 @@ import java.util.ArrayList;
  * @see CareProviderProfileActivity
  * @author Xiaohui Liu
  */
+
 public class PatientListActivity extends Activity implements TextWatcher {
 
     private Button addPatientBut;
@@ -37,39 +38,32 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private ArrayList<PatientSearchInfo> searchInfos;
     private ArrayList<String> userIDs = new ArrayList<>();
     private int [] numOfProblemList;
+    private AccountManager accountManager;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        searchAdapter.notifyDataSetChanged();
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            // if EditProblemActivity was opened with edit button
+            if (requestCode == 1) {
+                Patient patient = (Patient) data.getSerializableExtra("newPatient");
+                patients.addPatient(patient); // add the patient
+                searchAdapter.notifyDataSetChanged();
+                accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
+            }
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_patient_list);
 
-
+        accountManager = new AccountManager(getApplicationContext());
         careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         patients = careProvider.getAssignedPatients();
         listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient);  // the add patient button
-
-        // TODO this is for testing purpose only, must be deleted later (since adding patient not working yet)
-        Patient patient1 = new Patient("patientone", "p1@gmail.com", "7701111111");
-        patients.addPatient(patient1);
-        Patient patient2 = new Patient("patienttwo", "p2@gmail.com", "7702222222");
-        patients.addPatient(patient2);
-        Patient patient3 = new Patient("3rdpatient", "p3@gmail.com", "7703333333");
-        patients.addPatient(patient3);
-        Patient patient4 = new Patient("patient4", "p4@gmail.com", "7704444444");
-        patients.addPatient(patient4);
-        Patient patient5 = new Patient("patient4", "p4@gmail.com", "7704444444");
-        patients.addPatient(patient5);
-        Patient patient6 = new Patient("patienttwo", "p2@gmail.com", "7702222222");
-        patients.addPatient(patient6);
-        Patient patient7 = new Patient("3rdpatient", "p3@gmail.com", "7703333333");
-        patients.addPatient(patient7);
-        Patient patient8 = new Patient("patient4", "p4@gmail.com", "7704444444");
-        patients.addPatient(patient8);
-        Patient patient9 = new Patient("patient4", "p4@gmail.com", "7704444444");
-        patients.addPatient(patient9);
-        Patient patient10 = new Patient("patient4", "p4@gmail.com", "7704444444");
-        patients.addPatient(patient10);
 
         search_patient = findViewById(R.id.search_patient);
         search_patient.addTextChangedListener(this);  // handles searching patient
@@ -112,7 +106,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
             public void onClick(View v) {
                 Intent intent = new Intent(PatientListActivity.this, AddPatientActivity.class);
                 intent.putExtra("CareProvider", careProvider);
-                startActivity(intent);
+                startActivityForResult(intent,1);
             }
         });
 
@@ -141,4 +135,11 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
     }
     // TODO may want to add a method that refresh the list every time user come back to this activity
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        searchAdapter.notifyDataSetChanged();
+    }
 }

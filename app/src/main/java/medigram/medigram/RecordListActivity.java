@@ -44,13 +44,7 @@ public class RecordListActivity  extends AppCompatActivity {     private ListVie
         Displaydes.setText(description);
         recordsView = (ListView) findViewById(R.id.RecordListView);
         recordsView.setTextFilterEnabled(true);
-
-        problemsView.setClickable(true);
-        problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-        }
-}
+    }
+    }
 
 

@@ -22,11 +22,18 @@ public class EditRecordActivity extends AppCompatActivity {
         editcomment = findViewById(R.id.edit_comment);
         editgeolocation = findViewById(R.id.edit_geolocation);
         editdate = findViewById(R.id.edit_dates);
+
+
+        //getting the specific record from record view
+        Record editrecord = (Record )getIntent().getSerializableExtra("Record");
+
 //handle the edit title,suppose to jump to the edit record title activity and user can edit the title and then update the record
         edittitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intent = new Intent(getApplicationContext(), EditRecordTitle .class);
+                intent.putExtra("socool", editrecord);
+                startActivity(intent);
             }
         });
 

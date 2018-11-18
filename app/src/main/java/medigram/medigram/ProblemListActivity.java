@@ -238,7 +238,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 /*index = adapter.getPosition(adapter.getItem(position));*/
                 index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
-                /*String problemtile = problemList.getProblem(chosenProblem).getProblemTitle();*/
+                String problemtitle = chosenProblem.getProblemTitle();
                 Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
                 intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
                 intent.putExtra("Problem", chosenProblem);

@@ -20,23 +20,23 @@ public class PatientProfileActivity extends Activity {
     private EditText searchBox;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_patient_profile);
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_patient_profile);
 
-        accountManager = new AccountManager(getApplicationContext());
+            accountManager = new AccountManager(getApplicationContext());
 
-        account = (Patient) getIntent().getSerializableExtra("Patient");
-        userID = account.getUserID();
-        email = account.getEmailAddress();
-        phoneNumber = account.getPhoneNumber();
+            account = (Patient) getIntent().getSerializableExtra("Patient");
+            userID = account.getUserID();
+            email = account.getEmailAddress();
+            phoneNumber = account.getPhoneNumber();
 
-        DisplayUserID = findViewById(R.id.DisplayUserID);
-        DisplayEmail = findViewById(R.id.DisplayEmail);
-        DisplayPhone = findViewById(R.id.DisplayPhone);
-        editProfileButton = findViewById(R.id.patientEditProfileButton);
-        viewProblemsButton = findViewById(R.id.patientViewProblemButton);
-        searchBox = findViewById(R.id.searchBox);
+            DisplayUserID = findViewById(R.id.DisplayUserID);
+            DisplayEmail = findViewById(R.id.DisplayEmail);
+            DisplayPhone = findViewById(R.id.DisplayPhone);
+            editProfileButton = findViewById(R.id.patientEditProfileButton);
+            viewProblemsButton = findViewById(R.id.patientViewProblemButton);
+            searchBox = findViewById(R.id.searchBox);
 
         DisplayUserID.setText(userID);
         DisplayEmail.setText(email);

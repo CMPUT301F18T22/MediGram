@@ -159,10 +159,9 @@ public class RecordListActivity  extends AppCompatActivity {
 
                     //Log.d("Problem", problemList.getList().toString());
                     notifyDataSetChanged();
-                    patient.getProblems().updateProblem(index, problem);
+
+                    patient.getProblems().updateProblem(problemIndex, problem);
                     accountManager.patientUpdater(patient.getUserID(), patient);
-
-
                 }
             });
 

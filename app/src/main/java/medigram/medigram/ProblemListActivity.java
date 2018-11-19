@@ -78,14 +78,14 @@ public class ProblemListActivity extends AppCompatActivity {
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
 
-                    // Add the edited problem to the correct index, depending on its date
-                    for (Problem p: filteredProblems.getList()){
-                        if (chosenProblem.getDate().before(p.getDate())){
-                            index = filteredProblems.getIndex(p);
-                            filteredProblems.getList().add(index, chosenProblem);
-                            adapter.insert(chosenProblem.toString(),index);
-                            adapter.notifyDataSetChanged();
-                            break;
+            // Add the edited problem to the correct index, depending on its date
+            for (Problem p: filteredProblems.getList()){
+                if (chosenProblem.getDate().before(p.getDate())){
+                    index = filteredProblems.getIndex(p);
+                    filteredProblems.getList().add(index, chosenProblem);
+                    adapter.insert(chosenProblem.toString(),index);
+                    adapter.notifyDataSetChanged();
+                    break;
                 }
             }
             // if problem hasn't yet been added, then add it to the very end
@@ -183,6 +183,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 Date date = new Date(); // creates problem with today's date
                 Problem newProblem = new Problem("", "", date, bodyLocation);
 
+
+
                 problem_bundle.putSerializable("chosenProblem", newProblem);
                 openEditor.putExtras(problem_bundle);
                 startActivityForResult(openEditor, 2);
@@ -246,19 +248,32 @@ public class ProblemListActivity extends AppCompatActivity {
 
     }
 
+    /**
+     *  When the user presses the back button in the RecordListActivity,
+     *  update the patient to get the changes made in RecordListActivity.
+     */
     @Override
-    public void onResume() {
-        super.onResume();
-        // Fix updating the problemView
-        // the patient should already updated.
+    public void onRestart() {
+        super.onRestart();
+        keySearch.setText("");
+        patient = accountManager.findPatient(patient.getUserID());
         problemList = patient.getProblems();
+        filteredProblems = new ProblemList();
+        for (Problem p: problemList.getList()){
+            if (keyword.equals("")){
+                filteredProblems.addProblem(p);
+            }
+            else if (p.getBodyLocation().equals(bodyLocation)) {
+                filteredProblems.addProblem(p);
+            }
+        }
         problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
-        adapter = new ProblemListAdapter(this,
-                R.layout.problem_list_item, problemString);
-        problemsView.setAdapter(adapter);
+        adapter.clear();
+        adapter.addAll(problemString);
         adapter.notifyDataSetChanged();
 
     }
+
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
 

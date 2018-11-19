@@ -62,9 +62,12 @@
         <activity android:name=".RecordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".AddRecordActivity" />
-        <activity android:name=".EditRecordActivity" />
-        <activity android:name=".EditRecordTitle" />
-        <activity android:name=".RecordAddComment"></activity>
+        <activity android:name=".EditRecordActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".EditRecordTitle"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".RecordAddComment"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

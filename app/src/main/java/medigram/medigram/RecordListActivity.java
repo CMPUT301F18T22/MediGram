@@ -1,9 +1,11 @@
 package medigram.medigram;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +43,7 @@ public class RecordListActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
+
         accountManager = new AccountManager(getApplicationContext());
 
 
@@ -76,9 +79,27 @@ public class RecordListActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), AddRecordActivity.class);
+                intent.putExtra("Patient", patient);
+                intent.putExtra("Problem", problem);
                 startActivityForResult(intent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK && data != null) {
+            if (requestCode == 1) {
+                Record newRecord = (Record) data.getSerializableExtra("newRecord");
+                recordList.addRecord(newRecord);
+                Log.d("Record List", problem.getRecordList().toString());
+                accountManager.patientUpdater(patient.getUserID(), patient);
+                Log.d("Updated Patient", patient.getJestID());
+                Log.d("New Record", newRecord.getRecordTitle());
+                adapter.add(newRecord.toString());
+                adapter.notifyDataSetChanged();
+            }
+        }
     }
 
     private class RecordListAdapter extends ArrayAdapter<String> implements Filterable {
@@ -99,7 +120,7 @@ public class RecordListActivity  extends AppCompatActivity {
                 convertView = inflater.inflate(layout, parent, false);
 
                 RecordListActivity.ViewHolder viewHolder = new RecordListActivity.ViewHolder();
-                viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
+                viewHolder.infoText = (TextView) convertView.findViewById(R.id.recordDescription);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.recordTitleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.recordDeleteBtn);
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.recordEditBtn);

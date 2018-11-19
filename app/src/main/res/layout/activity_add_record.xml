@@ -6,64 +6,73 @@
     android:layout_height="match_parent"
     tools:context=".AddRecordActivity">
 
+    <EditText
+        android:id="@+id/recordTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="8dp"
+        android:ems="10"
+        android:hint="Enter record title."
+        android:inputType="text"
+        app:layout_constraintEnd_toStartOf="@+id/save"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <Button
         android:id="@+id/Picture_Add"
         android:layout_width="174dp"
         android:layout_height="133dp"
-        android:layout_marginBottom="400dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="3dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="8dp"
         android:text="add a picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/Comment_Add" />
-
-    <Button
-        android:id="@+id/Comment_Add"
-        android:layout_width="174dp"
-        android:layout_height="133dp"
-        android:layout_marginBottom="400dp"
-        android:layout_marginEnd="3dp"
-        android:layout_marginStart="17dp"
-        android:text="Add a comment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/Picture_Add"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintHorizontal_bias="0.368"
+        app:layout_constraintStart_toEndOf="@+id/Geo-location"
+        app:layout_constraintTop_toBottomOf="@+id/commentText"
+        app:layout_constraintVertical_bias="0.071" />
 
     <Button
         android:id="@+id/Geo-location"
-        android:layout_width="169dp"
-        android:layout_height="108dp"
+        android:layout_width="174dp"
+        android:layout_height="133dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:text="press to save Geo-location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.389" />
-
-    <Button
-        android:id="@+id/Date"
-        android:layout_width="173dp"
-        android:layout_height="110dp"
-        android:layout_marginEnd="20dp"
-        android:text="press to save the date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.391" />
+        app:layout_constraintTop_toBottomOf="@+id/commentText"
+        app:layout_constraintVertical_bias="0.119" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="171dp"
-        android:layout_marginEnd="158dp"
-        android:layout_marginStart="138dp"
-        android:layout_marginTop="59dp"
+        android:layout_marginTop="52dp"
+        android:layout_marginEnd="28dp"
         android:text="save"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/recordTitle"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/commentText"
+        android:layout_width="376dp"
+        android:layout_height="79dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="8dp"
+        android:hint="Write comment here."
+        android:inputType="textMultiLine"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Date" />
+        app:layout_constraintTop_toBottomOf="@+id/recordTitle" />
 
 </android.support.constraint.ConstraintLayout>

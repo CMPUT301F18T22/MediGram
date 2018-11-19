@@ -18,9 +18,12 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -46,11 +49,14 @@ public class AddRecordActivity extends Activity {
     private String provider;
     public static final int TAKE_PHOTO = 1;
     private Button geolocation;
-    private Button addcomment;
     private Button addpicture;
-    private Button adddate;
     private Button save;
+    private EditText commentEditText;
+    private EditText titleEditText;
     private AccountManager accoutmanager;
+    private Problem problem;
+    private Record newrecord;
+    private Patient patient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,19 +64,20 @@ public class AddRecordActivity extends Activity {
         setContentView(R.layout.activity_add_record);
 
         accoutmanager = new AccountManager(getApplicationContext());
-        addcomment = findViewById(R.id.Comment_Add);
+
+        commentEditText = findViewById(R.id.commentText);
+        titleEditText = findViewById(R.id.recordTitle);
         geolocation = findViewById(R.id.Geo_location);
         addpicture = findViewById(R.id.Picture_Add);
-        adddate = findViewById(R.id.Date);
         save = findViewById(R.id.save);
 
 
 
         // get current problem(using intent from the record view part to get problem id and patient id )
         //problem = Patient.getProblems().getProblem(0);
-        Patient patient = (Patient) getIntent().getSerializableExtra("Patient");
-        Problem problem = (Problem )getIntent().getSerializableExtra("Problem");
-        Record newrecord = new Record();
+        patient = (Patient) getIntent().getSerializableExtra("Patient");
+        problem = (Problem )getIntent().getSerializableExtra("Problem");
+        newrecord = new Record();
 
         // add a new geolocation
         geolocation.setOnClickListener(new View.OnClickListener() {
@@ -104,17 +111,6 @@ public class AddRecordActivity extends Activity {
             }
         });
 
-        //add comment part will be pretty similliar to the care provider add comment
-        addcomment.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), RecordAddComment.class);
-                String id = patient.getUserID() ;
-                intent.putExtra("notcool",id);
-                intent.putExtra("socool", newrecord);
-                startActivity(intent);
-            }
-        });
 
         //here we are going to take a picture use the camera
         addpicture.setOnClickListener(new View.OnClickListener() {
@@ -142,22 +138,21 @@ public class AddRecordActivity extends Activity {
         });
 
         //this is the part to get the date
-        adddate.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-                newrecord.setDateStarted(timeStamp);
-            }
-        });
-
-
-        //this is the part to get the date
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                problem.getRecordList().addRecord(newrecord);
-                String id = patient.getUserID() ;
-                accoutmanager.patientUpdater(id , patient);
+                String title = titleEditText.getText().toString();
+                String comment = commentEditText.getText().toString();
+                newrecord = new Record(title, new Comment(comment, patient.getUserID()), new Date());
+
+                Log.d("New Record", newrecord.getComments().get(0).getText());
+                Log.d("Patient jestID", patient.getJestID());
+
+                Intent intent = new Intent();
+                intent.putExtra("newRecord", newrecord);
+
+                setResult(Activity.RESULT_OK, intent);
+                finish();
             }
         });
 

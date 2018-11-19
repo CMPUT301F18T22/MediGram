@@ -133,7 +133,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a patient, then do this:
         //user = (User) getIntent().getSerializableExtra("User");
         if (getIntent().hasExtra("Patient")){
-            patient = (Patient) getIntent().getSerializableExtra("Patient");
+            Patient tempPatient = (Patient) getIntent().getSerializableExtra("Patient");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;

@@ -11,9 +11,11 @@ import android.widget.Toast;
 
 import java.io.File;
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Record is used to record the patients' problem
@@ -22,15 +24,12 @@ import java.util.List;
  */
 public class Record implements Serializable{
 
-    private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
-    private LocationManager locationManager;
-    private String provider;
-    static final int REQUEST_TAKE_PHOTO = 1;
     private String recordTitle;
     private ArrayList<Comment> Comments = new ArrayList<>();
     private ArrayList<Double> geoLocation = new ArrayList<>();
-    private String dateStarted;
+    private Date dateStarted;
     private File photos;
+    private transient SimpleDateFormat sdf;
 
     /**
      * these are the diffenent ways to create the record for different uses
@@ -38,13 +37,13 @@ public class Record implements Serializable{
      */
     public Record(){}
 
-    public Record(String recordtitle, Comment comment, String date){
+    public Record(String recordtitle, Comment comment, Date date){
         this.recordTitle = recordtitle;
         Comments.add(comment);
         this.dateStarted = date;
     }
 
-    public Record(String recordtitle, Comment comment, String date, File photos){
+    public Record(String recordtitle, Comment comment, Date date, File photos){
         this.recordTitle = recordtitle;
         addComment(comment);
         this.dateStarted = date;
@@ -81,12 +80,21 @@ public class Record implements Serializable{
     }
 
     //getting the started dated in edit part
-    public String getDateStarted() {
+    public Date getDateStarted() {
         return dateStarted;
     }
 
+    /**
+     * Generates a String from the Date.
+     * @return String
+     */
+    public String getDateString() {
+        sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        return sdf.format(dateStarted);
+    }
+
     //save the current date into the record
-    public void setDateStarted(String dateStarted) {
+    public void setDateStarted(Date dateStarted) {
         this.dateStarted = dateStarted;
     }
 
@@ -108,5 +116,14 @@ public class Record implements Serializable{
     //save in the geolocation of the record
     public void setGeoLocation(ArrayList<Double> Location){
         this.geoLocation = Location;
+    }
+
+    /**
+     * Generates a String that is suitable for the Adapter.
+     * @return String
+     */
+    public String toString(){
+        return this.recordTitle + "~ " + this.getDateString() + " \n  "
+                + this.geoLocation.toString();
     }
 }

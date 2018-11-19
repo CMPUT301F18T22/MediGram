@@ -6,31 +6,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.gson.Gson;
-
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -131,32 +120,11 @@ public class ProblemListActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountManager = new AccountManager(getApplicationContext());
-
-        /* test: replace this with patient from Anas' activities
-        Patient patient = new Patient("111111","test@gmail.com", "911");
-        problemList = patient.getProblems();
-        bodyLocation = "left arm";
-        keyword = bodyLocation;
-        Date date = new Date();
-
-        Problem testproblem = new Problem("TestTitle1",
-                "TestDescription1", date, "left arm");
-        Problem testproblem2 = new Problem("TestTitle2",
-                "TestDescription2", date, "left arm");
-        Problem testproblem3 = new Problem("TestTitle3",
-                "TestDescription3", date, "right arm");
-        Problem testproblem4 = new Problem("TestTitle4",
-                "TestDescription4", date, "right arm");
-
-        problemList.addProblem(testproblem);
-        problemList.addProblem(testproblem2);
-        problemList.addProblem(testproblem3);
-        problemList.addProblem(testproblem4);
-         end test*/
 
         setContentView(R.layout.activity_problem_list);
         Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
@@ -239,18 +207,15 @@ public class ProblemListActivity extends AppCompatActivity {
                 index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
                 String problemtitle = chosenProblem.getProblemTitle();
-                Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
-                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
-                intent.putExtra("Problem", chosenProblem);
-                startActivity(intent);
-                Toast.makeText(ProblemListActivity.this, "Click to problem: " + position
-                        , Toast.LENGTH_SHORT).show();  // shows which problem is clicked
-
 
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra
+                Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
+                intent.putExtra("Patient", patient);
+                intent.putExtra("Problem", chosenProblem);
+                intent.putExtra("problemIndex", index);
 
-
+                startActivity(intent);
 
                 Log.d("PROBLEM", chosenProblem.toString());
                 Log.d("ADAPTER GET ITEM", adapter.getItem(position));
@@ -278,6 +243,20 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Fix updating the problemView
+        // the patient should already updated.
+        problemList = patient.getProblems();
+        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+        adapter = new ProblemListAdapter(this,
+                R.layout.problem_list_item, problemString);
+        problemsView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 

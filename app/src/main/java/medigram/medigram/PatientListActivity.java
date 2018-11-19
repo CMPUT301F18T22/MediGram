@@ -103,8 +103,8 @@ public class PatientListActivity extends Activity implements TextWatcher {
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                 intent.putExtra("CareProvider",patient);
                 startActivity(intent);
-                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
-                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
+//                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
+//                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
             }
         });
 

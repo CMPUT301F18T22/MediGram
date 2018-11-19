@@ -4,12 +4,15 @@
 
     <Button
         android:id="@+id/deleteBtn"
-        android:layout_width="66dp"
-        android:layout_height="35dp"
-        android:layout_alignBottom="@+id/list_item_text"
-        android:focusable="false"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/titleText"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="-10dp"
+        android:background="@color/colorAccent"
+        android:focusable="false"
         android:text="Delete"
         android:textSize="10sp" />
 
@@ -18,22 +21,25 @@
         android:layout_width="226dp"
         android:layout_height="42dp"
 
-        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="75dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="26dp"
+        android:layout_toEndOf="@+id/textView"
         android:lines="4"
         android:maxLines="4" />
 
     <Button
         android:id="@+id/editBtn"
-        android:layout_width="66dp"
-        android:layout_height="35dp"
-        android:focusable="false"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:layout_below="@+id/titleText"
         android:layout_alignStart="@+id/deleteBtn"
-        android:layout_marginEnd="15dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
+        android:background="@android:color/darker_gray"
+        android:focusable="false"
         android:text="Edit"
         android:textSize="10sp" />
 
@@ -41,8 +47,11 @@
         android:id="@+id/textView"
         android:layout_width="75dp"
         android:layout_height="41dp"
-        android:layout_alignBottom="@+id/deleteBtn"
+        android:layout_below="@+id/titleText"
         android:layout_alignParentStart="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="18dp"
         android:text="Started:\nLocation:" />
 
     <TextView
@@ -51,13 +60,14 @@
         android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
         android:text="TextView"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="73dp"
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical">

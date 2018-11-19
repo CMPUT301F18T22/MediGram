@@ -133,7 +133,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a patient, then do this:
         //user = (User) getIntent().getSerializableExtra("User");
         if (getIntent().hasExtra("Patient")){
-            Patient tempPatient = (Patient) getIntent().getSerializableExtra("Patient");
+            patient = (Patient) getIntent().getSerializableExtra("Patient");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
@@ -211,16 +211,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra
                 Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
-                intent.putExtra("Patient", getIntent().getSerializableExtra("Patient"));
+                intent.putExtra("Patient", patient);
                 intent.putExtra("Problem", chosenProblem);
+                intent.putExtra("problemIndex", index);
+
                 startActivity(intent);
-
-//                Toast.makeText(ProblemListActivity.this, "Click to problem: " + position
-//                        , Toast.LENGTH_SHORT).show();  // shows which problem is clicked
-
-
-
-
 
                 Log.d("PROBLEM", chosenProblem.toString());
                 Log.d("ADAPTER GET ITEM", adapter.getItem(position));
@@ -248,6 +243,20 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Fix updating the problemView
+        // the patient should already updated.
+        problemList = patient.getProblems();
+        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+        adapter = new ProblemListAdapter(this,
+                R.layout.problem_list_item, problemString);
+        problemsView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
     }
 

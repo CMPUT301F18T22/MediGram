@@ -9,28 +9,32 @@
 
     <Button
         android:id="@+id/recordDeleteBtn"
-        android:layout_width="66dp"
-        android:layout_height="35dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
         android:layout_alignBottom="@+id/list_item_text"
 
         android:layout_alignParentEnd="true"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/colorAccent"
         android:text="Delete"
         android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/recordEditBtn"
         app:layout_constraintEnd_toEndOf="@+id/linearLayout2"
         app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 
     <Button
         android:id="@+id/recordEditBtn"
-        android:layout_width="66dp"
-        android:layout_height="35dp"
+        android:layout_width="80dp"
+        android:layout_height="40dp"
 
         android:layout_alignStart="@+id/deleteBtn"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
+        android:background="@android:color/darker_gray"
         android:text="Edit"
         android:textSize="10sp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
@@ -39,7 +43,7 @@
     <TextView
         android:id="@+id/recordDescription"
         android:layout_width="222dp"
-        android:layout_height="41dp"
+        android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/deleteBtn"
         android:layout_alignParentStart="true"
         android:layout_marginStart="8dp"
@@ -48,24 +52,25 @@
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout2"
         app:layout_constraintEnd_toStartOf="@+id/recordEditBtn"
-        app:layout_constraintHorizontal_bias="0.241"
+        app:layout_constraintHorizontal_bias="0.206"
         app:layout_constraintStart_toEndOf="@+id/recordImageBtn"
         app:layout_constraintTop_toBottomOf="@+id/recordTitleText"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.466" />
 
     <TextView
         android:id="@+id/recordTitleText"
-        android:layout_width="229dp"
-        android:layout_height="26dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
+        android:text="placeHolder"
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toStartOf="@+id/recordDeleteBtn"
-        app:layout_constraintHorizontal_bias="0.318"
+        app:layout_constraintHorizontal_bias="0.045"
         app:layout_constraintStart_toEndOf="@+id/recordImageBtn"
         app:layout_constraintTop_toTopOf="@+id/linearLayout2" />
 

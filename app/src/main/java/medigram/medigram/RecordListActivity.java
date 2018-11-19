@@ -37,6 +37,7 @@ public class RecordListActivity  extends AppCompatActivity {
     private TextView Displaydes;
     private Button addRecordButton;
     private int index;
+    private int problemIndex;
 
 
     @Override
@@ -52,6 +53,7 @@ public class RecordListActivity  extends AppCompatActivity {
         }
         patient = (Patient) getIntent().getSerializableExtra("Patient");
         problem = (Problem) getIntent().getSerializableExtra("Problem");
+        problemIndex = getIntent().getIntExtra("problemIndex", -1);
 
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
@@ -92,6 +94,7 @@ public class RecordListActivity  extends AppCompatActivity {
             if (requestCode == 1) {
                 Record newRecord = (Record) data.getSerializableExtra("newRecord");
                 recordList.addRecord(newRecord);
+                patient.getProblems().updateProblem(problemIndex, problem);
                 Log.d("Record List", problem.getRecordList().toString());
                 accountManager.patientUpdater(patient.getUserID(), patient);
                 Log.d("Updated Patient", patient.getJestID());
@@ -146,8 +149,8 @@ public class RecordListActivity  extends AppCompatActivity {
                     index = adapter.getPosition(getItem(position));
 
 
-                    Record test = recordList.getRecord(index);
-                    recordList.removeRecord(test);
+                    Record record = recordList.getRecord(index);
+                    recordList.removeRecord(record);
 
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
@@ -156,6 +159,7 @@ public class RecordListActivity  extends AppCompatActivity {
 
                     //Log.d("Problem", problemList.getList().toString());
                     notifyDataSetChanged();
+                    patient.getProblems().updateProblem(index, problem);
                     accountManager.patientUpdater(patient.getUserID(), patient);
 
 

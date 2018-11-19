@@ -112,30 +112,31 @@ public class AddRecordActivity extends Activity {
         });
 
 
-        //here we are going to take a picture use the camera
-        addpicture.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-             // build file to save the image
-                String saveingname = "JPEG_Record" + timeStamp + ".jpg";
-                File outputImage = new File(Environment.
-                        getExternalStorageDirectory(), saveingname);
-                try {
-                    if (outputImage.exists()) {
-                        outputImage.delete();
-                    }
-                    outputImage.createNewFile();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-                imageUri = Uri.fromFile(outputImage);
-                Intent intent = new Intent("android.media.action. IMAGE_CAPTURE");
-                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-                startActivityForResult(intent, TAKE_PHOTO); // activite the camera
-                newrecord.setPhotos(outputImage);
-            }
-        });
+//        //here we are going to take a picture use the camera
+//        addpicture.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+//             // build file to save the image
+//                String saveingname = "JPEG_Record" + timeStamp + ".jpg";
+//                File outputImage = new File(Environment.
+//                        getExternalStorageDirectory(), saveingname);
+//                try {
+//                    if (outputImage.exists()) {
+//                        outputImage.delete();
+//                    }
+//                    outputImage.createNewFile();
+//                } catch (IOException e) {
+//                    e.printStackTrace();
+//                }
+//                imageUri = Uri.fromFile(outputImage);
+//                Intent intent = new Intent("android.media.action. IMAGE_CAPTURE");
+//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+//                startActivityForResult(intent, TAKE_PHOTO); // activite the camera
+//                newrecord.setPhotos(outputImage);
+//            }
+//        });
 
         //this is the part to get the date
         save.setOnClickListener(new View.OnClickListener() {

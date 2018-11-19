@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/addComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Add Comment"
+        android:textSize="15dp" />
+
+    <EditText
+        android:id="@+id/enterComment"
+        android:layout_width="371dp"
+        android:layout_height="110dp"
+        android:ems="10"
+        android:hint="Enter comment (maximum 300 characters)"
+        android:inputType="text" />
+
+    <Button
+        android:id="@+id/confirm"
+        android:layout_width="107dp"
+        android:layout_height="wrap_content"
+        android:text="Button" />
+
+</LinearLayout>

@@ -19,12 +19,10 @@
     <TextView
         android:id="@+id/list_item_text"
         android:layout_width="226dp"
-        android:layout_height="42dp"
+        android:layout_height="41dp"
 
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="26dp"
-        android:layout_toEndOf="@+id/textView"
+        android:layout_alignBottom="@+id/editBtn"
+        android:layout_centerHorizontal="true"
         android:lines="4"
         android:maxLines="4" />
 

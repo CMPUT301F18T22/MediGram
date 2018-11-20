@@ -121,28 +121,31 @@
         android:id="@+id/bodyMapProfile"
         android:layout_width="301dp"
         android:layout_height="278dp"
-        android:layout_marginStart="53dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="57dp"
-        android:layout_marginBottom="49dp"
+        android:layout_marginStart="53dp"
+        android:layout_marginTop="8dp"
         android:contentDescription="BodyMap"
         android:src="@drawable/body_map"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBox" />
 
     <EditText
         android:id="@+id/searchBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="-61dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="-61dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/searchBoxAtProfile"
         android:singleLine="true"
         android:textAlignment="viewStart"
-        app:layout_constraintBottom_toTopOf="@+id/bodyMapProfile"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/userIDText" />
+        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintStart_toEndOf="@+id/userIDText"
+        app:layout_constraintTop_toBottomOf="@+id/DisplayPhone" />
 
 </android.support.constraint.ConstraintLayout>

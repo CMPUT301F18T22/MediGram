@@ -48,8 +48,8 @@
         ========= Problems ==============
         <activity
             android:name=".ProblemListActivity"
-            android:theme="@style/Theme.AppCompat.Light"
-            android:windowSoftInputMode="adjustPan" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustPan"/>
         <activity
             android:name=".EditProblemActivity"
             android:label="Edit Problem"

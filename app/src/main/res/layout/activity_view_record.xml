@@ -19,8 +19,8 @@
         android:id="@+id/timestamp"
         android:layout_width="150dp"
         android:layout_height="19dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="116dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="156dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -50,8 +50,8 @@
         android:id="@+id/addComment"
         android:layout_width="143dp"
         android:layout_height="73dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="68dp"
         android:text="Add Comment"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -60,8 +60,8 @@
         android:id="@+id/addPicture"
         android:layout_width="141dp"
         android:layout_height="73dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="44dp"
         android:text="Add Picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -71,6 +71,7 @@
         android:layout_width="150dp"
         android:layout_height="37dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="Add Goelocation"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timestamp" />

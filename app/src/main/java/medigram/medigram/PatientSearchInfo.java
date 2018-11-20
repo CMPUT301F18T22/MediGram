@@ -15,18 +15,34 @@ public class PatientSearchInfo {
         this.numOfProblems = numOfProblems;
     }
 
+    /**
+     * get user's id
+     * @return userID
+     */
     public String getUserID() {
         return this.userID;
     }
 
+    /**
+     * set the userID to a patient's searchInfo
+     * @param userID
+     */
     public void setUserID(String userID) {
         this.userID = userID;
     }
 
+    /**
+     * get the number of problems
+     * @return numOfProblems
+     */
     public int getNumOfProblems() {
         return this.numOfProblems;
     }
 
+    /**
+     * set the number of problems
+     * @param numOfProblems
+     */
     public void setNumOfProblems(int numOfProblems) {
         this.numOfProblems = numOfProblems;
     }

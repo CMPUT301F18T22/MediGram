@@ -22,22 +22,42 @@ public class Patient extends User implements Serializable {
         this.phoneNumber = phonenumber;
     }
 
+    /**
+     * checks the user's role
+     * @return String: one of "patient" and "care provider"
+     */
     public String checkUserType(){
         return this.userType;
     }
 
+    /**
+     * get the problem list of the patient
+     * @return list of problems
+     */
     public ProblemList getProblems() {
         return problemList;
     }
 
+    /**
+     * get the size of a patient's problem list
+     * @return size of the problem list
+     */
     public int getNumOfProblems() {
         return problemList.getSize();
     }
 
+    /**
+     * get jestID of patient
+     * @return jestID
+     */
     public String getJestID() {
         return jestID;
     }
 
+    /**
+     * set a given jestID to patient
+     * @param jestID
+     */
     public void setJestID(String jestID) {
         this.jestID = jestID;
     }

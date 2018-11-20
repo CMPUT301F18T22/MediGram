@@ -131,57 +131,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
 
     }
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        numOfProblemList = patients.getAllNumsOfProblems();
-        for (int i = 0; i < patients.getSize(); i++) {
-            String userID = userIDs.get(i);
-            int numOfProblems = numOfProblemList[i];
-            searchInfo = new PatientSearchInfo(userID, numOfProblems);
-            searchInfos.add(searchInfo);
-        }
-        searchAdapter = new SearchPatientAdapter(this, searchInfos);
-        listViewPatients.setAdapter(searchAdapter);
-    }
-    */
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        searchInfos = new ArrayList<>();
-        userIDs = patients.getUserIDs();
-        numOfProblemList = patients.getAllNumsOfProblems();
 
-        System.out.println(Arrays.toString(numOfProblemList));
-
-        for (int i = 0; i < patients.getSize(); i++) {
-            String userID = userIDs.get(i);
-            int numOfProblems = numOfProblemList[i];
-            searchInfo = new PatientSearchInfo(userID, numOfProblems);
-            searchInfos.add(searchInfo);
-        }
-
-        searchAdapter = new SearchPatientAdapter(this, searchInfos);
-
-        listViewPatients.setAdapter(searchAdapter);
-
-        // handles clicking on one of the patient in list view
-        listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                id = userIDs.get(i);
-                patient = accountManager.findPatient(id);
-                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                intent.putExtra("CareProvider",patient);
-                startActivity(intent);
-                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
-                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
-            }
-        });
-    }
-*/
     /**
      * Handles filtering user's searching input
      * @param charSequence
@@ -205,10 +155,4 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        careProvider = accountManager.findCareProvider(careProvider.getUserID());
-//
-//    }
 }

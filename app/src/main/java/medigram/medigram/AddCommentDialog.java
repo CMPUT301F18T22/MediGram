@@ -10,6 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
 
+/**
+ * This dialog displays the add comment dialog
+ * when press confirm, it will pass the
+ * information in the recordActivity
+ *
+ * @author Jeremy Xie
+ */
 public class AddCommentDialog extends AppCompatDialogFragment {
     private EditText comment;
     private AddCommentDialogListener listener;

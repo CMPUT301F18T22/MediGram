@@ -53,7 +53,7 @@ public class ProblemListActivity extends AppCompatActivity {
      * back to this activity. The edited or newly created problem by the child activity is added to
      * the problem list.
      * @param requestCode The number key that the child activity was opened with.
-     *                    1 = Edit problem button, 2 = Add problem button
+     *                    1 = Edit problem button, 2 = Add problem button, 3 = ListView item
      * @param resultCode The result code given by the child activity
      *                   RESULT_OK = activity was successful
      * @param data The intent data sent by the child activity. This holds the problem that
@@ -95,14 +95,16 @@ public class ProblemListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
 
-            /*  Check lists ... delete when done
+            /*
+
             for (String s: problemString){
                 Log.d("String", s);
             }
+            */
             for (Problem p: filteredProblems.getList()){
                 Log.d(p.getProblemTitle(), p.toString());
             }
-            */
+
 
             // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
@@ -117,6 +119,27 @@ public class ProblemListActivity extends AppCompatActivity {
         }
         else if (resultCode == Activity.RESULT_CANCELED) {
             // some stuff that will happen if there's no result
+        }
+
+        // if returning from record list activity
+        if (requestCode == 3){
+            super.onRestart();
+            keySearch.setText("");
+            patient = accountManager.findPatient(patient.getUserID());
+            problemList = patient.getProblems();
+            filteredProblems = new ProblemList();
+            for (Problem p: problemList.getList()){
+                if (keyword.equals("")){
+                    filteredProblems.addProblem(p);
+                }
+                else if (p.getBodyLocation().equals(bodyLocation)) {
+                    filteredProblems.addProblem(p);
+                }
+            }
+            problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+            adapter.clear();
+            adapter.addAll(problemString);
+            adapter.notifyDataSetChanged();
         }
 
     }
@@ -205,8 +228,8 @@ public class ProblemListActivity extends AppCompatActivity {
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*index = adapter.getPosition(adapter.getItem(position));*/
-                index = problemString.indexOf(adapter.getItem(position));
+                index = adapter.getPosition(adapter.getItem(position));
+                //index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
                 String problemtitle = chosenProblem.getProblemTitle();
 
@@ -217,7 +240,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 intent.putExtra("Problem", chosenProblem);
                 intent.putExtra("problemIndex", index);
 
-                startActivity(intent);
+                //startActivity(intent);
+                startActivityForResult(intent, 3);
 
                 Log.d("PROBLEM", chosenProblem.toString());
                 Log.d("ADAPTER GET ITEM", adapter.getItem(position));
@@ -248,31 +272,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
     }
 
-    /**
-     *  When the user presses the back button in the RecordListActivity,
-     *  update the patient to get the changes made in RecordListActivity.
-     */
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        keySearch.setText("");
-        patient = accountManager.findPatient(patient.getUserID());
-        problemList = patient.getProblems();
-        filteredProblems = new ProblemList();
-        for (Problem p: problemList.getList()){
-            if (keyword.equals("")){
-                filteredProblems.addProblem(p);
-            }
-            else if (p.getBodyLocation().equals(bodyLocation)) {
-                filteredProblems.addProblem(p);
-            }
-        }
-        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
-        adapter.clear();
-        adapter.addAll(problemString);
-        adapter.notifyDataSetChanged();
 
-    }
 
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY

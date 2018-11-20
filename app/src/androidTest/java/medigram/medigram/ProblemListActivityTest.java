@@ -89,8 +89,8 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2{
         solo.sleep(500);
 
         EditText searchBox = (EditText) solo.getView(R.id.searchBox);
-        solo.enterText(searchBox, "left leg");
-        //solo.typeText(searchBox, "le");
+        //solo.enterText(searchBox, "left leg");
+        solo.typeText(searchBox, "le");
         solo.sleep(500);
 
         ListView listView = (ListView) solo.getView(R.id.ProblemListView);

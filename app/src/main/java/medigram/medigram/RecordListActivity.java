@@ -39,6 +39,13 @@ public class RecordListActivity  extends AppCompatActivity {
     private int index;
     private int problemIndex;
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent openEditor = new Intent();
+        setResult(Activity.RESULT_OK, openEditor);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

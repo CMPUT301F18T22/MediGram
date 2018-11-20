@@ -40,8 +40,6 @@ public class AddRecordActivity extends Activity {
      * retrieved from the User given by the parent activity, and then filtered by keywords. Adding or
      * editing a problem is done by a child activity.
      * After adding or editing is done, the User data is updated over the network if available.
-     *
-     * @author Jiaqi Liu
      */
     private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
     private Uri imageUri;

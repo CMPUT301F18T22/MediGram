@@ -61,7 +61,7 @@ public class PatientList implements Serializable {
     }
 
     /**
-     * @return: user ids for all patients in the list
+     * @return user ids for all patients in the list
      */
     public ArrayList<String> getUserIDs() {
         ArrayList<String> userIDs = new ArrayList<>();
@@ -72,7 +72,7 @@ public class PatientList implements Serializable {
     }
 
     /**
-     * @return: a int list containing numbers of problems for all patients in the list
+     * @return a int list containing numbers of problems for all patients in the list
      */
     public int[] getAllNumsOfProblems() {
         int [] numsOfProblems = new int[patients.size()];

@@ -21,13 +21,13 @@ import java.util.stream.Collectors;
 
 public class RecordListActivity  extends AppCompatActivity {
     private ListView recordsView;
+    private CareProvider careProvider;
     private RecordListAdapter adapter;
     private RecordList recordList;
     private List<String> recordListString;
     private Record chosenRecord;
     private AccountManager accountManager;
     private Patient patient;
-    private CareProvider careProvider;
     private Problem problem;
     private String problem_tile;
     private String date;
@@ -53,14 +53,15 @@ public class RecordListActivity  extends AppCompatActivity {
 
 
         if (getIntent().hasExtra("CareProvider")){
-            patient = (Patient) getIntent().getSerializableExtra("CarProvider");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            patient = (Patient) getIntent().getSerializableExtra("Patient");
             problem = (Problem) getIntent().getSerializableExtra("Problem");
             problemIndex = getIntent().getIntExtra("problemIndex", -1);
             addRecordButton.setVisibility(View.INVISIBLE);
 
 
         }
-        if (getIntent().hasExtra("Patient")){
+        else {
             patient = (Patient) getIntent().getSerializableExtra("Patient");
             problem = (Problem) getIntent().getSerializableExtra("Problem");
             problemIndex = getIntent().getIntExtra("problemIndex", -1);
@@ -92,7 +93,7 @@ public class RecordListActivity  extends AppCompatActivity {
 
                 if (getIntent().hasExtra("CareProvider")) {
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
-                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("CareProvider", careProvider);
                     intent.putExtra("Patient", patient);
                     intent.putExtra("Record", chosenRecord);
                     intent.putExtra("RecordIndex", index);

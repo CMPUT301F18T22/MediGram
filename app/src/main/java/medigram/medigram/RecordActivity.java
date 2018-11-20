@@ -1,5 +1,6 @@
 package medigram.medigram;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -18,67 +20,58 @@ import android.widget.Toast;
  *
  * @author Jeremy Xie
  */
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity implements AddCommentDialog.AddCommentDialogListener {
     private Patient patient;
+    private CareProvider careProvider;
     private Button addCommentBTN;
     private EditText editText;
-/*
+    private TextView patientComment;
+    private TextView careProviderComment;
+    private Comment comment;
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (resultCode == Activity.RESULT_OK && data != null) {
-            if (requestCode == 1) {
-                patient = (Patient) data.getSerializableExtra("newPatient");
-                patients.addPatient(patient); // add the patient
-                accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
-
-                String userID = patient.getUserID();
-                int numOfProblems = patient.getNumOfProblems();
-                searchInfo = new PatientSearchInfo(userID, numOfProblems);
-                searchInfos.add(searchInfo);
-
-                searchAdapter = new SearchPatientAdapter(this, searchInfos);
-                listViewPatients.setAdapter(searchAdapter);
-            }
-        }
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent openEditor = new Intent();
+        setResult(Activity.RESULT_OK, openEditor);
+        finish();
     }
-*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_record);
-
+        patientComment = (TextView) findViewById(R.id.patientComment);
+        careProviderComment = (TextView) findViewById(R.id.carproviderComment);
+        careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         patient = (Patient) getIntent().getSerializableExtra("Patient");
-        addCommentBTN = findViewById(R.id.addComment);
+        addCommentBTN = (Button) findViewById(R.id.addComment);
         addCommentBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(RecordActivity.this);
-                View view = getLayoutInflater().inflate(R.layout.dialog_add_comment, null);
-                editText = (EditText) view.findViewById(R.id.enterComment);
-                Button confirmbtn = (Button) view.findViewById(R.id.confirm);
-                confirmbtn.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        if (!editText.getText().toString().isEmpty()){
-                            Toast.makeText(RecordActivity.this,
-                                    "Comments added successfully",
-                                    Toast.LENGTH_SHORT).show();
-                        }else{
-                            Toast.makeText(RecordActivity.this,
-                                    "No comment added",
-                                    Toast.LENGTH_SHORT).show();
-                        }
-                        Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
-                        startActivity(intent);
-                    }
-                });
-                builder.setView(view);
-                AlertDialog alertDialog = builder.create();
-                alertDialog.show();
-                //Intent intent = new Intent(RecordActivity.this, RecordActivity.class);
-                //intent.putExtra("Patient", patient);
-                //startActivityForResult(intent,1);
+                openDialog();
+
             }
+
         });
+    }
+
+    public void openDialog(){
+        AddCommentDialog addCommentDialog = new AddCommentDialog();
+        addCommentDialog.show(getSupportFragmentManager(),"addcomment dialog");
+    }
+
+    @Override
+    public void applyTexts(String commentEntered) {
+        if (getIntent().hasExtra("CareProvider")) {
+            careProviderComment.setText(commentEntered);
+            comment = new Comment(commentEntered,careProvider.getUserID());
+        }
+        else{
+            patientComment.setText(commentEntered);
+            comment = new Comment(commentEntered,patient.getUserID());
+        }
+        Toast.makeText(RecordActivity.this,
+                "Comments added successfully",
+                Toast.LENGTH_SHORT).show();
     }
 }

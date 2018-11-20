@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 public class PatientProfileActivity extends Activity {
     private Button editProfileButton, viewProblemsButton;
+    private CareProvider careProvider;
     private TextView displayUserID, displayPhone, displayEmail;
     private String userID, phoneNumber, email;
     private Patient account;
@@ -33,12 +34,14 @@ public class PatientProfileActivity extends Activity {
         searchBox = findViewById(R.id.searchBox);
 
         accountManager = new AccountManager(getApplicationContext());
-        if (getIntent().hasExtra("Patient")) {
-            account = (Patient) getIntent().getSerializableExtra("Patient");
-        }
+
         if (getIntent().hasExtra("CareProvider")) {
-            account = (Patient) getIntent().getSerializableExtra("CareProvider");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            account = (Patient) getIntent().getSerializableExtra("Patient");
             editProfileButton.setVisibility(View.GONE);
+        }
+        else {
+            account = (Patient) getIntent().getSerializableExtra("Patient");
         }
         userID = account.getUserID();
         email = account.getEmailAddress();
@@ -68,7 +71,7 @@ public class PatientProfileActivity extends Activity {
 
                 }
                 if (getIntent().hasExtra("CareProvider")) {
-                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("CareProvider", careProvider);
                     intent.putExtra("Patient", account);
 
                 }

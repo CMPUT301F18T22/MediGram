@@ -34,6 +34,7 @@ import java.util.stream.Collectors;
  */
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
+    public CareProvider careProvider;
     public ProblemList problemList, filteredProblems;
     public List<String> problemString;
     public ListView problemsView;
@@ -119,7 +120,29 @@ public class ProblemListActivity extends AppCompatActivity {
             // some stuff that will happen if there's no result
         }
 
+        // if returning from record list activity
+        if (requestCode == 3){
+            super.onRestart();
+            keySearch.setText("");
+            patient = accountManager.findPatient(patient.getUserID());
+            problemList = patient.getProblems();
+            filteredProblems = new ProblemList();
+            for (Problem p: problemList.getList()){
+                if (keyword.equals("")){
+                    filteredProblems.addProblem(p);
+                }
+                else if (p.getBodyLocation().equals(bodyLocation)) {
+                    filteredProblems.addProblem(p);
+                }
+            }
+            problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+            adapter.clear();
+            adapter.addAll(problemString);
+            adapter.notifyDataSetChanged();
+        }
     }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +156,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a patient, then do this:
         //user = (User) getIntent().getSerializableExtra("User");
         if (getIntent().hasExtra("Patient")){
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             patient = (Patient) getIntent().getSerializableExtra("Patient");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
@@ -192,21 +216,13 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
-        /*
-        View.OnClickListener myClickListener = new View.OnClickListener() {
-            public void onClick(View v) {
-                //code to be written to handle the click event
-
-            }
-        };
-        */
 
         problemsView.setClickable(true);
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 /*index = adapter.getPosition(adapter.getItem(position));*/
-                index = problemString.indexOf(adapter.getItem(position));
+                index = adapter.getPosition(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
                 String problemtitle = chosenProblem.getProblemTitle();
 
@@ -214,7 +230,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 // as extra
                 if (getIntent().hasExtra("CareProvider")) {
                     Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
-                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("CareProvider", careProvider);
                     intent.putExtra("Patient", patient);
                     intent.putExtra("Problem", chosenProblem);
                     intent.putExtra("problemIndex", index);
@@ -255,32 +271,6 @@ public class ProblemListActivity extends AppCompatActivity {
             }
         });
 
-
-    }
-
-    /**
-     *  When the user presses the back button in the RecordListActivity,
-     *  update the patient to get the changes made in RecordListActivity.
-     */
-    @Override
-    public void onRestart() {
-        super.onRestart();
-        keySearch.setText("");
-        patient = accountManager.findPatient(patient.getUserID());
-        problemList = patient.getProblems();
-        filteredProblems = new ProblemList();
-        for (Problem p: problemList.getList()){
-            if (keyword.equals("")){
-                filteredProblems.addProblem(p);
-            }
-            else if (p.getBodyLocation().equals(bodyLocation)) {
-                filteredProblems.addProblem(p);
-            }
-        }
-        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
-        adapter.clear();
-        adapter.addAll(problemString);
-        adapter.notifyDataSetChanged();
 
     }
 

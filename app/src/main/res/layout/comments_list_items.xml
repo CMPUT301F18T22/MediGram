@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/deleteBtn"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:layout_alignBottom="@+id/titleText"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="9dp"
+        android:layout_marginBottom="-35dp"
+        android:background="@color/colorAccent"
+        android:focusable="false"
+        android:text="Delete"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/list_item_text"
+        android:layout_width="305dp"
+        android:layout_height="81dp"
+
+        android:layout_alignBottom="@+id/editBtn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="2dp"
+        android:layout_marginBottom="-3dp"
+        android:lines="4"
+        android:maxLines="4" />
+
+    <Button
+        android:id="@+id/editBtn"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
+        android:layout_below="@+id/titleText"
+        android:layout_alignStart="@+id/deleteBtn"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="-1dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="13dp"
+        android:background="@android:color/darker_gray"
+        android:focusable="false"
+        android:text="Edit"
+        android:textSize="10sp" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="26dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="2dp"
+        android:text="TextView"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="109dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:orientation="vertical">
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>

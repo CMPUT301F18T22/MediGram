@@ -43,7 +43,6 @@ public class ProblemList implements Serializable{
     /**
      * Gets the problem at the given index
      * @param index The index of the problem to be returned
-     * @return The problem at a specified index
      */
     public void updateProblem(int index, Problem problem){
         problemList.set(index, problem);

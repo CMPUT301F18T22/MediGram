@@ -34,7 +34,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private CareProvider careProvider;
     private PatientList patients;
     private ListView listViewPatients;
-    private EditText search_patient;
+    private EditText searchPatient;
     private SearchPatientAdapter searchAdapter;
     private PatientSearchInfo searchInfo;
     private ArrayList<PatientSearchInfo> searchInfos;
@@ -74,8 +74,8 @@ public class PatientListActivity extends Activity implements TextWatcher {
         listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient);  // the add patient button
 
-        search_patient = findViewById(R.id.search_patient);
-        search_patient.addTextChangedListener(this);  // handles searching patient
+        searchPatient = findViewById(R.id.search_patient);
+        searchPatient.addTextChangedListener(this);  // handles searching patient
 
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();

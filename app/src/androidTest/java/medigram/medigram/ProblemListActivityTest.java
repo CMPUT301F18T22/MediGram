@@ -1,17 +1,14 @@
 package medigram.medigram;
 
-import com.robotium.solo.Solo;
-
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import org.w3c.dom.Text;
+import com.robotium.solo.Solo;
 
 public class ProblemListActivityTest extends ActivityInstrumentationTestCase2{
     private Solo solo;

@@ -128,8 +128,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
             }
         });
 
-
-
     }
 
     /**

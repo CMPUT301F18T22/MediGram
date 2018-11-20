@@ -8,7 +8,7 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
     public RecordListTest(){
         super(RecordList.class);
     }
-/**
+
     public void testAddRecord(){
         RecordList recordList = new RecordList();
         Record record = new Record("title", new Comment("blah", "doe"), new Date());
@@ -57,6 +57,6 @@ public class RecordListTest extends ActivityInstrumentationTestCase2 {
         assertEquals(recordList.getSize(), 1);
 
     }
-*/
+
 
 }

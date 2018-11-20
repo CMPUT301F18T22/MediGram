@@ -8,7 +8,7 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
     public RecordTest(){
         super(Record.class);
     }
-/**
+
     public void testSetRecordTitle(){
         Record record = new Record("title", new Comment("blah", "doe"), new Date());
         record.setRecordTitle("giorno");
@@ -62,5 +62,5 @@ public class RecordTest extends ActivityInstrumentationTestCase2 {
 
     public void testSetGeoLocation(){}
     public void testGetGeoLocation(){}
-*/
+
 }

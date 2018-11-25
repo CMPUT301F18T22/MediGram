@@ -37,4 +37,8 @@
     <string name="edit_problem_date_hint">Date Started</string>
     <string name="edit_description_hint">Description of the problem (300 characters max)</string>
     <string name="edit_body_location_hint">body location</string>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="saveMapBtn">Save</string>
+    <string name="addGeoBtn">Add Geo-location</string>
 </resources>

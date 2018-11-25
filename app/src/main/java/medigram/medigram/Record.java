@@ -9,6 +9,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -143,16 +145,21 @@ public class Record implements Serializable{
      * get the geolocation of the specific rocords
      * @return geoLocation
      */
-    public ArrayList getGeoLocation(){
-        return geoLocation;
+    public LatLng getGeoLocation(){
+        if (geoLocation != null){
+            return new LatLng(geoLocation.get(0), geoLocation.get(1));
+        }
+        return null;
     }
 
     /**
      * save the geolocation of record
      * @param Location
      */
-    public void setGeoLocation(ArrayList<Double> Location){
-        this.geoLocation = Location;
+    public void setGeoLocation(LatLng Location){
+        this.geoLocation.clear();
+        this.geoLocation.add(Location.latitude);
+        this.geoLocation.add(Location.longitude);
     }
 
     /**
@@ -160,7 +167,6 @@ public class Record implements Serializable{
      * @return String
      */
     public String toString(){
-        return this.recordTitle + "~ " + this.getDateString() + " \n  "
-                + this.geoLocation.toString();
+        return this.recordTitle + "~ " + this.getDateString() + " \n  ";
     }
 }

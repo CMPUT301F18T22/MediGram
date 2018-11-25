@@ -26,6 +26,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -41,9 +43,7 @@ public class AddRecordActivity extends Activity {
      * editing a problem is done by a child activity.
      * After adding or editing is done, the User data is updated over the network if available.
      */
-    private static final int MY_PERMISSION_ACCESS_COARSE_LOCATION = 11;
     private Uri imageUri;
-    private LocationManager locationManager;
     private String provider;
     public static final int TAKE_PHOTO = 1;
     private Button geolocation;
@@ -55,6 +55,7 @@ public class AddRecordActivity extends Activity {
     private Problem problem;
     private Record newrecord;
     private Patient patient;
+    private LatLng location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,31 +82,8 @@ public class AddRecordActivity extends Activity {
         geolocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-                // get the avilable geolocation provider
-                List<String> providerList = locationManager.getProviders(true);
-                if (providerList.contains(LocationManager.GPS_PROVIDER)) {
-                    provider = LocationManager.GPS_PROVIDER;
-                } else if (providerList.contains(LocationManager.NETWORK_PROVIDER)) {
-                    provider = LocationManager.NETWORK_PROVIDER;
-                } else {
-                    // when there is no geolocation provider
-                    Toast.makeText(getApplicationContext(), "No location provider to use", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                Activity activity = (Activity) getApplicationContext();
-
-                if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    ActivityCompat.requestPermissions(activity, new String[]{android.Manifest.permission.ACCESS_COARSE_LOCATION}, MY_PERMISSION_ACCESS_COARSE_LOCATION);
-                }
-
-                Location location = locationManager.getLastKnownLocation(provider);
-                Double longitude = location.getLongitude();
-                Double latitude = location.getLatitude();
-                ArrayList<Double> geoLocation1 = new ArrayList<>();
-                geoLocation1.add(latitude);
-                geoLocation1.add(longitude);
-                newrecord.setGeoLocation(geoLocation1);
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                startActivityForResult(intent, 1);
             }
         });
 
@@ -136,13 +114,15 @@ public class AddRecordActivity extends Activity {
 //            }
 //        });
 
-        //this is the part to get the date
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String title = titleEditText.getText().toString();
                 String comment = commentEditText.getText().toString();
                 newrecord = new Record(title, new Comment(comment, patient.getUserID()), new Date());
+                if (location != null){
+                    newrecord.setGeoLocation(location);
+                }
 
                 Log.d("New Record", newrecord.getComments().get(0).getText());
                 Log.d("Patient jestID", patient.getJestID());
@@ -154,8 +134,18 @@ public class AddRecordActivity extends Activity {
                 finish();
             }
         });
+    }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == Activity.RESULT_OK){
+            if (requestCode == 1){
+                location = data.getExtras().getParcelable("Location");
 
-
+                Toast toast = Toast.makeText(AddRecordActivity.this, "Location successfully added.", Toast.LENGTH_LONG);
+                toast.setGravity(Gravity.CENTER, 0, 320);
+                toast.show();
+            }
+        }
     }
 }

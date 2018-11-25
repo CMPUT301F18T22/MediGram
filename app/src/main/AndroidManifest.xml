@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="medigram.medigram">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -7,11 +8,12 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <!--<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />-->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
 
     <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.location.network" />
     <uses-feature android:name="android.hardware.location.gps" />
 
     <application
@@ -20,9 +22,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        tools:ignore="ExtraText,GoogleAppIndexingWarning">
 
-        ========= Account System  ==============
+        ========= Account System ==============
+
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -34,7 +38,8 @@
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".PatientProfileActivity" />
 
-        ========= Care Provider  ==============
+        ========= Care Provider ==============
+
         <activity
             android:name=".PatientListActivity"
             android:label="@string/title_activity_patient_list" />
@@ -46,6 +51,7 @@
             android:label="@string/title_activity_care_provider" />
 
         ========= Problems ==============
+
         <activity
             android:name=".ProblemListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -56,18 +62,34 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         ========= Records ==============
+
         <activity
             android:name=".RecordListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".RecordActivity"
+        <activity
+            android:name=".RecordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".AddRecordActivity" />
-        <activity android:name=".EditRecordActivity"
+        <activity
+            android:name=".EditRecordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".EditRecordTitle"
+        <activity
+            android:name=".EditRecordTitle"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".RecordAddComment"
+        <activity
+            android:name=".RecordAddComment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        ========= Maps ==============
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+
     </application>
 
 </manifest>

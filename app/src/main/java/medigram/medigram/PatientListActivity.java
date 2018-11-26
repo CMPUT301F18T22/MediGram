@@ -24,6 +24,7 @@ import java.util.Arrays;
  * https://github.com/mitchtabian/ListViews
  * https://www.youtube.com/watch?v=NMTUsrBHCrA
  * https://stackoverflow.com/questions/12276138/android-listview-not-scrolling
+ * http://tutorialwide.com/retain-correct-position-filtering-listview-android/
  * @see CareProviderProfileActivity
  * @author Xiaohui Liu
  */
@@ -43,6 +44,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private AccountManager accountManager;
     private Patient patient;
     private String id;
+    private ArrayList<PatientSearchInfo> filteredSearchInfos;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -80,9 +82,6 @@ public class PatientListActivity extends Activity implements TextWatcher {
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();
         numOfProblemList = patients.getAllNumsOfProblems();
-
-        Log.d("Patentss", patients.getAllNumsOfProblems().toString());
-
   
         for (int i = 0; i < patients.getSize(); i++) {
             patient = accountManager.findPatient(userIDs.get(i));
@@ -98,13 +97,22 @@ public class PatientListActivity extends Activity implements TextWatcher {
         listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                id = userIDs.get(i);
-                patient = accountManager.findPatient(id);
+
+                // this part ensures that the indexing is correct before & after filtering list view
+                PatientSearchInfo item = (PatientSearchInfo) listViewPatients.getItemAtPosition(i);
+                String keyword = item.getUserID();
+                int index = -1;
+                for (int j = 0; j < searchInfos.size(); j++) {
+                    if (searchInfos.get(j).getUserID().equals(keyword)) {
+                        index = j;
+                    }
+                }
+
+                patient = accountManager.findPatient(userIDs.get(index));
+
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                intent.putExtra("CareProvider",patient);
+                intent.putExtra("CareProvider", patient);
                 startActivity(intent);
-//                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
-//                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
             }
         });
 
@@ -140,6 +148,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         this.searchAdapter.getFilter().filter(charSequence);
+        searchAdapter.notifyDataSetChanged();
 
     }
 

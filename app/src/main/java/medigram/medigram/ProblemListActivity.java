@@ -206,8 +206,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 Date date = new Date(); // creates problem with today's date
                 Problem newProblem = new Problem("", "", date, bodyLocation);
 
-
-
                 problem_bundle.putSerializable("chosenProblem", newProblem);
                 openEditor.putExtras(problem_bundle);
                 startActivityForResult(openEditor, 2);

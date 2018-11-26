@@ -24,6 +24,7 @@ import java.util.Arrays;
  * https://github.com/mitchtabian/ListViews
  * https://www.youtube.com/watch?v=NMTUsrBHCrA
  * https://stackoverflow.com/questions/12276138/android-listview-not-scrolling
+ * http://tutorialwide.com/retain-correct-position-filtering-listview-android/
  * @see CareProviderProfileActivity
  * @author Xiaohui Liu
  */

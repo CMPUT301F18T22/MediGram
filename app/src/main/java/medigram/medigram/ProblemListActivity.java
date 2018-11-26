@@ -236,6 +236,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra
                 Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
+
+                if (getIntent().hasExtra("CareProvider")) {
+                    intent.putExtra("CareProvider", "");
+                }
+
                 intent.putExtra("Patient", patient);
                 intent.putExtra("Problem", chosenProblem);
                 intent.putExtra("problemIndex", index);
@@ -306,8 +311,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView.setTag(viewHolder);
                 // Remove these buttons if user is a Care Provider, so they can't edit
                 if (getIntent().hasExtra("CareProvider")){
-                    viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
+                    viewHolder.deleteBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.deleteBtn.setClickable(false);
+                    viewHolder.editBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.editBtn.setClickable(false);
+
                 }
             }
             mainViewholder = (ViewHolder) convertView.getTag();

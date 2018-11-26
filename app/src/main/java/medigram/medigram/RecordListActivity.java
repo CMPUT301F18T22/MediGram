@@ -29,12 +29,8 @@ public class RecordListActivity  extends AppCompatActivity {
     private Patient patient;
     private CareProvider careProvider;
     private Problem problem;
-    private String problem_tile;
-    private String date;
-    private String description;
-    private TextView Displayproblemtile;
-    private TextView Displaydate;
-    private TextView Displaydes;
+    private String date, description, problem_tile;
+    private TextView Displayproblemtile, Displaydate, Displaydes;
     private Button addRecordButton;
     private int index;
     private int problemIndex;
@@ -54,9 +50,10 @@ public class RecordListActivity  extends AppCompatActivity {
 
         accountManager = new AccountManager(getApplicationContext());
 
-
+        addRecordButton = findViewById(R.id.addrecordbtn);
         if (getIntent().hasExtra("CareProvider")){
-            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            addRecordButton.setVisibility(View.INVISIBLE);
+            addRecordButton.setClickable(false);
         }
         patient = (Patient) getIntent().getSerializableExtra("Patient");
         problem = (Problem) getIntent().getSerializableExtra("Problem");
@@ -66,7 +63,7 @@ public class RecordListActivity  extends AppCompatActivity {
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
         recordsView = findViewById(R.id.RecordListView);
-        addRecordButton = findViewById(R.id.addrecordbtn);
+
 
         problem_tile = problem.getProblemTitle();
         date = problem.getDateString();

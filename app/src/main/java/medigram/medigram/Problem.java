@@ -23,7 +23,7 @@ public class Problem implements Serializable{
     private Date dateStarted;
     private String bodyLocation;
     private RecordList recordList = new RecordList();
-    private transient ArrayList<Bitmap> bodyLocationPhotos = new ArrayList<Bitmap>();
+    private ArrayList<Photo> bodyLocationPhotos = new ArrayList<Photo>();
     private transient SimpleDateFormat sdf;
 
     /**
@@ -40,7 +40,7 @@ public class Problem implements Serializable{
         this.bodyLocation = bodylocation;
     }
 
-    public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Bitmap> photos){
+    public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Photo> photos){
         this.problemTitle = problemTitle;
         this.description = description;
         this.dateStarted = dateStarted;
@@ -104,7 +104,7 @@ public class Problem implements Serializable{
     public void setDateStarted(String dateString) {
         sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         ParsePosition pos = new ParsePosition(0);
-        this.dateStarted =  sdf.parse(dateString, pos);
+        this.dateStarted = sdf.parse(dateString, pos);
     }
 
     /**
@@ -143,7 +143,7 @@ public class Problem implements Serializable{
      * get the list of photos
      * @return bodyLocationPhotos
      */
-    public ArrayList<Bitmap> getBodyLocationPhotos() {
+    public ArrayList<Photo> getBodyLocationPhotos() {
         return bodyLocationPhotos;
     }
 
@@ -151,11 +151,11 @@ public class Problem implements Serializable{
      * set the body location photos
      * @param bodyLocationPhotos
      */
-    public void setBodyLocationPhotos(ArrayList<Bitmap> bodyLocationPhotos) {
+    public void setBodyLocationPhotos(ArrayList<Photo> bodyLocationPhotos) {
         this.bodyLocationPhotos = bodyLocationPhotos;
     }
 
-    public void setBodyLocationPhoto(Bitmap photo, int index){
+    public void setBodyLocationPhoto(Photo photo, int index){
         this.bodyLocationPhotos.add(index, photo);
     }
 

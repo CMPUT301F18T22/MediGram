@@ -64,6 +64,7 @@ public class ProblemListActivity extends AppCompatActivity {
      *             was edited.
      */
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         adapter.notifyDataSetChanged();
@@ -80,7 +81,7 @@ public class ProblemListActivity extends AppCompatActivity {
             // get the new edited problem from child activity
             Bundle bundleObject = data.getExtras();
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
-
+            Log.d("JestID", patient.getJestID());
 
             // Add the edited problem to the correct index, depending on its date
             for (Problem p: filteredProblems.getList()){
@@ -147,6 +148,7 @@ public class ProblemListActivity extends AppCompatActivity {
         }
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -376,9 +378,7 @@ public class ProblemListActivity extends AppCompatActivity {
                         }
                     }
                     */
-                    Bundle problem_bundle = new Bundle();
-                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
-                    openEditor.putExtras(problem_bundle);
+                    openEditor.putExtra("chosenProblem", chosenProblem);
                     startActivityForResult(openEditor, 1);
 
                 }

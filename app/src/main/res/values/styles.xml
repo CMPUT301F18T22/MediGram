@@ -1,9 +1,19 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="android:Theme.Material.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+
         <!-- Customize your theme here. -->
+
     </style>
 
+    <style name="TextViewStyle" parent="android:Widget.TextView">
+        <item name="android:textColor">#fa8072</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ButtonStyle" parent="android:Widget.Button">
+
+    </style>
 
 </resources>

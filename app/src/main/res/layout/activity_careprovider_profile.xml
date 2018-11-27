@@ -38,6 +38,7 @@
         app:layout_constraintEnd_toStartOf="@+id/patientListButton" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/ProfileSubTitle"
         android:layout_width="105dp"
         android:layout_height="39dp"
@@ -50,6 +51,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/userIDText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,6 +63,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +74,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userIDText" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,6 +85,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/DisplayUserID"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -95,6 +100,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/DisplayEmail"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -108,6 +114,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
+        style="@style/TextViewStyle"
         android:id="@+id/DisplayPhone"
         android:layout_width="195dp"
         android:layout_height="wrap_content"

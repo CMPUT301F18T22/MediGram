@@ -3,10 +3,12 @@ package medigram.medigram;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -14,6 +16,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class RecordActivity extends AppCompatActivity {
     private Patient patient;
@@ -24,13 +27,15 @@ public class RecordActivity extends AppCompatActivity {
     private TextView careProviderComment;
     private Comment comment;
     public ListView commentView;
-    public ArrayAdapter<String> adapter;
     public ArrayList<String> commentString = new ArrayList<>();
     private Button addPicture;
     private Button addGeo;
     private Button viewPicture;
     private TextView recordTitle;
     private Record record;
+    private CommentList commentList;
+    private String[] commentsList= {"s"};
+    private TextView commentText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +62,15 @@ public class RecordActivity extends AppCompatActivity {
         commentView = (ListView) findViewById(R.id.commentListView);
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
-        //adapter = new CommentListAdapter(this,R.layout.comments_list_items, commentString);
-        commentString.add("sdfsss");
-        ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,commentString );
+        // test
+        comment = new Comment("sdsdf",patient.getUserID());
+        commentList = record.getComments();
+        commentList.addComment(comment);
+        System.out.println(commentList.getList().get(0).getText());
+
+        CommentListAdapter adapter = new CommentListAdapter();
+        //commentString.add("sdfsss");
+        //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,commentString );
 
         commentView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
@@ -79,114 +90,37 @@ public class RecordActivity extends AppCompatActivity {
     }
 
 
-    private class CommentListAdapter extends ArrayAdapter<String> {
-        private int layout;
-
-        private CommentListAdapter(Context context, int resource, List<String> objects) {
-            super(context, resource, objects);
-            layout = resource;
-
-        }
-
+    private class CommentListAdapter extends BaseAdapter {
 
         @Override
-        public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder mainViewholder = null;
-            if (convertView == null) {
-                LayoutInflater inflater = LayoutInflater.from(getContext());
-                convertView = inflater.inflate(layout, parent, false);
-
-                ViewHolder viewHolder = new ViewHolder();
-                viewHolder.infoText = (TextView) convertView.findViewById(R.id.list_item_text);
-                viewHolder.titleText = (TextView) convertView.findViewById(R.id.titleText);
-                viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.deleteBtn);
-                viewHolder.editBtn = (Button) convertView.findViewById(R.id.editBtn);
-                convertView.setTag(viewHolder);
-                // Remove these buttons if user is a Care Provider, so they can't edit
-                if (getIntent().hasExtra("CareProvider")) {
-                    viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
-                }
-            }else {
-                mainViewholder = (ViewHolder) convertView.getTag();
-                mainViewholder.titleText.setText(getItem(position));
-            }
-
-/*
-            // deleteBtn deletes problem from all 3 lists
-            mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    adapter.notifyDataSetChanged();
-                    //index = problemString.indexOf(getItem(position));
-                    index = adapter.getPosition(getItem(position));
-
-
-                    Problem test = filteredProblems.getProblem(index);
-                    problemList.removeProblem(test);
-                    filteredProblems.removeProblem(test);
-
-                    adapter.remove(adapter.getItem(position));
-                    adapter.notifyDataSetChanged();
-                    adapter.getFilter().filter(null);
-
-
-                    //Log.d("Problem", problemList.getList().toString());
-                    notifyDataSetChanged();
-                    accountManager.patientUpdater(patient.getUserID(), patient);
-
-
-                }
-            });
-
-
-            // editBtn opens child activity with the chosen problems bundles as extra
-            mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    // index of edited problem is saved so we can delete it later
-                    index = adapter.getPosition(getItem(position));
-                    lastPosition = problemString.indexOf(getItem(position));
-
-                    Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
-                    // Pass list of emotion objects by using serializable
-                    chosenProblem = filteredProblems.getProblem(index);
-
-                    for (Problem p: filteredProblems.getList()){
-                        if (p.toString() == adapter.getItem(position)){
-                            chosenProblem = p;
-                            break;
-                        }
-                    }
-
-                    Bundle problem_bundle = new Bundle();
-                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
-                    openEditor.putExtras(problem_bundle);
-                    startActivityForResult(openEditor, 1);
-
-                }
-            });
-
-            // display the problem title and info
-            notifyDataSetChanged();
-            String[] parts = getItem(position).split("~");
-            mainViewholder.infoText.setText(parts[1]);
-            mainViewholder.titleText.setText(parts[0]);
-
-*/
-            notifyDataSetChanged();
-            mainViewholder.infoText.setText("sdfsd");
-            mainViewholder.titleText.setText("sdf");
-
-            return convertView;
+        public int getCount() {
+            return commentList.getSize();
         }
-    }
 
-    public class ViewHolder {
-        TextView infoText;
-        Button deleteBtn;
-        Button editBtn;
-        TextView titleText;
+        @Override
+        public Object getItem(int i) {
+            return commentList.getComment(i).toString();
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return 0;
+        }
+
+        @Override
+        public View getView(int i, View view, ViewGroup viewGroup) {
+            view = getLayoutInflater().inflate(R.layout.comments_list_items,null);
+            TextView title = (TextView) findViewById(R.id.titleText);
+            commentText = (TextView) findViewById(R.id.list_item_text);
+            Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
+            Button editBtn = (Button) findViewById(R.id.editBtn);
+            String[] parts = getItem(i).toString().split("~");
+            Log.d("parts",parts.toString());
+            //title.setText(commentList.getComment(i).getSender());
+            commentText.setText(parts[1]);
+            return view;
+
+        }
     }
 
 }

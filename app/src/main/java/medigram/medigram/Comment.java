@@ -34,4 +34,8 @@ public class Comment implements Serializable {
     public String getSender() {
         return sender;
     }
+
+    public String toString(){
+        return this.sender + "~ " + this.getText();
+    }
 }

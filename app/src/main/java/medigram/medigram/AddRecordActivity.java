@@ -142,10 +142,7 @@ public class AddRecordActivity extends Activity {
             public void onClick(View view) {
                 String title = titleEditText.getText().toString();
                 String comment = commentEditText.getText().toString();
-                newrecord = new Record(title, new Comment(comment, patient.getUserID()), new Date());
-
-                Log.d("New Record", newrecord.getComments().get(0).getText());
-                Log.d("Patient jestID", patient.getJestID());
+                newrecord = new Record(title, new Date());
 
                 Intent intent = new Intent();
                 intent.putExtra("newRecord", newrecord);

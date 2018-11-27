@@ -29,43 +29,41 @@ public class RecordListActivity  extends AppCompatActivity {
     private AccountManager accountManager;
     private Patient patient;
     private Problem problem;
-    private String problem_tile;
-    private String date;
-    private String description;
-    private TextView Displayproblemtile;
-    private TextView Displaydate;
-    private TextView Displaydes;
+    private String date, description, problem_tile;
+    private TextView Displayproblemtile, Displaydate, Displaydes;
     private Button addRecordButton;
     private int index;
     private int problemIndex;
 
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent openEditor = new Intent();
+        setResult(Activity.RESULT_OK, openEditor);
+        finish();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
+
+        accountManager = new AccountManager(getApplicationContext());
+        addRecordButton = findViewById(R.id.addrecordbtn);
+        if (getIntent().hasExtra("CareProvider")){
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            addRecordButton.setVisibility(View.INVISIBLE);
+            addRecordButton.setClickable(false);
+        }
+        patient = (Patient) getIntent().getSerializableExtra("Patient");
+        problem = (Problem) getIntent().getSerializableExtra("Problem");
+        problemIndex = getIntent().getIntExtra("problemIndex", -1);
+        problem = patient.getProblems().getProblem(problemIndex);
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
-        recordsView = (ListView) findViewById(R.id.RecordListView);
-        addRecordButton = findViewById(R.id.addrecordbtn);
-        accountManager = new AccountManager(getApplicationContext());
+        recordsView = findViewById(R.id.recordListView);
 
-
-        if (getIntent().hasExtra("CareProvider")){
-            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-            patient = (Patient) getIntent().getSerializableExtra("Patient");
-            problem = (Problem) getIntent().getSerializableExtra("Problem");
-            problemIndex = getIntent().getIntExtra("problemIndex", -1);
-            addRecordButton.setVisibility(View.INVISIBLE);
-
-
-        }
-        else {
-            patient = (Patient) getIntent().getSerializableExtra("Patient");
-            problem = (Problem) getIntent().getSerializableExtra("Problem");
-            problemIndex = getIntent().getIntExtra("problemIndex", -1);
-        }
 
         problem_tile = problem.getProblemTitle();
         date = problem.getDateString();
@@ -75,7 +73,6 @@ public class RecordListActivity  extends AppCompatActivity {
         Displaydate.setText(date);
         Displaydes.setText(description);
 
-        recordsView.setTextFilterEnabled(true);
         recordList = problem.getRecordList();
 
         recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
@@ -83,30 +80,33 @@ public class RecordListActivity  extends AppCompatActivity {
 
         recordsView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+        recordsView.setTextFilterEnabled(true);
         recordsView.setClickable(true);
+
         recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 index = recordListString.indexOf(adapter.getItem(i));
                 chosenRecord = recordList.getRecord(index);
                 String recordTitle = chosenRecord.getRecordTitle();
-
                 if (getIntent().hasExtra("CareProvider")) {
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
                     intent.putExtra("CareProvider", careProvider);
                     intent.putExtra("Patient", patient);
                     intent.putExtra("Record", chosenRecord);
                     intent.putExtra("RecordIndex", index);
-                    Log.d("PROBLEMS", "TEST");
+                    intent.putExtra("ProblemIndex", problemIndex);
                     startActivity(intent);
                 }
-                else {
+                else{
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
                     intent.putExtra("Patient", patient);
                     intent.putExtra("Record", chosenRecord);
                     intent.putExtra("RecordIndex", index);
+                    intent.putExtra("ProblemIndex", problemIndex);
                     startActivity(intent);
                 }
+
             }
         });
 
@@ -150,11 +150,12 @@ public class RecordListActivity  extends AppCompatActivity {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent){
-            ViewHolder mainViewholder = null;
+            RecordListActivity.ViewHolder mainViewholder = null;
             if(convertView==null){
                 LayoutInflater inflater = LayoutInflater.from(getContext());
                 convertView = inflater.inflate(layout, parent, false);
-                ViewHolder viewHolder = new ViewHolder();
+
+                RecordListActivity.ViewHolder viewHolder = new RecordListActivity.ViewHolder();
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.recordDescription);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.recordTitleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.recordDeleteBtn);
@@ -166,9 +167,7 @@ public class RecordListActivity  extends AppCompatActivity {
                     viewHolder.editBtn.setVisibility(View.GONE);
                 }
             }
-            mainViewholder = (ViewHolder) convertView.getTag();
-
-
+            mainViewholder = (RecordListActivity.ViewHolder) convertView.getTag();
 
 
 

@@ -65,9 +65,6 @@ public class AddPatientActivity extends Activity {
                             toast.setGravity(Gravity.CENTER, 0, 320);
                             toast.show();
                         } else {
-
-
-
                             Toast toast = Toast.makeText(AddPatientActivity.this
                                     , "Patient Added Successfully!"
                                     , Toast.LENGTH_LONG);
@@ -77,7 +74,6 @@ public class AddPatientActivity extends Activity {
                             intent.putExtra("newPatient",patient);
                             setResult(Activity.RESULT_OK, intent);
                             finish();
-
                         }
                     } else {  // patient not found in patient list
                         Toast toast = Toast.makeText(AddPatientActivity.this

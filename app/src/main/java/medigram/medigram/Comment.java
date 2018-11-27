@@ -11,14 +11,26 @@ public class Comment implements Serializable {
         this.sender = sender;
     }
 
+    /**
+     * edit the text in a comment
+     * @param text
+     */
     public void editText(String text){
         this.text = text;
     }
 
+    /**
+     * get the text in a comment
+     * @return text
+     */
     public String getText() {
         return text;
     }
 
+    /**
+     * get the sender of a comment
+     * @return sender
+     */
     public String getSender() {
         return sender;
     }

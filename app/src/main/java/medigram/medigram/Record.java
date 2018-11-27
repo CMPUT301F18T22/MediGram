@@ -49,37 +49,59 @@ public class Record implements Serializable{
         this.dateStarted = date;
         this.photos = photos;
     }
-    //this function is able to get the title of the record using in edit record title activity
+    /**
+     * get the title of the record
+     * @return title of a record
+     */
     public String getRecordTitle() {
         return recordTitle;
     }
 
-    //this function is able to set the title of the record using in edit record title activity
+    /**
+     * set the title of the record
+     * @param recordTitle
+     */
     public void setRecordTitle(String recordTitle) {
         this.recordTitle = recordTitle;
     }
 
-    //comment in the arraylist no idea what to do
+    /**
+     * get the comments of a record
+     * @return Comments
+     */
     public ArrayList<Comment> getComments() {
         return Comments;
     }
 
-    //add comment for the both add and edit comment in the record
+    /**
+     * add a comment to record
+     * @param comment
+     */
     public void addComment(Comment comment) {
         Comments.add(comment);
     }
 
-    //delete the comment in the edit comment in the record part
+    /**
+     * delete a comment to record
+     * @param comment
+     */
     public void deleteComment(Comment comment) {
         Comments.remove(comment);
     }
 
-    //determine whether it has any comment or not
+    /**
+     * check if a comment exists in record
+     * @param comment
+     * @return true if comment exists, false otherwise
+     */
     public Boolean commentExist(Comment comment) {
         return Comments.contains(comment);
     }
 
-    //getting the started dated in edit part
+    /**
+     * get the start date
+     * @return dateStarted
+     */
     public Date getDateStarted() {
         return dateStarted;
     }
@@ -93,27 +115,42 @@ public class Record implements Serializable{
         return sdf.format(dateStarted);
     }
 
-    //save the current date into the record
+    /**
+     * save a start date
+     * @param dateStarted
+     */
     public void setDateStarted(Date dateStarted) {
         this.dateStarted = dateStarted;
     }
 
-    //return the file of photo from the saving file
+    /**
+     * load the photos File
+     * @return photos
+     */
     public File getPhotos() {
         return photos;
     }
 
-    //set the photo to this record in add and edit records parts
+    /**
+     * set the photo to this record in add and edit records parts
+     * @param photos
+     */
     public void setPhotos(File photos) {
         this.photos = photos;
     }
 
-    //return the geolocation of the specific rocords
+    /**
+     * get the geolocation of the specific rocords
+     * @return geoLocation
+     */
     public ArrayList getGeoLocation(){
         return geoLocation;
     }
 
-    //save in the geolocation of the record
+    /**
+     * save the geolocation of record
+     * @param Location
+     */
     public void setGeoLocation(ArrayList<Double> Location){
         this.geoLocation = Location;
     }

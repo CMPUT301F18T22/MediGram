@@ -11,41 +11,33 @@ import java.util.List;
 
 /**
  * Contains a List of Problems, with methods that modify or return problems
- * @author Jarred Mahinay
+ * @author Jeremy Xie
  */
-public class ProblemList implements Serializable{
-    private ArrayList<Problem> problemList = new ArrayList<Problem>();
+public class CommentList implements Serializable{
+    private ArrayList<Comment> commentList = new ArrayList<Comment>();
 
     /**
      * Adds a problem to the problem list
-     * @param problem The problem to be added
+     * @param comment The problem to be added
      */
-    public void addProblem(Problem problem){
-        problemList.add(problem);
+    public void addComment(Comment comment){
+        commentList.add(comment);
     }
 
     /**
      * Gets the problem list
      * @return The list of problems
      */
-    public ArrayList<Problem> getList() {return problemList;}
+    public ArrayList<Comment> getList() {return commentList;}
 
     /**
      * Removes a problem at the given index
      * @param index The int index of the problem to be removed
      */
-    public void removeIndex(int index){problemList.remove(index);
+    public void removeIndex(int index){commentList.remove(index);
     }
 
-    public void removeProblem(Problem problem){problemList.remove(problem);
-    }
-
-    /**
-     * Gets the problem at the given index
-     * @param index The index of the problem to be returned
-     */
-    public void updateProblem(int index, Problem problem){
-        problemList.set(index, problem);
+    public void removeComment(Comment comment){commentList.remove(comment);
     }
 
     /**
@@ -53,20 +45,29 @@ public class ProblemList implements Serializable{
      * @param index The index of the problem to be returned
      * @return The problem at a specified index
      */
-    public Problem getProblem(int index){return problemList.get(index);
+    public void updateComment(int index, Comment comment){
+        commentList.set(index, comment);
+    }
+
+    /**
+     * Gets the problem at the given index
+     * @param index The index of the problem to be returned
+     * @return The problem at a specified index
+     */
+    public Comment getComment(int index){return commentList.get(index);
     }
 
     /**
      * Gets the index of the given problem
-     * @param problem The given problem
+     * @param comment The given problem
      * @return The int index of the problem that matches the given problem
      */
-    public int getIndex(Problem problem){
-        return problemList.indexOf(problem);
+    public int getIndex(Comment comment){
+        return commentList.indexOf(comment);
     }
 
     public Boolean problemExist(Problem problem){
-        return problemList.contains(problem);
+        return commentList.contains(problem);
     }
 
     /**
@@ -74,7 +75,7 @@ public class ProblemList implements Serializable{
      * @return Int size of the problem list
      */
     public int getSize(){
-        return problemList.size();
+        return commentList.size();
     }
 
 }

@@ -34,7 +34,6 @@ import java.util.stream.Collectors;
  */
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
-    public CareProvider careProvider;
     public ProblemList problemList, filteredProblems;
     public List<String> problemString;
     public ListView problemsView;
@@ -47,6 +46,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public AccountManager accountManager;
     public User user;
     public View.OnClickListener myClickListener;
+    private CareProvider careProvider;
 
 
     /**
@@ -54,7 +54,7 @@ public class ProblemListActivity extends AppCompatActivity {
      * back to this activity. The edited or newly created problem by the child activity is added to
      * the problem list.
      * @param requestCode The number key that the child activity was opened with.
-     *                    1 = Edit problem button, 2 = Add problem button
+     *                    1 = Edit problem button, 2 = Add problem button, 3 = ListView item
      * @param resultCode The result code given by the child activity
      *                   RESULT_OK = activity was successful
      * @param data The intent data sent by the child activity. This holds the problem that
@@ -79,14 +79,14 @@ public class ProblemListActivity extends AppCompatActivity {
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
 
 
-                    // Add the edited problem to the correct index, depending on its date
-                    for (Problem p: filteredProblems.getList()){
-                        if (chosenProblem.getDate().before(p.getDate())){
-                            index = filteredProblems.getIndex(p);
-                            filteredProblems.getList().add(index, chosenProblem);
-                            adapter.insert(chosenProblem.toString(),index);
-                            adapter.notifyDataSetChanged();
-                            break;
+            // Add the edited problem to the correct index, depending on its date
+            for (Problem p: filteredProblems.getList()){
+                if (chosenProblem.getDate().before(p.getDate())){
+                    index = filteredProblems.getIndex(p);
+                    filteredProblems.getList().add(index, chosenProblem);
+                    adapter.insert(chosenProblem.toString(),index);
+                    adapter.notifyDataSetChanged();
+                    break;
                 }
             }
             // if problem hasn't yet been added, then add it to the very end
@@ -96,14 +96,16 @@ public class ProblemListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
 
-            /*  Check lists ... delete when done
+            /*
+
             for (String s: problemString){
                 Log.d("String", s);
             }
+            */
             for (Problem p: filteredProblems.getList()){
                 Log.d(p.getProblemTitle(), p.toString());
             }
-            */
+
 
             // add the new problem to Patient's list
             problemList.addProblem(chosenProblem);
@@ -140,9 +142,8 @@ public class ProblemListActivity extends AppCompatActivity {
             adapter.addAll(problemString);
             adapter.notifyDataSetChanged();
         }
+
     }
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,7 +157,6 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a patient, then do this:
         //user = (User) getIntent().getSerializableExtra("User");
         if (getIntent().hasExtra("Patient")){
-            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             patient = (Patient) getIntent().getSerializableExtra("Patient");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
@@ -165,6 +165,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a care provider, then do this:
         if (getIntent().hasExtra("CareProvider")){
             patient = (Patient) getIntent().getSerializableExtra("Patient");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
@@ -207,8 +208,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 Date date = new Date(); // creates problem with today's date
                 Problem newProblem = new Problem("", "", date, bodyLocation);
 
-
-
                 problem_bundle.putSerializable("chosenProblem", newProblem);
                 openEditor.putExtras(problem_bundle);
                 startActivityForResult(openEditor, 2);
@@ -216,37 +215,42 @@ public class ProblemListActivity extends AppCompatActivity {
         };
         addProblemBtn.setOnClickListener(addProblemListener);
 
+        /*
+        View.OnClickListener myClickListener = new View.OnClickListener() {
+            public void onClick(View v) {
+                //code to be written to handle the click event
+
+            }
+        };
+        */
 
         problemsView.setClickable(true);
         problemsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                /*index = adapter.getPosition(adapter.getItem(position));*/
                 index = adapter.getPosition(adapter.getItem(position));
+                //index = problemString.indexOf(adapter.getItem(position));
                 chosenProblem = filteredProblems.getProblem(index);
                 String problemtitle = chosenProblem.getProblemTitle();
 
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra
-                if (getIntent().hasExtra("CareProvider")) {
-                    Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
-                    intent.putExtra("CareProvider", careProvider);
-                    intent.putExtra("Patient", patient);
-                    intent.putExtra("Problem", chosenProblem);
-                    intent.putExtra("problemIndex", index);
-                    Log.d("PROBLEMS", "TEST");
-                    startActivity(intent);
-                }
-                else {
-                    Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
-                    intent.putExtra("Patient", patient);
-                    intent.putExtra("Problem", chosenProblem);
-                    intent.putExtra("problemIndex", index);
+                Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
 
-                    startActivity(intent);
+                if (getIntent().hasExtra("CareProvider")) {
+                    intent.putExtra("CareProvider", careProvider);
+
                 }
-                //Log.d("PROBLEM", chosenProblem.toString());
-               // Log.d("ADAPTER GET ITEM", adapter.getItem(position));
+
+                intent.putExtra("Patient", patient);
+                intent.putExtra("Problem", chosenProblem);
+                intent.putExtra("problemIndex", index);
+
+                //startActivity(intent);
+                startActivityForResult(intent, 3);
+
+                Log.d("PROBLEM", chosenProblem.toString());
+                Log.d("ADAPTER GET ITEM", adapter.getItem(position));
 
 
             }
@@ -273,6 +277,8 @@ public class ProblemListActivity extends AppCompatActivity {
 
 
     }
+
+
 
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
@@ -306,8 +312,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView.setTag(viewHolder);
                 // Remove these buttons if user is a Care Provider, so they can't edit
                 if (getIntent().hasExtra("CareProvider")){
-                    viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
+                    viewHolder.deleteBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.deleteBtn.setClickable(false);
+                    viewHolder.editBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.editBtn.setClickable(false);
+
                 }
             }
             mainViewholder = (ViewHolder) convertView.getTag();

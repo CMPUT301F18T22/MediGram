@@ -118,18 +118,34 @@ public class Problem implements Serializable{
         this.bodyLocation = bodyLocation;
     }
 
+    /**
+     * get the record list
+     * @return recordList
+     */
     public RecordList getRecordList() {
         return recordList;
     }
 
+    /**
+     * set the record list
+     * @param recordList
+     */
     public void setRecordList(RecordList recordList) {
         this.recordList = recordList;
     }
 
+    /**
+     * get the list of photos
+     * @return bodyLocationPhotos
+     */
     public ArrayList<Photo> getBodyLocationPhotos() {
         return bodyLocationPhotos;
     }
 
+    /**
+     * set the body location photos
+     * @param bodyLocationPhotos
+     */
     public void setBodyLocationPhotos(ArrayList<Photo> bodyLocationPhotos) {
         this.bodyLocationPhotos = bodyLocationPhotos;
     }

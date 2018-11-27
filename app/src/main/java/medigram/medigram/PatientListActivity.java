@@ -24,6 +24,7 @@ import java.util.Arrays;
  * https://github.com/mitchtabian/ListViews
  * https://www.youtube.com/watch?v=NMTUsrBHCrA
  * https://stackoverflow.com/questions/12276138/android-listview-not-scrolling
+ * http://tutorialwide.com/retain-correct-position-filtering-listview-android/
  * @see CareProviderProfileActivity
  * @author Xiaohui Liu
  */
@@ -34,7 +35,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private CareProvider careProvider;
     private PatientList patients;
     private ListView listViewPatients;
-    private EditText search_patient;
+    private EditText searchPatient;
     private SearchPatientAdapter searchAdapter;
     private PatientSearchInfo searchInfo;
     private ArrayList<PatientSearchInfo> searchInfos;
@@ -43,6 +44,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     private AccountManager accountManager;
     private Patient patient;
     private String id;
+    private ArrayList<PatientSearchInfo> filteredSearchInfos;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -74,15 +76,12 @@ public class PatientListActivity extends Activity implements TextWatcher {
         listViewPatients = findViewById(R.id.patient_listview);
         addPatientBut = findViewById(R.id.add_patient);  // the add patient button
 
-        search_patient = findViewById(R.id.search_patient);
-        search_patient.addTextChangedListener(this);  // handles searching patient
+        searchPatient = findViewById(R.id.search_patient);
+        searchPatient.addTextChangedListener(this);  // handles searching patient
 
         searchInfos = new ArrayList<>();
         userIDs = patients.getUserIDs();
         numOfProblemList = patients.getAllNumsOfProblems();
-
-        Log.d("Patentss", patients.getAllNumsOfProblems().toString());
-
   
         for (int i = 0; i < patients.getSize(); i++) {
             patient = accountManager.findPatient(userIDs.get(i));
@@ -98,14 +97,23 @@ public class PatientListActivity extends Activity implements TextWatcher {
         listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                id = userIDs.get(i);
-                patient = accountManager.findPatient(id);
+
+                // this part ensures that the indexing is correct before & after filtering list view
+                PatientSearchInfo item = (PatientSearchInfo) listViewPatients.getItemAtPosition(i);
+                String keyword = item.getUserID();
+                int index = -1;
+                for (int j = 0; j < searchInfos.size(); j++) {
+                    if (searchInfos.get(j).getUserID().equals(keyword)) {
+                        index = j;
+                    }
+                }
+
+                patient = accountManager.findPatient(userIDs.get(index));
+
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                intent.putExtra("CareProvider",careProvider);
+                intent.putExtra("CareProvider", careProvider);
                 intent.putExtra("Patient",patient);
                 startActivity(intent);
-//                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
-//                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
             }
         });
 
@@ -129,60 +137,8 @@ public class PatientListActivity extends Activity implements TextWatcher {
             }
         });
 
-
-
     }
-/*
-    @Override
-    protected void onResume() {
-        super.onResume();
-        numOfProblemList = patients.getAllNumsOfProblems();
-        for (int i = 0; i < patients.getSize(); i++) {
-            String userID = userIDs.get(i);
-            int numOfProblems = numOfProblemList[i];
-            searchInfo = new PatientSearchInfo(userID, numOfProblems);
-            searchInfos.add(searchInfo);
-        }
-        searchAdapter = new SearchPatientAdapter(this, searchInfos);
-        listViewPatients.setAdapter(searchAdapter);
-    }
-    */
-    /*
-    @Override
-    protected void onStart() {
-        super.onStart();
-        searchInfos = new ArrayList<>();
-        userIDs = patients.getUserIDs();
-        numOfProblemList = patients.getAllNumsOfProblems();
 
-        System.out.println(Arrays.toString(numOfProblemList));
-
-        for (int i = 0; i < patients.getSize(); i++) {
-            String userID = userIDs.get(i);
-            int numOfProblems = numOfProblemList[i];
-            searchInfo = new PatientSearchInfo(userID, numOfProblems);
-            searchInfos.add(searchInfo);
-        }
-
-        searchAdapter = new SearchPatientAdapter(this, searchInfos);
-
-        listViewPatients.setAdapter(searchAdapter);
-
-        // handles clicking on one of the patient in list view
-        listViewPatients.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                id = userIDs.get(i);
-                patient = accountManager.findPatient(id);
-                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                intent.putExtra("CareProvider",patient);
-                startActivity(intent);
-                Toast.makeText(PatientListActivity.this, "Click to patient: " + i
-                        , Toast.LENGTH_SHORT).show();  // shows which patient is clicked
-            }
-        });
-    }
-*/
     /**
      * Handles filtering user's searching input
      * @param charSequence
@@ -193,6 +149,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
         this.searchAdapter.getFilter().filter(charSequence);
+        searchAdapter.notifyDataSetChanged();
 
     }
 
@@ -206,10 +163,4 @@ public class PatientListActivity extends Activity implements TextWatcher {
 
     }
 
-//    @Override
-//    protected void onStart() {
-//        super.onStart();
-//        careProvider = accountManager.findCareProvider(careProvider.getUserID());
-//
-//    }
 }

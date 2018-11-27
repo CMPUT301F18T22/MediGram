@@ -7,7 +7,7 @@
     tools:context=".RecordListActivity">
 
     <ListView
-        android:id="@+id/RecordListView"
+        android:id="@+id/recordListView"
         android:layout_width="wrap_content"
         android:layout_height="197dp"
         android:layout_marginTop="8dp"
@@ -81,7 +81,7 @@
         android:text="Add record"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecordListView"
+        app:layout_constraintTop_toBottomOf="@+id/recordListView"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView

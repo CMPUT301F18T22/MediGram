@@ -7,30 +7,20 @@
     tools:context=".RecordActivity">
 
     <ListView
-        android:id="@+id/RecordListView"
-        android:layout_width="390dp"
-        android:layout_height="96dp"
+        android:id="@+id/commentListView"
+        android:layout_width="wrap_content"
+        android:layout_height="296dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
     </ListView>
 
-    <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="150dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="156dp"
-        android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:id="@+id/viewpicture"
+        android:id="@+id/viewPicture"
         android:layout_width="145dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="344dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="340dp"
         android:text="Picture"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -52,7 +42,9 @@
         android:layout_height="73dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="68dp"
+        android:layout_marginEnd="8dp"
         android:text="Add Comment"
+        app:layout_constraintEnd_toStartOf="@+id/addPicture"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -61,46 +53,28 @@
         android:layout_width="141dp"
         android:layout_height="73dp"
         android:layout_marginTop="68dp"
-        android:layout_marginEnd="44dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="8dp"
         android:text="Add Picture"
+        app:layout_constraintBottom_toTopOf="@+id/viewPicture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="150dp"
-        android:layout_height="37dp"
+        android:id="@+id/addGeo"
+        android:layout_width="144dp"
+        android:layout_height="60dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Add Goelocation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timestamp" />
-
-    <TextView
-        android:id="@+id/carproviderComment"
-        android:layout_width="176dp"
-        android:layout_height="57dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:text="CareProviderComment"
-        app:layout_constraintBottom_toTopOf="@+id/patientComment"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Add Goelocation"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewPicture"
+        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.949" />
-
-    <TextView
-        android:id="@+id/patientComment"
-        android:layout_width="176dp"
-        android:layout_height="63dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="96dp"
-        android:text="PatientComment"
-        app:layout_constraintBottom_toTopOf="@+id/RecordListView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/addComment"
+        app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

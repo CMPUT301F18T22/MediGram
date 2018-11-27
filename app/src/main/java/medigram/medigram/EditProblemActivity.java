@@ -1,11 +1,21 @@
 package medigram.medigram;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
+import android.os.Build;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,9 +23,15 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,11 +45,58 @@ public class EditProblemActivity extends AppCompatActivity {
     private Problem chosenProblem;
     private TextView dateTextView;
     private DatePickerDialog.OnDateSetListener dateListener;
+    private Button confirmBtn;
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int cameraCode = 100;
+    private Uri imageUri1;
+    private Bitmap photo1, photo2;
+    private ImageButton problemPicBtn1, problemPicBtn2;
 
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+    };
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == cameraCode) {
+            try {
+                photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                photo1.compress(Bitmap.CompressFormat.PNG,100,stream);
+
+                Log.d("Working", photo1.toString());
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+            problemPicBtn1.setImageBitmap(photo1);
+            //chosenProblem.setBodyLocationPhoto(photo1, 0);
+            //Log.e("URI",imageUri.toString());
+
+
+        }
+        else if (resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT);
+
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        verifyStoragePermissions(EditProblemActivity.this);
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+
         setContentView(R.layout.activity_edit_problem);
 
         // Get problem list from the bundle from ProblemListActivity
@@ -49,8 +112,28 @@ public class EditProblemActivity extends AppCompatActivity {
         }
         ((TextView) findViewById(R.id.problemDate)).setText(chosenProblem.getDateString());
 
+
+        problemPicBtn1 = (ImageButton) findViewById(R.id.imageButton1);
+
+        try {
+            problemPicBtn1.setImageBitmap(photo1);
+        } catch (Exception ex){
+
+        }
+        problemPicBtn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                imageUri1 = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()
+                        ,"problemPhoto1.jpg"));
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri1);
+                startActivityForResult(cameraIntent, cameraCode);
+            }
+        });
+
         // confirmBtn saves all text to the Problem and returns to parent activity
-        Button confirmBtn = (Button) findViewById(R.id.confirmBtn);
+        confirmBtn = (Button) findViewById(R.id.confirmBtn);
         confirmBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
@@ -107,5 +190,26 @@ public class EditProblemActivity extends AppCompatActivity {
 
 
     }
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
+    }
+
 
 }

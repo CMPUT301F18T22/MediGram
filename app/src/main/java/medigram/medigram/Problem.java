@@ -1,9 +1,12 @@
 package medigram.medigram;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,7 +23,7 @@ public class Problem implements Serializable{
     private Date dateStarted;
     private String bodyLocation;
     private RecordList recordList = new RecordList();
-    private ArrayList<Photo> bodyLocationPhotos;
+    private transient ArrayList<Bitmap> bodyLocationPhotos = new ArrayList<Bitmap>();
     private transient SimpleDateFormat sdf;
 
     /**
@@ -37,13 +40,15 @@ public class Problem implements Serializable{
         this.bodyLocation = bodylocation;
     }
 
-    public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Photo> photos){
+    public Problem(String problemTitle, String description, Date dateStarted, String bodylocation, ArrayList<Bitmap> photos){
         this.problemTitle = problemTitle;
         this.description = description;
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
         this.bodyLocationPhotos = photos;
     }
+
+
 
     /**
      * Gets the problem title
@@ -138,7 +143,7 @@ public class Problem implements Serializable{
      * get the list of photos
      * @return bodyLocationPhotos
      */
-    public ArrayList<Photo> getBodyLocationPhotos() {
+    public ArrayList<Bitmap> getBodyLocationPhotos() {
         return bodyLocationPhotos;
     }
 
@@ -146,8 +151,12 @@ public class Problem implements Serializable{
      * set the body location photos
      * @param bodyLocationPhotos
      */
-    public void setBodyLocationPhotos(ArrayList<Photo> bodyLocationPhotos) {
+    public void setBodyLocationPhotos(ArrayList<Bitmap> bodyLocationPhotos) {
         this.bodyLocationPhotos = bodyLocationPhotos;
+    }
+
+    public void setBodyLocationPhoto(Bitmap photo, int index){
+        this.bodyLocationPhotos.add(index, photo);
     }
 
     /**

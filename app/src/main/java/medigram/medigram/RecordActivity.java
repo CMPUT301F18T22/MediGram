@@ -14,12 +14,13 @@ import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RecordActivity extends AppCompatActivity {
+public class RecordActivity extends AppCompatActivity implements AddCommentDialog.AddCommentDialogListener{
     private Patient patient;
     private CareProvider careProvider;
     private Button addCommentBTN;
@@ -36,11 +37,16 @@ public class RecordActivity extends AppCompatActivity {
     private Record record;
     private CommentList commentList;
     private CommentListAdapter adapter;
+    private Integer recordIndex;
+    private Integer problemIndex;
+    private AccountManager accountManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_record);
+        accountManager = new AccountManager(getApplicationContext());
+
         addPicture = (Button) findViewById(R.id.addPicture);
         addGeo = (Button) findViewById(R.id.addGeo);
         viewPicture = (Button) findViewById(R.id.viewPicture);
@@ -56,27 +62,14 @@ public class RecordActivity extends AppCompatActivity {
         //careProviderComment = (TextView) findViewById(R.id.carproviderComment);
         careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         patient = (Patient) getIntent().getSerializableExtra("Patient");
-        Integer recordIndex = getIntent().getIntExtra("RecordIndex", -1);
-        Integer problemIndex = getIntent().getIntExtra("ProblemIndex", -1);
+        recordIndex = getIntent().getIntExtra("RecordIndex", -1);
+        problemIndex = getIntent().getIntExtra("ProblemIndex", -1);
         record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
         commentView = (ListView) findViewById(R.id.commentListView);
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
-        // test
-        comment = new Comment("test1",patient.getUserID());
-        commentList = record.getComments();
-        commentList.addComment(comment);
 
-        commentListString = commentList.getList().stream().map(Comment::toString).collect(Collectors.toList());
-        adapter = new RecordActivity.CommentListAdapter(this, R.layout.comments_list_items, commentListString);
-        //commentString.add("sdfsss");
-        //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,commentString );
-
-        commentView.setAdapter(adapter);
-        adapter.notifyDataSetChanged();
-        //commentView.setClickable(true);
         addCommentBTN = (Button) findViewById(R.id.addComment);
-/*
         addCommentBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -85,8 +78,43 @@ public class RecordActivity extends AppCompatActivity {
             }
 
         });
-        */
+        commentListString = commentList.getList().stream().map(Comment::toString).collect(Collectors.toList());
+        adapter = new RecordActivity.CommentListAdapter(this, R.layout.comments_list_items, commentListString);
+        //commentString.add("sdfsss");
+        //ArrayAdapter adapter = new ArrayAdapter(this,android.R.layout.simple_list_item_1,commentString );
 
+        commentView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
+
+    }
+
+    public void openDialog(){
+        AddCommentDialog addCommentDialog = new AddCommentDialog();
+        addCommentDialog.show(getSupportFragmentManager(),"addComment dialog");
+    }
+
+    @Override
+    public void applyTexts(String commentEntered) {
+        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        commentList = record.getComments();
+        if (getIntent().hasExtra("CareProvider")) {
+            comment = new Comment(commentEntered,careProvider.getUserID());
+            commentList.addComment(comment);
+            adapter.add(comment.toString());
+            adapter.notifyDataSetChanged();
+            accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
+            Log.d("checkComment1",commentList.getList().toString());
+        }
+        else{
+            comment = new Comment(commentEntered,patient.getUserID());
+            commentList.addComment(comment);
+            adapter.notifyDataSetChanged();
+
+        }
+        Toast.makeText(RecordActivity.this,
+                "Comments added successfully",
+                Toast.LENGTH_SHORT).show();
+        accountManager.patientUpdater(patient.getUserID(), patient);
     }
 
     private class CommentListAdapter extends ArrayAdapter<String> {

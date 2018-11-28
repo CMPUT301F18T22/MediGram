@@ -55,6 +55,7 @@ public class AddRecordActivity extends Activity {
     private Problem problem;
     private Record newrecord;
     private Patient patient;
+    private Comment comment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -141,9 +142,9 @@ public class AddRecordActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String title = titleEditText.getText().toString();
-                String comment = commentEditText.getText().toString();
+                String comments = commentEditText.getText().toString();
                 newrecord = new Record(title, new Date());
-
+                comment = new Comment(comments, patient.getUserID());
                 Intent intent = new Intent();
                 intent.putExtra("newRecord", newrecord);
 

@@ -6,7 +6,7 @@
 
 
     <Button
-        android:id="@+id/deleteBtn"
+        android:id="@+id/deleteButton"
         android:layout_width="65dp"
         android:layout_height="32dp"
         android:layout_alignBottom="@+id/titleText"
@@ -20,7 +20,7 @@
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/list_item_text"
+        android:id="@+id/list_item_comment"
         android:layout_width="305dp"
         android:layout_height="81dp"
         android:layout_alignBottom="@+id/editBtn"
@@ -32,7 +32,7 @@
         android:maxLines="4" />
 
     <Button
-        android:id="@+id/editBtn"
+        android:id="@+id/editButton"
         android:layout_width="65dp"
         android:layout_height="32dp"
         android:layout_below="@+id/titleText"
@@ -47,7 +47,7 @@
         android:textSize="10sp" />
 
     <TextView
-        android:id="@+id/titleText"
+        android:id="@+id/titleRecord"
         android:layout_width="match_parent"
         android:layout_height="26dp"
         android:layout_alignParentStart="true"

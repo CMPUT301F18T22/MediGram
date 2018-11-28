@@ -36,6 +36,6 @@ public class Comment implements Serializable {
     }
 
     public String toString(){
-        return this.sender + "~ " + this.getText();
+        return this.sender + "~" + this.getText();
     }
 }

@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditProfileActivity">
+    tools:context=".EditProfileActivity"
+    android:background="@drawable/background">
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/editProfileTitle"
         android:layout_width="126dp"
         android:layout_height="34dp"
@@ -17,6 +19,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/userIDEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,6 +31,7 @@
         android:textSize="16sp" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/emailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,6 +42,7 @@
         android:text="@string/emailEditText" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/phoneEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -91,9 +96,10 @@
         android:layout_marginTop="13dp"
         android:layout_marginEnd="24dp"
         android:layout_toStartOf="@+id/deleteButton"
-        android:background="@android:color/holo_blue_bright"
+        android:background="@drawable/button_style3"
         android:text="@string/updateButtonText"
-        android:textAllCaps="true" />
+        android:textAllCaps="false"
+        />
 
     <Button
         android:id="@+id/deleteButton"
@@ -103,6 +109,6 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="11dp"
         android:layout_marginEnd="67dp"
-        android:background="#ff5252"
+        android:background="@drawable/button_style4"
         android:text="@string/deleteButtonText" />
 </RelativeLayout>

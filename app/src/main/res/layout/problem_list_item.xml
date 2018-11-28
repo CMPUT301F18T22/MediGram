@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent" android:layout_height="match_parent">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:background="@drawable/listview_style">
 
     <Button
         android:id="@+id/deleteBtn"
@@ -11,10 +12,12 @@
         android:layout_marginTop="0dp"
         android:layout_marginEnd="12dp"
         android:layout_marginBottom="-10dp"
-        android:background="@color/colorAccent"
+        android:background="@drawable/button_style4"
         android:focusable="false"
         android:text="Delete"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+
+        android:textAllCaps="false"/>
 
     <TextView
         android:id="@+id/list_item_text"
@@ -24,7 +27,9 @@
         android:layout_alignBottom="@+id/editBtn"
         android:layout_centerHorizontal="true"
         android:lines="4"
-        android:maxLines="4" />
+        android:maxLines="4"
+
+        android:textColor="#454c4e"/>
 
     <Button
         android:id="@+id/editBtn"
@@ -36,10 +41,12 @@
         android:layout_marginStart="-1dp"
         android:layout_marginTop="13dp"
         android:layout_marginEnd="13dp"
-        android:background="@android:color/darker_gray"
+        android:background="@drawable/button_style3"
         android:focusable="false"
         android:text="Edit"
-        android:textSize="10sp" />
+        android:textSize="10sp"
+
+        android:textAllCaps="false"/>
 
     <TextView
         android:id="@+id/textView"
@@ -50,7 +57,9 @@
         android:layout_marginStart="2dp"
         android:layout_marginTop="4dp"
         android:layout_marginBottom="18dp"
-        android:text="Started:\nLocation:" />
+        android:text="Started:\nLocation:"
+
+        android:textColor="#454c4e"/>
 
     <TextView
         android:id="@+id/titleText"
@@ -61,7 +70,9 @@
         android:layout_marginStart="2dp"
         android:text="TextView"
         android:textSize="18sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+
+        android:textColor="#454c4e"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

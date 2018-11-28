@@ -7,13 +7,17 @@
 
     </style>
 
-    <style name="TextViewStyle" parent="android:Widget.TextView">
-        <item name="android:textColor">#fa8072</item>
+    <style name="MyTextView" parent="android:Widget.TextView">
+        <item name="android:textColor">#454c4e</item>
         <item name="android:textStyle">bold</item>
     </style>
 
-    <style name="ButtonStyle" parent="android:Widget.Button">
-
+    <style name="MyCheckbox" parent="@style/Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:colorControlNormal">#ffd600</item>
+        <item name="android:colorControlActivated">#0091ea</item>
+        <item name="android:colorControlHighlight">#c51162</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat</item>
     </style>
+
 
 </resources>

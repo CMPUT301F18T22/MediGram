@@ -56,9 +56,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         finish();
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,8 +112,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
 
     @Override
     public void applyTexts(String commentEntered) {
-        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
-        commentList = record.getComments();
+        //record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        //commentList = record.getComments();
         if (getIntent().hasExtra("CareProvider")) {
             comment = new Comment(commentEntered,careProvider.getUserID());
             commentList.addComment(comment);
@@ -136,7 +133,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         Toast.makeText(RecordActivity.this,
                 "Comments added successfully",
                 Toast.LENGTH_SHORT).show();
-        accountManager.patientUpdater(patient.getUserID(), patient);
     }
 
     private class CommentListAdapter extends ArrayAdapter<String> {
@@ -207,14 +203,18 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                 }
             });
 
-
-
             if (getIntent().hasExtra("CareProvider")){
                 if (accountManager.findPatient(parts[0]) != null){
                     mainViewholder.deleteBtn.setVisibility(View.INVISIBLE);
                     mainViewholder.deleteBtn.setClickable(false);
                     mainViewholder.editBtn.setVisibility(View.INVISIBLE);
                     mainViewholder.editBtn.setClickable(false);
+                }
+                else{
+                    mainViewholder.deleteBtn.setVisibility(View.VISIBLE);
+                    mainViewholder.deleteBtn.setClickable(true);
+                    mainViewholder.editBtn.setVisibility(View.VISIBLE);
+                    mainViewholder.editBtn.setClickable(true);
                 }
             }
             else{
@@ -223,6 +223,12 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     mainViewholder.deleteBtn.setClickable(false);
                     mainViewholder.editBtn.setVisibility(View.INVISIBLE);
                     mainViewholder.editBtn.setClickable(false);
+                }
+                else{
+                    mainViewholder.deleteBtn.setVisibility(View.VISIBLE);
+                    mainViewholder.deleteBtn.setClickable(true);
+                    mainViewholder.editBtn.setVisibility(View.VISIBLE);
+                    mainViewholder.editBtn.setClickable(true);
                 }
             }
             mainViewholder.title.setText(parts[0]);
@@ -243,8 +249,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
 
     @Override
     public void applyEditTexts(String commentEntered) {
-        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
-        commentList = record.getComments();
+        //record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        //commentList = record.getComments();
         if (getIntent().hasExtra("CareProvider")) {
             commentList.getComment(editIndex).editText(commentEntered);
             adapter.remove(adapter.getItem(editIndex));
@@ -264,6 +270,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         Toast.makeText(RecordActivity.this,
                 "Comments edited successfully",
                 Toast.LENGTH_SHORT).show();
-        accountManager.patientUpdater(patient.getUserID(), patient);
+       
     }
 }

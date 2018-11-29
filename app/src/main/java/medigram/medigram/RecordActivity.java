@@ -1,6 +1,8 @@
 package medigram.medigram;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +44,20 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     private Integer recordIndex;
     private Integer problemIndex;
     private AccountManager accountManager;
+    private Integer index;
 
+
+    @Override
+    public void onBackPressed(){
+        super.onBackPressed();
+        Intent openEditor = new Intent();
+        setResult(Activity.RESULT_OK, openEditor);
+        finish();
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -154,7 +169,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
 
 
 
-/*
+
             // deleteBtn deletes problem from all 3 lists
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -163,33 +178,50 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     //index = problemString.indexOf(getItem(position));
                     index = adapter.getPosition(getItem(position));
 
-
-                    Record record = recordList.getRecord(index);
-                    recordList.removeRecord(record);
+                    Comment comment = commentList.getComment(index);
+                    commentList.removeComment(comment);
 
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
-                    adapter.getFilter().filter(null);
 
-
-                    //Log.d("Problem", problemList.getList().toString());
-                    notifyDataSetChanged();
-
-                    patient.getProblems().updateProblem(problemIndex, problem);
+                    patient.getProblems().getProblem(problemIndex).getRecordList().updateRecord(recordIndex,record);
                     accountManager.patientUpdater(patient.getUserID(), patient);
+                    if (getIntent().hasExtra("CareProvider")) {
+                        accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
+                    }
                 }
             });
+/*
+            // editBtn opens child activity with the chosen comment as extra
+            mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // index of edited problem is saved so we can delete it later
+                    index = adapter.getPosition(getItem(position));
+                    lastPosition = problemString.indexOf(getItem(position));
 
-*/
-            // editBtn opens child activity with the chosen record as extra
+                    Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
+                    // Pass list of emotion objects by using serializable
+                    chosenProblem = filteredProblems.getProblem(index);
+/*
+                    for (Problem p: filteredProblems.getList()){
+                        if (p.toString() == adapter.getItem(position)){
+                            chosenProblem = p;
+                            break;
+                        }
+                    }
 
+                    Bundle problem_bundle = new Bundle();
+                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
+                    openEditor.putExtras(problem_bundle);
+                    startActivityForResult(openEditor, 1);
+
+                }
+            });
             // display the problem title and info
-
+*/
             notifyDataSetChanged();
             String[] parts = getItem(position).split("~");
-            Log.d("printpart0",parts[0]);
-            Integer index = adapter.getPosition(getItem(position));
-            Log.d("getindex",index.toString());
 
             if (getIntent().hasExtra("CareProvider")){
                 if (accountManager.findPatient(parts[0]) != null){

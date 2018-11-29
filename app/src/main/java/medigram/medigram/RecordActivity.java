@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.apache.commons.lang3.ObjectUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -65,6 +67,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         recordIndex = getIntent().getIntExtra("RecordIndex", -1);
         problemIndex = getIntent().getIntExtra("ProblemIndex", -1);
         record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        commentList = record.getComments();
         commentView = (ListView) findViewById(R.id.commentListView);
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
@@ -85,6 +88,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
 
         commentView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
+
 
     }
 
@@ -108,7 +112,9 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         else{
             comment = new Comment(commentEntered,patient.getUserID());
             commentList.addComment(comment);
+            adapter.add(comment.toString());
             adapter.notifyDataSetChanged();
+            accountManager.patientUpdater(patient.getUserID(), patient);
 
         }
         Toast.makeText(RecordActivity.this,
@@ -141,10 +147,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                 viewHolder.editBtn = (Button) convertView.findViewById(R.id.editButton);
                 convertView.setTag(viewHolder);
                 // Remove these buttons if user is a Care Provider, so they can't edit
-                if (getIntent().hasExtra("CareProvider")){
-                    viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
-                }
+
             }
             mainViewholder = (RecordActivity.ViewHolder) convertView.getTag();
 
@@ -181,8 +184,29 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             // editBtn opens child activity with the chosen record as extra
 
             // display the problem title and info
+
             notifyDataSetChanged();
             String[] parts = getItem(position).split("~");
+            Log.d("printpart0",parts[0]);
+            Integer index = adapter.getPosition(getItem(position));
+            Log.d("getindex",index.toString());
+
+            if (getIntent().hasExtra("CareProvider")){
+                if (accountManager.findPatient(parts[0]) != null){
+                    mainViewholder.deleteBtn.setVisibility(View.INVISIBLE);
+                    mainViewholder.deleteBtn.setClickable(false);
+                    mainViewholder.editBtn.setVisibility(View.INVISIBLE);
+                    mainViewholder.editBtn.setClickable(false);
+                }
+            }
+            else{
+                if (accountManager.findPatient(parts[0]) == null) {
+                    mainViewholder.deleteBtn.setVisibility(View.INVISIBLE);
+                    mainViewholder.deleteBtn.setClickable(false);
+                    mainViewholder.editBtn.setVisibility(View.INVISIBLE);
+                    mainViewholder.editBtn.setClickable(false);
+                }
+            }
             mainViewholder.title.setText(parts[0]);
             mainViewholder.commentText.setText(parts[1]);
 

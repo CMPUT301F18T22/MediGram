@@ -1,6 +1,8 @@
 package medigram.medigram;
 
 import java.io.Serializable;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 
 import io.searchbox.annotations.JestId;
 
@@ -8,6 +10,7 @@ public abstract class User implements Serializable {
     String emailAddress;
     String phoneNumber;
     String userID;
+    String securityCode;
 
     /**
      * get email address of a user
@@ -55,6 +58,19 @@ public abstract class User implements Serializable {
      */
     public void setUserID(String userID) {
         this.userID = userID;
+    }
+
+    /**
+     * Generates a code for the user to use to login on new devices.
+     * The code is also used by Care Providers to add them to their patient list.
+     * @return Code for the user's account
+     */
+    public String generateCode() {
+        if (this.securityCode == null){
+            SecureRandom random = new SecureRandom();
+            this.securityCode = new BigInteger(30, random).toString(32).toUpperCase();
+        }
+        return this.securityCode;
     }
 
     /**

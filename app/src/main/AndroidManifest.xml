@@ -24,6 +24,7 @@
         android:theme="@style/AppTheme"
 
 
+        android:fullBackupContent="true"
         android:largeHeap="true"
         android:vmSafeMode="true"
         android:allowClearUserData="true"

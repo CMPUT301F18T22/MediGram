@@ -17,7 +17,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:padding="0dp"/>
 
     <ImageButton
         android:id="@+id/imageButton1"
@@ -31,7 +34,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@android:drawable/ic_menu_camera" />
+        app:srcCompat="@android:drawable/ic_menu_camera"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:padding="0dp"/>
 
     <EditText
         android:id="@+id/problemTitle"

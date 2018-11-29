@@ -72,8 +72,10 @@ public class EditProblemActivity extends AppCompatActivity {
         if (requestCode == cameraCode) {
             try {
                 photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
-                photo1 = Bitmap.createScaledBitmap(photo1, 320, 320, false);
+                photo1 = Bitmap.createScaledBitmap(photo1, 160, 160, false);
                 serialPhoto1 = new Photo(photo1);
+
+
 
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
@@ -91,7 +93,7 @@ public class EditProblemActivity extends AppCompatActivity {
         if (requestCode == cameraCode2) {
             try {
                 photo2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri2);
-                photo2 = Bitmap.createScaledBitmap(photo2, 320, 320, false);
+                photo2 = Bitmap.createScaledBitmap(photo2, 160, 160, false);
                 serialPhoto2 = new Photo(photo2);
 
 
@@ -143,6 +145,8 @@ public class EditProblemActivity extends AppCompatActivity {
         if (chosenProblem.getBodyLocationPhoto(0) != null){
             Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
             problemPicBtn1.setImageBitmap(photo);
+            Log.d("PHOTO SIZE", "real img size " + photo.getWidth() + "x" +
+                    photo.getHeight() + " byte count " + photo.getByteCount());
         }
 
         if (chosenProblem.getBodyLocationPhoto(1) != null){

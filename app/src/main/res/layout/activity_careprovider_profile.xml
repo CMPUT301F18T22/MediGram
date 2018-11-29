@@ -5,24 +5,25 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".CareProviderProfileActivity"
-    android:id="@+id/relativeLayout4">
+    android:id="@+id/relativeLayout4"
+    android:background="@drawable/background">
 
     <ImageView
         android:id="@+id/bodyMapProfile2"
         android:layout_width="301dp"
         android:layout_height="278dp"
-        android:layout_marginStart="58dp"
+        android:layout_marginStart="5dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginEnd="5dp"
         android:layout_marginBottom="8dp"
         android:contentDescription="BodyMap"
         android:src="@drawable/body_map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/DisplayPhone"
-        app:layout_constraintVertical_bias="0.492" />
+        app:layout_constraintVertical_bias="0.585" />
 
     <Button
         android:id="@+id/providerEditProfileButton"
@@ -30,14 +31,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"
         android:layout_marginEnd="25dp"
-        android:background="#90a4ae"
+        android:background="@drawable/button_style2"
         android:padding="4dp"
+        android:textColor="#b989a0"
         android:text="@string/editAccountButton"
         android:textAllCaps="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/patientListButton" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/ProfileSubTitle"
         android:layout_width="105dp"
         android:layout_height="39dp"
@@ -50,6 +53,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/userIDText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -61,6 +65,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -71,6 +76,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userIDText" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -81,6 +87,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/DisplayUserID"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -95,6 +102,7 @@
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/DisplayEmail"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -108,6 +116,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
+        style="@style/MyTextView"
         android:id="@+id/DisplayPhone"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
@@ -126,7 +135,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="61dp"
         android:layout_marginEnd="25dp"
-        android:background="#40c4ff"
+        android:background="@drawable/button_style1"
+        android:textColor="#ffffff"
         android:padding="4dp"
         android:text="@string/ViewPatientListButton"
         android:textAllCaps="false"

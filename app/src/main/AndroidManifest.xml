@@ -68,6 +68,10 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".RecordAddComment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
     </application>
 
 </manifest>

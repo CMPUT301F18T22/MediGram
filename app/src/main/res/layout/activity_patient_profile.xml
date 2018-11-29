@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".PatientProfileActivity"
-    android:id="@+id/relativeLayout2">
+    android:id="@+id/relativeLayout2"
+    android:background="@drawable/background">
 
     <Button
         android:id="@+id/patientEditProfileButton"
@@ -13,14 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="25dp"
-        android:background="#90a4ae"
+        android:background="@drawable/button_style2"
         android:padding="4dp"
+        android:textColor="#b989a0"
         android:text="@string/editAccountButton"
         android:textAllCaps="false"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/patientViewProblemButton" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/ProfileSubTitle"
         android:layout_width="85dp"
         android:layout_height="42dp"
@@ -33,6 +36,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/userIDText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,6 +48,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/emailText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -54,6 +59,7 @@
         app:layout_constraintTop_toBottomOf="@+id/userIDText" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/phoneText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,6 +70,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailText" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/DisplayUserID"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -79,6 +86,7 @@
         app:layout_constraintVertical_bias="0.333" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/DisplayEmail"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
@@ -92,6 +100,7 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/DisplayPhone"
         android:layout_width="195dp"
         android:layout_height="wrap_content"
@@ -110,8 +119,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_marginEnd="25dp"
-        android:background="#40c4ff"
+        android:background="@drawable/button_style1"
         android:padding="4dp"
+        android:textColor="#ffffff"
         android:text="@string/ViewProblemsButton"
         android:textAllCaps="false"
         app:layout_constraintTop_toTopOf="parent"
@@ -136,15 +146,16 @@
         android:id="@+id/searchBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:layout_marginStart="-61dp"
         android:layout_marginTop="16dp"
-        android:ems="10"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/edittext_style"
+        android:ems="12"
         android:hint="@string/searchBoxAtProfile"
         android:singleLine="true"
         android:textAlignment="viewStart"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.242"
+        app:layout_constraintHorizontal_bias="0.065"
         app:layout_constraintStart_toEndOf="@+id/userIDText"
         app:layout_constraintTop_toBottomOf="@+id/DisplayPhone" />
 

@@ -66,8 +66,8 @@ public class CommentList implements Serializable{
         return commentList.indexOf(comment);
     }
 
-    public Boolean problemExist(Problem problem){
-        return commentList.contains(problem);
+    public Boolean commentExist(Comment comment){
+        return commentList.contains(comment);
     }
 
     /**

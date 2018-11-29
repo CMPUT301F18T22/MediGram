@@ -22,11 +22,14 @@
         android:id="@+id/viewPicture"
         android:layout_width="145dp"
         android:layout_height="64dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="340dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="36dp"
         android:text="Picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/addGeo"
+        app:layout_constraintTop_toBottomOf="@+id/addPicture" />
 
     <TextView
         android:id="@+id/Recordtitle"
@@ -57,27 +60,21 @@
         android:layout_height="73dp"
         android:layout_marginTop="68dp"
         android:layout_marginEnd="36dp"
-        android:layout_marginBottom="8dp"
         android:text="Add Picture"
-        app:layout_constraintBottom_toTopOf="@+id/viewPicture"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/addGeo"
         android:layout_width="144dp"
         android:layout_height="60dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="36dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Add Goelocation"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/viewPicture"
-        app:layout_constraintHorizontal_bias="0.483"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addComment"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.005" />
 
 </android.support.constraint.ConstraintLayout>

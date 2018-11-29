@@ -23,7 +23,7 @@ public class Problem implements Serializable{
     private Date dateStarted;
     private String bodyLocation;
     private RecordList recordList = new RecordList();
-    private ArrayList<Photo> bodyLocationPhotos = new ArrayList<Photo>();
+    private Photo photo1, photo2;
     private transient SimpleDateFormat sdf;
 
     /**
@@ -45,7 +45,8 @@ public class Problem implements Serializable{
         this.description = description;
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
-        this.bodyLocationPhotos = photos;
+        this.photo1 = photos.get(0);
+        this.photo2 = photos.get(1);
     }
 
 
@@ -139,25 +140,24 @@ public class Problem implements Serializable{
         this.recordList = recordList;
     }
 
-    /**
-     * get the list of photos
-     * @return bodyLocationPhotos
-     */
-    public ArrayList<Photo> getBodyLocationPhotos() {
-        return bodyLocationPhotos;
+    public Photo getBodyLocationPhoto(int index) {
+        if (index == 0){
+            return photo1;
+        }
+        else{
+            return photo2;
+        }
     }
 
-    /**
-     * set the body location photos
-     * @param bodyLocationPhotos
-     */
-    public void setBodyLocationPhotos(ArrayList<Photo> bodyLocationPhotos) {
-        this.bodyLocationPhotos = bodyLocationPhotos;
+    public void setBodyLocationPhoto(Photo photo, int index) {
+        if (index == 0){
+            photo1 = photo;
+        }
+        else{
+            photo2 = photo;
+        }
     }
 
-    public void setBodyLocationPhoto(Photo photo, int index){
-        this.bodyLocationPhotos.add(index, photo);
-    }
 
     /**
      * Gets the Date and Body Location as a single string, used in a ListView adapter

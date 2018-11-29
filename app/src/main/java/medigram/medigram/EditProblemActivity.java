@@ -50,7 +50,8 @@ public class EditProblemActivity extends AppCompatActivity {
     private Button confirmBtn;
     private static final int CAMERA_REQUEST = 1888;
     private static final int cameraCode = 100;
-    private Uri imageUri1;
+    private static final int cameraCode2 = 101;
+    private Uri imageUri1, imageUri2;
     private Bitmap photo1, photo2;
     private ImageButton problemPicBtn1, problemPicBtn2;
     private ByteArrayOutputStream stream;
@@ -70,10 +71,8 @@ public class EditProblemActivity extends AppCompatActivity {
             try {
                 photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
                 Photo serialPhoto = new Photo(photo1);
+                serialPhoto.compressor();
                 chosenProblem.setBodyLocationPhoto(serialPhoto, 0);
-
-                stream = new ByteArrayOutputStream();
-                photo1.compress(Bitmap.CompressFormat.PNG,0,stream);
 
 
                 Log.d("Working", photo1.toString());
@@ -84,21 +83,35 @@ public class EditProblemActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            //problemPicBtn1.setImageBitmap(photo1);
 
-/*
-            byte[] b = stream.toByteArray();
-            encodedImage = Base64.encodeToString(b, Base64.DEFAULT);
-            chosenProblem.setBodyLocationPhoto(encodedImage, 0);
-            //Log.e("URI",imageUri.toString());
 
-            byte[] decodedString = Base64.decode(chosenProblem.getBodyLocationPhotos().get(0), 0);
-            Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-            problemPicBtn1.setImageBitmap(decodedByte);
-            */
-
-            Bitmap photo = chosenProblem.getBodyLocationPhotos().get(0).getBitmap();
+            Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
+            Log.d("Count", Integer.toString(photo.getByteCount()));
             problemPicBtn1.setImageBitmap(photo);
+
+
+        }
+
+        if (requestCode == cameraCode2) {
+            try {
+                photo2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri2);
+                Photo serialPhoto = new Photo(photo2);
+                serialPhoto.compressor();
+                chosenProblem.setBodyLocationPhoto(serialPhoto, 1);
+
+
+                Log.d("Working", photo2.toString());
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            } catch (IOException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+
+            Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
+            Log.d("Count", Integer.toString(photo.getByteCount()));
+            problemPicBtn2.setImageBitmap(photo);
 
 
         }
@@ -131,21 +144,25 @@ public class EditProblemActivity extends AppCompatActivity {
 
 
         problemPicBtn1 = (ImageButton) findViewById(R.id.imageButton1);
+        problemPicBtn2 = (ImageButton) findViewById(R.id.imageButton2);
 
-        if (chosenProblem.getBodyLocationPhotos().size() > 0) {
+        if (chosenProblem.getBodyLocationPhoto(0) != null) {
             try {
-                /*
-                byte[] decodedString = Base64.decode(chosenProblem.getBodyLocationPhotos().get(0), 0);
-                Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-                problemPicBtn1.setImageBitmap(decodedByte);
-                */
-
-                Bitmap photo = chosenProblem.getBodyLocationPhotos().get(0).getBitmap();
+                Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
                 problemPicBtn1.setImageBitmap(photo);
             } catch (Exception ex) {
-
             }
         }
+        if (chosenProblem.getBodyLocationPhoto(1) != null) {
+            try {
+                Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
+                problemPicBtn2.setImageBitmap(photo);
+            } catch (Exception ex) {
+            }
+        }
+
+
+
         problemPicBtn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -157,6 +174,19 @@ public class EditProblemActivity extends AppCompatActivity {
                 startActivityForResult(cameraIntent, cameraCode);
             }
         });
+
+        problemPicBtn2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                imageUri2 = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()
+                        ,"problemPhoto2.jpg"));
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri2);
+                startActivityForResult(cameraIntent, cameraCode2);
+            }
+        });
+
 
         // confirmBtn saves all text to the Problem and returns to parent activity
         confirmBtn = (Button) findViewById(R.id.confirmBtn);

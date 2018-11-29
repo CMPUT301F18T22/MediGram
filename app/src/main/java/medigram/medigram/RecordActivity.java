@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class RecordActivity extends AppCompatActivity implements AddCommentDialog.AddCommentDialogListener{
+public class RecordActivity extends AppCompatActivity implements AddCommentDialog.AddCommentDialogListener, EditCommentDialog.EditCommentDialogListener{
     private Patient patient;
     private CareProvider careProvider;
     private Button addCommentBTN;
@@ -45,6 +45,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     private Integer problemIndex;
     private AccountManager accountManager;
     private Integer index;
+    private Integer editIndex;
 
 
     @Override
@@ -165,11 +166,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
 
             }
             mainViewholder = (RecordActivity.ViewHolder) convertView.getTag();
-
-
-
-
-
+            notifyDataSetChanged();
+            String[] parts = getItem(position).split("~");
             // deleteBtn deletes problem from all 3 lists
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,37 +189,25 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     }
                 }
             });
-/*
+
             // editBtn opens child activity with the chosen comment as extra
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    editIndex = adapter.getPosition(getItem(position));
+                    Bundle args = new Bundle();
+                    args.putString("comment", parts[1]);
+                    EditCommentDialog dialog=new EditCommentDialog();
+                    dialog.setArguments(args);
+                    dialog.show(getSupportFragmentManager(),"dialog");
+                    adapter.notifyDataSetChanged();
+
                     // index of edited problem is saved so we can delete it later
-                    index = adapter.getPosition(getItem(position));
-                    lastPosition = problemString.indexOf(getItem(position));
-
-                    Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
-                    // Pass list of emotion objects by using serializable
-                    chosenProblem = filteredProblems.getProblem(index);
-/*
-                    for (Problem p: filteredProblems.getList()){
-                        if (p.toString() == adapter.getItem(position)){
-                            chosenProblem = p;
-                            break;
-                        }
-                    }
-
-                    Bundle problem_bundle = new Bundle();
-                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
-                    openEditor.putExtras(problem_bundle);
-                    startActivityForResult(openEditor, 1);
 
                 }
             });
-            // display the problem title and info
-*/
-            notifyDataSetChanged();
-            String[] parts = getItem(position).split("~");
+
+
 
             if (getIntent().hasExtra("CareProvider")){
                 if (accountManager.findPatient(parts[0]) != null){
@@ -255,38 +241,29 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         TextView commentText;
     }
 
-/*
-    private class CommentListAdapter extends BaseAdapter {
-
-        @Override
-        public int getCount() {
-            return commentList.getSize();
+    @Override
+    public void applyEditTexts(String commentEntered) {
+        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        commentList = record.getComments();
+        if (getIntent().hasExtra("CareProvider")) {
+            commentList.getComment(editIndex).editText(commentEntered);
+            adapter.remove(adapter.getItem(editIndex));
+            adapter.insert(commentList.getComment(editIndex).toString(),editIndex);
+            adapter.notifyDataSetChanged();
+            accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
+            Log.d("checkComment1",commentList.getList().toString());
         }
-
-        @Override
-        public Object getItem(int i) {
-            return commentList.getComment(i).toString();
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return 0;
-        }
-
-        @Override
-        public View getView(int i, View view, ViewGroup viewGroup) {
-            view = getLayoutInflater().inflate(R.layout.comments_list_items,viewGroup,false);
-            TextView title = (TextView) findViewById(R.id.titleText);
-            commentText = (TextView) findViewById(R.id.list_item_text);
-            Button deleteBtn = (Button) findViewById(R.id.deleteBtn);
-            Button editBtn = (Button) findViewById(R.id.editBtn);
-            String[] parts = getItem(i).toString().split("~");
-            Log.d("parts",parts.toString());
-            //title.setText(commentList.getComment(i).getSender());
-            commentText.setText(parts[1]);
-            return view;
+        else{
+            commentList.getComment(editIndex).editText(commentEntered);
+            adapter.remove(adapter.getItem(editIndex));
+            adapter.insert(commentList.getComment(editIndex).toString(),editIndex);
+            adapter.notifyDataSetChanged();
+            accountManager.patientUpdater(patient.getUserID(), patient);
 
         }
+        Toast.makeText(RecordActivity.this,
+                "Comments edited successfully",
+                Toast.LENGTH_SHORT).show();
+        accountManager.patientUpdater(patient.getUserID(), patient);
     }
-*/
 }

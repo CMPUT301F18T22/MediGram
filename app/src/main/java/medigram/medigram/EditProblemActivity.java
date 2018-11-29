@@ -56,6 +56,7 @@ public class EditProblemActivity extends AppCompatActivity {
     private ImageButton problemPicBtn1, problemPicBtn2;
     private ByteArrayOutputStream stream;
     private String encodedImage;
+    private Photo serialPhoto1, serialPhoto2;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -70,12 +71,9 @@ public class EditProblemActivity extends AppCompatActivity {
         if (requestCode == cameraCode) {
             try {
                 photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
-                Photo serialPhoto = new Photo(photo1);
-                serialPhoto.compressor();
-                chosenProblem.setBodyLocationPhoto(serialPhoto, 0);
+                photo1 = Bitmap.createScaledBitmap(photo1, 320, 320, false);
+                serialPhoto1 = new Photo(photo1);
 
-
-                Log.d("Working", photo1.toString());
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
@@ -84,10 +82,7 @@ public class EditProblemActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-
-            Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
-            Log.d("Count", Integer.toString(photo.getByteCount()));
-            problemPicBtn1.setImageBitmap(photo);
+            problemPicBtn1.setImageBitmap(photo1);
 
 
         }
@@ -95,9 +90,8 @@ public class EditProblemActivity extends AppCompatActivity {
         if (requestCode == cameraCode2) {
             try {
                 photo2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri2);
-                Photo serialPhoto = new Photo(photo2);
-                serialPhoto.compressor();
-                chosenProblem.setBodyLocationPhoto(serialPhoto, 1);
+                photo2 = Bitmap.createScaledBitmap(photo2, 320, 320, false);
+                serialPhoto2 = new Photo(photo2);
 
 
                 Log.d("Working", photo2.toString());
@@ -109,9 +103,7 @@ public class EditProblemActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
 
-            Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
-            Log.d("Count", Integer.toString(photo.getByteCount()));
-            problemPicBtn2.setImageBitmap(photo);
+            problemPicBtn2.setImageBitmap(photo2);
 
 
         }
@@ -146,20 +138,17 @@ public class EditProblemActivity extends AppCompatActivity {
         problemPicBtn1 = (ImageButton) findViewById(R.id.imageButton1);
         problemPicBtn2 = (ImageButton) findViewById(R.id.imageButton2);
 
-        if (chosenProblem.getBodyLocationPhoto(0) != null) {
-            try {
-                Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
-                problemPicBtn1.setImageBitmap(photo);
-            } catch (Exception ex) {
-            }
+
+        if (chosenProblem.getBodyLocationPhoto(0) != null){
+            Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
+            problemPicBtn1.setImageBitmap(photo);
         }
-        if (chosenProblem.getBodyLocationPhoto(1) != null) {
-            try {
-                Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
-                problemPicBtn2.setImageBitmap(photo);
-            } catch (Exception ex) {
-            }
+
+        if (chosenProblem.getBodyLocationPhoto(1) != null){
+            Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
+            problemPicBtn2.setImageBitmap(photo);
         }
+
 
 
 
@@ -203,6 +192,15 @@ public class EditProblemActivity extends AppCompatActivity {
                 chosenProblem.setBodyLocation(bodyLocation.getText().toString());
 
                 chosenProblem.setDateStarted(dateTextView.getText().toString());
+
+
+                if (serialPhoto1 != null) {
+                    chosenProblem.setBodyLocationPhoto(serialPhoto1, 0);
+                }
+                if (serialPhoto2 != null) {
+                    chosenProblem.setBodyLocationPhoto(serialPhoto2, 1);
+                }
+
 
                 Intent openEditor = new Intent();
                 Bundle problem_bundle = new Bundle();

@@ -29,14 +29,12 @@ public class Photo implements Serializable {
 
     // Deserializes a byte array representing the Bitmap and decodes it
     private void readObject(java.io.ObjectInputStream in) throws IOException, ClassNotFoundException {
-        if (bitmap != null) {
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            int b;
-            while ((b = in.read()) != -1)
-                byteStream.write(b);
-            byte bitmapBytes[] = byteStream.toByteArray();
-            bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
-        }
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        int b;
+        while ((b = in.read()) != -1)
+            byteStream.write(b);
+        byte bitmapBytes[] = byteStream.toByteArray();
+        bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
     }
 
     public Bitmap getBitmap(){

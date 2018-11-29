@@ -23,7 +23,10 @@ public class Problem implements Serializable{
     private Date dateStarted;
     private String bodyLocation;
     private RecordList recordList = new RecordList();
-    private Photo photo1, photo2;
+    private ArrayList<Photo> photos = new ArrayList<Photo>() {{
+        add(null);
+        add(null);
+    }};
     private transient SimpleDateFormat sdf;
 
     /**
@@ -45,8 +48,7 @@ public class Problem implements Serializable{
         this.description = description;
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
-        this.photo1 = photos.get(0);
-        this.photo2 = photos.get(1);
+        this.photos = photos;
     }
 
 
@@ -141,21 +143,15 @@ public class Problem implements Serializable{
     }
 
     public Photo getBodyLocationPhoto(int index) {
-        if (index == 0){
-            return photo1;
-        }
-        else{
-            return photo2;
-        }
+        return this.photos.get(index);
     }
 
     public void setBodyLocationPhoto(Photo photo, int index) {
-        if (index == 0){
-            photo1 = photo;
-        }
-        else{
-            photo2 = photo;
-        }
+        this.photos.set(index, photo);
+    }
+
+    public ArrayList<Photo> getPhotos(){
+        return this.photos;
     }
 
 

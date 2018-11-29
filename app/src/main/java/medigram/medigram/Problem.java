@@ -24,8 +24,10 @@ public class Problem implements Serializable{
     private String bodyLocation;
     private RecordList recordList = new RecordList();
     private ArrayList<Photo> photos = new ArrayList<Photo>() {{
-        add(null);
-        add(null);
+        Photo photo = new Photo();
+        Photo photo2 = new Photo();
+        add(photo);
+        add(photo2);
     }};
     private transient SimpleDateFormat sdf;
 

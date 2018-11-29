@@ -22,7 +22,9 @@
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        
+
+
+        android:largeHeap="true"
         android:vmSafeMode="true"
         android:allowClearUserData="true"
         android:hardwareAccelerated="true">

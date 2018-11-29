@@ -9,22 +9,26 @@ import java.io.IOException;
 import java.io.Serializable;
 
 public class Photo implements Serializable {
-    public Bitmap bitmap;
+    private Bitmap bitmap;
 
     // TODO: Finish this constructor
     public Photo(Bitmap photo) {
         // Take your existing call to BitmapFactory and put it here
-        bitmap = photo;
+        this.bitmap = photo;
+    }
+
+    public Photo() {
+        // Take your existing call to BitmapFactory and put it here
+        this.bitmap = Bitmap.createBitmap(320, 320, Bitmap.Config.ARGB_8888);
     }
 
     // Converts the Bitmap into a byte array for serialization
     private void writeObject(java.io.ObjectOutputStream out) throws IOException {
-        if (bitmap != null) {
-            ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
-            byte bitmapBytes[] = byteStream.toByteArray();
-            out.write(bitmapBytes, 0, bitmapBytes.length);
-        }
+        ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
+        this.bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteStream);
+        byte bitmapBytes[] = byteStream.toByteArray();
+        out.write(bitmapBytes, 0, bitmapBytes.length);
+
     }
 
     // Deserializes a byte array representing the Bitmap and decodes it
@@ -34,7 +38,7 @@ public class Photo implements Serializable {
         while ((b = in.read()) != -1)
             byteStream.write(b);
         byte bitmapBytes[] = byteStream.toByteArray();
-        bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
+        this.bitmap = BitmapFactory.decodeByteArray(bitmapBytes, 0, bitmapBytes.length);
     }
 
     public Bitmap getBitmap(){

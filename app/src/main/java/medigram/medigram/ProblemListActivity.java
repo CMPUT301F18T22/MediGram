@@ -145,6 +145,7 @@ public class ProblemListActivity extends AppCompatActivity {
             adapter.clear();
             adapter.addAll(problemString);
             adapter.notifyDataSetChanged();
+            keySearch.setText("");
         }
 
     }

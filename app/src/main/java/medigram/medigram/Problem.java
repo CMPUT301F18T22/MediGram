@@ -162,7 +162,7 @@ public class Problem implements Serializable{
      * @return Date and Body Location as a single string
      */
     public String toString(){
-        return(this.problemTitle + "~ " + this.getDateString() + " \n  "+ this.getBodyLocation()
+        return(this.problemTitle + "~ " + this.getDateString() + " \n "+ this.getBodyLocation() + " \n " + Integer.toString(this.recordList.getSize())
         + " \n\n " + this.getBodyLocation().replaceAll("\\s+","")+ " "  + this.problemTitle.replaceAll("\\s+",""));
     }
 

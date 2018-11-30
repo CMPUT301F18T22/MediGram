@@ -65,7 +65,7 @@ public class RecordListActivity  extends AppCompatActivity {
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
-        recordsView = findViewById(R.id.RecordListView);
+        recordsView = findViewById(R.id.recordListView);
 
 
         problem_tile = problem.getProblemTitle();

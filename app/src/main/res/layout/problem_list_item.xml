@@ -22,15 +22,13 @@
     <TextView
         android:theme="@style/MyTextView"
         android:id="@+id/list_item_text"
-        android:layout_width="226dp"
-        android:layout_height="41dp"
-
-        android:layout_alignBottom="@+id/editBtn"
+        android:layout_width="220dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="78dp"
+        android:layout_alignTop="@id/textView"
         android:layout_centerHorizontal="true"
         android:lines="4"
-        android:maxLines="4"
-
-        android:textColor="#454c4e"/>
+        android:maxLines="4"/>
 
     <Button
         android:id="@+id/editBtn"
@@ -66,21 +64,18 @@
     <TextView
         android:theme="@style/MyTextView"
         android:id="@+id/titleText"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="5dp"
         android:text="TextView"
-        android:textSize="18sp"
-        android:textStyle="bold"
-
-        android:textColor="#454c4e"/>
+        android:textSize="18sp"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="83dp"
+        android:layout_height="100dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical">

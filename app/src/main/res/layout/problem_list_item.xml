@@ -5,12 +5,12 @@
 
     <Button
         android:id="@+id/deleteBtn"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
         android:layout_alignBottom="@+id/titleText"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="12dp"
         android:layout_marginBottom="-10dp"
         android:background="@drawable/button_style4"
         android:focusable="false"
@@ -20,26 +20,29 @@
         android:textAllCaps="false"/>
 
     <TextView
-        android:theme="@style/MyTextView"
         android:id="@+id/list_item_text"
-        android:layout_width="220dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="78dp"
-        android:layout_alignTop="@id/textView"
+        android:layout_width="139dp"
+        android:layout_height="52dp"
+
+        android:layout_alignBottom="@+id/editBtn"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="-11dp"
+        android:layout_toRightOf="@id/textView"
         android:lines="4"
-        android:maxLines="4"/>
+
+        android:maxLines="4"
+        android:textColor="#454c4e" />
 
     <Button
         android:id="@+id/editBtn"
-        android:layout_width="60dp"
-        android:layout_height="30dp"
+        android:layout_width="65dp"
+        android:layout_height="32dp"
         android:layout_below="@+id/titleText"
         android:layout_alignStart="@+id/deleteBtn"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="-1dp"
-        android:layout_marginTop="15dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginEnd="13dp"
         android:background="@drawable/button_style3"
         android:focusable="false"
         android:text="Edit"
@@ -48,34 +51,34 @@
         android:textAllCaps="false"/>
 
     <TextView
-        android:theme="@style/MyTextView"
         android:id="@+id/textView"
-        android:layout_width="75dp"
-        android:layout_height="41dp"
-        android:layout_below="@+id/titleText"
+        android:layout_width="98dp"
+        android:layout_height="52dp"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_below="@+id/titleText"
         android:layout_marginBottom="18dp"
-        android:text="Started:\nLocation:"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="4dp"
+        android:text="Started:\nLocation:\n# of Records:"
 
-        android:textColor="#454c4e"/>
+        android:textColor="#454c4e" />
 
     <TextView
-        android:theme="@style/MyTextView"
         android:id="@+id/titleText"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="26dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginStart="3dp"
         android:text="TextView"
-        android:textSize="18sp"/>
+        android:textSize="18sp"
+        android:textStyle="bold"
+
+        android:textColor="#454c4e"/>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="83dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:orientation="vertical">

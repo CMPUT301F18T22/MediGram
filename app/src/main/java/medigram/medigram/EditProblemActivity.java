@@ -22,6 +22,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -47,7 +48,7 @@ public class EditProblemActivity extends AppCompatActivity {
     private Problem chosenProblem;
     private TextView dateTextView;
     private DatePickerDialog.OnDateSetListener dateListener;
-    private Button confirmBtn;
+    private Button confirmBtn, deletePhoto1Btn, deletePhoto2Btn;
     private static final int CAMERA_REQUEST = 1888;
     private static final int cameraCode = 100;
     private static final int cameraCode2 = 101;
@@ -123,6 +124,9 @@ public class EditProblemActivity extends AppCompatActivity {
         }
     }
 
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -131,6 +135,7 @@ public class EditProblemActivity extends AppCompatActivity {
         StrictMode.setVmPolicy(builder.build());
 
         setContentView(R.layout.activity_edit_problem);
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
 
         // Get problem list from the bundle from ProblemListActivity
 
@@ -163,7 +168,25 @@ public class EditProblemActivity extends AppCompatActivity {
             problemPicBtn2.setImageBitmap(photo);
         }
 
+        deletePhoto1Btn = (Button) findViewById(R.id.deletePhoto1Btn);
+        deletePhoto1Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Photo blank = new Photo();
+                serialPhoto1 = blank;
+                problemPicBtn1.setImageBitmap(blank.getBitmap());
+            }
+        });
 
+        deletePhoto2Btn = (Button) findViewById(R.id.deletePhoto2Btn);
+        deletePhoto2Btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Photo blank = new Photo();
+                serialPhoto2 = blank;
+                problemPicBtn2.setImageBitmap(blank.getBitmap());
+            }
+        });
 
 
         problemPicBtn1.setOnClickListener(new View.OnClickListener() {

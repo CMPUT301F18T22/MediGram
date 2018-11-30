@@ -8,87 +8,95 @@
     android:background="@drawable/background">
 
     <ImageButton
-        android:background="@drawable/button_style3"
         android:id="@+id/imageButton1"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_style3"
         android:contentDescription="TODO"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deletePhoto2Btn"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
-        android:background="@drawable/button_style3"
         android:id="@+id/imageButton2"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_style3"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/deletePhoto2Btn"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <EditText
         android:id="@+id/problemTitle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
+        android:layout_width="265dp"
+        android:layout_height="47dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/edit_problem_title_hint"
         android:inputType="textPersonName"
         android:maxLength="30"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.018"
+        app:layout_constraintStart_toEndOf="@+id/titleTextView"
         app:layout_constraintTop_toBottomOf="@+id/imageButton1" />
 
     <TextView
         android:id="@+id/problemDate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="227dp"
+        android:layout_height="25dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:ems="10"
         android:hint="@string/edit_problem_date_hint"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/dateTextView"
         app:layout_constraintTop_toBottomOf="@id/problemTitle" />
 
     <EditText
         android:id="@+id/problemBodyLocation"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="15dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="255dp"
+        android:layout_height="39dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="10dp"
         android:ems="10"
         android:hint="@string/edit_body_location_hint"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/locationTextView"
         app:layout_constraintTop_toBottomOf="@+id/problemDate" />
 
     <EditText
         android:id="@+id/problemDescription"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="189dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="15dp"
         android:layout_marginStart="15dp"
-        android:layout_marginTop="20dp"
-        android:ems="10"
+
+        android:layout_marginTop="8dp"
+        android:background="@drawable/background"
+        android:gravity="top|start"
         android:hint="@string/edit_description_hint"
         android:inputType="textMultiLine"
-        android:maxLength="300"
+        android:maxHeight="140dp"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/problemBodyLocation"/>
+        app:layout_constraintTop_toBottomOf="@+id/descriptionTextView" />
 
     <Button
         android:background="@drawable/button_style1"
@@ -104,6 +112,73 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
+    <Button
+        android:id="@+id/deletePhoto2Btn"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:layout_marginEnd="52dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_style4"
+        android:text="@string/RemovePhotoButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/deletePhoto1Btn"
+        android:layout_width="79dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/button_style4"
+        android:text="@string/RemovePhotoButton"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/titleTextView"
+        android:layout_width="49dp"
+        android:layout_height="34dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/edit_title_textview"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/problemTitle"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/dateTextView"
+        android:layout_width="49dp"
+        android:layout_height="39dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/edit_date_textview"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/problemDate"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="Date:" />
+
+    <TextView
+        android:id="@+id/locationTextView"
+        android:layout_width="80dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="16dp"
+        android:text="@string/edit_location_textview"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBaseline_toBaselineOf="@+id/problemBodyLocation"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/descriptionTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:text="@string/edit_description_textview"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/problemBodyLocation" />
 
 
 </android.support.constraint.ConstraintLayout>

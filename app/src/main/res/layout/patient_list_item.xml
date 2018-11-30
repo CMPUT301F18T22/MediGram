@@ -15,6 +15,7 @@
         android:src="@android:drawable/ic_menu_myplaces" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/patient_userid"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -26,6 +27,7 @@
         android:textSize="15sp" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/num_problems"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

@@ -10,17 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import org.apache.commons.lang3.ObjectUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,7 +62,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         addPicture = (Button) findViewById(R.id.addPicture);
         addGeo = (Button) findViewById(R.id.addGeo);
         viewPicture = (Button) findViewById(R.id.viewPicture);
-        recordTitle = (TextView) findViewById(R.id.Recordtitle);
+        recordTitle = (TextView) findViewById(R.id.recordTitle);
 
         if (getIntent().hasExtra("CareProvider")) {
             addPicture.setVisibility(View.INVISIBLE);

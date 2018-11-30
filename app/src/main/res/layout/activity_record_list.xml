@@ -4,23 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordListActivity">
+    tools:context=".RecordListActivity"
+    android:background="@drawable/background">
 
     <ListView
-        android:id="@+id/RecordListView"
+        android:id="@+id/recordListView"
         android:layout_width="wrap_content"
-        android:layout_height="197dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-        app:layout_constraintVertical_bias="0.051">
+        app:layout_constraintBottom_toTopOf="@+id/addrecordbtn"
+        app:layout_constraintVertical_bias="0.051"
+
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp">
 
     </ListView>
 
     <EditText
         android:id="@+id/problem_keyword"
-        android:layout_width="338dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
@@ -34,24 +39,26 @@
 
     <ImageButton
         android:id="@+id/imageButton1"
-        android:layout_width="160dp"
-        android:layout_height="121dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="15dp"
         android:layout_marginEnd="8dp"
+        android:background="@drawable/button_style1"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintHorizontal_bias="0.285"
+        app:layout_constraintHorizontal_bias="0.052"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Description"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
+        android:background="@drawable/button_style1"
         android:id="@+id/imageButton2"
-        android:layout_width="160dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
+        android:layout_width="120dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="35dp"
         android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="@+id/imageButton1"
         app:layout_constraintEnd_toEndOf="parent"
@@ -60,10 +67,12 @@
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/timestamp"
-        android:layout_width="112dp"
-        android:layout_height="21dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
@@ -72,34 +81,41 @@
         app:layout_constraintTop_toBottomOf="@+id/problem_keyword" />
 
     <Button
+        android:background="@drawable/button_style1"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
         android:id="@+id/addrecordbtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="10dp"
         android:text="Add record"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/RecordListView"
+        app:layout_constraintTop_toBottomOf="@+id/recordListView"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/problemtitle"
         android:layout_width="271dp"
         android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:textSize="30dp"
         android:text="TextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/Description"
-        android:layout_width="347dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"

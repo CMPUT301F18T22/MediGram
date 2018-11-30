@@ -4,116 +4,106 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/background">
 
     <ImageButton
-        android:id="@+id/imageButton2"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginBottom="2dp"
-        android:layout_marginEnd="16dp"
+        android:background="@drawable/button_style3"
+        android:id="@+id/imageButton1"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <ImageButton
-        android:id="@+id/imageButton1"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:background="@drawable/button_style3"
+        android:id="@+id/imageButton2"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginTop="20dp"
         android:contentDescription="TODO"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
         app:srcCompat="@android:drawable/ic_menu_camera" />
 
     <EditText
         android:id="@+id/problemTitle"
-        android:layout_width="302dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/edit_problem_title_hint"
         android:inputType="textPersonName"
         android:maxLength="30"
-        app:layout_constraintBottom_toTopOf="@+id/problemDate"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-        app:layout_constraintVertical_bias="0.555" />
+        app:layout_constraintTop_toBottomOf="@+id/imageButton1" />
 
     <TextView
         android:id="@+id/problemDate"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/edit_problem_date_hint"
-        android:textAlignment="viewStart"
         android:textAppearance="@style/TextAppearance.AppCompat.Headline"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.459" />
-
-    <EditText
-        android:id="@+id/problemDescription"
-        android:layout_width="349dp"
-        android:layout_height="65dp"
-        android:layout_marginBottom="148dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:ems="10"
-        android:gravity="top"
-        android:hint="@string/edit_description_hint"
-        android:inputType="textMultiLine"
-        android:maxLength="300"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.4"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <Button
-        android:id="@+id/confirmBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="@string/ConfirmButton"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/problemTitle" />
 
     <EditText
         android:id="@+id/problemBodyLocation"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/edit_body_location_hint"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toTopOf="@+id/problemDescription"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/problemDate"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/problemDate" />
+
+    <EditText
+        android:id="@+id/problemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="15dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="@string/edit_description_hint"
+        android:inputType="textMultiLine"
+        android:maxLength="300"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/problemBodyLocation"/>
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/confirmBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="15dp"
+        android:text="@string/ConfirmButton"
+        android:textSize="15sp"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </android.support.constraint.ConstraintLayout>

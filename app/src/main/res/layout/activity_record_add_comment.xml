@@ -5,28 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".RecordAddComment">
+
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="106dp"
+        android:layout_marginBottom="100dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_style1"
         android:text="save"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/texxt1"/>
 
     <EditText
         android:id="@+id/texxt1"
-        android:layout_width="296dp"
-        android:layout_height="364dp"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="48dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="29dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="300dp"
+        android:layout_marginEnd="30dp"
         android:inputType="textMultiLine"
-        app:layout_constraintBottom_toTopOf="@+id/save"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Enter comment here."
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

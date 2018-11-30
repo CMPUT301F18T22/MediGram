@@ -57,6 +57,7 @@ public class EditProblemActivity extends AppCompatActivity {
     private ByteArrayOutputStream stream;
     private String encodedImage;
     private Photo serialPhoto1, serialPhoto2;
+    private int width = 500, height = 500;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -65,14 +66,21 @@ public class EditProblemActivity extends AppCompatActivity {
 
     };
 
-
+    /**
+     * Handles returning from camera activity.
+     *
+     * @param requestCode cameraCode = taking a picture for image button 1
+     *                    cameraCode2 = taking a picture for image button 2
+     * @param resultCode  0 if no picture was taken, 1 otherwise
+     * @param data  Not used
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
-        if (requestCode == cameraCode) {
+        if (requestCode == cameraCode && resultCode != RESULT_CANCELED) {
             try {
                 photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
-                photo1 = Bitmap.createScaledBitmap(photo1, 160, 160, false);
+                photo1 = Bitmap.createScaledBitmap(photo1, width, height, false);
                 serialPhoto1 = new Photo(photo1);
 
 
@@ -90,10 +98,10 @@ public class EditProblemActivity extends AppCompatActivity {
 
         }
 
-        if (requestCode == cameraCode2) {
+        if (requestCode == cameraCode2 && resultCode != RESULT_CANCELED) {
             try {
                 photo2 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri2);
-                photo2 = Bitmap.createScaledBitmap(photo2, 160, 160, false);
+                photo2 = Bitmap.createScaledBitmap(photo2, width, height, false);
                 serialPhoto2 = new Photo(photo2);
 
 
@@ -111,7 +119,7 @@ public class EditProblemActivity extends AppCompatActivity {
 
         }
         else if (resultCode == RESULT_CANCELED) {
-            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT);
+            Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -146,7 +154,8 @@ public class EditProblemActivity extends AppCompatActivity {
             Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
             problemPicBtn1.setImageBitmap(photo);
             Log.d("PHOTO SIZE", "real img size " + photo.getWidth() + "x" +
-                    photo.getHeight() + " byte count " + photo.getByteCount());
+                    photo.getHeight() + " byte count " +
+                    chosenProblem.getBodyLocationPhoto(0).getBitmapString().getBytes().length);
         }
 
         if (chosenProblem.getBodyLocationPhoto(1) != null){

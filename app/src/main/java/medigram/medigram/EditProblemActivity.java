@@ -57,7 +57,7 @@ public class EditProblemActivity extends AppCompatActivity {
     private ByteArrayOutputStream stream;
     private String encodedImage;
     private Photo serialPhoto1, serialPhoto2;
-    private int width = 500, height = 500;
+    private int width = 300, height = 300;
 
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
@@ -153,7 +153,7 @@ public class EditProblemActivity extends AppCompatActivity {
         if (chosenProblem.getBodyLocationPhoto(0) != null){
             Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
             problemPicBtn1.setImageBitmap(photo);
-            Log.d("PHOTO SIZE", "real img size " + photo.getWidth() + "x" +
+            Log.d("PHOTOSIZE", "real img size " + photo.getWidth() + "x" +
                     photo.getHeight() + " byte count " +
                     chosenProblem.getBodyLocationPhoto(0).getBitmapString().getBytes().length);
         }

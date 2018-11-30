@@ -59,7 +59,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickInList(0);
 
         solo.sleep(500);
-        ListView listView = (ListView) solo.getView(R.id.RecordListView);
+        ListView listView = (ListView) solo.getView(R.id.recordListView);
         View view = listView.getChildAt(0);
         solo.clickOnView((Button)view.findViewById(R.id.recordDeleteBtn));
         solo.assertCurrentActivity("Wrong Activity", RecordListActivity.class);

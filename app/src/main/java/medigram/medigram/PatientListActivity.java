@@ -111,7 +111,8 @@ public class PatientListActivity extends Activity implements TextWatcher {
                 patient = accountManager.findPatient(userIDs.get(index));
 
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                intent.putExtra("CareProvider", patient);
+                intent.putExtra("CareProvider", careProvider);
+                intent.putExtra("Patient",patient);
                 startActivity(intent);
             }
         });

@@ -51,6 +51,13 @@ public class RecordList implements Serializable {
     }
 
     /**
+     * Gets the record at the given index
+     * @param index The index of the record to be returned
+     */
+    public void updateRecord(int index, Record record){
+        recordList.set(index, record);
+    }
+    /**
      * get the record given its index in the list
      * @param index
      * @return record

@@ -46,6 +46,7 @@ public class ProblemListActivity extends AppCompatActivity {
     public AccountManager accountManager;
     public User user;
     public View.OnClickListener myClickListener;
+    private CareProvider careProvider;
 
 
     /**
@@ -164,6 +165,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a care provider, then do this:
         if (getIntent().hasExtra("CareProvider")){
             patient = (Patient) getIntent().getSerializableExtra("Patient");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
@@ -236,7 +238,8 @@ public class ProblemListActivity extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
 
                 if (getIntent().hasExtra("CareProvider")) {
-                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("CareProvider", careProvider);
+
                 }
 
                 intent.putExtra("Patient", patient);

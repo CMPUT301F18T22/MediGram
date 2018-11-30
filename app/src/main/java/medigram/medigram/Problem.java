@@ -1,9 +1,12 @@
 package medigram.medigram;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Locale;
 
@@ -20,7 +23,12 @@ public class Problem implements Serializable{
     private Date dateStarted;
     private String bodyLocation;
     private RecordList recordList = new RecordList();
-    private ArrayList<Photo> bodyLocationPhotos;
+    private ArrayList<Photo> photos = new ArrayList<Photo>() {{
+        Photo photo = new Photo();
+        Photo photo2 = new Photo();
+        add(photo);
+        add(photo2);
+    }};
     private transient SimpleDateFormat sdf;
 
     /**
@@ -42,8 +50,10 @@ public class Problem implements Serializable{
         this.description = description;
         this.dateStarted = dateStarted;
         this.bodyLocation = bodylocation;
-        this.bodyLocationPhotos = photos;
+        this.photos = photos;
     }
+
+
 
     /**
      * Gets the problem title
@@ -99,7 +109,7 @@ public class Problem implements Serializable{
     public void setDateStarted(String dateString) {
         sdf= new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
         ParsePosition pos = new ParsePosition(0);
-        this.dateStarted =  sdf.parse(dateString, pos);
+        this.dateStarted = sdf.parse(dateString, pos);
     }
 
     /**
@@ -134,28 +144,25 @@ public class Problem implements Serializable{
         this.recordList = recordList;
     }
 
-    /**
-     * get the list of photos
-     * @return bodyLocationPhotos
-     */
-    public ArrayList<Photo> getBodyLocationPhotos() {
-        return bodyLocationPhotos;
+    public Photo getBodyLocationPhoto(int index) {
+        return this.photos.get(index);
     }
 
-    /**
-     * set the body location photos
-     * @param bodyLocationPhotos
-     */
-    public void setBodyLocationPhotos(ArrayList<Photo> bodyLocationPhotos) {
-        this.bodyLocationPhotos = bodyLocationPhotos;
+    public void setBodyLocationPhoto(Photo photo, int index) {
+        this.photos.set(index, photo);
     }
+
+    public ArrayList<Photo> getPhotos(){
+        return this.photos;
+    }
+
 
     /**
      * Gets the Date and Body Location as a single string, used in a ListView adapter
      * @return Date and Body Location as a single string
      */
     public String toString(){
-        return(this.problemTitle + "~ " + this.getDateString() + " \n  "+ this.getBodyLocation()
+        return(this.problemTitle + "~ " + this.getDateString() + " \n "+ this.getBodyLocation() + " \n " + Integer.toString(this.recordList.getSize())
         + " \n\n " + this.getBodyLocation().replaceAll("\\s+","")+ " "  + this.problemTitle.replaceAll("\\s+",""));
     }
 

@@ -3,6 +3,7 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -34,6 +36,7 @@ public class RecordListActivity  extends AppCompatActivity {
     private Button addRecordButton;
     private int index;
     private int problemIndex;
+    private ImageButton imageButton1, imageButton2;
 
     @Override
     public void onBackPressed(){
@@ -62,7 +65,7 @@ public class RecordListActivity  extends AppCompatActivity {
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
-        recordsView = findViewById(R.id.recordListView);
+        recordsView = findViewById(R.id.RecordListView);
 
 
         problem_tile = problem.getProblemTitle();
@@ -82,6 +85,20 @@ public class RecordListActivity  extends AppCompatActivity {
         adapter.notifyDataSetChanged();
         recordsView.setTextFilterEnabled(true);
         recordsView.setClickable(true);
+
+        // Display problem images in the imageButtons
+        imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
+        imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+        if (problem.getBodyLocationPhoto(0) != null){
+            Bitmap photo = problem.getBodyLocationPhoto(0).getBitmap();
+            imageButton1.setImageBitmap(photo);
+        }
+
+        if (problem.getBodyLocationPhoto(1) != null){
+            Bitmap photo = problem.getBodyLocationPhoto(1).getBitmap();
+            imageButton2.setImageBitmap(photo);
+        }
+
 
         recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override

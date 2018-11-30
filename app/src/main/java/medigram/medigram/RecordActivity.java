@@ -270,6 +270,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         Toast.makeText(RecordActivity.this,
                 "Comments edited successfully",
                 Toast.LENGTH_SHORT).show();
-       
+
     }
 }

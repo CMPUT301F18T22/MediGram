@@ -141,7 +141,7 @@ public class AccountManager{
                 return offlineController.loadPatient();
             }
         }catch (Exception e){
-            return offlineController.loadPatient();
+            e.printStackTrace();
         }
         return null;
     }
@@ -166,7 +166,7 @@ public class AccountManager{
                 return offlineController.loadCareProvider();
             }
         }catch (Exception e){
-            return offlineController.loadCareProvider();
+            e.printStackTrace();
         }
         return null;
     }

@@ -3,7 +3,9 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -14,7 +16,15 @@ import android.widget.TextView;
 public class PatientProfileActivity extends Activity {
     private Button editProfileButton, viewProblemsButton;
     private TextView displayUserID, displayPhone, displayEmail;
-    private String userID, phoneNumber, email;
+    private DrawerLayout drawerLayout;
+    private TextView drawerHeaderUserID;
+    private TextView drawerHeaderEmail;
+    private EditText drawerDisplayCode;
+    private Button drawerGenerateButton;
+    private String userID;
+    private String email;
+    private String phoneNumber;
+    private String code;
     private Patient account;
     private Boolean accountDeleted;
     private AccountManager accountManager;
@@ -24,29 +34,32 @@ public class PatientProfileActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_patient_profile);
+
+        accountManager = new AccountManager(getApplicationContext());
+
+        drawerLayout = findViewById(R.id.patientDrawer);
+
         displayUserID = findViewById(R.id.DisplayUserID);
         displayEmail = findViewById(R.id.DisplayEmail);
         displayPhone = findViewById(R.id.DisplayPhone);
+
         editProfileButton = findViewById(R.id.patientEditProfileButton);
         viewProblemsButton = findViewById(R.id.patientViewProblemButton);
         searchBox = findViewById(R.id.searchBox);
 
-        accountManager = new AccountManager(getApplicationContext());
-        if (getIntent().hasExtra("Patient")) {
-            account = (Patient) getIntent().getSerializableExtra("Patient");
-        }
+        account = (Patient) getIntent().getSerializableExtra("Patient");
+        code = account.generateCode();
+        accountManager.patientUpdater(account.getUserID(), account);
+
         if (getIntent().hasExtra("CareProvider")) {
-            account = (Patient) getIntent().getSerializableExtra("Patient");
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             editProfileButton.setVisibility(View.GONE);
+            drawerLayout.setVisibility(View.GONE);
         }
         userID = account.getUserID();
         email = account.getEmailAddress();
         phoneNumber = account.getPhoneNumber();
-
-
 
         displayUserID.setText(userID);
         displayEmail.setText(email);
@@ -96,6 +109,40 @@ public class PatientProfileActivity extends Activity {
             }
         });
 
+        drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
+            @Override
+            public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
+                drawerHeaderUserID = findViewById(R.id.nav_header_userID);
+                drawerHeaderEmail = findViewById(R.id.nav_header_email);
+                drawerDisplayCode = findViewById(R.id.drawerCode);
+                drawerGenerateButton = findViewById(R.id.generateCodeBtn);
+
+                drawerHeaderUserID.setText(userID);
+                drawerHeaderEmail.setText(email);
+            }
+
+            @Override
+            public void onDrawerOpened(@NonNull View drawerView) {
+
+                drawerGenerateButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        drawerDisplayCode.setText(code);
+                    }
+                });
+            }
+
+            @Override
+            public void onDrawerClosed(@NonNull View drawerView) {
+
+            }
+
+            @Override
+            public void onDrawerStateChanged(int newState) {
+
+            }
+        });
+
     }
 
     @Override
@@ -107,9 +154,14 @@ public class PatientProfileActivity extends Activity {
     protected void updateProfile(){
         /* Refreshes the display info on Start */
         accountManager.patientUpdater(account.getUserID(), account);
-        displayUserID.setText(account.getUserID());
-        displayEmail.setText(account.getEmailAddress());
-        displayPhone.setText(account.getPhoneNumber());
+
+        userID = account.getUserID();
+        email = account.getEmailAddress();
+        phoneNumber = account.getPhoneNumber();
+
+        displayUserID.setText(userID);
+        displayEmail.setText(email);
+        displayPhone.setText(phoneNumber);
     }
 
     @Override

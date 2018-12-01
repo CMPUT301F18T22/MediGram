@@ -1,18 +1,23 @@
 package medigram.medigram;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import static java.lang.Thread.sleep;
 
 public class LoginActivity extends Activity {
     protected EditText inputCode;
     protected Button signInButton;
     protected Button signUpButton;
+    protected ProgressBar progressBar;
     private String code;
     private AccountManager accountManager;
 
@@ -21,30 +26,46 @@ public class LoginActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        accountManager  = new AccountManager(getApplicationContext());
-        String userID = accountManager.autoLoginCheck();
-
-        Patient patient = accountManager.findPatient(userID);
-        if (patient != null){
-            Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-            intent.putExtra("Patient", patient);
-            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
-            finishAfterTransition();
-        }else{
-            CareProvider careProvider = accountManager.findCareProvider(userID);
-            if (careProvider != null) {
-                Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
-                intent.putExtra("CareProvider", careProvider);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finishAfterTransition();
-            }
-        }
+        accountManager = new AccountManager(getApplicationContext());
 
         inputCode = findViewById(R.id.InputCode);
         signInButton = findViewById(R.id.signInButton);
         signUpButton = findViewById(R.id.signUpButton);
+
+        String userID = accountManager.autoLoginCheck();
+        // Checks if there is already a user account logged in on the device.
+        if (userID != null) {
+            ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
+            progressDialog.setIndeterminate(true);
+            progressDialog.setMessage("Logging In...");
+            progressDialog.show();
+
+            // Adds a loading screen, by delaying login process by 100ms.
+            new android.os.Handler().postDelayed(
+                    new Runnable() {
+                        public void run() {
+                            Patient patient = accountManager.findPatient(userID);
+                            if (patient != null) {
+                                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                                intent.putExtra("Patient", patient);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                startActivity(intent);
+                                finishAfterTransition();
+                                progressDialog.dismiss();
+                            } else {
+                                CareProvider careProvider = accountManager.findCareProvider(userID);
+                                if (careProvider != null) {
+                                    Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
+                                    intent.putExtra("CareProvider", careProvider);
+                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                                    startActivity(intent);
+                                    finishAfterTransition();
+                                    progressDialog.dismiss();
+                                }
+                            }
+                        }
+                    }, 100);
+        }
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){

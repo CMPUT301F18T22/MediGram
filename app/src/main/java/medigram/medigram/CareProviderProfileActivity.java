@@ -27,6 +27,7 @@ public class CareProviderProfileActivity extends Activity {
     private String userID;
     private String email;
     private String phoneNumber;
+    private String code;
     private CareProvider account;
     private Boolean accountDeleted;
     private AccountManager accountManager;
@@ -39,10 +40,12 @@ public class CareProviderProfileActivity extends Activity {
         accountManager = new AccountManager(getApplicationContext());
 
         account = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-        Log.d("CareProvider", account.getJestID());
         userID = account.getUserID();
         email = account.getEmailAddress();
         phoneNumber = account.getPhoneNumber();
+
+        code = account.generateCode();
+        accountManager.careProviderUpdater(account.getUserID(), account);
 
         drawerLayout = findViewById(R.id.careProviderDrawer);
 
@@ -51,7 +54,6 @@ public class CareProviderProfileActivity extends Activity {
         DisplayPhone = findViewById(R.id.DisplayPhone);
         editProfileButton = findViewById(R.id.providerEditProfileButton);
         viewPatientsButton = findViewById(R.id.patientListButton);
-
 
         DisplayUserID.setText(userID);
         DisplayEmail.setText(email);
@@ -75,8 +77,6 @@ public class CareProviderProfileActivity extends Activity {
             }
         });
 
-
-
         drawerLayout.addDrawerListener(new DrawerLayout.DrawerListener() {
             @Override
             public void onDrawerSlide(@NonNull View drawerView, float slideOffset) {
@@ -85,8 +85,8 @@ public class CareProviderProfileActivity extends Activity {
                 drawerDisplayCode = findViewById(R.id.drawerCode);
                 drawerGenerateButton = findViewById(R.id.generateCodeBtn);
 
-                drawerHeaderUserID.setText(account.getUserID());
-                drawerHeaderEmail.setText(account.getEmailAddress());
+                drawerHeaderUserID.setText(userID);
+                drawerHeaderEmail.setText(email);
             }
 
             @Override
@@ -95,7 +95,6 @@ public class CareProviderProfileActivity extends Activity {
                 drawerGenerateButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        String code = account.generateCode();
                         drawerDisplayCode.setText(code);
                     }
                 });
@@ -118,9 +117,13 @@ public class CareProviderProfileActivity extends Activity {
         /* Refreshes the display info on Start */
         accountManager.careProviderUpdater(account.getUserID(), account);
 
-        DisplayUserID.setText(account.getUserID());
-        DisplayEmail.setText(account.getEmailAddress());
-        DisplayPhone.setText(account.getPhoneNumber());
+        userID = account.getUserID();
+        email = account.getEmailAddress();
+        phoneNumber = account.getPhoneNumber();
+
+        DisplayUserID.setText(userID);
+        DisplayEmail.setText(email);
+        DisplayPhone.setText(phoneNumber);
     }
 
     @Override

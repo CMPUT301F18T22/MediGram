@@ -25,7 +25,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void test1_addRecord(){
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "solotestID");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
         solo.clickOnButton("Sign In");
         solo.enterText((EditText) solo.getView(R.id.searchBox), "left arm");
         solo.sendKey(Solo.ENTER);
@@ -53,7 +53,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
     }
 
     public void test2_deleteRecord(){
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "solotestID");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
         solo.clickOnButton("Sign In");
         solo.clickOnButton("View Problems");
         solo.clickInList(0);

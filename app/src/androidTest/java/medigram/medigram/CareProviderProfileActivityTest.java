@@ -2,12 +2,8 @@ package medigram.medigram;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
-import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.TextView;
 
 import com.robotium.solo.Solo;
 
@@ -27,7 +23,7 @@ public class CareProviderProfileActivityTest extends ActivityInstrumentationTest
     }
 
     public void testEditProfile() {
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "careprovider2");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "careprovider2");
         solo.clickOnButton("Sign In");
 
         solo.clickOnButton("Edit Profile");
@@ -59,7 +55,7 @@ public class CareProviderProfileActivityTest extends ActivityInstrumentationTest
 
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
 
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "careproviderTestID");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "careproviderTestID");
         solo.clickOnButton("Sign In");
 
         solo.assertCurrentActivity("Wrong Activity", CareProviderProfileActivity.class);

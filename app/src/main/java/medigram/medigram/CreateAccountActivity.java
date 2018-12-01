@@ -1,6 +1,7 @@
 package medigram.medigram;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
@@ -62,7 +63,11 @@ public class CreateAccountActivity extends Activity {
                         Toast toast = Toast.makeText(CreateAccountActivity.this, "Created Account Successfully.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
-                        finish();
+                        Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
+                        intent.putExtra("CareProvider", careProvider);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finishAfterTransition();
                     }else{
                         Toast toast = Toast.makeText(CreateAccountActivity.this, response, Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
@@ -76,7 +81,11 @@ public class CreateAccountActivity extends Activity {
                         Toast toast = Toast.makeText(CreateAccountActivity.this, "Created Account Successfully.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
-                        finish();
+                        Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                        intent.putExtra("Patient", patient);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+                        finishAfterTransition();
                     }else{
                         Toast toast = Toast.makeText(CreateAccountActivity.this, response, Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);

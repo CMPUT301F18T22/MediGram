@@ -9,13 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 public class LoginActivity extends Activity {
-    protected EditText inputUserID;
+    protected EditText inputCode;
     protected Button signInButton;
     protected Button signUpButton;
-    private String userID;
+    private String code;
     private AccountManager accountManager;
 
     @Override
@@ -24,36 +22,60 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
 
         accountManager  = new AccountManager(getApplicationContext());
+        String userID = accountManager.autoLoginCheck();
 
-        inputUserID = findViewById(R.id.InputUserID);
+        Patient patient = accountManager.findPatient(userID);
+        if (patient != null){
+            Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+            intent.putExtra("Patient", patient);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            startActivity(intent);
+            finishAfterTransition();
+        }else{
+            CareProvider careProvider = accountManager.findCareProvider(userID);
+            if (careProvider != null) {
+                Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
+                intent.putExtra("CareProvider", careProvider);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finishAfterTransition();
+            }
+        }
+
+        inputCode = findViewById(R.id.InputCode);
         signInButton = findViewById(R.id.signInButton);
         signUpButton = findViewById(R.id.signUpButton);
 
         signUpButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v){
                 Intent intent = new Intent(getApplicationContext(), CreateAccountActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
+                finishAfterTransition();
             }
         });
 
         signInButton.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                userID = inputUserID.getText().toString();
-                Patient patient = accountManager.findPatient(userID);
-
+                code = inputCode.getText().toString();
+                Patient patient = accountManager.findPatientByCode(code);
 
                 if (patient != null) {
                     Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                     intent.putExtra("Patient", patient);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                     startActivity(intent);
+                    finishAfterTransition();
                 } else {
-                    CareProvider careProvider = accountManager.findCareProvider(userID);
+                    CareProvider careProvider = accountManager.findCareProviderByCode(code);
                     if (careProvider != null) {
                         Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
                         intent.putExtra("CareProvider", careProvider);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         startActivity(intent);
+                        finishAfterTransition();
                     } else {
-                        Toast toast = Toast.makeText(LoginActivity.this, "No user account found.", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(LoginActivity.this, "No user account found. Please make sure you have Internet connection first.", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
                     }

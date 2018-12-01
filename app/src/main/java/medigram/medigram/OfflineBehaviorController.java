@@ -47,7 +47,7 @@ public class OfflineBehaviorController {
 
             gson = new Gson();
             String json = gson.toJson(account);
-            editor.putString(account.getUserID(), json);
+            editor.putString("Account", json);
             editor.apply();
 
         }catch (Exception e){
@@ -60,9 +60,9 @@ public class OfflineBehaviorController {
      *
      * @return Found local Care Provider account, if none is found returns null
      */
-    public CareProvider loadCareProvider(String UserID){
+    public CareProvider loadCareProvider(){
         try{
-            String json = this.sharedPref.getString(UserID, "");
+            String json = this.sharedPref.getString("Account", "");
             gson = new Gson();
 
             if (!json.equals("") && gson.fromJson(json, CareProvider.class).checkUserType().equals("CareProvider")) {
@@ -90,7 +90,7 @@ public class OfflineBehaviorController {
 
             gson = new Gson();
             String json = gson.toJson(account);
-            editor.putString(account.getUserID(), json);
+            editor.putString("Account", json);
             editor.apply();
 
         }catch (Exception e){
@@ -103,9 +103,9 @@ public class OfflineBehaviorController {
      *
      * @return Found local Patient account, if none is found returns null
      */
-    public Patient loadPatient(String UserID){
+    public Patient loadPatient(){
         try{
-            String json = this.sharedPref.getString(UserID, "");
+            String json = this.sharedPref.getString("Account", "");
             gson = new Gson();
 
             if (!json.equals("") && gson.fromJson(json, Patient.class).checkUserType().equals("Patient")) {

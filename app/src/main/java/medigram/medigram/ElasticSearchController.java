@@ -57,7 +57,46 @@ public class ElasticSearchController {
     }
 
     /**
-     * Handles the finding of a Patient account.
+     * Handles the finding of a Patient account by Generated Code.
+     */
+    public static class GetPatientByCode extends AsyncTask<String, Void, ArrayList<Patient>>{
+        @Override
+        /**
+         * Finds a Patient account with given securityCode.
+         * @param params securityCode of the patient
+         * @see Patient
+         */
+        protected ArrayList<Patient> doInBackground(String...params){
+            setClient();
+            ArrayList<Patient> accounts = new ArrayList<Patient>();
+            String code = params[0];
+            String query = "{"+
+                    "\"query\":{" +
+                    "\"match\":{" +
+                    "\"securityCode\":\""+ code + "\"" +
+                    "}" +
+                    "}" +
+                    "}";
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t22test")
+                    .addType("Patients")
+                    .build();
+            JestResult result;
+            try {
+                result = client.execute(search);
+                if (result.isSucceeded()){
+                    List<Patient> matched = result.getSourceAsObjectList(Patient.class);
+                    accounts.addAll(matched);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return accounts;
+        }
+    }
+
+    /**
+     * Handles the finding of a Patient account by userID.
      */
     public static class GetPatient extends AsyncTask<String, Void, ArrayList<Patient>>{
         @Override
@@ -113,6 +152,46 @@ public class ElasticSearchController {
                     "\"query\":{" +
                     "\"match\":{" +
                     "\"userID\":\""+ userID + "\"" +
+                    "}" +
+                    "}" +
+                    "}";
+            Search search = new Search.Builder(query)
+                    .addIndex("cmput301f18t22test")
+                    .addType("CareProviders")
+                    .build();
+            JestResult result;
+            try {
+                result = client.execute(search);
+                if (result.isSucceeded()){
+                    List<CareProvider> matched = result.getSourceAsObjectList(CareProvider.class);
+                    accounts.addAll(matched);
+                }
+            }catch(Exception e){
+                e.printStackTrace();
+            }
+            return accounts;
+        }
+    }
+
+
+    /**
+     * Handles the finding of a CareProvider account by Generated Code.
+     */
+    public static class GetCareProviderByCode extends AsyncTask<String, Void, ArrayList<CareProvider>>{
+        @Override
+        /**
+         * Finds a CareProvider account with given securityCode.
+         * @param params securityCode of the CareProvider
+         * @see CareProvider
+         */
+        protected ArrayList<CareProvider> doInBackground(String...params){
+            setClient();
+            ArrayList<CareProvider> accounts = new ArrayList<CareProvider>();
+            String code = params[0];
+            String query = "{"+
+                    "\"query\":{" +
+                    "\"match\":{" +
+                    "\"securityCode\":\""+ code + "\"" +
                     "}" +
                     "}" +
                     "}";

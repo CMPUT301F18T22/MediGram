@@ -32,7 +32,7 @@ public class Photo implements Serializable {
      */
     public Photo() {
         // Take your existing call to BitmapFactory and put it here
-        this.bitmapString = encodeTobase64(Bitmap.createBitmap(160, 160, Bitmap.Config.ARGB_8888));
+        this.bitmapString = encodeTobase64(Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888));
     }
 
     /**

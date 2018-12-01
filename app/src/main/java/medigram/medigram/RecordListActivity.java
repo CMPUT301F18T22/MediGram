@@ -89,12 +89,14 @@ public class RecordListActivity  extends AppCompatActivity {
         // Display problem images in the imageButtons
         imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
         imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
-        if (problem.getBodyLocationPhoto(0) != null){
+        if (problem.getBodyLocationPhoto(0) != null &&
+                problem.getBodyLocationPhoto(0).getBitmap().getHeight() > 1){
             Bitmap photo = problem.getBodyLocationPhoto(0).getBitmap();
             imageButton1.setImageBitmap(photo);
         }
 
-        if (problem.getBodyLocationPhoto(1) != null){
+        if (problem.getBodyLocationPhoto(1) != null&&
+                problem.getBodyLocationPhoto(1).getBitmap().getHeight() > 1){
             Bitmap photo = problem.getBodyLocationPhoto(1).getBitmap();
             imageButton2.setImageBitmap(photo);
         }

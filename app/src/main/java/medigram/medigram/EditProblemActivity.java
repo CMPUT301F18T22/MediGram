@@ -155,7 +155,8 @@ public class EditProblemActivity extends AppCompatActivity {
         problemPicBtn2 = (ImageButton) findViewById(R.id.imageButton2);
 
 
-        if (chosenProblem.getBodyLocationPhoto(0) != null){
+        if (chosenProblem.getBodyLocationPhoto(0) != null &&
+                chosenProblem.getBodyLocationPhoto(0).getBitmap().getHeight() > 1){
             Bitmap photo = chosenProblem.getBodyLocationPhoto(0).getBitmap();
             problemPicBtn1.setImageBitmap(photo);
             Log.d("PHOTOSIZE", "real img size " + photo.getWidth() + "x" +
@@ -163,7 +164,8 @@ public class EditProblemActivity extends AppCompatActivity {
                     chosenProblem.getBodyLocationPhoto(0).getBitmapString().getBytes().length);
         }
 
-        if (chosenProblem.getBodyLocationPhoto(1) != null){
+        if (chosenProblem.getBodyLocationPhoto(1) != null &&
+                chosenProblem.getBodyLocationPhoto(1).getBitmap().getHeight() > 1){
             Bitmap photo = chosenProblem.getBodyLocationPhoto(1).getBitmap();
             problemPicBtn2.setImageBitmap(photo);
         }
@@ -174,7 +176,7 @@ public class EditProblemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Photo blank = new Photo();
                 serialPhoto1 = blank;
-                problemPicBtn1.setImageBitmap(blank.getBitmap());
+                problemPicBtn1.setImageResource(android.R.drawable.ic_menu_camera);
             }
         });
 
@@ -184,7 +186,7 @@ public class EditProblemActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Photo blank = new Photo();
                 serialPhoto2 = blank;
-                problemPicBtn2.setImageBitmap(blank.getBitmap());
+                problemPicBtn2.setImageResource(android.R.drawable.ic_menu_camera);
             }
         });
 

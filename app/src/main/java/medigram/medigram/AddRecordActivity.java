@@ -1,45 +1,37 @@
 package medigram.medigram;
 
-import android.app.Activity;
 import android.Manifest;
-import android.app.ActivityManager;
+import android.app.Activity;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
-
+import android.app.Activity;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static medigram.medigram.PermissionRequest.verifyPermission;
+import static medigram.medigram.EditProblemActivity.verifyStoragePermissions;
 
-public class AddRecordActivity extends Activity {
+public class AddRecordActivity extends AppCompatActivity {
     /**
      * This activity displays the problems specified by the user as a list. The list of problems is
      * retrieved from the User given by the parent activity, and then filtered by keywords. Adding or
@@ -59,31 +51,39 @@ public class AddRecordActivity extends Activity {
     private AccountManager accoutmanager;
     private Problem problem;
     private Record newrecord;
+    private Comment comment;
     private Patient patient;
-    private static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 100;
-    static final int REQUEST_TAKE_PHOTO = 1;
-    private String mCurrentPhotoPath;
-    private File createImageFile() throws IOException {
+    private Uri imageUri1, imageUri2;
+    private Bitmap photo1, photo2;
+    private int width = 300, height = 300;
+    private Photo serialPhoto1, serialPhoto2;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
 
-        // Create an image file name
-        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(
-                imageFileName,  /* prefix */
-                ".jpg",         /* suffix */
-                storageDir      /* directory */
-        );
-
-        // Save a file: path for use with ACTION_VIEW intents
-        mCurrentPhotoPath = image.getAbsolutePath();
-        return image;
+    };
+    /**
+     * Handles returning from camera activity.
+     * @param data  Not used
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        try {
+            photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        photo1 = Bitmap.createScaledBitmap(photo1, width, height, false);
+        serialPhoto1 = new Photo(photo1);
+        Toast.makeText(getApplicationContext(), "image has been saved", Toast.LENGTH_SHORT).show();
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        verifyStoragePermissions(AddRecordActivity.this);
         setContentView(R.layout.activity_add_record);
-        String mCurrentPhotoPath;
+
 
         accoutmanager = new AccountManager(getApplicationContext());
 
@@ -134,30 +134,19 @@ public class AddRecordActivity extends Activity {
         });
 
 
-        //here we are going to take a picture use the camera
-
-        addpicture.setOnClickListener(new View.OnClickListener() {
+      //here we are going to take a picture use the camera
+       addpicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                // Ensure that there's a camera activity to handle the intent
-                if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-                    // Create the File where the photo should go
-                    File photoFile = null;
-                    try {
-                        photoFile = createImageFile();
-                    } catch (IOException ex) {
-                        // Error occurred while creating the File
-                    }
-                    // Continue only if the File was successfully created
-                    if (photoFile != null) {
-                        Uri photoURI = FileProvider.getUriForFile(getApplicationContext(),
-                                "com.example.android.fileprovider",
-                                photoFile);
-                        takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                        startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
-                    }
-                }
+
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+             // build file to save the image
+                String saveingname = "JPEG_Record" + timeStamp + ".jpg";
+                imageUri1 = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()
+                        ,saveingname));
+                Intent intent = new Intent("android.media.action. IMAGE_CAPTURE");
+                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri1);
+                startActivityForResult(intent, TAKE_PHOTO); // activite the camera
             }
         });
 
@@ -166,12 +155,9 @@ public class AddRecordActivity extends Activity {
             @Override
             public void onClick(View view) {
                 String title = titleEditText.getText().toString();
-                String comment = commentEditText.getText().toString();
-                newrecord = new Record(title, new Comment(comment, patient.getUserID()), new Date());
-
-                Log.d("New Record", newrecord.getComments().get(0).getText());
-                Log.d("Patient jestID", patient.getJestID());
-
+                String comments = commentEditText.getText().toString();
+                newrecord = new Record(title, new Date());
+                comment = new Comment(comments, patient.getUserID());
                 Intent intent = new Intent();
                 intent.putExtra("newRecord", newrecord);
 
@@ -180,5 +166,7 @@ public class AddRecordActivity extends Activity {
             }
         });
 
-            }
-        }
+
+
+    }
+}

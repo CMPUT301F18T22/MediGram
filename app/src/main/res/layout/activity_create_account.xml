@@ -4,34 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".CreateAccountActivity">
+    tools:context=".CreateAccountActivity"
+    android:background="@drawable/background">
 
 
     <ImageView
         android:id="@+id/logo2"
-        android:layout_width="270dp"
-        android:layout_height="99dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="75dp"
-        android:layout_marginTop="101dp"
-        android:layout_marginEnd="67dp"
+        android:layout_width="310dp"
+        android:layout_height="200dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="30dp"
         android:contentDescription="@string/logoString"
-        android:src="@drawable/ic_logo" />
-
-    <TextView
-        android:id="@+id/logoText2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="112dp"
-        android:layout_marginTop="116dp"
-        android:fontFamily="sans-serif"
-        android:text="@string/logoString"
-        android:textColor="@android:color/white"
-        android:textSize="36sp" />
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/new_logo" />
 
     <EditText
         android:id="@+id/signUpUserID"
@@ -39,8 +25,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginStart="0dp"
-        android:layout_marginTop="221dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="220dp"
         android:ems="10"
         android:hint="@string/SignUpUserID"
         android:inputType="text"
@@ -52,7 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpUserID"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/SignUpEmail"
@@ -65,7 +53,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpEmail"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="@string/SignUpPhone"
@@ -74,17 +63,19 @@
 
     <Button
         android:id="@+id/FinishSignUpButton"
-        android:layout_width="112dp"
-        android:layout_height="50dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/CareProviderCheckBox"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="150dp"
-        android:layout_marginTop="13dp"
-        android:layout_marginEnd="149dp"
-        android:background="#1de9b6"
+        android:layout_marginStart="136dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="136dp"
+        android:background="@drawable/button_style1"
         android:text="@string/SignUpButton"
+        android:textAlignment="center"
         android:textAllCaps="false"
+        android:layout_centerHorizontal="true"
         android:textColor="@android:color/white"
         android:textSize="18sp" />
 
@@ -94,18 +85,24 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpPhoneNumber"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="99dp"
-        android:layout_marginTop="24dp"
-        android:text="@string/checkBoxPatient" />
+        android:layout_marginStart="86dp"
+        android:layout_marginTop="23dp"
+        android:text="@string/checkBoxPatient"
+        android:textColor="#7ca011"
+        android:theme="@style/MyCheckbox" />
 
     <CheckBox
         android:id="@+id/CareProviderCheckBox"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signUpPhoneNumber"
-        android:layout_marginStart="21dp"
-        android:layout_marginTop="24dp"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="34dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="47dp"
         android:layout_toEndOf="@+id/PatientCheckBox"
-        android:text="@string/checkBoxCareProvider" />
+        android:text="@string/checkBoxCareProvider"
+        android:textColor="#94b7bc"
+        android:theme="@style/MyCheckbox" />
 
 </RelativeLayout>

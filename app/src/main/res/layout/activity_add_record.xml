@@ -4,75 +4,74 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddRecordActivity">
+    tools:context=".AddRecordActivity"
+    android:background="@drawable/background">
 
     <EditText
         android:id="@+id/recordTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
         android:ems="10"
         android:hint="Enter record title."
         android:inputType="text"
-        app:layout_constraintEnd_toStartOf="@+id/save"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/Picture_Add"
-        android:layout_width="174dp"
-        android:layout_height="133dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="8dp"
-        android:text="add a picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.368"
-        app:layout_constraintStart_toEndOf="@+id/Geo-location"
-        app:layout_constraintTop_toBottomOf="@+id/commentText"
-        app:layout_constraintVertical_bias="0.071" />
-
-    <Button
-        android:id="@+id/Geo-location"
-        android:layout_width="174dp"
-        android:layout_height="133dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:text="press to save Geo-location"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/commentText"
-        app:layout_constraintVertical_bias="0.119" />
-
-    <Button
+        android:background="@drawable/button_style1"
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="28dp"
-        android:text="save"
-        app:layout_constraintBottom_toBottomOf="@+id/recordTitle"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/commentText"
-        android:layout_width="376dp"
-        android:layout_height="79dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="15dp"
         android:hint="Write comment here."
         android:inputType="textMultiLine"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordTitle" />
+
+    <!-- TODO is this button "Add location" or "Save location"? -->
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/Geo-location"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginBottom="50dp"
+        android:text="Add Location"
+        android:textColor="#ffffff"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/Picture_Add"
+        android:layout_width="140dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginBottom="50dp"
+        android:text="Add Picture"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+
 
 </android.support.constraint.ConstraintLayout>

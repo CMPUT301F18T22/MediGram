@@ -40,6 +40,8 @@ public class LoginActivity extends Activity {
             public void onClick(View v){
                 userID = inputUserID.getText().toString();
                 Patient patient = accountManager.findPatient(userID);
+
+
                 if (patient != null) {
                     Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                     intent.putExtra("Patient", patient);
@@ -61,5 +63,5 @@ public class LoginActivity extends Activity {
         });
 
     }
-    
+
 }

@@ -25,7 +25,7 @@ import java.util.Locale;
 public class Record implements Serializable{
 
     private String recordTitle;
-    private ArrayList<Comment> Comments = new ArrayList<>();
+    private CommentList CommentList = new CommentList();;
     private ArrayList<Double> geoLocation = new ArrayList<>();
     private Date dateStarted;
     private File photos;
@@ -37,15 +37,15 @@ public class Record implements Serializable{
      */
     public Record(){}
 
-    public Record(String recordtitle, Comment comment, Date date){
+    public Record(String recordtitle, Date date){
         this.recordTitle = recordtitle;
-        Comments.add(comment);
+        //Comments.add(comment);
         this.dateStarted = date;
     }
 
-    public Record(String recordtitle, Comment comment, Date date, File photos){
+    public Record(String recordtitle,  Date date, File photos){
         this.recordTitle = recordtitle;
-        addComment(comment);
+        //addComment(comment);
         this.dateStarted = date;
         this.photos = photos;
     }
@@ -69,33 +69,8 @@ public class Record implements Serializable{
      * get the comments of a record
      * @return Comments
      */
-    public ArrayList<Comment> getComments() {
-        return Comments;
-    }
-
-    /**
-     * add a comment to record
-     * @param comment
-     */
-    public void addComment(Comment comment) {
-        Comments.add(comment);
-    }
-
-    /**
-     * delete a comment to record
-     * @param comment
-     */
-    public void deleteComment(Comment comment) {
-        Comments.remove(comment);
-    }
-
-    /**
-     * check if a comment exists in record
-     * @param comment
-     * @return true if comment exists, false otherwise
-     */
-    public Boolean commentExist(Comment comment) {
-        return Comments.contains(comment);
+    public CommentList getComments() {
+        return CommentList;
     }
 
     /**

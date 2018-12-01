@@ -23,7 +23,6 @@ public class Photo implements Serializable {
      */
     // TODO: Finish this constructor
     public Photo(Bitmap photo) {
-        // Take your existing call to BitmapFactory and put it here
         this.bitmapString = encodeTobase64(photo);
     }
 
@@ -31,7 +30,6 @@ public class Photo implements Serializable {
      * If no bitmap is given, generate a blank bitmap
      */
     public Photo() {
-        // Take your existing call to BitmapFactory and put it here
         this.bitmapString = encodeTobase64(Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888));
     }
 

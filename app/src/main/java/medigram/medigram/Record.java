@@ -2,6 +2,7 @@ package medigram.medigram;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -28,7 +29,7 @@ public class Record implements Serializable{
     private CommentList CommentList = new CommentList();;
     private ArrayList<Double> geoLocation = new ArrayList<>();
     private Date dateStarted;
-    private File photos;
+    private ArrayList<Photo> photos = new ArrayList();
     private transient SimpleDateFormat sdf;
 
     /**
@@ -43,7 +44,7 @@ public class Record implements Serializable{
         this.dateStarted = date;
     }
 
-    public Record(String recordtitle,  Date date, File photos){
+    public Record(String recordtitle,  Date date, ArrayList<Photo> photos){
         this.recordTitle = recordtitle;
         //addComment(comment);
         this.dateStarted = date;
@@ -102,16 +103,24 @@ public class Record implements Serializable{
      * load the photos File
      * @return photos
      */
-    public File getPhotos() {
-        return photos;
+    public ArrayList<Photo> getPhotos() {
+        return this.photos;
     }
 
     /**
      * set the photo to this record in add and edit records parts
      * @param photos
      */
-    public void setPhotos(File photos) {
+    public void setPhotos(ArrayList<Photo> photos) {
         this.photos = photos;
+    }
+
+    public ArrayList<Bitmap> getBitmaps() {
+        ArrayList<Bitmap> bitmaps = new ArrayList<>();
+        for (Photo p: this.photos){
+            bitmaps.add(p.getBitmap());
+        }
+        return bitmaps;
     }
 
     /**

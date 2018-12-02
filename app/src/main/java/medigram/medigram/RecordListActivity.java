@@ -116,6 +116,16 @@ public class RecordListActivity  extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                patient = accountManager.findPatient(patient.getUserID());
+                problem = patient.getProblems().getProblem(problemIndex);
+                recordList = problem.getRecordList();
+                recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+                adapter.clear();
+
+                for (String s: recordListString){
+                    adapter.add(s);
+                }
+                adapter.notifyDataSetChanged();
                 RecordListActivity.this.adapter.getFilter().filter(charSequence.toString().replaceAll("\\s+",""));
                 adapter.notifyDataSetChanged();
             }
@@ -131,7 +141,14 @@ public class RecordListActivity  extends AppCompatActivity {
         recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = adapter.getPosition(adapter.getItem(i));
                 index = recordListString.indexOf(adapter.getItem(i));
+                Log.d("INDEX", Integer.toString(index));
+
+                patient = accountManager.findPatient(patient.getUserID());
+                problem = patient.getProblems().getProblem(problemIndex);
+                recordList = problem.getRecordList();
+
                 chosenRecord = recordList.getRecord(index);
                 String recordTitle = chosenRecord.getRecordTitle();
                 if (getIntent().hasExtra("CareProvider")) {
@@ -183,16 +200,30 @@ public class RecordListActivity  extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
             if (requestCode == 1) {
+
+
+                patient = accountManager.findPatient(patient.getUserID());
+                problem = patient.getProblems().getProblem(problemIndex);
+                recordList = problem.getRecordList();
                 Record newRecord = (Record) data.getSerializableExtra("newRecord");
                 recordList.addRecord(newRecord);
                 patient.getProblems().updateProblem(problemIndex, problem);
+                recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
                 Log.d("Record List", problem.getRecordList().toString());
-                accountManager.patientUpdater(patient.getUserID(), patient);
+
                 Log.d("Updated Patient", patient.getJestID());
                 Log.d("New Record", newRecord.getRecordTitle());
-                adapter.add(newRecord.toString());
+
+
+
+                accountManager.patientUpdater(patient.getUserID(), patient);
+                adapter.clear();
+                for (String s: recordListString){
+                    adapter.add(s);
+                }
                 adapter.notifyDataSetChanged();
-                keySearch.setText("");
+                adapter.getFilter().filter(null);
+
             }
         }
     }
@@ -235,9 +266,15 @@ public class RecordListActivity  extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    String text = keySearch.getText().toString();
+                    adapter.getFilter().filter("");
+                    adapter.notifyDataSetChanged();
+
+                    adapter.getFilter().filter(text);
                     adapter.notifyDataSetChanged();
                     //index = problemString.indexOf(getItem(position));
-                    index = adapter.getPosition(getItem(position));
+                    //index = adapter.getPosition(getItem(position));
+                    index = recordListString.indexOf(adapter.getItem(position));
 
 
                     Record record = recordList.getRecord(index);
@@ -245,7 +282,6 @@ public class RecordListActivity  extends AppCompatActivity {
 
                     adapter.remove(adapter.getItem(position));
                     adapter.notifyDataSetChanged();
-                    adapter.getFilter().filter(null);
 
 
                     //Log.d("Problem", problemList.getList().toString());
@@ -253,6 +289,12 @@ public class RecordListActivity  extends AppCompatActivity {
 
                     patient.getProblems().updateProblem(problemIndex, problem);
                     accountManager.patientUpdater(patient.getUserID(), patient);
+
+                    adapter.getFilter().filter("");
+                    adapter.notifyDataSetChanged();
+
+                    adapter.getFilter().filter(text);
+                    adapter.notifyDataSetChanged();
                 }
             });
 

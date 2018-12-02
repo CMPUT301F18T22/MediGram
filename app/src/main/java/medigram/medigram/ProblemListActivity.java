@@ -80,7 +80,6 @@ public class ProblemListActivity extends AppCompatActivity {
             // get the new edited problem from child activity
             Bundle bundleObject = data.getExtras();
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
-            Log.d("JestID", patient.getJestID());
 
             // Add the edited problem to the correct index, depending on its date
             for (Problem p: filteredProblems.getList()){
@@ -97,10 +96,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 filteredProblems.getList().add(chosenProblem);
                 adapter.add(chosenProblem.toString());
                 adapter.notifyDataSetChanged();
-            }
-
-            for (Problem p: filteredProblems.getList()){
-                Log.d(p.getProblemTitle(), p.toString());
             }
 
 
@@ -275,9 +270,6 @@ public class ProblemListActivity extends AppCompatActivity {
 
 
     }
-
-
-
 
     // ListView adapter is from https://www.youtube.com/watch?v=ZEEYYvVwJGY
 

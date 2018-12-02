@@ -54,7 +54,6 @@ public class RecordListActivity  extends AppCompatActivity {
 
         accountManager = new AccountManager(getApplicationContext());
 
-
         if (getIntent().hasExtra("CareProvider")){
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
         }

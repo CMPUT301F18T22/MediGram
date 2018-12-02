@@ -350,14 +350,7 @@ public class ProblemListActivity extends AppCompatActivity {
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
                     // Pass list of emotion objects by using serializable
                     chosenProblem = filteredProblems.getProblem(index);
-/*
-                    for (Problem p: filteredProblems.getList()){
-                        if (p.toString() == adapter.getItem(position)){
-                            chosenProblem = p;
-                            break;
-                        }
-                    }
-                    */
+
                     openEditor.putExtra("chosenProblem", chosenProblem);
                     startActivityForResult(openEditor, 1);
 

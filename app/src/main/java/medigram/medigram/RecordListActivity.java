@@ -40,16 +40,13 @@ public class RecordListActivity  extends AppCompatActivity {
     private AccountManager accountManager;
     private Patient patient;
     private Problem problem;
-    private String problem_tile;
-    private String date;
-    private String description;
+    private String date, description, problem_tile;
     private TextView Displayproblemtile;
     private TextView Displaydate;
     private TextView Displaydes;
     private Button addRecordButton;
     private Button mapRecords;
-    private int index;
-    private int problemIndex;
+    private int problemIndex, lastPosition, index;
     private ImageButton imageButton1, imageButton2;
     private EditText keySearch;
 
@@ -174,13 +171,14 @@ public class RecordListActivity  extends AppCompatActivity {
         recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                index = adapter.getPosition(adapter.getItem(i));
-                index = recordListString.indexOf(adapter.getItem(i));
-                Log.d("INDEX", Integer.toString(index));
-
                 patient = accountManager.findPatient(patient.getUserID());
                 problem = patient.getProblems().getProblem(problemIndex);
                 recordList = problem.getRecordList();
+                recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+
+                //index = adapter.getPosition(adapter.getItem(i));
+                index = recordListString.indexOf(adapter.getItem(i));
+                Log.d("INDEX", Integer.toString(index));
 
                 chosenRecord = recordList.getRecord(index);
                 String recordTitle = chosenRecord.getRecordTitle();
@@ -240,17 +238,31 @@ public class RecordListActivity  extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
+            patient = accountManager.findPatient(patient.getUserID());
+            problem = patient.getProblems().getProblem(problemIndex);
+            recordList = problem.getRecordList();
+            recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+            if (requestCode == 2) {
+
+                Log.d("Chosen Record", chosenRecord.getRecordTitle());
+
+                recordList.getRecordList().remove(lastPosition);
+                patient.getProblems().updateProblem(problemIndex, problem);
+                recordListString.remove(chosenRecord.toString());
+
+                adapter.remove(chosenRecord.toString());
+                adapter.notifyDataSetChanged();
+                accountManager.patientUpdater(patient.getUserID(), patient);
+                requestCode = 1;
+                Log.d("Record List1", recordList.toString());
+            }
             if (requestCode == 1) {
 
-
-                patient = accountManager.findPatient(patient.getUserID());
-                problem = patient.getProblems().getProblem(problemIndex);
-                recordList = problem.getRecordList();
                 Record newRecord = (Record) data.getSerializableExtra("newRecord");
                 recordList.addRecord(newRecord);
                 patient.getProblems().updateProblem(problemIndex, problem);
                 recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
-                Log.d("Record List", problem.getRecordList().toString());
+                Log.d("Record List2", problem.getRecordList().toString());
 
                 Log.d("Updated Patient", patient.getJestID());
                 Log.d("New Record", newRecord.getRecordTitle());
@@ -305,11 +317,12 @@ public class RecordListActivity  extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String text = keySearch.getText().toString();
-                    adapter.getFilter().filter("");
-                    adapter.notifyDataSetChanged();
 
-                    adapter.getFilter().filter(text);
-                    adapter.notifyDataSetChanged();
+                    patient = accountManager.findPatient(patient.getUserID());
+                    problem = patient.getProblems().getProblem(problemIndex);
+                    recordList = problem.getRecordList();
+                    recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+
                     //index = problemString.indexOf(getItem(position));
                     //index = adapter.getPosition(getItem(position));
                     index = recordListString.indexOf(adapter.getItem(position));
@@ -333,6 +346,27 @@ public class RecordListActivity  extends AppCompatActivity {
 
                     adapter.getFilter().filter(text);
                     adapter.notifyDataSetChanged();
+                }
+            });
+
+            mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    patient = accountManager.findPatient(patient.getUserID());
+                    problem = patient.getProblems().getProblem(problemIndex);
+                    recordList = problem.getRecordList();
+                    recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+
+                    //index = adapter.getPosition(getItem(position));
+                    index = recordListString.indexOf(adapter.getItem(position));
+                    lastPosition = recordListString.indexOf(adapter.getItem(position));
+
+                    chosenRecord = recordList.getRecord(index);
+                    Intent intent = new Intent(getApplicationContext(), AddRecordActivity.class);
+                    intent.putExtra("Patient", patient);
+                    intent.putExtra("Problem", problem);
+                    intent.putExtra("Record", chosenRecord);
+                    startActivityForResult(intent, 2);
                 }
             });
 

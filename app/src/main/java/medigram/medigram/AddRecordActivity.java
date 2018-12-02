@@ -53,7 +53,7 @@ public class AddRecordActivity extends Activity {
     private EditText titleEditText;
     private AccountManager accoutmanager;
     private Problem problem;
-    private Record newrecord;
+    private Record newrecord, chosenRecord;
     private Patient patient;
     private LatLng location;
 
@@ -71,12 +71,20 @@ public class AddRecordActivity extends Activity {
         save = findViewById(R.id.save);
 
 
+        newrecord = new Record();
+        if (getIntent().hasExtra("Record")){
+            chosenRecord = (Record) getIntent().getSerializableExtra("Record");
+            newrecord = chosenRecord;
+            titleEditText.setText(chosenRecord.getRecordTitle());
+        }
+
+
 
         // get current problem(using intent from the record view part to get problem id and patient id )
         //problem = Patient.getProblems().getProblem(0);
         patient = (Patient) getIntent().getSerializableExtra("Patient");
         problem = (Problem )getIntent().getSerializableExtra("Problem");
-        newrecord = new Record();
+
 
         // add a new geolocation
         geolocation.setOnClickListener(new View.OnClickListener() {

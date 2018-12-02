@@ -91,6 +91,20 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             }
 
         });
+
+        viewPicture = (Button) findViewById(R.id.viewPicture);
+        viewPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent gallery = new Intent(getApplicationContext(), GalleryActivity.class);
+                gallery.putExtra("patient", patient);
+                gallery.putExtra("recordIndex", recordIndex);
+                gallery.putExtra("problemIndex", problemIndex);
+                startActivity(gallery);
+            }
+        });
+
+
         commentListString = commentList.getList().stream().map(Comment::toString).collect(Collectors.toList());
         adapter = new RecordActivity.CommentListAdapter(this, R.layout.comments_list_items, commentListString);
         //commentString.add("sdfsss");

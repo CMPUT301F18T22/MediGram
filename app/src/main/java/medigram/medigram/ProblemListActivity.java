@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -100,12 +99,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 adapter.notifyDataSetChanged();
             }
 
-            /*
-
-            for (String s: problemString){
-                Log.d("String", s);
-            }
-            */
             for (Problem p: filteredProblems.getList()){
                 Log.d(p.getProblemTitle(), p.toString());
             }
@@ -115,7 +108,6 @@ public class ProblemListActivity extends AppCompatActivity {
             problemList.addProblem(chosenProblem);
             adapter.notifyDataSetChanged();
 
-            //keySearch.setText(chosenProblem.getProblemTitle());
             keySearch.setText("");
 
 
@@ -158,7 +150,7 @@ public class ProblemListActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_problem_list);
         Button addProblemBtn = (Button) findViewById(R.id.addProblemBtn);
-        keySearch = (EditText) findViewById(R.id.problem_keyword);
+        keySearch = (EditText) findViewById(R.id.keySearch);
 
         // If user is a patient, then do this:
         //user = (User) getIntent().getSerializableExtra("User");

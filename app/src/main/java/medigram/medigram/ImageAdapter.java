@@ -44,4 +44,8 @@ public class ImageAdapter extends BaseAdapter {
         return imageView;
     }
 
+    public void removeItem(int position){
+        bitmapList.remove(position);
+    }
+
 }

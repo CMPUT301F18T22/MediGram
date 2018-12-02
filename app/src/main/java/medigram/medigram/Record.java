@@ -145,6 +145,6 @@ public class Record implements Serializable{
      */
     public String toString(){
         return this.recordTitle + "~ " + this.getDateString() + " \n  "
-                + this.geoLocation.toString();
+                + this.geoLocation.toString() + "\n\n\n\n " + this.recordTitle.replaceAll("\\s+","");
     }
 }

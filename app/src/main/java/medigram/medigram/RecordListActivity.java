@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -37,6 +40,7 @@ public class RecordListActivity  extends AppCompatActivity {
     private int index;
     private int problemIndex;
     private ImageButton imageButton1, imageButton2;
+    private EditText keySearch;
 
     @Override
     public void onBackPressed(){
@@ -50,6 +54,7 @@ public class RecordListActivity  extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_record_list);
+        keySearch = (EditText) findViewById(R.id.keySearch);
 
         accountManager = new AccountManager(getApplicationContext());
         addRecordButton = findViewById(R.id.addrecordbtn);
@@ -100,6 +105,26 @@ public class RecordListActivity  extends AppCompatActivity {
             Bitmap photo = problem.getBodyLocationPhoto(1).getBitmap();
             imageButton2.setImageBitmap(photo);
         }
+
+
+        // Filters the adapter whenever the user inputs a character in the keyboard
+        keySearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                RecordListActivity.this.adapter.getFilter().filter(charSequence.toString().replaceAll("\\s+",""));
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
 
 
@@ -167,6 +192,7 @@ public class RecordListActivity  extends AppCompatActivity {
                 Log.d("New Record", newRecord.getRecordTitle());
                 adapter.add(newRecord.toString());
                 adapter.notifyDataSetChanged();
+                keySearch.setText("");
             }
         }
     }
@@ -177,7 +203,6 @@ public class RecordListActivity  extends AppCompatActivity {
         private RecordListAdapter(Context context, int resource, List<String> objects) {
             super(context, resource, objects);
             layout = resource;
-
         }
 
 

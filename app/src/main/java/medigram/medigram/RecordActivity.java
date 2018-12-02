@@ -104,6 +104,9 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     intent.putExtra("Single Location", record.getGeoLocation());
                     startActivity(intent);
+                }else{
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    startActivity(intent);
                 }
             }
         });

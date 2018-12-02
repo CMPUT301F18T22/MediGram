@@ -16,6 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
@@ -65,13 +67,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         viewPicture = (Button) findViewById(R.id.viewPicture);
         recordTitle = (TextView) findViewById(R.id.recordTitle);
 
-        if (getIntent().hasExtra("CareProvider")) {
-            addPicture.setVisibility(View.INVISIBLE);
-            addPicture.setClickable(false);
-            String naming = "View Geo-location";
-            addGeo.setText(naming);
-        }
-
         // patientComment = (TextView) findViewById(R.id.patientComment);
         //careProviderComment = (TextView) findViewById(R.id.carproviderComment);
         Bundle extras = getIntent().getExtras();
@@ -85,10 +80,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
 
-        if (record.getGeoLocation() != null){
-            addGeo.setText("View Geo-location");
-        }
-
         addCommentBTN = (Button) findViewById(R.id.addComment);
         addCommentBTN.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,6 +87,10 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                 openDialog();
             }
         });
+
+        if (record.getGeoLocation() != null){
+            addGeo.setText("View Geo-location");
+        }
 
         addGeo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -106,7 +101,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     startActivity(intent);
                 }else{
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    startActivity(intent);
+                    intent.putExtra("CareProvider", true);
+                    startActivityForResult(intent, 1);
                 }
             }
         });
@@ -133,6 +129,18 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         adapter.notifyDataSetChanged();
 
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int code, Intent intent){
+        if (requestCode == 1 ) {
+            if (code == RESULT_OK) {
+                LatLng location = intent.getParcelableExtra("Location");
+                record.setGeoLocation(location);
+                addGeo.setText("View Geo-location");
+                accountManager.patientUpdater(patient.getUserID(), patient);
+            }
+        }
     }
 
     public void openDialog(){

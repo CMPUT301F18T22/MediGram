@@ -1,11 +1,13 @@
 package medigram.medigram;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
+import android.os.Build;
 import android.os.Parcelable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
@@ -45,6 +47,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private Button saveButton;
     private LatLng currentLocation;
     private PlaceAutocompleteFragment autocompleteFragment;
+    private Boolean permissionGranted;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -107,26 +110,31 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
      */
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mMap = googleMap;
 
-        if (ContextCompat.checkSelfPermission(getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            permissionGranted = false;
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
+            Log.d("Permission", "Location permission went through");
+        }else{
+            permissionGranted = true;
         }
-        else {
-            if (getIntent().hasExtra("All Locations")){
+
+        if (permissionGranted) {
+            Log.d("Permission", "Location permission already granted");
+            if (getIntent().hasExtra("All Locations")) {
                 displayAllLocations();
             }
-            else if (getIntent().hasExtra("Single Location")){
+
+            else if (getIntent().hasExtra("Single Location")) {
                 saveButton.setVisibility(View.GONE);
                 currentLocation = getIntent().getParcelableExtra("Single Location");
-
-                mMap = googleMap;
 
                 mMap.addMarker(new MarkerOptions().position(currentLocation).title("Record Location"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
             }
-            else {
+
+            else{
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                             @Override
@@ -179,25 +187,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
         if (requestCode == MY_PERMISSION_ACCESS_FINE_LOCATION){
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                if (getIntent().hasExtra("All Locations")){
-                    displayAllLocations();
-                }else {
-                    mFusedLocationClient.flushLocations();
-                    mFusedLocationClient.getLastLocation()
-                            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
-                                @Override
-                                public void onSuccess(Location location) {
-                                    // Got last known location. In some rare situations this can be null.
-                                    if (location != null) {
-                                        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-
-                                        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
-                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
-                                    }
-                                }
-                            });
-                }
+                permissionGranted = true;
+                onMapReady(mMap);
             }
+//                Log.d("Permission", "Location permission accepted");
+//                if (getIntent().hasExtra("All Locations")){
+//                    displayAllLocations();
+//                }else {
+//                    mFusedLocationClient.getLastLocation()
+//                            .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                                @Override
+//                                public void onSuccess(Location location) {
+//                                    // Got last known location. In some rare situations this can be null.
+//                                    if (location != null) {
+//                                        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//
+//                                        mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+//                                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
+//                                    }
+//                                }
+//                            });
+//                }
+//            }else{
+//                Log.d("Permission", "Location permission rejected");
+//            }
         }
     }
 }

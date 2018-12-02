@@ -7,14 +7,32 @@
     tools:context=".RecordListActivity"
     android:background="@drawable/background">
 
+    <Button
+        android:id="@+id/mapRecordsBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/button_style3"
+        android:text="Map Records"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/addrecordbtn"
+        app:layout_constraintTop_toBottomOf="@+id/recordListView"
+        app:layout_constraintVertical_bias="1.0" />
+
     <ListView
         android:id="@+id/recordListView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginStart="4dp"
 
-        android:layout_marginEnd="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="8dp"
         android:layout_weight="1"
         android:divider="@android:color/transparent"
         android:dividerHeight="10dp"

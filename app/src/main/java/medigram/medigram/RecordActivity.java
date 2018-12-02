@@ -72,11 +72,12 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         }
         // patientComment = (TextView) findViewById(R.id.patientComment);
         //careProviderComment = (TextView) findViewById(R.id.carproviderComment);
-        careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
-        patient = (Patient) getIntent().getSerializableExtra("Patient");
-        recordIndex = getIntent().getIntExtra("RecordIndex", -1);
-        problemIndex = getIntent().getIntExtra("ProblemIndex", -1);
-        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        Bundle extras = getIntent().getExtras();
+        careProvider = (CareProvider) extras.getSerializable("CareProvider");
+        patient = (Patient) extras.getSerializable("Patient");
+        record = (Record) extras.getSerializable("Record");
+        recordIndex = extras.getInt("RecordIndex", -1);
+        problemIndex = extras.getInt("ProblemIndex", -1);
         commentList = record.getComments();
         commentView = (ListView) findViewById(R.id.commentListView);
         recordTitle.setText(record.getRecordTitle());
@@ -87,9 +88,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             @Override
             public void onClick(View v) {
                 openDialog();
-
             }
-
         });
 
         viewPicture = (Button) findViewById(R.id.viewPicture);

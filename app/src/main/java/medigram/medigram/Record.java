@@ -130,7 +130,7 @@ public class Record implements Serializable{
      * @return geoLocation
      */
     public LatLng getGeoLocation(){
-        if (geoLocation != null){
+        if (geoLocation.size() != 0){
             return new LatLng(geoLocation.get(0), geoLocation.get(1));
         }
         return null;
@@ -151,6 +151,7 @@ public class Record implements Serializable{
      * @return String
      */
     public String toString(){
-        return this.recordTitle + "~ " + this.getDateString() + " \n  ";
+        return this.recordTitle + "~ " + this.getDateString() + " \n  "
+                + "\n\n\n\n " + this.recordTitle.replaceAll("\\s+","");
     }
 }

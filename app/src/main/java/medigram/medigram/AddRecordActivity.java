@@ -119,12 +119,15 @@ public class AddRecordActivity extends Activity {
             public void onClick(View view) {
                 String title = titleEditText.getText().toString();
                 String comment = commentEditText.getText().toString();
-                newrecord = new Record(title, new Comment(comment, patient.getUserID()), new Date());
+                newrecord = new Record(title, new Date());
                 if (location != null){
                     newrecord.setGeoLocation(location);
                 }
+                if (comment != null){
+                    newrecord.getComments().addComment(new Comment(comment, patient.getUserID()));
+                }
 
-                Log.d("New Record", newrecord.getComments().get(0).getText());
+                Log.d("New Record", newrecord.getComments().getComment(0).getText());
                 Log.d("Patient jestID", patient.getJestID());
 
                 Intent intent = new Intent();

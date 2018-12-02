@@ -46,8 +46,6 @@ public class PatientProfileActivity extends Activity {
         email = account.getEmailAddress();
         phoneNumber = account.getPhoneNumber();
 
-
-
         displayUserID.setText(userID);
         displayEmail.setText(email);
         displayPhone.setText(phoneNumber);

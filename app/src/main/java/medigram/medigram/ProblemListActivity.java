@@ -170,8 +170,6 @@ public class ProblemListActivity extends AppCompatActivity {
             addProblemBtn.setVisibility(View.GONE);
         }
 
-
-
         problemsView = (ListView) findViewById(R.id.ProblemListView);
         problemsView.setTextFilterEnabled(true);
 
@@ -320,9 +318,6 @@ public class ProblemListActivity extends AppCompatActivity {
                 }
             }
             mainViewholder = (ViewHolder) convertView.getTag();
-
-
-
 
 
             // deleteBtn deletes problem from all 3 lists

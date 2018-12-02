@@ -148,7 +148,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void displayAllLocations() {
-        ArrayList<LatLng> locations = getIntent().getParcelableExtra("All Locations");
+        saveButton.setVisibility(View.GONE);
+        ArrayList<LatLng> locations = getIntent().getParcelableArrayListExtra("All Locations");
         ArrayList<Marker> markers = new ArrayList<>();
 
         for (LatLng latLng : locations){
@@ -161,7 +162,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         LatLngBounds bounds = builder.build();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 0));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120));
     }
 
     @SuppressLint("MissingPermission")

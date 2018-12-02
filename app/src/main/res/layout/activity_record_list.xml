@@ -11,15 +11,18 @@
         android:id="@+id/recordListView"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_marginBottom="8dp"
+
+        android:layout_marginEnd="8dp"
         android:layout_marginTop="8dp"
+        android:layout_weight="1"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageButton1"
-        app:layout_constraintBottom_toTopOf="@+id/addrecordbtn"
-        app:layout_constraintVertical_bias="0.051"
-
-        android:divider="@android:color/transparent"
-        android:dividerHeight="10dp">
+        app:layout_constraintVertical_bias="1.0">
 
     </ListView>
 

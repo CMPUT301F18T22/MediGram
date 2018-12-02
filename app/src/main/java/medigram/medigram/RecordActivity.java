@@ -19,6 +19,7 @@ import android.widget.Toast;
 import org.apache.commons.lang3.ObjectUtils;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 public class RecordActivity extends AppCompatActivity implements AddCommentDialog.AddCommentDialogListener, EditCommentDialog.EditCommentDialogListener{
@@ -67,27 +68,43 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         if (getIntent().hasExtra("CareProvider")) {
             addPicture.setVisibility(View.INVISIBLE);
             addPicture.setClickable(false);
-            String naming = "VIEW GEOLOCATION";
+            String naming = "View Geo-location";
             addGeo.setText(naming);
         }
+
         // patientComment = (TextView) findViewById(R.id.patientComment);
         //careProviderComment = (TextView) findViewById(R.id.carproviderComment);
         Bundle extras = getIntent().getExtras();
         careProvider = (CareProvider) extras.getSerializable("CareProvider");
         patient = (Patient) extras.getSerializable("Patient");
-        record = (Record) extras.getSerializable("Record");
         recordIndex = extras.getInt("RecordIndex", -1);
         problemIndex = extras.getInt("ProblemIndex", -1);
+        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
         commentList = record.getComments();
         commentView = (ListView) findViewById(R.id.commentListView);
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
+
+        if (record.getGeoLocation() != null){
+            addGeo.setText("View Geo-location");
+        }
 
         addCommentBTN = (Button) findViewById(R.id.addComment);
         addCommentBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 openDialog();
+            }
+        });
+
+        addGeo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (record.getGeoLocation() != null){
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putExtra("Single Location", record.getGeoLocation());
+                    startActivity(intent);
+                }
             }
         });
 
@@ -241,8 +258,10 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                     mainViewholder.editBtn.setClickable(true);
                 }
             }
-            mainViewholder.title.setText(parts[0]);
-            mainViewholder.commentText.setText(parts[1]);
+            if (parts.length > 1) {
+                mainViewholder.title.setText(parts[0]);
+                mainViewholder.commentText.setText(parts[1]);
+            }
 
             return convertView;
 

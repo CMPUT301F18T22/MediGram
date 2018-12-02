@@ -87,33 +87,6 @@ public class AddRecordActivity extends Activity {
             }
         });
 
-
-//        //here we are going to take a picture use the camera
-//        addpicture.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//
-//                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-//             // build file to save the image
-//                String saveingname = "JPEG_Record" + timeStamp + ".jpg";
-//                File outputImage = new File(Environment.
-//                        getExternalStorageDirectory(), saveingname);
-//                try {
-//                    if (outputImage.exists()) {
-//                        outputImage.delete();
-//                    }
-//                    outputImage.createNewFile();
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//                imageUri = Uri.fromFile(outputImage);
-//                Intent intent = new Intent("android.media.action. IMAGE_CAPTURE");
-//                intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
-//                startActivityForResult(intent, TAKE_PHOTO); // activite the camera
-//                newrecord.setPhotos(outputImage);
-//            }
-//        });
-
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -123,12 +96,9 @@ public class AddRecordActivity extends Activity {
                 if (location != null){
                     newrecord.setGeoLocation(location);
                 }
-                if (comment != null){
+                if (comment.length() > 0){
                     newrecord.getComments().addComment(new Comment(comment, patient.getUserID()));
                 }
-
-                Log.d("New Record", newrecord.getComments().getComment(0).getText());
-                Log.d("Patient jestID", patient.getJestID());
 
                 Intent intent = new Intent();
                 intent.putExtra("newRecord", newrecord);

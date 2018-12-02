@@ -82,7 +82,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                 if (!getIntent().hasExtra("All Locations")) {
                     mMap.clear();
-                    mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
+                    mMap.addMarker(new MarkerOptions().position(currentLocation).title(place.getName().toString()));
                 }
                 mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
             }
@@ -117,6 +117,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (getIntent().hasExtra("All Locations")){
                 displayAllLocations();
             }
+            else if (getIntent().hasExtra("Single Location")){
+                saveButton.setVisibility(View.GONE);
+                currentLocation = getIntent().getParcelableExtra("Single Location");
+
+                mMap = googleMap;
+
+                mMap.addMarker(new MarkerOptions().position(currentLocation).title("Record Location"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
+            }
             else {
                 mFusedLocationClient.getLastLocation()
                         .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -129,7 +138,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                     mMap = googleMap;
 
                                     mMap.addMarker(new MarkerOptions().position(currentLocation).title("Current Location"));
-                                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 18.0f));
+                                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
                                 }
                             }
                         });

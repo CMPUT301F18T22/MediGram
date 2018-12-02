@@ -4,7 +4,9 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -34,18 +36,20 @@ import java.util.stream.Collectors;
  */
 public class ProblemListActivity extends AppCompatActivity {
     final Context context = this;
-    public ProblemList problemList, filteredProblems;
-    public List<String> problemString;
-    public ListView problemsView;
-    public Problem chosenProblem;
-    public ArrayAdapter<String> adapter;
-    public String bodyLocation, keyword;
-    public int lastPosition, index;
-    public EditText keySearch;
-    public Patient patient;
-    public AccountManager accountManager;
-    public User user;
-    public View.OnClickListener myClickListener;
+    private ProblemList problemList, filteredProblems;
+    private List<String> problemString;
+    private ListView problemsView;
+    private Problem chosenProblem;
+    private ArrayAdapter<String> adapter;
+    private String bodyLocation, keyword;
+    private int lastPosition, index;
+    private EditText keySearch;
+    private Patient patient;
+    private AccountManager accountManager;
+    private User user;
+    private View.OnClickListener myClickListener;
+    private Bitmap photo1;
+    private CareProvider careProvider;
 
 
     /**
@@ -59,6 +63,7 @@ public class ProblemListActivity extends AppCompatActivity {
      * @param data The intent data sent by the child activity. This holds the problem that
      *             was edited.
      */
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -76,7 +81,7 @@ public class ProblemListActivity extends AppCompatActivity {
             // get the new edited problem from child activity
             Bundle bundleObject = data.getExtras();
             chosenProblem = (Problem) bundleObject.getSerializable("editedProblem");
-
+            Log.d("JestID", patient.getJestID());
 
             // Add the edited problem to the correct index, depending on its date
             for (Problem p: filteredProblems.getList()){
@@ -140,9 +145,11 @@ public class ProblemListActivity extends AppCompatActivity {
             adapter.clear();
             adapter.addAll(problemString);
             adapter.notifyDataSetChanged();
+            keySearch.setText("");
         }
 
     }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -164,6 +171,7 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a care provider, then do this:
         if (getIntent().hasExtra("CareProvider")){
             patient = (Patient) getIntent().getSerializableExtra("Patient");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
@@ -236,6 +244,12 @@ public class ProblemListActivity extends AppCompatActivity {
                 // open record activity here. Add patient or careProvider and chosenProblem
                 // as extra
                 Intent intent = new Intent(getApplicationContext(), RecordListActivity.class);
+
+                if (getIntent().hasExtra("CareProvider")) {
+                    intent.putExtra("CareProvider", careProvider);
+
+                }
+
                 intent.putExtra("Patient", patient);
                 intent.putExtra("Problem", chosenProblem);
                 intent.putExtra("problemIndex", index);
@@ -306,8 +320,11 @@ public class ProblemListActivity extends AppCompatActivity {
                 convertView.setTag(viewHolder);
                 // Remove these buttons if user is a Care Provider, so they can't edit
                 if (getIntent().hasExtra("CareProvider")){
-                    viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
+                    viewHolder.deleteBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.deleteBtn.setClickable(false);
+                    viewHolder.editBtn.setVisibility(View.INVISIBLE);
+                    viewHolder.editBtn.setClickable(false);
+
                 }
             }
             mainViewholder = (ViewHolder) convertView.getTag();
@@ -362,9 +379,7 @@ public class ProblemListActivity extends AppCompatActivity {
                         }
                     }
                     */
-                    Bundle problem_bundle = new Bundle();
-                    problem_bundle.putSerializable("chosenProblem", chosenProblem);
-                    openEditor.putExtras(problem_bundle);
+                    openEditor.putExtra("chosenProblem", chosenProblem);
                     startActivityForResult(openEditor, 1);
 
                 }

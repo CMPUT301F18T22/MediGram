@@ -3,7 +3,7 @@
     <string name="logoString">medigram</string>
     <string name="UserIDInput">Enter your UserID.</string>
     <string name="SignInButton">Sign In</string>
-    <string name="SignUpButton"> <u>Sign Up</u> </string>
+    <string name="SignUpButton">Sign Up </string>
     <string name="ConfirmButton"> <u>Confirm</u> </string>
     <string name="AddProblemButton"> <u>Add Problem</u> </string>
     <string name="SearchButton"> <u>Search</u> </string>
@@ -33,12 +33,20 @@
     <string name="title_activity_add_patient">AddPatientActivity</string>
     <string name="title_activity_care_provider">CareProviderActivity</string>
 
-    <string name="edit_problem_title_hint">Problem Title (30 Characters Max)</string>
+    <string name="edit_problem_title_hint">Enter title (30 Characters Max)</string>
     <string name="edit_problem_date_hint">Date Started</string>
-    <string name="edit_description_hint">Description of the problem (300 characters max)</string>
-    <string name="edit_body_location_hint">body location</string>
 
     <string name="title_activity_maps">Map</string>
     <string name="saveMapBtn">Save</string>
     <string name="addGeoBtn">Add Geo-location</string>
+
+    <string name="edit_description_hint"> Enter description of the problem (300 characters max)</string>
+    <string name="edit_body_location_hint">Enter body location</string>
+    <string name="RemovePhotoButton">Remove</string>
+    <string name="edit_title_textview">Title:</string>
+    <string name="edit_date_textview">Date:</string>
+    <string name="edit_location_textview">Location:</string>
+    <string name="edit_description_textview">Description:</string>
+    <string name="codeGenerator">Generate Login Code</string>
+    <string name="drawerButton">Generate</string>
 </resources>

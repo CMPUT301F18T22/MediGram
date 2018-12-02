@@ -4,76 +4,86 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".RecordActivity">
+    tools:context=".RecordActivity"
+    android:background="@drawable/background">
 
     <ListView
-        android:id="@+id/RecordListView"
-        android:layout_width="wrap_content"
-        android:layout_height="296dp"
+        android:id="@+id/commentListView"
+        android:layout_width="match_parent"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintTop_toBottomOf="@+id/addGeo"
+
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp">
 
     </ListView>
 
     <TextView
-        android:id="@+id/timestamp"
-        android:layout_width="150dp"
-        android:layout_height="19dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginTop="156dp"
+        android:theme="@style/MyTextView"
+        android:id="@+id/recordTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="5dp"
         android:text="TextView"
+        android:textSize="30sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/viewpicture"
-        android:layout_width="145dp"
-        android:layout_height="64dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="344dp"
-        android:text="Picture"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
-        android:id="@+id/Recordtitle"
-        android:layout_width="271dp"
-        android:layout_height="56dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="4dp"
-        android:text="TextView"
-        android:textSize="30dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
+        android:background="@drawable/button_style1"
         android:id="@+id/addComment"
-        android:layout_width="143dp"
-        android:layout_height="73dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="20dp"
         android:text="Add Comment"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/recordTitle" />
 
     <Button
+        android:background="@drawable/button_style1"
         android:id="@+id/addPicture"
-        android:layout_width="141dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="68dp"
-        android:layout_marginEnd="44dp"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="30dp"
         android:text="Add Picture"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/recordTitle" />
 
     <Button
-        android:id="@+id/button3"
-        android:layout_width="150dp"
-        android:layout_height="37dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="Add Goelocation"
+        android:id="@+id/addGeo"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:background="@drawable/button_style1"
+        android:text="Add Location"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/timestamp" />
+        app:layout_constraintTop_toBottomOf="@id/addComment"/>
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/viewPicture"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="30dp"
+        android:text="Pictures"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addPicture" />
 
 </android.support.constraint.ConstraintLayout>

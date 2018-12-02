@@ -3,15 +3,18 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -21,13 +24,13 @@ import java.util.stream.Collectors;
 
 public class RecordListActivity  extends AppCompatActivity {
     private ListView recordsView;
+    private CareProvider careProvider;
     private RecordListAdapter adapter;
     private RecordList recordList;
     private List<String> recordListString;
     private Record chosenRecord;
     private AccountManager accountManager;
     private Patient patient;
-    private CareProvider careProvider;
     private Problem problem;
     private String problem_tile;
     private String date;
@@ -38,6 +41,7 @@ public class RecordListActivity  extends AppCompatActivity {
     private Button addRecordButton;
     private int index;
     private int problemIndex;
+    private ImageButton imageButton1, imageButton2;
 
     @Override
     public void onBackPressed(){
@@ -53,19 +57,21 @@ public class RecordListActivity  extends AppCompatActivity {
         setContentView(R.layout.activity_record_list);
 
         accountManager = new AccountManager(getApplicationContext());
-
+        addRecordButton = findViewById(R.id.addrecordbtn);
         if (getIntent().hasExtra("CareProvider")){
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            addRecordButton.setVisibility(View.INVISIBLE);
+            addRecordButton.setClickable(false);
         }
         patient = (Patient) getIntent().getSerializableExtra("Patient");
         problem = (Problem) getIntent().getSerializableExtra("Problem");
         problemIndex = getIntent().getIntExtra("problemIndex", -1);
-
+        problem = patient.getProblems().getProblem(problemIndex);
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
-        recordsView = findViewById(R.id.RecordListView);
-        addRecordButton = findViewById(R.id.addrecordbtn);
+        recordsView = findViewById(R.id.recordListView);
+
 
         problem_tile = problem.getProblemTitle();
         date = problem.getDateString();
@@ -81,7 +87,53 @@ public class RecordListActivity  extends AppCompatActivity {
         adapter = new RecordListAdapter(this, R.layout.record_list_item, recordListString);
 
         recordsView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
         recordsView.setTextFilterEnabled(true);
+        recordsView.setClickable(true);
+
+        // Display problem images in the imageButtons
+        imageButton1 = (ImageButton) findViewById(R.id.imageButton1);
+        imageButton2 = (ImageButton) findViewById(R.id.imageButton2);
+        if (problem.getBodyLocationPhoto(0) != null &&
+                problem.getBodyLocationPhoto(0).getBitmap().getHeight() > 1){
+            Bitmap photo = problem.getBodyLocationPhoto(0).getBitmap();
+            imageButton1.setImageBitmap(photo);
+        }
+
+        if (problem.getBodyLocationPhoto(1) != null&&
+                problem.getBodyLocationPhoto(1).getBitmap().getHeight() > 1){
+            Bitmap photo = problem.getBodyLocationPhoto(1).getBitmap();
+            imageButton2.setImageBitmap(photo);
+        }
+
+
+
+        recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                index = recordListString.indexOf(adapter.getItem(i));
+                chosenRecord = recordList.getRecord(index);
+                String recordTitle = chosenRecord.getRecordTitle();
+                if (getIntent().hasExtra("CareProvider")) {
+                    Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
+                    intent.putExtra("CareProvider", careProvider);
+                    intent.putExtra("Patient", patient);
+                    intent.putExtra("Record", chosenRecord);
+                    intent.putExtra("RecordIndex", index);
+                    intent.putExtra("ProblemIndex", problemIndex);
+                    startActivityForResult(intent,2);
+                }
+                else{
+                    Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
+                    intent.putExtra("Patient", patient);
+                    intent.putExtra("Record", chosenRecord);
+                    intent.putExtra("RecordIndex", index);
+                    intent.putExtra("ProblemIndex", problemIndex);
+                    startActivityForResult(intent,2);
+                }
+
+            }
+        });
 
         addRecordButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +144,19 @@ public class RecordListActivity  extends AppCompatActivity {
                 startActivityForResult(intent, 1);
             }
         });
+    }
+
+    @Override
+    protected void onRestart(){
+        super.onRestart();
+        patient = accountManager.findPatient(patient.getUserID());
+        problem = patient.getProblems().getProblem(problemIndex);
+        recordList = problem.getRecordList();
+
+        recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+        adapter.clear();
+        adapter.addAll(recordListString);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

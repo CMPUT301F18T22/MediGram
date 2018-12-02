@@ -25,7 +25,7 @@ public class RecordAddComment extends AppCompatActivity {
         texxt1 = findViewById(R.id.texxt1);
         String content = texxt1.getText().toString();
         Comment comment = new Comment(content, id);
-        newrecord.addComment(comment);
+        newrecord.getComments().addComment(comment);
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override

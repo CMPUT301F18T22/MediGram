@@ -19,6 +19,7 @@ public class PatientProfileActivity extends Activity {
     private Boolean accountDeleted;
     private AccountManager accountManager;
     private EditText searchBox;
+    private CareProvider careProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +38,8 @@ public class PatientProfileActivity extends Activity {
             account = (Patient) getIntent().getSerializableExtra("Patient");
         }
         if (getIntent().hasExtra("CareProvider")) {
-            account = (Patient) getIntent().getSerializableExtra("CareProvider");
+            account = (Patient) getIntent().getSerializableExtra("Patient");
+            careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             editProfileButton.setVisibility(View.GONE);
         }
         userID = account.getUserID();
@@ -68,7 +70,7 @@ public class PatientProfileActivity extends Activity {
 
                 }
                 if (getIntent().hasExtra("CareProvider")) {
-                    intent.putExtra("CareProvider", "");
+                    intent.putExtra("CareProvider", careProvider);
                     intent.putExtra("Patient", account);
 
                 }

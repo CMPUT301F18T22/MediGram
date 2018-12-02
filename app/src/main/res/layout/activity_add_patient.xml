@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddPatientActivity">
+    tools:context=".AddPatientActivity"
+    android:background="@drawable/background">
 
     <TextView
+        android:theme="@style/MyTextView"
         android:id="@+id/hint"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,12 +32,15 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:background="@drawable/button_style1"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         android:id="@+id/confirm_adding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Confirm adding"
+        android:text="Confirm Adding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 

@@ -4,100 +4,101 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".EditRecordActivity">
+    tools:context=".EditRecordActivity"
+    android:background="@drawable/background">
 
     <Button
-        android:id="@+id/edit_comment"
-        android:layout_width="152dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="edit comment"
-        app:layout_constraintEnd_toStartOf="@+id/edit_picture"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
-
-    <Button
-        android:id="@+id/edit_picture"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="edit_picture"
-        app:layout_constraintBottom_toTopOf="@+id/edit_dates"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_comment"
-        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
-
-    <Button
-        android:id="@+id/edit_geolocation"
-        android:layout_width="149dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="edit geolocation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/edit_dates"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit_comment"
-        app:layout_constraintVertical_bias="0.223" />
-
-    <Button
-        android:id="@+id/edit_dates"
-        android:layout_width="150dp"
-        android:layout_height="100dp"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
-        android:text="edit_date"
-        app:layout_constraintBottom_toTopOf="@+id/save"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/edit_geolocation"
-        app:layout_constraintTop_toBottomOf="@+id/edit_picture" />
-
-    <Button
-        android:id="@+id/save"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="save"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/map_view"
-        app:layout_constraintTop_toBottomOf="@+id/edit_dates" />
-
-    <Button
+        android:background="@drawable/button_style1"
         android:id="@+id/edit_title"
-        android:layout_width="244dp"
-        android:layout_height="66dp"
-        android:layout_marginTop="32dp"
-        android:text="edit title"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:text="Edit Title"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintBottom_toTopOf="@+id/edit_picture"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/map_view"
-        android:layout_width="wrap_content"
+        android:background="@drawable/button_style1"
+        android:id="@+id/edit_comment"
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="32dp"
-        android:text="view on the map"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/save"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Edit Comment"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/edit_picture"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Edit Picture"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_title" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/edit_geolocation"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Edit Location"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_comment" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/edit_dates"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="50dp"
+        android:text="Edit Date"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_picture" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/map_view"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="50dp"
+        android:text="View on Map"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/edit_geolocation" />
+
+    <Button
+        android:background="@drawable/button_style1"
+        android:id="@+id/save"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="30dp"
+        android:layout_marginTop="50dp"
+        android:text="Save"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edit_dates" />
+
 </android.support.constraint.ConstraintLayout>

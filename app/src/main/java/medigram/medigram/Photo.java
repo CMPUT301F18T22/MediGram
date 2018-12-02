@@ -1,49 +1,71 @@
 package medigram.medigram;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.provider.ContactsContract;
+import android.util.Base64;
+import android.util.Log;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.Serializable;
 
+/**
+ * Converts a given bitmap to a string, and then back to a bitmap.
+ *
+ */
 public class Photo implements Serializable {
-    private String photoID;
-
-
-    private Integer size;
-    private Bitmap picture;
-    private String bodyLocation;
+    private String bitmapString;
 
     /**
-     * get the size of a photo
-     * @return size
+     * Takes a bitmap, converts it to string, and stores it
+     * @param photo The bitmap to be converted to a string
      */
-    public Integer getSize() {
-        return size;
+    // TODO: Finish this constructor
+    public Photo(Bitmap photo) {
+        this.bitmapString = encodeTobase64(photo);
     }
 
     /**
-     * get body location
-     * @return bodyLocation
+     * If no bitmap is given, generate a blank bitmap
      */
-    public String getBodyLocation() {
-        return bodyLocation;
+    public Photo() {
+        this.bitmapString = encodeTobase64(Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888));
     }
 
     /**
-     * set the body location of photo
-     * @param bodyLocation
+     * Takes the stored bitmap string and converts it to a bitmap
+     * @return bitmap of the stored bitmap string
      */
-    public void setBodyLocation(String bodyLocation) {
-        this.bodyLocation = bodyLocation;
+    public Bitmap getBitmap(){
+        byte[] decodedByte = Base64.decode(bitmapString, 0);
+        return BitmapFactory
+                .decodeByteArray(decodedByte, 0, decodedByte.length);
     }
 
     /**
-     * not used yet, might be used later
+     * The bitmap to bitmap string converter
+     * @param image takes a bitmap and converts it to a string
+     * @return string of the bitmap
      */
-    public void compress(){}
+
+    public static String encodeTobase64(Bitmap image) {
+        Bitmap immage = image;
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        immage.compress(Bitmap.CompressFormat.JPEG, 90, baos);
+        byte[] b = baos.toByteArray();
+        String imageEncoded = Base64.encodeToString(b, Base64.DEFAULT);
+
+        //Log.d("Image Log:", imageEncoded);
+        return imageEncoded;
+    }
 
     /**
-     * not used yet, might be used later
+     *
+     * @return bitmap string
      */
-    public void decompress(){}
+    public String getBitmapString(){
+        return this.bitmapString;
+    }
+
 }

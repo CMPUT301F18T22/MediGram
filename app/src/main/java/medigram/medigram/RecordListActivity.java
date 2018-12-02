@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,9 +21,14 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 
 public class RecordListActivity  extends AppCompatActivity {
     private ListView recordsView;
@@ -34,9 +40,14 @@ public class RecordListActivity  extends AppCompatActivity {
     private AccountManager accountManager;
     private Patient patient;
     private Problem problem;
-    private String date, description, problem_tile;
-    private TextView Displayproblemtile, Displaydate, Displaydes;
+    private String problem_tile;
+    private String date;
+    private String description;
+    private TextView Displayproblemtile;
+    private TextView Displaydate;
+    private TextView Displaydes;
     private Button addRecordButton;
+    private Button mapRecords;
     private int index;
     private int problemIndex;
     private ImageButton imageButton1, imageButton2;
@@ -65,13 +76,15 @@ public class RecordListActivity  extends AppCompatActivity {
         }
         patient = (Patient) getIntent().getSerializableExtra("Patient");
         problem = (Problem) getIntent().getSerializableExtra("Problem");
+
         problemIndex = getIntent().getIntExtra("problemIndex", -1);
         problem = patient.getProblems().getProblem(problemIndex);
+
         Displayproblemtile = findViewById(R.id.problemtitle);
         Displaydate = findViewById(R.id.timestamp);
         Displaydes = findViewById(R.id.Description);
         recordsView = findViewById(R.id.recordListView);
-
+        mapRecords = findViewById(R.id.mapRecordsBtn);
 
         problem_tile = problem.getProblemTitle();
         date = problem.getDateString();
@@ -126,7 +139,27 @@ public class RecordListActivity  extends AppCompatActivity {
             }
         });
 
-
+        mapRecords.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<LatLng> latLngs = new ArrayList<>();
+                for (Record record : recordList.getRecordList()){
+                    LatLng location = record.getGeoLocation();
+                    if (location != null){
+                        latLngs.add(location);
+                    }
+                }
+                if (latLngs.size() != 0){
+                    Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+                    intent.putParcelableArrayListExtra("All Locations", latLngs);
+                    startActivity(intent);
+                }else{
+                    Toast toast = Toast.makeText(RecordListActivity.this, "No geo-location records to map.", Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 320);
+                    toast.show();
+                }
+            }
+        });
 
         recordsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -136,19 +169,27 @@ public class RecordListActivity  extends AppCompatActivity {
                 String recordTitle = chosenRecord.getRecordTitle();
                 if (getIntent().hasExtra("CareProvider")) {
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
-                    intent.putExtra("CareProvider", careProvider);
-                    intent.putExtra("Patient", patient);
-                    intent.putExtra("Record", chosenRecord);
-                    intent.putExtra("RecordIndex", index);
-                    intent.putExtra("ProblemIndex", problemIndex);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("CareProvider", careProvider);
+                    bundle.putSerializable("Patient", patient);
+                    bundle.putSerializable("Record", chosenRecord);
+                    bundle.putInt("RecordIndex", index);
+                    bundle.putInt("ProblemIndex", problemIndex);
+
+                    intent.putExtras(bundle);
                     startActivityForResult(intent,2);
                 }
                 else{
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
-                    intent.putExtra("Patient", patient);
-                    intent.putExtra("Record", chosenRecord);
-                    intent.putExtra("RecordIndex", index);
-                    intent.putExtra("ProblemIndex", problemIndex);
+
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("Patient", patient);
+                    bundle.putSerializable("Record", chosenRecord);
+                    bundle.putInt("RecordIndex", index);
+                    bundle.putInt("ProblemIndex", problemIndex);
+
+                    intent.putExtras(bundle);
                     startActivityForResult(intent,2);
                 }
 
@@ -167,8 +208,8 @@ public class RecordListActivity  extends AppCompatActivity {
     }
 
     @Override
-    protected void onRestart(){
-        super.onRestart();
+    protected void onResume(){
+        super.onResume();
         patient = accountManager.findPatient(patient.getUserID());
         problem = patient.getProblems().getProblem(problemIndex);
         recordList = problem.getRecordList();
@@ -226,9 +267,6 @@ public class RecordListActivity  extends AppCompatActivity {
                 }
             }
             mainViewholder = (RecordListActivity.ViewHolder) convertView.getTag();
-
-
-
 
 
             // deleteBtn deletes problem from all 3 lists

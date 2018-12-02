@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="medigram.medigram">
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -14,6 +15,8 @@
         android:name="android.hardware.camera"
         android:required="false" />
     <uses-feature android:name="android.hardware.location.gps" />
+    <uses-feature android:name="android.hardware.location.network" />
+
 
     <application
         android:allowBackup="true"
@@ -38,7 +41,9 @@
         <activity android:name=".CreateAccountActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".PatientProfileActivity" />
+
         ========= Care Provider ==============
+
         <activity
             android:name=".PatientListActivity"
             android:label="@string/title_activity_patient_list" />
@@ -48,7 +53,9 @@
         <activity
             android:name=".CareProviderProfileActivity"
             android:label="@string/title_activity_care_provider" />
+
         ========= Problems ==============
+
         <activity
             android:name=".ProblemListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
@@ -57,7 +64,9 @@
             android:name=".EditProblemActivity"
             android:label="Edit Problem"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         ========= Records ==============
+
         <activity
             android:name=".RecordListActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -80,6 +89,18 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity android:name=".GalleryActivity"></activity>
+
+        ========= Maps ==============
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="@string/title_activity_maps"></activity>
+
     </application>
 
 </manifest>

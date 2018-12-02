@@ -8,7 +8,6 @@
     <string name="AddProblemButton"> <u>Add Problem</u> </string>
     <string name="SearchButton"> <u>Search</u> </string>
 
-
     <string name="SignUpUserID">Enter desired UserID (min 8 characters)</string>
     <string name="SignUpEmail">Enter your email address.</string>
     <string name="SignUpPhone">Enter your Phone Number.</string>
@@ -36,6 +35,11 @@
 
     <string name="edit_problem_title_hint">Enter title (30 Characters Max)</string>
     <string name="edit_problem_date_hint">Date Started</string>
+
+    <string name="title_activity_maps">Map</string>
+    <string name="saveMapBtn">Save</string>
+    <string name="addGeoBtn">Add Geo-location</string>
+
     <string name="edit_description_hint"> Enter description of the problem (300 characters max)</string>
     <string name="edit_body_location_hint">Enter body location</string>
     <string name="RemovePhotoButton">Remove</string>

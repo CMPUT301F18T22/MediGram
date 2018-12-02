@@ -67,16 +67,16 @@
     <EditText
         android:id="@+id/problemBodyLocation"
         android:layout_width="255dp"
-        android:layout_height="39dp"
-        android:layout_marginEnd="8dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginEnd="8dp"
         android:ems="10"
         android:hint="@string/edit_body_location_hint"
         android:inputType="textPersonName"
+        app:layout_constraintBaseline_toBaselineOf="@+id/locationTextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/locationTextView"
-        app:layout_constraintTop_toBottomOf="@+id/problemDate" />
+        app:layout_constraintHorizontal_bias="0.204"
+        app:layout_constraintStart_toEndOf="@+id/locationTextView" />
 
     <EditText
         android:id="@+id/problemDescription"
@@ -118,22 +118,24 @@
     <Button
         android:id="@+id/deletePhoto2Btn"
         android:layout_width="79dp"
-        android:layout_height="23dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginTop="4dp"
         android:background="@drawable/button_style4"
         android:text="@string/RemovePhotoButton"
+        android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="@+id/imageButton2"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/deletePhoto1Btn"
         android:layout_width="79dp"
-        android:layout_height="23dp"
-        android:layout_marginEnd="40dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="40dp"
         android:background="@drawable/button_style4"
         android:text="@string/RemovePhotoButton"
+        android:textAllCaps="false"
         app:layout_constraintEnd_toStartOf="@+id/centerPoint"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -162,14 +164,15 @@
 
     <TextView
         android:id="@+id/locationTextView"
-        android:layout_width="80dp"
+        android:layout_width="wrap_content"
         android:layout_height="28dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:text="@string/edit_location_textview"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBaseline_toBaselineOf="@+id/problemBodyLocation"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/dateTextView" />
 
     <TextView
         android:id="@+id/descriptionTextView"

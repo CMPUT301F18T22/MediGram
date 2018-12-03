@@ -22,10 +22,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.*;
 
-/**
- * Takes a list of bitmaps and displays them as a grid
- * @author Nic Raboy
- */
 public class GalleryActivity extends Activity {
     private ImageSwitcher imageSwitcher;
     private Button leftBtn, slideshowBtn, stopBtn;
@@ -36,6 +32,7 @@ public class GalleryActivity extends Activity {
     private Record record;
     private int recordIndex, problemIndex, currentImageIndex;
     private int width = 480, height = 800;
+    private View.OnClickListener slideListener;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -98,7 +95,7 @@ public class GalleryActivity extends Activity {
         rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentImageIndex != bitmapList.size()-1){
+                if (currentImageIndex != bitmapList.size()-1 ){
                     currentImageIndex++;
                     File file = new File(Environment.getExternalStorageDirectory().getPath()
                             ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
@@ -116,18 +113,24 @@ public class GalleryActivity extends Activity {
 
         slideshowBtn = (Button) findViewById(R.id.slideshowBtn);
 
-        slideshowBtn.setOnClickListener(new View.OnClickListener() {
+
+        slideListener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                slideshowBtn.setOnClickListener(null);
                 startLoop(0);
+
             }
-        });
+        };
+        slideshowBtn.setOnClickListener(slideListener);
+
 
 
     }
 
-    // delay without putting thread to sleep
+    // delay without putting thread to sleep, unlike Thread.sleep
     private void startLoop(final int i) {
+        slideshowBtn.setBackgroundResource(R.drawable.button_style5);
         if(currentImageIndex != bitmapList.size()-1) {
             new Handler().postDelayed(new Runnable() {
                 @Override
@@ -135,7 +138,11 @@ public class GalleryActivity extends Activity {
                     actionToBeDone();
                     startLoop(i+1);
                 }
-            }, 4000);
+            }, 3000); // set delay in ms here
+        }
+        if(currentImageIndex == bitmapList.size()-1){
+            slideshowBtn.setOnClickListener(slideListener);
+            slideshowBtn.setBackgroundResource(R.drawable.button_style1);
         }
     }
 

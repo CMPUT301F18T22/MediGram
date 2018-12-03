@@ -77,7 +77,6 @@ public class EditProblemActivity extends AppCompatActivity {
      */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
         if (requestCode == cameraCode && resultCode != RESULT_CANCELED) {
             try {
                 photo1 = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri1);
@@ -114,10 +113,7 @@ public class EditProblemActivity extends AppCompatActivity {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-
             problemPicBtn2.setImageBitmap(photo2);
-
-
         }
         else if (resultCode == RESULT_CANCELED) {
             Toast.makeText(this, "Picture was not taken", Toast.LENGTH_SHORT).show();

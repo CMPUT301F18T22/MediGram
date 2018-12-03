@@ -3,6 +3,7 @@ package medigram.medigram;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -40,18 +41,16 @@ public class LoginActivity extends Activity {
             public void onClick(View v){
                 userID = inputUserID.getText().toString();
                 Patient patient = accountManager.findPatient(userID);
-//                Patient patient = new Patient("offlinePatient", "offline@email.com", "7015105150");
 
                 if (patient != null) {
-//                if (userID.equals("patient")){
+                    Log.d("JestID", patient.getJestID());
                     Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                     intent.putExtra("Patient", patient);
                     startActivity(intent);
                 } else {
                     CareProvider careProvider = accountManager.findCareProvider(userID);
-//                    CareProvider careProvider = new CareProvider("offlineProvider", "offline@email.com", "7015105150");
                     if (careProvider != null) {
-//                    if (userID.equals("provider")){
+                        Log.d("JestID", careProvider.getJestID());
                         Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
                         intent.putExtra("CareProvider", careProvider);
                         startActivity(intent);

@@ -1,8 +1,16 @@
 package medigram.medigram;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Environment;
+import android.os.StrictMode;
+import android.provider.MediaStore;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -18,8 +26,9 @@ import android.widget.Toast;
 
 import com.google.android.gms.maps.model.LatLng;
 
-import org.apache.commons.lang3.ObjectUtils;
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -46,6 +55,18 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     private AccountManager accountManager;
     private Integer index;
     private Integer editIndex;
+    private static final int CAMERA_REQUEST = 1888;
+    private static final int cameraCode = 100;
+    private Bitmap photo;
+    private Photo serialPhoto;
+    private Uri imageUri;
+    private int width = 720, height = 1280;
+    private static final int REQUEST_EXTERNAL_STORAGE = 1;
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+
+    };
 
 
     @Override
@@ -61,6 +82,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_record);
         accountManager = new AccountManager(getApplicationContext());
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
 
         addPicture = (Button) findViewById(R.id.addPicture);
         addGeo = (Button) findViewById(R.id.addGeo);
@@ -107,11 +130,22 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             }
         });
 
-        viewPicture = (Button) findViewById(R.id.viewPicture);
+        addPicture.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()
+                        ,record.getRecordTitle() + Integer.toString(record.getPhotos().size()) + ".jpg"));
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri);
+                startActivityForResult(cameraIntent, cameraCode);
+            }
+        });
+
         viewPicture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent gallery = new Intent(getApplicationContext(), GalleryActivity.class);
+                gallery.putExtra("record", record);
                 gallery.putExtra("patient", patient);
                 gallery.putExtra("recordIndex", recordIndex);
                 gallery.putExtra("problemIndex", problemIndex);
@@ -132,14 +166,31 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     }
 
     @Override
-    protected void onActivityResult(int requestCode, int code, Intent intent){
+    protected void onActivityResult(int requestCode, int resultCode, Intent intent){
         if (requestCode == 1 ) {
-            if (code == RESULT_OK) {
+            if (resultCode == RESULT_OK) {
                 LatLng location = intent.getParcelableExtra("Location");
                 record.setGeoLocation(location);
                 addGeo.setText("View Geo-location");
                 accountManager.patientUpdater(patient.getUserID(), patient);
             }
+        }
+        if (requestCode == cameraCode && resultCode == RESULT_OK) {
+            try {
+                photo = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
+                photo = Bitmap.createScaledBitmap(photo, width, height, false);
+                serialPhoto = new Photo(photo);
+
+                record.getPhotos().add(serialPhoto);
+                accountManager.patientUpdater(patient.getUserID(), patient);
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
         }
     }
 
@@ -171,6 +222,28 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         Toast.makeText(RecordActivity.this,
                 "Comments added successfully",
                 Toast.LENGTH_SHORT).show();
+    }
+
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int permission = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(
+                    activity,
+                    PERMISSIONS_STORAGE,
+                    REQUEST_EXTERNAL_STORAGE
+            );
+        }
     }
 
     private class CommentListAdapter extends ArrayAdapter<String> {

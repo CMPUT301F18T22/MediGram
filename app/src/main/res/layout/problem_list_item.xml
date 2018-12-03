@@ -6,8 +6,9 @@
     app:cardBackgroundColor="@color/colorPrimary"
     app:cardCornerRadius="30dp">
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/relativeLayout5"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,80 +16,82 @@
             android:id="@+id/deleteBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginTop="11dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="14dp"
 
             android:background="@drawable/button_style4"
             android:focusable="false"
             android:text="Delete"
             android:textAllCaps="false"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/list_item_text"
             android:layout_width="139dp"
             android:layout_height="wrap_content"
 
-            android:layout_alignTop="@+id/textView"
-            android:layout_alignBottom="@+id/textView"
             android:layout_marginStart="21dp"
 
             android:layout_marginLeft="21dp"
             android:layout_marginTop="0dp"
             android:layout_marginEnd="13dp"
             android:layout_marginBottom="-1dp"
-            android:layout_toStartOf="@+id/editBtn"
-            android:layout_toEndOf="@+id/textView"
-            android:layout_toRightOf="@id/textView"
             android:lines="4"
             android:maxLines="4"
-            android:textColor="#454c4e" />
+            android:textColor="#454c4e"
+            app:layout_constraintBottom_toBottomOf="@+id/textView"
+            app:layout_constraintEnd_toStartOf="@+id/editBtn"
+            app:layout_constraintLeft_toRightOf="@id/textView"
+            app:layout_constraintStart_toEndOf="@+id/textView"
+            app:layout_constraintTop_toTopOf="@+id/textView" />
 
         <Button
             android:id="@+id/editBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/deleteBtn"
-            android:layout_alignParentEnd="true"
 
             android:layout_marginTop="12dp"
             android:layout_marginEnd="14dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/button_style3"
             android:focusable="false"
             android:text="Edit"
             android:textAllCaps="false"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/deleteBtn" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="98dp"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/titleText"
-            android:layout_alignParentStart="true"
             android:layout_marginStart="15dp"
             android:layout_marginTop="15dp"
             android:layout_marginBottom="18dp"
             android:text="Started:\nLocation:\nRecords:"
 
             android:textAlignment="textStart"
-            android:textColor="#454c4e" />
+            android:textColor="#454c4e"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/titleText" />
 
         <TextView
             android:id="@+id/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
             android:layout_marginStart="18dp"
             android:layout_marginTop="10dp"
             android:text="TextView"
             android:textColor="#454c4e"
 
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
 
-    </RelativeLayout>
+    </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

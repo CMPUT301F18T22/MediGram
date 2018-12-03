@@ -1,7 +1,10 @@
 package medigram.medigram;
 
 import java.io.Serializable;
-
+/**
+ * Represents a comment that the user is having.
+ * Comments can have a text and a sender
+ */
 public class Comment implements Serializable {
     private String text;
     private String sender;

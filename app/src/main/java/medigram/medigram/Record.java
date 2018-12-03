@@ -23,7 +23,6 @@ import java.util.Locale;
 /**
  * Record is used to record the patients' problem
  * Records can have a title, a description, a date the problem started, a location, and a photo
- * @author Jiaqi Liu
  */
 public class Record implements Serializable{
 

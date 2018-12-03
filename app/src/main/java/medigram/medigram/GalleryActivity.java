@@ -135,7 +135,7 @@ public class GalleryActivity extends Activity {
                     actionToBeDone();
                     startLoop(i+1);
                 }
-            }, 1000);
+            }, 4000);
         }
     }
 

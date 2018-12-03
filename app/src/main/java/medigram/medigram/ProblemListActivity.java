@@ -142,6 +142,7 @@ public class ProblemListActivity extends AppCompatActivity {
         //user = (User) getIntent().getSerializableExtra("User");
         if (getIntent().hasExtra("Patient")){
             patient = (Patient) getIntent().getSerializableExtra("Patient");
+            patient = accountManager.findPatient(patient.getUserID());
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;
@@ -149,7 +150,9 @@ public class ProblemListActivity extends AppCompatActivity {
         // If user is a care provider, then do this:
         if (getIntent().hasExtra("CareProvider")){
             patient = (Patient) getIntent().getSerializableExtra("Patient");
+            patient = accountManager.findPatient(patient.getUserID());
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
+            careProvider = accountManager.findCareProvider(careProvider.getUserID());
             problemList = patient.getProblems();
             bodyLocation = (String) getIntent().getSerializableExtra("body location");
             keyword = bodyLocation;

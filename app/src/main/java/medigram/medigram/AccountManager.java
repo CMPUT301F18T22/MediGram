@@ -130,14 +130,25 @@ public class AccountManager{
      */
     public Patient findPatient(String userID){
         try {
-            if (checkConnection()){
-                ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
-                getPatient.execute(userID);
-                patientsResults = getPatient.get();
-                if (patientsResults.size() != 0) {
-                    return patientsResults.get(patientsResults.size()-1);
+            if (checkConnection()) {
+                if (syncOperation.equals("none")) {
+                    ElasticSearchController.GetPatient getPatient = new ElasticSearchController.GetPatient();
+                    getPatient.execute(userID);
+                    patientsResults = getPatient.get();
+                    if (patientsResults.size() != 0) {
+                        return patientsResults.get(patientsResults.size() - 1);
+                    }
                 }
-            }else{
+                else{
+                    onlineSync();
+                    ElasticSearchController.UpdatePatient updatePatient= new ElasticSearchController.UpdatePatient();
+                    patientsResults = updatePatient.get();
+                    if (patientsResults.size() != 0) {
+                        return patientsResults.get(patientsResults.size() - 1);
+                    }
+                }
+            }
+            else {
                 return offlineController.loadPatient(userID);
             }
         }catch (Exception e){
@@ -155,14 +166,24 @@ public class AccountManager{
      */
     public CareProvider findCareProvider(String userID){
         try {
-            if (checkConnection()){
-                ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
-                getCareProvider.execute(userID);
-                careProvidersResults = getCareProvider.get();
-                if (careProvidersResults.size() != 0) {
-                    return careProvidersResults.get(careProvidersResults.size()-1);
+            if (checkConnection()) {
+                if (syncOperation.equals("none")) {
+                    ElasticSearchController.GetCareProvider getCareProvider = new ElasticSearchController.GetCareProvider();
+                    getCareProvider.execute(userID);
+                    careProvidersResults = getCareProvider.get();
+                    if (careProvidersResults.size() != 0) {
+                        return careProvidersResults.get(careProvidersResults.size() - 1);
+                    }
                 }
-            }else{
+                else{
+                    onlineSync();
+                    ElasticSearchController.UpdateCareProvider updateCareProvider= new ElasticSearchController.UpdateCareProvider();
+                    careProvidersResults = updateCareProvider.get();
+                    if (careProvidersResults.size() != 0) {
+                        return careProvidersResults.get(careProvidersResults.size() - 1);
+                    }
+                }
+            }else {
                 return offlineController.loadCareProvider(userID);
             }
         }catch (Exception e){

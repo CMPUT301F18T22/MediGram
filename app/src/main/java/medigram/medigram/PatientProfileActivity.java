@@ -50,7 +50,6 @@ public class PatientProfileActivity extends Activity {
 
         account = (Patient) getIntent().getSerializableExtra("Patient");
         code = account.generateCode();
-        accountManager.patientUpdater(account.getUserID(), account);
 
         if (getIntent().hasExtra("CareProvider")) {
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
@@ -128,6 +127,7 @@ public class PatientProfileActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         drawerDisplayCode.setText(code);
+                        accountManager.patientUpdater(account.getUserID(), account);
                     }
                 });
             }

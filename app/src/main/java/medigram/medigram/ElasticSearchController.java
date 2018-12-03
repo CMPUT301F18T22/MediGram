@@ -12,6 +12,7 @@ import com.searchly.jestdroid.JestClientFactory;
 import com.searchly.jestdroid.JestDroidClient;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -204,22 +205,28 @@ public class ElasticSearchController {
     /**
      * Handles updating of Care Provider's account.
      */
-    public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, Void> {
+    public static class UpdateCareProvider extends AsyncTask<CareProvider, Void, ArrayList<CareProvider>> {
         /**
          * Updates a given Care Provider's account to match any new changes
          * @param params
          * @see Patient
          */
         @Override
-        protected Void doInBackground(CareProvider... params) {
+        protected ArrayList<CareProvider> doInBackground(CareProvider... params) {
             setClient();
             CareProvider careProvider = params[0];
+            ArrayList<CareProvider> accounts = new ArrayList<CareProvider>();
             try {
-                client.execute(new Index.Builder(careProvider)
+                DocumentResult result = client.execute(new Index.Builder(careProvider)
                         .index("cmput301f18t22test")
                         .type("CareProviders")
                         .id(careProvider.getJestID())
                         .build());
+                if (result.isSucceeded()){
+                    List<CareProvider> matched = result.getSourceAsObjectList(CareProvider.class);
+                    accounts.addAll(matched);
+                }
+                return accounts;
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -230,26 +237,28 @@ public class ElasticSearchController {
     /**
      * Handles updating of Patient's account.
      */
-    public static class UpdatePatient extends AsyncTask<Patient, Void, Patient> {
+    public static class UpdatePatient extends AsyncTask<Patient, Void, ArrayList<Patient>> {
         /**
          * Updates a given Patients's account to match any new changes
          * @param params
          * @see Patient
          */
         @Override
-        protected Patient doInBackground(Patient... params) {
+        protected ArrayList<Patient> doInBackground(Patient... params) {
             setClient();
             Patient patient = params[0];
+            ArrayList<Patient> accounts = new ArrayList<>();
             try {
                 DocumentResult result = client.execute(new Index.Builder(patient)
                         .index("cmput301f18t22test")
                         .type("Patients")
                         .id(patient.getJestID())
                         .build());
-//                if (result.isSucceeded()) {
-//                    patient.setJestID(result.getId());
-//                }
-
+                if (result.isSucceeded()){
+                    List<Patient> matched = result.getSourceAsObjectList(Patient.class);
+                    accounts.addAll(matched);
+                }
+                return accounts;
             } catch (IOException e) {
                 e.printStackTrace();
             }

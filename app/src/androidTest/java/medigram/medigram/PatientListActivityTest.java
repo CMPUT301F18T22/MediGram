@@ -35,7 +35,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Add Patient");
         solo.assertCurrentActivity("Wrong Activity", AddPatientActivity.class);
         solo.enterText((EditText) solo.getView(R.id.input_userid), "solotestID");
-        solo.clickOnButton("Confirm adding");
+        solo.clickOnButton("Confirm Adding");
 
         solo.goBackToActivity("PatientListActivity");
 

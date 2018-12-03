@@ -76,12 +76,6 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".AddRecordActivity" />
         <activity
-            android:name=".EditRecordActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".EditRecordTitle"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
             android:name=".RecordAddComment"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 

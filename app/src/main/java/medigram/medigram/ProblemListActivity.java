@@ -21,6 +21,7 @@ import android.widget.Filterable;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -365,6 +366,7 @@ public class ProblemListActivity extends AppCompatActivity {
         patient = accountManager.findPatient(patient.getUserID());
         problemList = patient.getProblems();
         filteredProblems = new ProblemList();
+
         for (Problem p: problemList.getList()){
             if (keyword.equals("")){
                 filteredProblems.addProblem(p);
@@ -373,6 +375,7 @@ public class ProblemListActivity extends AppCompatActivity {
                 filteredProblems.addProblem(p);
             }
         }
+        Collections.sort(filteredProblems.getList());
         // create a list of strings from Problem.getString, and uses it on the list adapter
         problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
         accountManager.patientUpdater(patient.getUserID(), patient);

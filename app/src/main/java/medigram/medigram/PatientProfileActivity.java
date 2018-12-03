@@ -55,7 +55,7 @@ public class PatientProfileActivity extends Activity {
         if (getIntent().hasExtra("CareProvider")) {
             careProvider = (CareProvider) getIntent().getSerializableExtra("CareProvider");
             editProfileButton.setVisibility(View.GONE);
-            drawerLayout.setVisibility(View.GONE);
+            drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
         }
         userID = account.getUserID();
         email = account.getEmailAddress();

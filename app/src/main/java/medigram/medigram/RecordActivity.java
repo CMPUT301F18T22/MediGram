@@ -60,7 +60,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     private Bitmap photo;
     private Photo serialPhoto;
     private Uri imageUri;
-    private int width = 720, height = 1280;
+    private int width = 480, height = 800;
     private static final int REQUEST_EXTERNAL_STORAGE = 1;
     private static String[] PERMISSIONS_STORAGE = {
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -86,7 +86,9 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         StrictMode.setVmPolicy(builder.build());
 
         addPicture = (Button) findViewById(R.id.addPicture);
+        addCommentBTN = (Button) findViewById(R.id.addComment);
         addGeo = (Button) findViewById(R.id.addGeo);
+        setTitle = (Button) findViewById(R.id.setTitleBtn);
         viewPicture = (Button) findViewById(R.id.viewPicture);
         recordTitle = (EditText) findViewById(R.id.recordTitle);
 
@@ -103,7 +105,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         recordTitle.setText(record.getRecordTitle());
         commentView.setTextFilterEnabled(true);
 
-        addCommentBTN = (Button) findViewById(R.id.addComment);
         addCommentBTN.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -111,16 +112,36 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             }
         });
 
-        if (record.getGeoLocation() != null){
-            addGeo.setText("View Geo-location");
+        if (careProvider != null){
+            recordTitle.setInputType(0);
+            setTitle.setVisibility(View.GONE);
+            addPicture.setVisibility(View.GONE);
         }
 
-        setTitle = (Button) findViewById(R.id.setTitleBtn);
+        if (record.getGeoLocation() != null ){
+            if (careProvider != null){
+                addGeo.setText("View Geo-location");
+            }
+            else {
+                addGeo.setText("View/Edit Geo-location");
+            }
+        }else{
+            if (careProvider != null){
+                addGeo.setVisibility(View.GONE);
+            }
+            else {
+                addGeo.setText("Add Geo-location");
+            }
+        }
+
         setTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 record.setRecordTitle(recordTitle.getText().toString());
                 accountManager.patientUpdater(patient.getUserID(), patient);
+                Toast.makeText(RecordActivity.this,
+                        "Title updated successfully",
+                        Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -131,10 +152,11 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
                 if (record.getGeoLocation() != null){
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     intent.putExtra("Single Location", record.getGeoLocation());
-                    startActivity(intent);
+                    intent.putExtra("CareProvider", getIntent().hasExtra("CareProvider"));
+                    startActivityForResult(intent, 1);
                 }else{
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                    intent.putExtra("CareProvider", true);
+                    intent.putExtra("CareProvider", getIntent().hasExtra("CareProvider"));
                     startActivityForResult(intent, 1);
                 }
             }
@@ -144,7 +166,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             @Override
             public void onClick(View v) {
                 imageUri = Uri.fromFile(new File(Environment.getExternalStorageDirectory().getPath()
-                        ,record.getRecordTitle() + Integer.toString(record.getPhotos().size()) + ".jpg"));
+                        ,patient.getJestID() + Integer.toString(record.getPhotos().size()) + ".jpg"));
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 cameraIntent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri);
                 startActivityForResult(cameraIntent, cameraCode);
@@ -156,7 +178,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             public void onClick(View view) {
                 Intent gallery = new Intent(getApplicationContext(), GalleryActivity.class);
                 gallery.putExtra("record", record);
-                gallery.putExtra("patient", patient);
+//                gallery.putExtra("patient", patient);
                 gallery.putExtra("recordIndex", recordIndex);
                 gallery.putExtra("problemIndex", problemIndex);
                 startActivity(gallery);

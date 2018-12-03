@@ -1,5 +1,6 @@
 package medigram.medigram;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -65,6 +66,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,6 +111,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
                 }
 
                 patient = accountManager.findPatient(userIDs.get(index));
+//                patient = careProvider.getAssignedPatients().getPatientByID(userIDs.get(index));
 
                 Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
                 intent.putExtra("CareProvider", careProvider);

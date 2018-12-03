@@ -238,7 +238,6 @@ public class RecordListActivity  extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == Activity.RESULT_OK && data != null) {
-            patient = accountManager.findPatient(patient.getUserID());
             problem = patient.getProblems().getProblem(problemIndex);
             recordList = problem.getRecordList();
             recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());

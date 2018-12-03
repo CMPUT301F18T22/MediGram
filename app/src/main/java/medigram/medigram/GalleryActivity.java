@@ -2,11 +2,15 @@ package medigram.medigram;
 
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.graphics.*;
+
+import java.io.File;
 import java.util.*;
 import java.net.*;
 
+import android.os.Environment;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.view.GestureDetector;
@@ -27,16 +31,17 @@ public class GalleryActivity extends Activity {
     private Patient patient;
     private Record record;
     private int recordIndex, problemIndex, currentImageIndex;
+    private int width = 480, height = 800;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_gallery);
 
-        patient = (Patient) getIntent().getSerializableExtra("patient");
+//        patient = (Patient) getIntent().getSerializableExtra("patient");
         recordIndex = (int) getIntent().getSerializableExtra("recordIndex");
         problemIndex = (int) getIntent().getSerializableExtra("problemIndex");
-        record = patient.getProblems().getProblem(problemIndex).getRecordList().getRecord(recordIndex);
+        record = (Record) getIntent().getSerializableExtra("record");
         bitmapList = record.getBitmaps();
         currentImageIndex = 0;
 
@@ -48,25 +53,40 @@ public class GalleryActivity extends Activity {
             @Override
             public View makeView() {
                 ImageView myView = new ImageView(getApplicationContext());
-                myView.setScaleType(ImageView.ScaleType.FIT_XY);
+                myView.setScaleType(ImageView.ScaleType.FIT_CENTER);
                 myView.setLayoutParams(new
-                        ImageSwitcher.LayoutParams(ConstraintLayout.LayoutParams.WRAP_CONTENT,
-                        ConstraintLayout.LayoutParams.WRAP_CONTENT));
+                        ImageSwitcher.LayoutParams(ConstraintLayout.LayoutParams.MATCH_PARENT,
+                        ConstraintLayout.LayoutParams.MATCH_PARENT));
                 return myView;
             }
         });
-        Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(0), 1280, 1280, false);
-        BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
-        imageSwitcher.setImageDrawable(bitmapDrawable);
+        File file = new File(Environment.getExternalStorageDirectory().getPath()
+                ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
+        if(file.exists()){
+            imageSwitcher.setImageURI(Uri.fromFile(file));
+        }
+        else{
+            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(0), width, height, false);
+            BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+            imageSwitcher.setImageDrawable(bitmapDrawable);
+        }
 
         leftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (currentImageIndex != 0){
-                    Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(currentImageIndex-1), 1280, 720, false);
-                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
-                    imageSwitcher.setImageDrawable(bitmapDrawable);
                     currentImageIndex--;
+                    File file = new File(Environment.getExternalStorageDirectory().getPath()
+                            ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
+
+                    if(file.exists()){
+                        imageSwitcher.setImageURI(Uri.fromFile(file));
+                    }
+                    else{
+                        Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(currentImageIndex), width, height, false);
+                        BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+                        imageSwitcher.setImageDrawable(bitmapDrawable);
+                    }
                 }
             }
         });
@@ -75,10 +95,17 @@ public class GalleryActivity extends Activity {
             @Override
             public void onClick(View v) {
                 if (currentImageIndex != bitmapList.size()-1){
-                    Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(currentImageIndex+1), 1280, 720,false);
-                    BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
-                    imageSwitcher.setImageDrawable(bitmapDrawable);
                     currentImageIndex++;
+                    File file = new File(Environment.getExternalStorageDirectory().getPath()
+                            ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
+                    if(file.exists()){
+                        imageSwitcher.setImageURI(Uri.fromFile(file));
+                    }
+                    else{
+                        Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(currentImageIndex), width, height, false);
+                        BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+                        imageSwitcher.setImageDrawable(bitmapDrawable);
+                    }
                 }
             }
         });

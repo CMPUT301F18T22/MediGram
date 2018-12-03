@@ -115,19 +115,30 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         if (ContextCompat.checkSelfPermission(getApplicationContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             permissionGranted = false;
             ActivityCompat.requestPermissions(this, new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_ACCESS_FINE_LOCATION);
-            Log.d("Permission", "Location permission went through");
         }else{
             permissionGranted = true;
         }
 
         if (permissionGranted) {
-            Log.d("Permission", "Location permission already granted");
+            mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+                @Override
+                public void onMapClick(LatLng clickedLocation) {
+                    mMap.clear();
+                    currentLocation = new MarkerOptions().position(clickedLocation).getPosition();
+
+                    mMap.addMarker(new MarkerOptions().position(clickedLocation));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(clickedLocation, 15.0f));
+                }
+            });
+
             if (getIntent().hasExtra("All Locations")) {
                 displayAllLocations();
             }
 
             else if (getIntent().hasExtra("Single Location")) {
-                saveButton.setVisibility(View.GONE);
+                if (getIntent().getBooleanExtra("CareProvider", false)){
+                    saveButton.setVisibility(View.GONE);
+                }
                 currentLocation = getIntent().getParcelableExtra("Single Location");
 
                 mMap.addMarker(new MarkerOptions().position(currentLocation).title("Record Location"));
@@ -150,16 +161,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                                 }
                             }
                         });
-                mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
-                    @Override
-                    public void onMapClick(LatLng clickedLocation) {
-                        mMap.clear();
-                        currentLocation = new MarkerOptions().position(clickedLocation).getPosition();
-
-                        mMap.addMarker(new MarkerOptions().position(clickedLocation));
-                        mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(clickedLocation, 15.0f));
-                    }
-                });
             }
         }
     }

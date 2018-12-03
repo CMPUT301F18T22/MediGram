@@ -36,13 +36,14 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * This activity displays the problems specified by the user as a list. The list of problems is
+ * retrieved from the User given by the parent activity, and then filtered by keywords. Adding or
+ * editing a problem is done by a child activity.
+ * After adding or editing is done, the User data is updated over the network if available.
+ */
 public class AddRecordActivity extends Activity {
-    /**
-     * This activity displays the problems specified by the user as a list. The list of problems is
-     * retrieved from the User given by the parent activity, and then filtered by keywords. Adding or
-     * editing a problem is done by a child activity.
-     * After adding or editing is done, the User data is updated over the network if available.
-     */
+
     private Uri imageUri;
     private String provider;
     public static final int TAKE_PHOTO = 1;

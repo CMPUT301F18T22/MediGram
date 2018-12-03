@@ -42,7 +42,8 @@ import java.util.Date;
  * This activity receives a problem from ProblemListActivity, and edits its contents.
  * When it is finished, the problem is bundled back to its Parent activity.
  *
- * @author Jarred
+ * @see ProblemListActivity
+ * @author Jarred Mahinay
  */
 public class EditProblemActivity extends AppCompatActivity {
     private Problem chosenProblem;
@@ -143,7 +144,7 @@ public class EditProblemActivity extends AppCompatActivity {
 
         // if problem contents are blank, then it is a new problem and we text box hints
         // if it is not blank, we display its contents in the text boxes
-        if (chosenProblem.getProblemTitle() != "") {
+        if (!chosenProblem.getProblemTitle().equals("")) {
             ((TextView) findViewById(R.id.problemTitle)).setText(chosenProblem.getProblemTitle());
             ((TextView) findViewById(R.id.problemDescription)).setText(chosenProblem.getDescription());
             ((TextView) findViewById(R.id.problemBodyLocation)).setText(chosenProblem.getBodyLocation());

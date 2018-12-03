@@ -61,21 +61,23 @@ public class GalleryActivity extends Activity {
                 return myView;
             }
         });
-        File file = new File(Environment.getExternalStorageDirectory().getPath()
-                ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
-        if(file.exists()){
-            imageSwitcher.setImageURI(Uri.fromFile(file));
-        }
-        else{
-            Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(0), width, height, false);
-            BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
-            imageSwitcher.setImageDrawable(bitmapDrawable);
+
+        if (bitmapList.size() > 0) {
+            File file = new File(Environment.getExternalStorageDirectory().getPath()
+                    , record.getRecordTitle() + Integer.toString(currentImageIndex) + ".jpg");
+            if (file.exists()) {
+                imageSwitcher.setImageURI(Uri.fromFile(file));
+            } else {
+                Bitmap bitmap = Bitmap.createScaledBitmap(bitmapList.get(0), width, height, false);
+                BitmapDrawable bitmapDrawable = new BitmapDrawable(getApplicationContext().getResources(), bitmap);
+                imageSwitcher.setImageDrawable(bitmapDrawable);
+            }
         }
 
         leftBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentImageIndex != 0){
+                if (currentImageIndex != 0  && bitmapList.size() != 0){
                     currentImageIndex--;
                     File file = new File(Environment.getExternalStorageDirectory().getPath()
                             ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");
@@ -95,7 +97,7 @@ public class GalleryActivity extends Activity {
         rightBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentImageIndex != bitmapList.size()-1 ){
+                if (currentImageIndex != bitmapList.size()-1 && bitmapList.size() != 0){
                     currentImageIndex++;
                     File file = new File(Environment.getExternalStorageDirectory().getPath()
                             ,record.getRecordTitle()+ Integer.toString(currentImageIndex) +".jpg");

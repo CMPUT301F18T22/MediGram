@@ -150,15 +150,18 @@ public class RecordListActivity  extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ArrayList<LatLng> latLngs = new ArrayList<>();
+                ArrayList<String> titles = new ArrayList<>();
                 for (Record record : recordList.getRecordList()){
                     LatLng location = record.getGeoLocation();
                     if (location != null){
                         latLngs.add(location);
+                        titles.add(record.getRecordTitle());
                     }
                 }
                 if (latLngs.size() != 0){
                     Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                     intent.putParcelableArrayListExtra("All Locations", latLngs);
+                    intent.putExtra("Titles", titles);
                     startActivity(intent);
                 }else{
                     Toast toast = Toast.makeText(RecordListActivity.this, "No geo-location records to map.", Toast.LENGTH_LONG);

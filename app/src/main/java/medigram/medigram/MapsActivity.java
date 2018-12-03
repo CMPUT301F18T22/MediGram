@@ -48,6 +48,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private LatLng currentLocation;
     private PlaceAutocompleteFragment autocompleteFragment;
     private Boolean permissionGranted;
+    private int MAX_DISTANCE = 50;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,12 +83,40 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Log.i("Location AutoComplete", "Place: " + place.getName());
 
                 currentLocation = place.getLatLng();
+                mMap.clear();
 
                 if (!getIntent().hasExtra("All Locations")) {
-                    mMap.clear();
                     mMap.addMarker(new MarkerOptions().position(currentLocation).title(place.getName().toString()));
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
                 }
-                mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15.0f));
+                else {
+                    ArrayList<LatLng> locations = getIntent().getParcelableArrayListExtra("All Locations");
+                    ArrayList<String> titles = getIntent().getStringArrayListExtra("Titles");
+
+                    for (LatLng location : locations) {
+                        Location a = new Location("A");
+                        a.setLatitude(currentLocation.latitude);
+                        a.setLongitude(currentLocation.longitude);
+
+                        Location b = new Location("B");
+                        b.setLatitude(location.latitude);
+                        b.setLongitude(location.longitude);
+
+                        float distance = a.distanceTo(b);
+                        // 5000 -> 5km
+                        if (distance < 5000){
+                            mMap.addMarker(new MarkerOptions().position(location).title(titles.get(locations.indexOf(location) ) ) );
+                        }
+                        Log.d("Distance", Float.toString(distance));
+                    }
+
+                    Circle circle = mMap.addCircle(new CircleOptions()
+                            .center(currentLocation)
+                            .radius(5000)
+                            .strokeColor(Color.RED));
+
+                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(circle.getCenter(), 12.f) );
+                }
             }
 
             @Override
@@ -99,15 +128,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -168,10 +188,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private void displayAllLocations() {
         saveButton.setVisibility(View.GONE);
         ArrayList<LatLng> locations = getIntent().getParcelableArrayListExtra("All Locations");
+        ArrayList<String> titles = getIntent().getStringArrayListExtra("Titles");
         ArrayList<Marker> markers = new ArrayList<>();
 
         for (LatLng latLng : locations){
-            markers.add(mMap.addMarker(new MarkerOptions().position(latLng)));
+            markers.add(mMap.addMarker(new MarkerOptions().position(latLng).title(titles.get(locations.indexOf(latLng)))));
         }
 
         LatLngBounds.Builder builder = new LatLngBounds.Builder();
@@ -180,7 +201,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
 
         LatLngBounds bounds = builder.build();
-        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 120));
+        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, 150));
     }
 
     @SuppressLint("MissingPermission")

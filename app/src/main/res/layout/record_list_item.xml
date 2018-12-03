@@ -21,13 +21,16 @@
             android:layout_height="35dp"
             android:layout_alignBottom="@+id/list_item_text"
             android:layout_alignParentEnd="true"
-            android:layout_marginEnd="4dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="44dp"
             android:background="@drawable/button_style4"
             android:text="Delete"
             android:textAllCaps="false"
             android:textSize="12sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.857" />
 
         <TextView
             android:id="@+id/recordDescription"
@@ -35,11 +38,16 @@
             android:layout_height="51dp"
             android:layout_alignBottom="@+id/deleteBtn"
             android:layout_alignParentStart="true"
-            android:layout_marginStart="8dp"
             android:layout_marginTop="12dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
             android:theme="@style/MyTextView"
-            app:layout_constraintStart_toEndOf="@+id/recordImageBtn"
-            app:layout_constraintTop_toBottomOf="@+id/recordTitleText" />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/recordDeleteBtn"
+            app:layout_constraintHorizontal_bias="0.138"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recordTitleText"
+            app:layout_constraintVertical_bias="0.0" />
 
         <TextView
             android:id="@+id/recordTitleText"
@@ -55,21 +63,9 @@
             android:textStyle="bold"
             android:theme="@style/MyTextView"
             app:layout_constraintEnd_toStartOf="@+id/recordDeleteBtn"
-            app:layout_constraintHorizontal_bias="0.045"
-            app:layout_constraintStart_toEndOf="@+id/recordImageBtn"
-            app:layout_constraintTop_toTopOf="parent" />
-
-        <ImageButton
-            android:id="@+id/recordImageBtn"
-            android:layout_width="64dp"
-            android:layout_height="62dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/button_style1"
-            android:contentDescription="TODO"
+            app:layout_constraintHorizontal_bias="0.038"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@android:drawable/ic_menu_camera" />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </android.support.constraint.ConstraintLayout>
 

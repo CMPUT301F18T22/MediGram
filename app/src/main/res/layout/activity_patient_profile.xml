@@ -31,8 +31,8 @@
                 android:id="@+id/patientEditProfileButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_style2"
                 android:padding="4dp"
                 android:text="@string/editAccountButton"
@@ -46,7 +46,7 @@
                 android:layout_width="85dp"
                 android:layout_height="42dp"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/userProfileSubTitle"
                 android:textSize="20sp"
                 android:textStyle="bold"
@@ -59,12 +59,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/userIDText"
                 android:textSize="14sp"
                 android:theme="@style/MyTextView"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toBottomOf="@+id/ProfileSubTitle" />
 
             <TextView
                 android:id="@+id/emailText"
@@ -90,54 +90,46 @@
 
             <TextView
                 android:id="@+id/DisplayUserID"
-                android:layout_width="189dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="-1dp"
-                android:layout_marginEnd="120dp"
-                android:layout_marginBottom="-2dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="21dp"
                 android:theme="@style/MyTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/userIDText"
+                app:layout_constraintBaseline_toBaselineOf="@+id/userIDText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/userIDText"
-                app:layout_constraintTop_toTopOf="@+id/userIDText"
-                app:layout_constraintVertical_bias="0.333" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/userIDText" />
 
             <TextView
                 android:id="@+id/DisplayEmail"
-                android:layout_width="189dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="48dp"
-                android:layout_marginTop="0dp"
-                android:layout_marginEnd="120dp"
-                android:layout_marginBottom="0dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="28dp"
                 android:theme="@style/MyTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/emailText"
+                app:layout_constraintBaseline_toBaselineOf="@+id/emailText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/emailText"
-                app:layout_constraintTop_toTopOf="@+id/emailText" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/emailText" />
 
             <TextView
                 android:id="@+id/DisplayPhone"
-                android:layout_width="195dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="22dp"
-                android:layout_marginTop="1dp"
-                android:layout_marginEnd="114dp"
-                android:layout_marginBottom="-1dp"
+                android:layout_marginEnd="4dp"
+                android:layout_marginStart="4dp"
                 android:theme="@style/MyTextView"
-                app:layout_constraintBottom_toBottomOf="@+id/phoneText"
+                app:layout_constraintBaseline_toBaselineOf="@+id/phoneText"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/phoneText"
-                app:layout_constraintTop_toTopOf="@+id/phoneText" />
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/phoneText" />
 
             <Button
                 android:id="@+id/patientViewProblemButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="60dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_style1"
                 android:padding="4dp"
                 android:text="@string/ViewProblemsButton"
@@ -161,10 +153,10 @@
             <EditText
                 android:id="@+id/searchBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="28dp"
+                android:layout_height="47dp"
                 android:layout_marginEnd="8dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
                 android:ems="12"
                 android:hint="@string/searchBoxAtProfile"
                 android:singleLine="true"
@@ -172,7 +164,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.481"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/DisplayPhone" />
+                app:layout_constraintTop_toBottomOf="@+id/phoneText" />
 
         </android.support.constraint.ConstraintLayout>
     </FrameLayout>
@@ -196,9 +188,9 @@
                 android:id="@+id/drawerCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="228dp"
-                android:layout_marginEnd="45dp"
                 android:hint="Generated Code."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
@@ -209,10 +201,10 @@
                 android:id="@+id/generateCodeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="315dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="315dp"
                 android:background="@drawable/button_style1"
                 android:padding="10dp"
                 android:text="@string/drawerButton"

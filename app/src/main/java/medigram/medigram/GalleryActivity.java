@@ -2,6 +2,8 @@ package medigram.medigram;
 
 import android.app.Activity;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.graphics.*;
@@ -9,8 +11,10 @@ import android.graphics.*;
 import java.io.File;
 import java.util.*;
 import java.net.*;
+import java.util.concurrent.TimeUnit;
 
 import android.os.Environment;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.widget.NestedScrollView;
 import android.view.GestureDetector;
@@ -24,7 +28,7 @@ import android.widget.*;
  */
 public class GalleryActivity extends Activity {
     private ImageSwitcher imageSwitcher;
-    private Button leftBtn;
+    private Button leftBtn, slideshowBtn, stopBtn;
     private Button rightBtn;
     private GestureDetector gestureDetector;
     private ArrayList<Bitmap> bitmapList;
@@ -110,6 +114,34 @@ public class GalleryActivity extends Activity {
             }
         });
 
+        slideshowBtn = (Button) findViewById(R.id.slideshowBtn);
+
+        slideshowBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startLoop(0);
+            }
+        });
+
+
+    }
+
+    // delay without putting thread to sleep
+    private void startLoop(final int i) {
+        if(currentImageIndex != bitmapList.size()-1) {
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    actionToBeDone();
+                    startLoop(i+1);
+                }
+            }, 1000);
+        }
+    }
+
+    private void actionToBeDone() {
+        //enter actions you want to be done
+        rightBtn.performClick();
     }
 
 

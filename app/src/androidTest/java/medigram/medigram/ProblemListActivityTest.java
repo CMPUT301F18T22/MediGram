@@ -65,8 +65,10 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2{
 
         solo.assertCurrentActivity("Wrong Activity", EditProblemActivity.class);
 
-        solo.enterText((EditText) solo.getView(R.id.problemTitle), " edited");
-        solo.enterText((EditText) solo.getView(R.id.problemDescription), " edited");
+        solo.clearEditText((EditText) solo.getView(R.id.problemTitle));
+        solo.enterText((EditText) solo.getView(R.id.problemTitle), "testTitle");
+        solo.clearEditText((EditText) solo.getView(R.id.problemDescription));
+        solo.enterText((EditText) solo.getView(R.id.problemDescription), "testDescription");
 
         EditText bodyLocation = (EditText) solo.getView(R.id.problemBodyLocation);
         solo.clearEditText(bodyLocation);
@@ -87,6 +89,15 @@ public class ProblemListActivityTest extends ActivityInstrumentationTestCase2{
         solo.clickOnButton("View Problems");
 
         solo.sleep(500);
+
+        solo.clickOnButton("Add Problem");
+
+        solo.enterText((EditText) solo.getView(R.id.problemTitle), "ui test delete problem");
+        solo.enterText((EditText) solo.getView(R.id.problemDescription), "test problem description");
+        solo.enterText((EditText) solo.getView(R.id.problemBodyLocation), "right arm");
+        solo.clickOnButton("Confirm");
+
+        solo.assertCurrentActivity("Wrong Activity", ProblemListActivity.class);
 
         ListView listView = (ListView) solo.getView(R.id.ProblemListView);
         View view = listView.getChildAt(0);

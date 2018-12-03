@@ -2,7 +2,6 @@ package medigram.medigram;
 
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
-import android.util.Log;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
@@ -43,7 +42,7 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2 {
 
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
 
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "solotestID");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
         solo.clickOnButton("Sign In");
 
         solo.assertCurrentActivity("Wrong Activity", PatientProfileActivity.class);

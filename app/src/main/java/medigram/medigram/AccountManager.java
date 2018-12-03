@@ -152,7 +152,7 @@ public class AccountManager{
                 return offlineController.loadPatient(userID);
             }
         }catch (Exception e){
-            return offlineController.loadPatient(userID);
+            e.printStackTrace();
         }
         return null;
     }
@@ -187,7 +187,7 @@ public class AccountManager{
                 return offlineController.loadCareProvider(userID);
             }
         }catch (Exception e){
-            return offlineController.loadCareProvider(userID);
+            e.printStackTrace();
         }
         return null;
     }
@@ -260,6 +260,65 @@ public class AccountManager{
             }
         }
         return "Oops, something went wrong. Please try again.";
+    }
+
+
+    /**
+     * Finds a patient with a given code
+     *
+     * @param Code the patient's generated code for login.
+     * @return Patient if found, else null
+     * @see Patient
+     */
+    public Patient findPatientByCode(String Code){
+        try {
+            if (checkConnection()) {
+                ElasticSearchController.GetPatientByCode getPatientByCode = new ElasticSearchController.GetPatientByCode();
+                getPatientByCode.execute(Code);
+                patientsResults = getPatientByCode.get();
+                if (patientsResults.size() != 0) {
+                    return patientsResults.get(patientsResults.size() - 1);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
+     * Finds a CareProvider with a given code
+     *
+     * @param Code the CareProvider's generated code for login.
+     * @return CareProvider if found, else null
+     * @see CareProvider
+     */
+    public CareProvider findCareProviderByCode(String Code){
+        try {
+            if (checkConnection()){
+                ElasticSearchController.GetCareProviderByCode getCareProviderByCode = new ElasticSearchController.GetCareProviderByCode();
+                getCareProviderByCode.execute(Code);
+                careProvidersResults = getCareProviderByCode.get();
+                if (careProvidersResults.size() != 0) {
+                    return careProvidersResults.get(careProvidersResults.size()-1);
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String autoLoginCheck(){
+        Patient patient = offlineController.loadPatient();
+        CareProvider careProvider = offlineController.loadCareProvider();
+
+        if (patient != null){
+            return patient.getUserID();
+        }else if (careProvider != null){
+            return careProvider.getUserID();
+        }
+        return null;
     }
 
     /**

@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MediGram</string>
     <string name="logoString">medigram</string>
-    <string name="UserIDInput">Enter your UserID.</string>
+    <string name="CodeInput">Enter the account code.</string>
     <string name="SignInButton">Sign In</string>
     <string name="SignUpButton">Sign Up </string>
     <string name="ConfirmButton"> <u>Confirm</u> </string>

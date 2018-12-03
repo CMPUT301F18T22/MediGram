@@ -26,7 +26,7 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2 {
     // TODO might want to modify this test when add patient by code is done
     public void testAddPatient() {
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.InputUserID), "careprovider1");
+        solo.enterText((EditText) solo.getView(R.id.InputCode), "careprovider1");
         solo.clickOnButton("Sign In");
         solo.assertCurrentActivity("Wrong Activity", CareProviderProfileActivity.class);
 

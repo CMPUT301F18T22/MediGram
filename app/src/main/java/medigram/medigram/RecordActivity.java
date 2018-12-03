@@ -240,6 +240,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             commentList.addComment(comment);
             adapter.add(comment.toString());
             adapter.notifyDataSetChanged();
+            accountManager.patientUpdater(patient.getUserID(), patient);
             accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
             Log.d("checkComment1",commentList.getList().toString());
         }
@@ -401,6 +402,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
             adapter.remove(adapter.getItem(editIndex));
             adapter.insert(commentList.getComment(editIndex).toString(),editIndex);
             adapter.notifyDataSetChanged();
+            accountManager.patientUpdater(patient.getUserID(), patient);
             accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
             Log.d("checkComment1",commentList.getList().toString());
         }

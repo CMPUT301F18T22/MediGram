@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".EditProfileActivity"
-    android:background="@drawable/background">
+    android:background="@drawable/background"
+    android:id="@+id/relativeLayout6">
 
     <TextView
         android:theme="@style/MyTextView"
@@ -16,99 +17,105 @@
         android:layout_marginTop="52dp"
         android:text="@string/editProfileTitle"
         android:textSize="20sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:theme="@style/MyTextView"
         android:id="@+id/userIDEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="123dp"
         android:text="@string/userIDEditText"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:theme="@style/MyTextView"
         android:id="@+id/emailEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/userIDEditText"
-        android:layout_alignParentStart="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="51dp"
-        android:text="@string/emailEditText" />
+        android:text="@string/emailEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userIDEditText" />
 
     <TextView
         android:theme="@style/MyTextView"
         android:id="@+id/phoneEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
         android:layout_marginStart="24dp"
         android:layout_marginTop="266dp"
-        android:text="@string/phoneEditText" />
+        android:text="@string/phoneEditText"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/updateUserID"
-        android:layout_width="240dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/userIDEditText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="24dp"
-        android:layout_marginEnd="57dp"
-        android:layout_marginBottom="0dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="@+id/userIDEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/userIDEditText"
+        app:layout_constraintTop_toTopOf="@+id/userIDEditText" />
 
     <EditText
         android:id="@+id/updateEmail"
-        android:layout_width="244dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/emailEditText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="36dp"
-        android:layout_marginEnd="56dp"
         android:layout_marginBottom="-5dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="@+id/emailEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/emailEditText"
+        app:layout_constraintTop_toTopOf="@+id/emailEditText" />
 
     <EditText
         android:id="@+id/updatePhone"
-        android:layout_width="241dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/phoneEditText"
-        android:layout_alignParentEnd="true"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="58dp"
         android:layout_marginBottom="-7dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
         android:ems="10"
-        android:inputType="phone" />
+        android:inputType="phone"
+        app:layout_constraintBottom_toBottomOf="@+id/phoneEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/phoneEditText"
+        app:layout_constraintTop_toTopOf="@+id/phoneEditText" />
 
     <Button
         android:id="@+id/updateButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/updatePhone"
-        android:layout_marginTop="13dp"
+        android:layout_marginTop="-7dp"
         android:layout_marginEnd="24dp"
-        android:layout_toStartOf="@+id/deleteButton"
         android:background="@drawable/button_style3"
         android:text="@string/updateButtonText"
         android:textAllCaps="false"
-        />
+        app:layout_constraintTop_toBottomOf="@+id/updatePhone"
+        app:layout_constraintEnd_toStartOf="@+id/deleteButton" />
 
     <Button
         android:id="@+id/deleteButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/updatePhone"
-        android:layout_alignParentEnd="true"
-        android:layout_marginTop="11dp"
+        android:layout_marginTop="-7dp"
         android:layout_marginEnd="67dp"
         android:background="@drawable/button_style4"
-        android:text="@string/deleteButtonText" />
-</RelativeLayout>
+        android:text="@string/deleteButtonText"
+        app:layout_constraintTop_toBottomOf="@+id/updatePhone"
+        app:layout_constraintEnd_toEndOf="parent" />
+</android.support.constraint.ConstraintLayout>

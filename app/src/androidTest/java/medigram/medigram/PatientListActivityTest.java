@@ -1,6 +1,7 @@
 package medigram.medigram;
 import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
+import android.widget.CheckBox;
 import android.widget.EditText;
 
 import com.robotium.solo.Solo;
@@ -22,26 +23,36 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2 {
     public void testStart() throws Exception {
         Activity activity = getActivity();
     }
+    public void test0_CreateProfile(){
+        solo.clickOnButton("Sign Up");
+        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "careproviderTest3");
+        solo.enterText((EditText) solo.getView(R.id.signUpEmail), "test@email.com");
+        solo.enterText((EditText) solo.getView(R.id.signUpPhoneNumber), "0001112222");
+        CheckBox patientCheckBox = (CheckBox) solo.getView(R.id.CareProviderCheckBox);
+        solo.clickOnView(patientCheckBox);
+        solo.clickOnButton("Sign Up");
+    }
 
     // TODO might want to modify this test when add patient by code is done
-    public void testAddPatient() {
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "careprovider1");
-        solo.clickOnButton("Sign In");
-        solo.assertCurrentActivity("Wrong Activity", CareProviderProfileActivity.class);
-
+    public void test2_AddPatient() {
         solo.clickOnButton("View Patients");
         solo.assertCurrentActivity("Wrong Activity", PatientListActivity.class);
 
         solo.clickOnButton("Add Patient");
         solo.assertCurrentActivity("Wrong Activity", AddPatientActivity.class);
-        solo.enterText((EditText) solo.getView(R.id.input_userid), "solotestID");
+        solo.enterText((EditText) solo.getView(R.id.input_userid), "L5PIV1");
         solo.clickOnButton("Confirm Adding");
 
         solo.goBackToActivity("PatientListActivity");
-
         solo.assertCurrentActivity("Wrong Activity", PatientListActivity.class);
 
+    }
+
+    public void test2_ClearData() {
+        solo.clickOnButton("Edit Profile");
+        solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
+
+        solo.clickOnButton("Delete");
     }
 
 }

@@ -25,26 +25,27 @@ public class LoginActivityTest extends ActivityInstrumentationTestCase2 {
         Activity activity = getActivity();
     }
 
-    public void testSignUp(){
+    public void test1_SignUp(){
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
 
         solo.clickOnButton("Sign Up");
         solo.assertCurrentActivity("Wrong Activity", CreateAccountActivity.class);
 
-        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "solotestID");
+        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "solotestID2");
         solo.enterText((EditText) solo.getView(R.id.signUpEmail), "solotest@email.com");
         solo.enterText((EditText) solo.getView(R.id.signUpPhoneNumber), "0001112222");
         CheckBox patientCheckBox = (CheckBox) solo.getView(R.id.PatientCheckBox);
         solo.clickOnView(patientCheckBox);
         solo.clickOnButton("Sign Up");
 
-        solo.goBackToActivity("LoginActivity");
-
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
-        solo.clickOnButton("Sign In");
-
         solo.assertCurrentActivity("Wrong Activity", PatientProfileActivity.class);
+
+    }
+
+    public void test2_ClearData() {
+        solo.clickOnButton("Edit Profile");
+        solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
+
+        solo.clickOnButton("Delete");
     }
 }

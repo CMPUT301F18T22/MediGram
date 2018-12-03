@@ -8,7 +8,7 @@ import android.test.mock.MockContext;
 /**
  * Created by anas on 11/9/18.
  */
-
+/*
 public class OfflineBehaviorControllerTest extends ActivityInstrumentationTestCase2 {
     public OfflineBehaviorControllerTest(){
         super(OfflineBehaviorController.class);
@@ -67,3 +67,4 @@ public class OfflineBehaviorControllerTest extends ActivityInstrumentationTestCa
         assertNull(offlineBehaviorController.loadPatient(patient.getUserID()));
     }
 }
+*/

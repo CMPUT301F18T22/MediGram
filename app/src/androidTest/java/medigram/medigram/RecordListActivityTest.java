@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 
@@ -24,11 +25,21 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         Activity activity = getActivity();
     }
 
-    public void test1_addRecord(){
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
-        solo.clickOnButton("Sign In");
-        solo.enterText((EditText) solo.getView(R.id.searchBox), "left arm");
-        solo.sendKey(Solo.ENTER);
+    public void test0_setUp(){
+
+        solo.clickOnButton("Sign Up");
+
+        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "solotestID2");
+        solo.enterText((EditText) solo.getView(R.id.signUpEmail), "solotest@email.com");
+        solo.enterText((EditText) solo.getView(R.id.signUpPhoneNumber), "0001112222");
+        CheckBox patientCheckBox = (CheckBox) solo.getView(R.id.PatientCheckBox);
+        solo.clickOnView(patientCheckBox);
+        solo.clickOnButton("Sign Up");
+
+    }
+
+    public void test1_setup(){
+        solo.clickOnButton("View Problems");
         solo.clickOnButton("Add Problem");
         solo.assertCurrentActivity("Wrong Activity", EditProblemActivity.class);
 
@@ -38,6 +49,13 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
 
         solo.clickOnButton("Confirm");
 
+        solo.assertCurrentActivity("Wrong Activity", ProblemListActivity.class);
+        solo.goBack();
+
+    }
+
+    public void test2_addRecord(){
+        solo.clickOnButton("View Problems");
         solo.clickInList(0);
         solo.assertCurrentActivity("Wrong Activity", RecordListActivity.class);
 
@@ -51,9 +69,7 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.assertCurrentActivity("Wrong Activity", RecordListActivity.class);
     }
 
-    public void test2_deleteRecord(){
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "solotestID");
-        solo.clickOnButton("Sign In");
+    public void test3_deleteRecord(){
         solo.clickOnButton("View Problems");
         solo.clickInList(0);
 
@@ -71,5 +87,13 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnView((Button)view.findViewById(R.id.recordDeleteBtn));
         solo.assertCurrentActivity("Wrong Activity", RecordListActivity.class);
     }
+    public void test4_ClearData(){
+        solo.clickOnButton("Edit Profile");
+        solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
+
+        solo.clickOnButton("Delete");
+    }
+
+
 
 }

@@ -22,9 +22,19 @@ public class CareProviderProfileActivityTest extends ActivityInstrumentationTest
         Activity activity = getActivity();
     }
 
-    public void testEditProfile() {
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "careprovider2");
-        solo.clickOnButton("Sign In");
+    public void test0_CreateProfile(){
+        solo.clickOnButton("Sign Up");
+        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "careproviderTest3");
+        solo.enterText((EditText) solo.getView(R.id.signUpEmail), "test@email.com");
+        solo.enterText((EditText) solo.getView(R.id.signUpPhoneNumber), "0001112222");
+        CheckBox patientCheckBox = (CheckBox) solo.getView(R.id.CareProviderCheckBox);
+        solo.clickOnView(patientCheckBox);
+        solo.clickOnButton("Sign Up");
+    }
+
+    public void test1_EditProfile() {
+        //solo.enterText((EditText) solo.getView(R.id.InputCode), "GG9FCT");
+        //solo.clickOnButton("Sign In");
 
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
@@ -39,31 +49,12 @@ public class CareProviderProfileActivityTest extends ActivityInstrumentationTest
         solo.assertCurrentActivity("Wrong Activity", CareProviderProfileActivity.class);
     }
 
-    public void testDeleteProfile() {
+    public void test2_DeleteProfile() {
         solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-        solo.clickOnButton("Sign Up");
-        solo.assertCurrentActivity("Wrong Activity", CreateAccountActivity.class);
-
-        solo.enterText((EditText) solo.getView(R.id.signUpUserID), "careproviderTestID");
-        solo.enterText((EditText) solo.getView(R.id.signUpEmail), "test@email.com");
-        solo.enterText((EditText) solo.getView(R.id.signUpPhoneNumber), "0001112222");
-        CheckBox patientCheckBox = (CheckBox) solo.getView(R.id.CareProviderCheckBox);
-        solo.clickOnView(patientCheckBox);
-        solo.clickOnButton("Sign Up");
-
-        solo.goBackToActivity("LoginActivity");
-
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
-
-        solo.enterText((EditText) solo.getView(R.id.InputCode), "careproviderTestID");
-        solo.clickOnButton("Sign In");
-
-        solo.assertCurrentActivity("Wrong Activity", CareProviderProfileActivity.class);
 
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
 
         solo.clickOnButton("Delete");
-        solo.assertCurrentActivity("Wrong Activity", LoginActivity.class);
     }
 }

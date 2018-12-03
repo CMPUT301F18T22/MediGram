@@ -42,13 +42,11 @@ public class Record implements Serializable{
 
     public Record(String recordtitle, Date date){
         this.recordTitle = recordtitle;
-        //Comments.add(comment);
         this.dateStarted = date;
     }
 
     public Record(String recordtitle,  Date date, ArrayList<Photo> photos){
         this.recordTitle = recordtitle;
-        //addComment(comment);
         this.dateStarted = date;
         this.photos = photos;
     }

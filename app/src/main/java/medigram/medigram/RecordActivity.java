@@ -37,9 +37,6 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     private Patient patient;
     private CareProvider careProvider;
     private Button addCommentBTN;
-    private EditText editText;
-    private TextView patientComment;
-    private TextView careProviderComment;
     private Comment comment;
     public ListView commentView;
     public List<String> commentListString;
@@ -137,8 +134,10 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         setTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("printbefore", patient.getProblems().getProblem(problemIndex).getRecordList().toString());
                 record.setRecordTitle(recordTitle.getText().toString());
                 accountManager.patientUpdater(patient.getUserID(), patient);
+                Log.d("printafter", patient.getProblems().getProblem(problemIndex).getRecordList().toString());
                 Toast.makeText(RecordActivity.this,
                         "Title updated successfully",
                         Toast.LENGTH_SHORT).show();

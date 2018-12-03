@@ -3,3 +3,5 @@ If the test that creates the account fails (because account already exists), the
 tests will also fail. To fix this, change the account ID name to something
 unique in the line that says:
 solo.enterText((EditText) solo.getView(R.id.signUpUserID), "solotestID2");
+
+The user must also accept permissions that pop up if app is being run for the first time. 

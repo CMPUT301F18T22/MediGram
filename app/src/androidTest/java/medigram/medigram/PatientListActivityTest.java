@@ -33,7 +33,6 @@ public class PatientListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("Sign Up");
     }
 
-    // TODO might want to modify this test when add patient by code is done
     public void test2_AddPatient() {
         solo.clickOnButton("View Patients");
         solo.assertCurrentActivity("Wrong Activity", PatientListActivity.class);

@@ -44,7 +44,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recordTitle" />
 
-    <!-- TODO is this button "Add location" or "Save location"? -->
     <Button
         android:background="@drawable/button_style1"
         android:id="@+id/Geo-location"

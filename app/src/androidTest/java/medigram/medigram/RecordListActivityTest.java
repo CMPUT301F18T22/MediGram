@@ -47,7 +47,6 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.enterText((EditText) solo.getView(R.id.commentText), "Test Record Comment 1");
 
         Button save = (Button) solo.getView(R.id.save);
-        //save.performClick();
         solo.clickOnView(save);
         solo.assertCurrentActivity("Wrong Activity", RecordListActivity.class);
     }
@@ -58,7 +57,14 @@ public class RecordListActivityTest extends ActivityInstrumentationTestCase2 {
         solo.clickOnButton("View Problems");
         solo.clickInList(0);
 
-        solo.sleep(500);
+        solo.sleep(1000);
+        solo.clickOnButton("Add record");
+        solo.assertCurrentActivity("Wrong Activity", AddRecordActivity.class);
+        solo.enterText((EditText) solo.getView(R.id.recordTitle), "ui test title");
+        solo.enterText((EditText) solo.getView(R.id.commentText), "Test Record Comment 1");
+
+        Button save = (Button) solo.getView(R.id.save);
+        solo.clickOnView(save);
 
         ListView listView = (ListView) solo.getView(R.id.recordListView);
         View view = listView.getChildAt(0);

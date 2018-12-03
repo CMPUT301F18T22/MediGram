@@ -228,7 +228,7 @@ public class EditProblemActivity extends AppCompatActivity {
                 chosenProblem.setDescription(description.getText().toString());
 
                 EditText bodyLocation = (EditText) findViewById(R.id.problemBodyLocation);
-                chosenProblem.setBodyLocation(bodyLocation.getText().toString());
+                chosenProblem.setBodyLocation(bodyLocation.getText().toString().toLowerCase());
 
                 chosenProblem.setDateStarted(dateTextView.getText().toString());
 

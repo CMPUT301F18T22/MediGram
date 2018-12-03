@@ -117,17 +117,7 @@ public class ProblemListActivity extends AppCompatActivity {
         if (requestCode == 3){
             super.onRestart();
             keySearch.setText("");
-            patient = accountManager.findPatient(patient.getUserID());
-            problemList = patient.getProblems();
-            filteredProblems = new ProblemList();
-            for (Problem p: problemList.getList()){
-                if (keyword.equals("")){
-                    filteredProblems.addProblem(p);
-                }
-                else if (p.getBodyLocation().equals(bodyLocation)) {
-                    filteredProblems.addProblem(p);
-                }
-            }
+            Updater();
             problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
             adapter.clear();
             adapter.addAll(problemString);
@@ -170,18 +160,9 @@ public class ProblemListActivity extends AppCompatActivity {
 
         // filter the problems based off the user specified body part
         // new list, filteredProblems, is used to display list
-        filteredProblems = new ProblemList();
-        for (Problem p: problemList.getList()){
-            if (keyword.equals("")){
-                filteredProblems.addProblem(p);
-            }
-            else if (p.getBodyLocation().equals(keyword)) {
-                filteredProblems.addProblem(p);
-            }
-        }
+        Updater();
 
-        // create a list of strings from Problem.getString, and uses it on the list adapter
-        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+
         adapter = new ProblemListAdapter(this,
                 R.layout.problem_list_item, problemString);
         problemsView.setAdapter(adapter);
@@ -316,9 +297,11 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.deleteBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Updater();
                     adapter.notifyDataSetChanged();
                     //index = problemString.indexOf(getItem(position));
-                    index = adapter.getPosition(getItem(position));
+                    //index = adapter.getPosition(getItem(position));
+                    index = problemString.indexOf(adapter.getItem(position));
 
 
                     Problem test = filteredProblems.getProblem(index);
@@ -343,8 +326,11 @@ public class ProblemListActivity extends AppCompatActivity {
             mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Updater();
                     // index of edited problem is saved so we can delete it later
-                    index = adapter.getPosition(getItem(position));
+
+                    //index = adapter.getPosition(getItem(position));
+                    index = problemString.indexOf(adapter.getItem(position));
                     lastPosition = problemString.indexOf(getItem(position));
 
                     Intent openEditor = new Intent(getApplicationContext(), EditProblemActivity.class);
@@ -374,6 +360,25 @@ public class ProblemListActivity extends AppCompatActivity {
         Button editBtn;
         TextView titleText;
     }
+
+    public void Updater(){
+        patient = accountManager.findPatient(patient.getUserID());
+        problemList = patient.getProblems();
+        filteredProblems = new ProblemList();
+        for (Problem p: problemList.getList()){
+            if (keyword.equals("")){
+                filteredProblems.addProblem(p);
+            }
+            else if (p.getBodyLocation().equals(keyword)) {
+                filteredProblems.addProblem(p);
+            }
+        }
+        // create a list of strings from Problem.getString, and uses it on the list adapter
+        problemString = filteredProblems.getList().stream().map(Problem::toString).collect(Collectors.toList());
+        accountManager.patientUpdater(patient.getUserID(), patient);
+    }
+
+
 
 
 }

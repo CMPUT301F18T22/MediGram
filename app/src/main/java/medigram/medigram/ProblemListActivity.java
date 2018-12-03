@@ -214,7 +214,6 @@ public class ProblemListActivity extends AppCompatActivity {
 
                 if (getIntent().hasExtra("CareProvider")) {
                     intent.putExtra("CareProvider", careProvider);
-
                 }
 
                 intent.putExtra("Patient", patient);

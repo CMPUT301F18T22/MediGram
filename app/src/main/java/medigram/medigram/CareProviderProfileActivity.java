@@ -46,7 +46,6 @@ public class CareProviderProfileActivity extends Activity {
         phoneNumber = account.getPhoneNumber();
 
         code = account.generateCode();
-        accountManager.careProviderUpdater(account.getUserID(), account);
 
         drawerLayout = findViewById(R.id.careProviderDrawer);
 
@@ -97,6 +96,7 @@ public class CareProviderProfileActivity extends Activity {
                     @Override
                     public void onClick(View v) {
                         drawerDisplayCode.setText(code);
+                        accountManager.careProviderUpdater(account.getUserID(), account);
                     }
                 });
             }
@@ -127,11 +127,11 @@ public class CareProviderProfileActivity extends Activity {
         DisplayPhone.setText(phoneNumber);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        this.account = accountManager.findCareProvider(account.getUserID());
-    }
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        this.account = accountManager.findCareProvider(account.getUserID());
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int code, Intent intent){

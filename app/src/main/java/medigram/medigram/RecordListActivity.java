@@ -225,18 +225,18 @@ public class RecordListActivity  extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onResume(){
-        super.onResume();
-        patient = accountManager.findPatient(patient.getUserID());
-        problem = patient.getProblems().getProblem(problemIndex);
-        recordList = problem.getRecordList();
-
-        recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
-        adapter.clear();
-        adapter.addAll(recordListString);
-        adapter.notifyDataSetChanged();
-    }
+//    @Override
+//    protected void onRestart(){
+//        super.onRestart();
+//        patient = accountManager.findPatient(patient.getUserID());
+//        problem = patient.getProblems().getProblem(problemIndex);
+//        recordList = problem.getRecordList();
+//
+//        recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
+//        adapter.clear();
+//        adapter.addAll(recordListString);
+//        adapter.notifyDataSetChanged();
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

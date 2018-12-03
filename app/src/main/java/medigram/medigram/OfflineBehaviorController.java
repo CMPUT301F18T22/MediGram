@@ -47,7 +47,7 @@ public class OfflineBehaviorController {
 
             gson = new Gson();
             String json = gson.toJson(account);
-            editor.putString("Account", json);
+            editor.putString("CareProvider", json);
             editor.apply();
 
         }catch (Exception e){
@@ -62,10 +62,10 @@ public class OfflineBehaviorController {
      */
     public CareProvider loadCareProvider(){
         try{
-            String json = this.sharedPref.getString("Account", "");
+            String json = this.sharedPref.getString("CareProvider", "");
             gson = new Gson();
 
-            if (!json.equals("") && gson.fromJson(json, CareProvider.class).checkUserType().equals("CareProvider")) {
+            if (!json.equals("") && gson.fromJson(json, CareProvider.class) != null) {
                 CareProvider loadedUser = gson.fromJson(json, CareProvider.class);
                 return loadedUser;
             }else{
@@ -90,7 +90,7 @@ public class OfflineBehaviorController {
 
             gson = new Gson();
             String json = gson.toJson(account);
-            editor.putString("Account", json);
+            editor.putString("Patient", json);
             editor.apply();
 
         }catch (Exception e){
@@ -105,10 +105,10 @@ public class OfflineBehaviorController {
      */
     public Patient loadPatient(){
         try{
-            String json = this.sharedPref.getString("Account", "");
+            String json = this.sharedPref.getString("Patient", "");
             gson = new Gson();
 
-            if (!json.equals("") && gson.fromJson(json, Patient.class).checkUserType().equals("Patient")) {
+            if (!json.equals("") && gson.fromJson(json, Patient.class) != null) {
                 Patient loadedUser = gson.fromJson(json, Patient.class);
                 return loadedUser;
             }else{

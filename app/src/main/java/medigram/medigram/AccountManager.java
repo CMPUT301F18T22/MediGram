@@ -149,7 +149,7 @@ public class AccountManager{
                 }
             }
             else {
-                return offlineController.loadPatient(userID);
+                return offlineController.loadPatient();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -184,7 +184,7 @@ public class AccountManager{
                     }
                 }
             }else {
-                return offlineController.loadCareProvider(userID);
+                return offlineController.loadCareProvider();
             }
         }catch (Exception e){
             e.printStackTrace();
@@ -205,12 +205,16 @@ public class AccountManager{
             if (checkConnection()) {
                 ElasticSearchController.UpdatePatient updatePatient = new ElasticSearchController.UpdatePatient();
                 updatePatient.execute(patient);
-                offlineController.savePatient(patient);
+                if (offlineController.loadPatient() != null) {
+                    offlineController.savePatient(patient);
+                }
                 return null;
             } else {
                 patientToSync = patient;
                 syncOperation = "update";
-                offlineController.savePatient(patient);
+                if (offlineController.loadPatient() != null) {
+                    offlineController.savePatient(patient);
+                }
                 return null;
             }
         }else{
@@ -277,6 +281,7 @@ public class AccountManager{
                 getPatientByCode.execute(Code);
                 patientsResults = getPatientByCode.get();
                 if (patientsResults.size() != 0) {
+                    offlineController.savePatient(patientsResults.get(patientsResults.size() - 1));
                     return patientsResults.get(patientsResults.size() - 1);
                 }
             }
@@ -300,6 +305,7 @@ public class AccountManager{
                 getCareProviderByCode.execute(Code);
                 careProvidersResults = getCareProviderByCode.get();
                 if (careProvidersResults.size() != 0) {
+                    offlineController.saveCareProvider(careProvidersResults.get(careProvidersResults.size() - 1));
                     return careProvidersResults.get(careProvidersResults.size()-1);
                 }
             }
@@ -313,10 +319,11 @@ public class AccountManager{
         Patient patient = offlineController.loadPatient();
         CareProvider careProvider = offlineController.loadCareProvider();
 
-        if (patient != null){
-            return patient.getUserID();
-        }else if (careProvider != null){
+        if (careProvider != null){
             return careProvider.getUserID();
+        }
+        else if (patient != null){
+            return patient.getUserID();
         }
         return null;
     }

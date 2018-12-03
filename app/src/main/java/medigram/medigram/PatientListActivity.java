@@ -53,6 +53,7 @@ public class PatientListActivity extends Activity implements TextWatcher {
             if (requestCode == 1) {
                 patient = (Patient) data.getSerializableExtra("newPatient");
                 patients.addPatient(patient); // add the patient
+                userIDs = patients.getUserIDs();
                 accountManager.careProviderUpdater(careProvider.getUserID(), careProvider);
 
                 String userID = patient.getUserID();

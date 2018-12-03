@@ -24,7 +24,7 @@ public class AddPatientActivity extends Activity {
 
     private Button confirmAddingBut;
     private EditText inputUserID;
-    private String userID;
+    private String code;
     private CareProvider careProvider;
     private Patient patient;
     public AccountManager accountManager;
@@ -43,47 +43,39 @@ public class AddPatientActivity extends Activity {
             @Override
             public void onClick(View v) {
 
-                userID = inputUserID.getText().toString();
-                if (userID.length() < 8) {
-                    Toast toast = Toast.makeText(AddPatientActivity.this
-                            , "Please enter a valid user ID."
-                            , Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 320);
-                    toast.show();
-                } else {
-                    // init accountManager
-                    accountManager = new AccountManager(getApplicationContext());
-                    // try to find the corresponding patient that want to add
-                    patient = accountManager.findPatient(userID);
-                    // check if the patient that we want to add exists in patient list
-                    if (patient != null) {
-                        // check if the patient already assigned to current care provider
-                        if (careProvider.patientAssigned(userID)) {
-                            Toast toast = Toast.makeText(AddPatientActivity.this
-                                    , "This patient is already assigned to you."
-                                    , Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 320);
-                            toast.show();
-                        } else {
-                            Toast toast = Toast.makeText(AddPatientActivity.this
-                                    , "Patient Added Successfully!"
-                                    , Toast.LENGTH_LONG);
-                            toast.setGravity(Gravity.CENTER, 0, 320);
-                            toast.show();
-                            Intent intent = new Intent();
-                            intent.putExtra("newPatient",patient);
-                            setResult(Activity.RESULT_OK, intent);
-                            finish();
-                        }
-                    } else {  // patient not found in patient list
+                code = inputUserID.getText().toString();
+                // init accountManager
+                accountManager = new AccountManager(getApplicationContext());
+                // try to find the corresponding patient that want to add
+                patient = accountManager.findPatientByCode(code);
+                // check if the patient that we want to add exists in patient list
+                if (patient != null) {
+                    // check if the patient already assigned to current care provider
+                    if (careProvider.patientAssigned(patient.getUserID())) {
                         Toast toast = Toast.makeText(AddPatientActivity.this
-                                , "No such patient found."
+                                , "This patient is already assigned to you."
                                 , Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 320);
                         toast.show();
+                    } else {
+                        Toast toast = Toast.makeText(AddPatientActivity.this
+                                , "Patient Added Successfully!"
+                                , Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 320);
+                        toast.show();
+                        Intent intent = new Intent();
+                        intent.putExtra("newPatient",patient);
+                        setResult(Activity.RESULT_OK, intent);
+                        finish();
                     }
-
+                } else {  // patient not found in patient list
+                    Toast toast = Toast.makeText(AddPatientActivity.this
+                            , "No such patient found."
+                            , Toast.LENGTH_LONG);
+                    toast.setGravity(Gravity.CENTER, 0, 320);
+                    toast.show();
                 }
+
             }
         });
     }

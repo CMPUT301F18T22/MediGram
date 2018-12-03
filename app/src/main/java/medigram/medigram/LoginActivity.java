@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
@@ -32,7 +33,7 @@ public class LoginActivity extends Activity {
         signInButton = findViewById(R.id.signInButton);
         signUpButton = findViewById(R.id.signUpButton);
 
-        String userID = accountManager.autoLoginCheck();
+        String userID = accountManager.autoLoginCheck(); //GG9FCT
         // Checks if there is already a user account logged in on the device.
         if (userID != null) {
             ProgressDialog progressDialog = new ProgressDialog(LoginActivity.this);
@@ -44,19 +45,22 @@ public class LoginActivity extends Activity {
             new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
-                            Patient patient = accountManager.findPatient(userID);
-                            if (patient != null) {
-                                Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
-                                intent.putExtra("Patient", patient);
+                            CareProvider careProvider = accountManager.findCareProvider(userID);
+                            if (careProvider != null) {
+                                Log.d("JestID", careProvider.getJestID());
+                                Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
+                                intent.putExtra("CareProvider", careProvider);
                                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                 startActivity(intent);
                                 finishAfterTransition();
                                 progressDialog.dismiss();
-                            } else {
-                                CareProvider careProvider = accountManager.findCareProvider(userID);
-                                if (careProvider != null) {
-                                    Intent intent = new Intent(getApplicationContext(), CareProviderProfileActivity.class);
-                                    intent.putExtra("CareProvider", careProvider);
+                            }
+                            else {
+                                Patient patient = accountManager.findPatient(userID);
+                                if (patient != null) {
+                                    Log.d("JestID", patient.getJestID());
+                                    Intent intent = new Intent(getApplicationContext(), PatientProfileActivity.class);
+                                    intent.putExtra("Patient", patient);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                     startActivity(intent);
                                     finishAfterTransition();

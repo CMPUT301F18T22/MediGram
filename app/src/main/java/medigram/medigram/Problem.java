@@ -17,7 +17,7 @@ import java.util.Locale;
  * @author Jarred Mahinay
  */
 
-public class Problem implements Serializable{
+public class Problem implements Serializable, Comparable<Problem>{
     private String problemTitle;
     private String description;
     private Date dateStarted;
@@ -54,6 +54,10 @@ public class Problem implements Serializable{
     }
 
 
+    @Override
+    public int compareTo(Problem o) {
+        return getDate().compareTo(o.getDate());
+    }
 
     /**
      * Gets the problem title
@@ -165,6 +169,8 @@ public class Problem implements Serializable{
         return(this.problemTitle + "~ " + this.getDateString() + " \n "+ this.getBodyLocation() + " \n " + Integer.toString(this.recordList.getSize())
         + " \n\n " + this.getBodyLocation().replaceAll("\\s+","")+ " "  + this.problemTitle.replaceAll("\\s+",""));
     }
+
+
 
 
 }

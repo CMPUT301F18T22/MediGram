@@ -6,6 +6,7 @@ import java.util.List;
 
 import io.searchbox.annotations.JestId;
 
+
 public class CareProvider extends User implements Serializable {
     private PatientList patientList = new PatientList();
     private String userType = "CareProvider";
@@ -13,6 +14,12 @@ public class CareProvider extends User implements Serializable {
     @JestId
     private String jestID;
 
+    /**
+     * Initializes a care provider
+     * @param userID The user's unique ID
+     * @param emailAddress The user's e-mail address
+     * @param phoneNumber The user's phone number
+     */
     public CareProvider(String userID, String emailAddress, String phoneNumber){
         this.userID = userID;
         this.emailAddress = emailAddress;

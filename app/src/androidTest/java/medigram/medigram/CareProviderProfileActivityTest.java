@@ -33,7 +33,7 @@ public class CareProviderProfileActivityTest extends ActivityInstrumentationTest
         solo.clickOnButton("Edit Profile");
         solo.assertCurrentActivity("Wrong Activity", EditProfileActivity.class);
         solo.clearEditText((EditText) solo.getView(R.id.updateUserID));
-        solo.enterText((EditText) solo.getView(R.id.updateUserID), "uitestID");
+        solo.enterText((EditText) solo.getView(R.id.updateUserID), "careprovider2");
         solo.clearEditText((EditText) solo.getView(R.id.updateEmail));
         solo.enterText((EditText) solo.getView(R.id.updateEmail), "uitest@gmail.com");
         solo.clearEditText((EditText) solo.getView(R.id.updatePhone));

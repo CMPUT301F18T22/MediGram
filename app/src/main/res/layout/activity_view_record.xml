@@ -26,43 +26,31 @@
 
     </ListView>
 
-    <TextView
-        android:theme="@style/MyTextView"
-        android:id="@+id/recordTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="5dp"
-        android:layout_marginTop="5dp"
-        android:text="TextView"
-        android:textSize="30sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <Button
-        android:background="@drawable/button_style1"
         android:id="@+id/addComment"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_style1"
         android:text="Add Comment"
         android:textAllCaps="false"
         android:textColor="#ffffff"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recordTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/recordTitle" />
 
     <Button
-        android:background="@drawable/button_style1"
         android:id="@+id/addPicture"
         android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="30dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_style1"
         android:text="Add Picture"
         android:textAllCaps="false"
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/recordTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/recordTitle" />
 
     <Button
         android:id="@+id/addGeo"
@@ -78,6 +66,18 @@
         app:layout_constraintTop_toBottomOf="@id/addComment"/>
 
     <Button
+        android:id="@+id/setTitleBtn"
+        android:layout_width="78dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/button_style1"
+        android:text="Set Title"
+        android:textAllCaps="false"
+        android:textColor="#ffffff"
+        app:layout_constraintBaseline_toBaselineOf="@+id/recordTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <Button
         android:background="@drawable/button_style1"
         android:id="@+id/viewPicture"
         android:layout_width="130dp"
@@ -89,5 +89,22 @@
         android:textColor="#ffffff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addPicture" />
+
+    <EditText
+        android:id="@+id/recordTitle"
+        android:layout_width="0dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/setTitleBtn"
+        app:layout_constraintHorizontal_bias="0.119"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>

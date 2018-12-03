@@ -13,6 +13,7 @@ import java.io.Serializable;
 /**
  * Converts a given bitmap to a string, and then back to a bitmap.
  *
+ * @author Jarred Mahinay
  */
 public class Photo implements Serializable {
     private String bitmapString;

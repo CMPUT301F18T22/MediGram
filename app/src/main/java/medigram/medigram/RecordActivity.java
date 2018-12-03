@@ -45,8 +45,8 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
     public List<String> commentListString;
     private Button addPicture;
     private Button addGeo;
-    private Button viewPicture;
-    private TextView recordTitle;
+    private Button viewPicture, setTitle;
+    private EditText recordTitle;
     private Record record;
     private CommentList commentList;
     private CommentListAdapter adapter;
@@ -88,7 +88,7 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         addPicture = (Button) findViewById(R.id.addPicture);
         addGeo = (Button) findViewById(R.id.addGeo);
         viewPicture = (Button) findViewById(R.id.viewPicture);
-        recordTitle = (TextView) findViewById(R.id.recordTitle);
+        recordTitle = (EditText) findViewById(R.id.recordTitle);
 
         // patientComment = (TextView) findViewById(R.id.patientComment);
         //careProviderComment = (TextView) findViewById(R.id.carproviderComment);
@@ -114,6 +114,16 @@ public class RecordActivity extends AppCompatActivity implements AddCommentDialo
         if (record.getGeoLocation() != null){
             addGeo.setText("View Geo-location");
         }
+
+        setTitle = (Button) findViewById(R.id.setTitleBtn);
+        setTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                record.setRecordTitle(recordTitle.getText().toString());
+                accountManager.patientUpdater(patient.getUserID(), patient);
+            }
+        });
+
 
         addGeo.setOnClickListener(new View.OnClickListener() {
             @Override

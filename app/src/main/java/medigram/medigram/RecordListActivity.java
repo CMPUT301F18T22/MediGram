@@ -193,7 +193,7 @@ public class RecordListActivity  extends AppCompatActivity {
                     bundle.putInt("ProblemIndex", problemIndex);
 
                     intent.putExtras(bundle);
-                    startActivityForResult(intent,2);
+                    startActivityForResult(intent,3);
                 }
                 else{
                     Intent intent = new Intent(getApplicationContext(), RecordActivity.class);
@@ -205,7 +205,7 @@ public class RecordListActivity  extends AppCompatActivity {
                     bundle.putInt("ProblemIndex", problemIndex);
 
                     intent.putExtras(bundle);
-                    startActivityForResult(intent,2);
+                    startActivityForResult(intent,3);
                 }
 
             }
@@ -242,20 +242,6 @@ public class RecordListActivity  extends AppCompatActivity {
             problem = patient.getProblems().getProblem(problemIndex);
             recordList = problem.getRecordList();
             recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
-            if (requestCode == 2) {
-
-                Log.d("Chosen Record", chosenRecord.getRecordTitle());
-
-                recordList.getRecordList().remove(lastPosition);
-                patient.getProblems().updateProblem(problemIndex, problem);
-                recordListString.remove(chosenRecord.toString());
-
-                adapter.remove(chosenRecord.toString());
-                adapter.notifyDataSetChanged();
-                accountManager.patientUpdater(patient.getUserID(), patient);
-                requestCode = 1;
-                Log.d("Record List1", recordList.toString());
-            }
             if (requestCode == 1) {
 
                 Record newRecord = (Record) data.getSerializableExtra("newRecord");
@@ -301,12 +287,10 @@ public class RecordListActivity  extends AppCompatActivity {
                 viewHolder.infoText = (TextView) convertView.findViewById(R.id.recordDescription);
                 viewHolder.titleText = (TextView) convertView.findViewById(R.id.recordTitleText);
                 viewHolder.deleteBtn = (Button) convertView.findViewById(R.id.recordDeleteBtn);
-                viewHolder.editBtn = (Button) convertView.findViewById(R.id.recordEditBtn);
                 convertView.setTag(viewHolder);
                 // Remove these buttons if user is a Care Provider, so they can't edit
                 if (getIntent().hasExtra("CareProvider")){
                     viewHolder.deleteBtn.setVisibility(View.GONE);
-                    viewHolder.editBtn.setVisibility(View.GONE);
                 }
             }
             mainViewholder = (RecordListActivity.ViewHolder) convertView.getTag();
@@ -349,26 +333,6 @@ public class RecordListActivity  extends AppCompatActivity {
                 }
             });
 
-            mainViewholder.editBtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    patient = accountManager.findPatient(patient.getUserID());
-                    problem = patient.getProblems().getProblem(problemIndex);
-                    recordList = problem.getRecordList();
-                    recordListString = recordList.getRecordList().stream().map(Record::toString).collect(Collectors.toList());
-
-                    //index = adapter.getPosition(getItem(position));
-                    index = recordListString.indexOf(adapter.getItem(position));
-                    lastPosition = recordListString.indexOf(adapter.getItem(position));
-
-                    chosenRecord = recordList.getRecord(index);
-                    Intent intent = new Intent(getApplicationContext(), AddRecordActivity.class);
-                    intent.putExtra("Patient", patient);
-                    intent.putExtra("Problem", problem);
-                    intent.putExtra("Record", chosenRecord);
-                    startActivityForResult(intent, 2);
-                }
-            });
 
 
             // editBtn opens child activity with the chosen record as extra
@@ -388,7 +352,6 @@ public class RecordListActivity  extends AppCompatActivity {
     public class ViewHolder {
         TextView infoText;
         Button deleteBtn;
-        Button editBtn;
         TextView titleText;
     }
 

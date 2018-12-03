@@ -47,40 +47,40 @@
                 android:id="@+id/providerEditProfileButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="61dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_style2"
                 android:padding="4dp"
-                android:textColor="#b989a0"
                 android:text="@string/editAccountButton"
                 android:textAllCaps="false"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/patientListButton" />
+                android:textColor="#b989a0"
+                app:layout_constraintEnd_toStartOf="@+id/patientListButton"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/MyTextView"
                 android:id="@+id/ProfileSubTitle"
+                style="@style/MyTextView"
                 android:layout_width="105dp"
                 android:layout_height="39dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="64dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/userProfileSubTitle"
                 android:textSize="20sp"
                 android:textStyle="bold"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                style="@style/MyTextView"
                 android:id="@+id/userIDText"
+                style="@style/MyTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="125dp"
+                android:layout_marginTop="24dp"
                 android:text="@string/userIDText"
                 android:textSize="14sp"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ProfileSubTitle" />
 
             <TextView
                 style="@style/MyTextView"
@@ -142,15 +142,15 @@
                 android:id="@+id/patientListButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="61dp"
-                android:layout_marginEnd="25dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginTop="16dp"
                 android:background="@drawable/button_style1"
-                android:textColor="#ffffff"
                 android:padding="4dp"
                 android:text="@string/ViewPatientListButton"
                 android:textAllCaps="false"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textColor="#ffffff"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             </android.support.constraint.ConstraintLayout>
 
@@ -163,6 +163,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        android:visibility="visible"
         app:headerLayout="@layout/nav_header"
         app:menu="@menu/drawer_view">
 
@@ -175,9 +176,9 @@
                 android:id="@+id/drawerCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="45dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="228dp"
-                android:layout_marginEnd="45dp"
                 android:hint="Generated Code."
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.488"
@@ -188,10 +189,10 @@
                 android:id="@+id/generateCodeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="315dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginStart="88dp"
                 android:layout_marginTop="14dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="315dp"
                 android:background="@drawable/button_style1"
                 android:padding="10dp"
                 android:text="@string/drawerButton"
